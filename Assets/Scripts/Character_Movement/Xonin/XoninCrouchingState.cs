@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class XoninInAirState : XoninBaseState
+public class XoninCrouchingState : XoninBaseState
 {
-    public XoninInAirState(XoninInAirState currentContext, XoninStateFactory xoninStateFactory) : base(currentContext, XoninStateFactory)
+    public XoninCrouchingState(XoninCrouchingState currentContext, XoninStateFactory xoninStateFactory) : base(currentContext, XoninStateFactory)
     {
 
     }

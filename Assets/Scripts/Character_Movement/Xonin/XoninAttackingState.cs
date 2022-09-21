@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class XoninAttackingState : XoninBaseState
 {
-    public override void EnterState(XoninStateManager Xonin)
+    public XoninAttackingState(XoninAttackingState currentContext, XoninStateFactory xoninStateFactory) : base(currentContext, XoninStateFactory)
     {
-
+        
     }
 
-    public override void UpdateState(XoninStateManager Xonin)
-    {
+    public override void EnterState() { }
 
-    }
+    public override void UpdateState() { }
 
-    public override void OnCollisionEnter(XoninStateManager Xonin)
-    {
+    public override void ExitState() { }
 
-    }
+    public override void InitializeSubState() { }
+
+    public override void CheckSwitchState() { }
 }

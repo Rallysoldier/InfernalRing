@@ -1,8 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class XoninInAirState : XoninBaseState
 {
-    public XoninInAirState(XoninInAirState currentContext, XoninStateFactory xoninStateFactory) : base(currentContext, XoninStateFactory)
+    public XoninInAirState(XoninStateMachine currentContext, XoninStateFactory XoninStateFactory)
+    : base(currentContext, XoninStateFactory)
     {
 
     }

@@ -1,9 +1,10 @@
-using System.Runtime.InteropServices.ComTypes;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class XoninIdleState : XoninBaseState
 {
-    public XoninIdleState(XoninIdleState currentContext, XoninStateFactory XoninStateFactory) : base (currentContext, XoninStateFactory)
+    public XoninIdleState(XoninStateMachine currentContext, XoninStateFactory XoninStateFactory) : base (currentContext, XoninStateFactory)
     {
  
     }
@@ -16,5 +17,8 @@ public class XoninIdleState : XoninBaseState
 
     public override void InitializeSubState() { }
 
-    public override void CheckSwitchState() { }
+    public override void CheckSwitchState()
+    {
+    
+    }
 }

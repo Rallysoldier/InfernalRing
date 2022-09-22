@@ -1,8 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class XoninJumpState : XoninJumpState
+public class XoninJumpState : XoninBaseState
 {
-    public XoninJumpState(XoninJumpState currentContext, XoninStateFactory xoninStateFactory) : base(currentContext, XoninStateFactory)
+    public XoninJumpState(XoninStateMachine currentContext, XoninStateFactory XoninStateFactory) 
+    : base(currentContext, XoninStateFactory)
     {
 
     }
@@ -18,7 +21,10 @@ public class XoninJumpState : XoninJumpState
 
     public override void InitializeSubState() { }
 
-    public override void CheckSwitchState() { }
+    public override void CheckSwitchState()
+    {
+    
+    }
 
     void HandleJump()
     {

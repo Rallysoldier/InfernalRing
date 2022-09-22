@@ -7,7 +7,7 @@ public abstract class XoninBaseState
 	public XoninBaseState(XoninStateMachine currentContext, XoninStateFactory XoninStateFactory)
 	{
 		ctx = currentContext;
-		factory = playerStateFactory;
+		factory = XoninStateFactory;
 	}
 	
 	public abstract void EnterState();
@@ -16,11 +16,14 @@ public abstract class XoninBaseState
 	
 	public abstract void ExitState();
 	
-	public abstract void CheckSwitchStates();
+	public abstract void CheckSwitchState();
 	
 	public abstract void InitializeSubState();
 	
-	void UpdateStates() { }
+	void UpdateStates()
+	{
+		CheckSwitchState();
+	}
 
 
 	protected void SwitchState(XoninBaseState newState)
@@ -32,7 +35,8 @@ public abstract class XoninBaseState
 		newState.EnterState();
 
 		//update context of state
-		ctx.currentState = newState;
+		//ctx.currentState = newState;
+		
 	}
 
 

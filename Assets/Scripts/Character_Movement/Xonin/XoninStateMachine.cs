@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class XoninStateMachine : MonoBehavior
+public class XoninStateMachine : MonoBehaviour
 {
     //state variables
     XoninBaseState currentState;
@@ -11,29 +10,24 @@ public class XoninStateMachine : MonoBehavior
 
     //getters and setters
     public XoninBaseState CurrentState { get { return currentState; } set { currentState = value; } }
-    public bool IsJumpPressed { get { return isJumpPressed; }}
+    public XoninStateFactory State { get { return states; } set { states = value; } }
 
     void Awake()
     {
         //setup state
-        currentState = new XoninStateFactory(this);
+        states = new XoninStateFactory(this);
         currentState = states.Grounded();
-        currentState.EnterState(this);
+        currentState.EnterState();
     }
 
     void Update()
     {
-        currentState.UpdateState(this);
+        currentState.UpdateState();
 
     }
 
     public void SwitchState(XoninBaseState state)
     {
-        ExitState();
-
-        newState.EnterState();
-
-        currentState = state;
-        state.EnterState(this);
+        
     }
 }

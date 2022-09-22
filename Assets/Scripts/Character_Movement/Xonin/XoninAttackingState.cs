@@ -1,8 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class XoninAttackingState : XoninBaseState
 {
-    public XoninAttackingState(XoninAttackingState currentContext, XoninStateFactory xoninStateFactory) : base(currentContext, XoninStateFactory)
+    public XoninAttackingState(XoninStateMachine currentContext, XoninStateFactory XoninStateFactory) 
+    : base(currentContext, XoninStateFactory)
     {
         
     }
@@ -15,5 +18,8 @@ public class XoninAttackingState : XoninBaseState
 
     public override void InitializeSubState() { }
 
-    public override void CheckSwitchState() { }
+    public override void CheckSwitchState()
+    {
+    
+    }
 }

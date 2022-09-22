@@ -1,8 +1,8 @@
-public class PlayerStateFactory
+public class XoninStateFactory
 {
     XoninStateMachine context;
 
-    public XoninStateFactory(PlayerStateMachine currentContext)
+    public XoninStateFactory(XoninStateMachine currentContext)
     {
         context = currentContext;
     }
@@ -11,7 +11,7 @@ public class PlayerStateFactory
     {
         return new XoninIdleState(context, this);
     }
-    public XoninBaseStateRunning()
+    public XoninBaseState Running()
     {
         return new XoninRunningState(context, this);
     }

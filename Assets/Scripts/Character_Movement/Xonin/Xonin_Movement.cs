@@ -107,12 +107,12 @@ public class Xonin_Movement : MonoBehaviour
         //Changes direction character is facing
         if (horizontalInput > 0.01f)
         {
-            transform.localScale = Vector3.one;
+            transform.localScale = new Vector3(2, 2);
             Facing_Right = true;
         }
         else if(horizontalInput < -0.01f)
         {
-            transform.localScale = new Vector2(-1, 1);
+            transform.localScale = new Vector3(-2, 2);
             Facing_Right = false;
         }
 

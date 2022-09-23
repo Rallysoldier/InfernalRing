@@ -6,7 +6,7 @@ public class CharacterStateFactory
     {
         context = currentContext;
     }
-X
+
     public CharacterBaseState Idle()
     {
         return new CharacterIdleState(context, this);

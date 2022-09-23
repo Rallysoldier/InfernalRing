@@ -21,7 +21,7 @@ public abstract class CharacterBaseState
 	public abstract void InitializeSubState();
 
 	void UpdateStates()
-	{Xo
+	{
 		CheckSwitchState();
 	}
 

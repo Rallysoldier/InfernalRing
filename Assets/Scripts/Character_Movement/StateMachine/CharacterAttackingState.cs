@@ -12,7 +12,10 @@ public class CharacterAttackingState : CharacterBaseState
 
     public override void EnterState() { }
 
-    public override void UpdateState() { }
+    public override void UpdateState()
+    {
+        CheckSwitchState();
+    }
 
     public override void ExitState() { }
 

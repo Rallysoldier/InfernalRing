@@ -11,9 +11,15 @@ public class CharacterGroundedState : CharacterBaseState
     }
 
 
-    public override void EnterState() { }
+    public override void EnterState()
+    {
+        ctx.Body.velocity = new Vector2(ctx.Body.velocity.x, ctx.jumpSpeed);
+    }
 
-    public override void UpdateState() { }
+    public override void UpdateState()
+    {
+        CheckSwitchState();
+    }
 
     public override void ExitState() { }
 
@@ -24,6 +30,11 @@ public class CharacterGroundedState : CharacterBaseState
 
     public override void CheckSwitchState()
     {
+        if(ctx.IsJumpPressed)
+        {
+            Debug.Log("Jumping");
+            SwitchState(factory.Jump());
+        }
 
     }
 }

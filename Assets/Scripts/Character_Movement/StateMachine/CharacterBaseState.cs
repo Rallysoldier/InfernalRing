@@ -22,7 +22,6 @@ public abstract class CharacterBaseState
 
 	void UpdateStates()
 	{
-		CheckSwitchState();
 	}
 
 
@@ -35,7 +34,7 @@ public abstract class CharacterBaseState
 		newState.EnterState();
 
 		//update context of state
-		//ctx.currentState = newState;
+		ctx.CurrentState = newState;
 
 	}
 

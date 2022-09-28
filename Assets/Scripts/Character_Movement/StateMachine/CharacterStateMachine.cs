@@ -1,34 +1,62 @@
-public class CharacterStateFactory
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CharacterStateMachine : MonoBehaviour
 {
-    CharacterStateMachine context;
+    //Fields adjustable in Unity
+    [SerializeField] public float horizontalSpeed;
+    [SerializeField] public float dashSpeed;
+    [SerializeField] public float jumpSpeed;
+    [SerializeField] public float doubleTapTime;
 
-    public CharacterStateFactory(CharacterStateMachine currentContext)
+    //reference variable declaration
+    Rigidbody2D body;
+    Animator anim;
+    bool isJumpPressed = false;
+    bool isJumping;
+    bool isGrounded;
+
+
+    //state variables
+    CharacterBaseState currentState;
+    CharacterStateFactory states;
+
+
+    //getters and setters, pascal case for variable name to use in other files, camel case for get/set
+    //to reference from other files, call the variable by the pascal case (capitalize first letter of each word) ie. IsJumpPressed
+    public CharacterBaseState CurrentState { get { return currentState; } set { currentState = value; } }
+    public CharacterStateFactory State { get { return states; } set { states = value; } }
+    public Rigidbody2D Body { get { return body; } set { body = value; } }
+    public Animator Anim { get { return anim; } set { anim = value; } }
+    public bool IsJumpPressed {get {return isJumpPressed; } set {isJumpPressed = value; } }
+    public bool IsJumping {get {return isJumping; } set { isJumping = value;} }
+    public bool IsGrounded {get {return isGrounded; } set {isGrounded = value;}}
+    public float JumpSpeed {get {return jumpSpeed;}}
+
+    
+    
+    void Awake()
     {
-        context = currentContext;
+        //Grab references for RigidBody and Animator component on startup
+        Body = GetComponent<Rigidbody2D>();
+        Anim = GetComponent<Animator>();
+
+        //setup state
+        states = new CharacterStateFactory(this);
+        currentState = states.Grounded();
+        currentState.EnterState();
     }
 
-    public CharacterBaseState Idle()
+    //update function runs 60 times per second
+    void Update()
     {
-        return new CharacterIdleState(context, this);
+        currentState.UpdateState();
     }
-    public CharacterBaseState Running()
+
+    public void SwitchState(CharacterBaseState state)
     {
-        return new CharacterRunningState(context, this);
+
     }
-    public CharacterBaseState InAir()
-    {
-        return new CharacterInAirState(context, this);
-    }
-    public CharacterBaseState Attacking()
-    {
-        return new CharacterAttackingState(context, this);
-    }
-    public CharacterBaseState Crouching()
-    {
-        return new CharacterCrouchingState(context, this);
-    }
-    public CharacterBaseState Grounded()
-    {
-        return new CharacterGroundedState(context, this);
-    }
+
 }

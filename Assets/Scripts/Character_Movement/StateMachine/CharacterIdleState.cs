@@ -11,8 +11,10 @@ public class CharacterIdleState : CharacterBaseState
 
     public override void EnterState() { }
 
-    public override void UpdateState() { }
-
+    public override void UpdateState()
+    {
+        CheckSwitchState();
+    }
     public override void ExitState() { }
 
     public override void InitializeSubState() { }
@@ -21,4 +23,5 @@ public class CharacterIdleState : CharacterBaseState
     {
 
     }
+
 }

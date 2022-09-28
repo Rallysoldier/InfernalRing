@@ -1,33 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class CharacterStateMachine : MonoBehaviour
+public class CharacterStateFactory
 {
-    //state variables
-    CharacterBaseState currentState;
-    CharacterStateFactory states;
+    CharacterStateMachine context;
 
-    //getters and setters
-    public CharacterBaseState CurrentState { get { return currentState; } set { currentState = value; } }
-    public CharacterStateFactory State { get { return states; } set { states = value; } }
-
-    void Awake()
+    public CharacterStateFactory(CharacterStateMachine currentContext)
     {
-        //setup state
-        states = new CharacterStateFactory(this);
-        currentState = states.Grounded();
-        currentState.EnterState();
+        context = currentContext;
     }
 
-    void Update()
+    public CharacterBaseState Idle()
     {
-        currentState.UpdateState();
-
+        return new CharacterIdleState(context, this);
     }
-
-    public void SwitchState(CharacterBaseState state)
+    public CharacterBaseState Running()
     {
-
+        return new CharacterRunningState(context, this);
+    }
+    public CharacterBaseState InAir()
+    {
+        return new CharacterInAirState(context, this);
+    }
+    public CharacterBaseState Attacking()
+    {
+        return new CharacterAttackingState(context, this);
+    }
+    public CharacterBaseState Crouching()
+    {
+        return new CharacterCrouchingState(context, this);
+    }
+    public CharacterBaseState Grounded()
+    {
+        return new CharacterGroundedState(context, this);
+    }
+    public CharacterBaseState Jump()
+    {
+        return new CharacterJumpState(context, this);
     }
 }

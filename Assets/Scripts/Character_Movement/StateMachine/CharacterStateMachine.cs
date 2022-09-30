@@ -10,12 +10,24 @@ public class CharacterStateMachine : MonoBehaviour
     [SerializeField] public float jumpSpeed;
     [SerializeField] public float doubleTapTime;
 
+    //setting default keybinds
+
+    string _jump = "UpArrow";
+    string _right = "RightArrow";
+    string _left = "LeftArrow";
+    string _down = "DownArrow";
+    string _light_attack = "J";
+    string _medium_attack = "K";
+    string _heavy_attack = "L";
+
+
     //reference variable declaration
     Rigidbody2D body;
     Animator anim;
     bool isJumpPressed = false;
     bool isJumping;
-    bool isGrounded;
+    bool isStanding;
+    bool isRunPressed;
 
 
     //state variables
@@ -31,10 +43,22 @@ public class CharacterStateMachine : MonoBehaviour
     public Animator Anim { get { return anim; } set { anim = value; } }
     public bool IsJumpPressed {get {return isJumpPressed; } set {isJumpPressed = value; } }
     public bool IsJumping {get {return isJumping; } set { isJumping = value;} }
-    public bool IsGrounded {get {return isGrounded; } set {isGrounded = value;}}
-    public float JumpSpeed {get {return jumpSpeed;}}
+    public bool IsGrounded {get {return isStanding; } set {isStanding = value;}}
+    public bool IsRunPressed {get {return isRunPressed;} set {isRunPressed = value;}}
 
-    
+    //getters and setters for movement speed
+    public float JumpSpeed {get {return jumpSpeed;}}
+    public float HorizontalSpeed {get {return horizontalSpeed;}}
+
+
+    //Getters and setters for keyboard input
+    public string Jump {get {return _jump;}}
+    public string Right {get {return _right;}}
+    public string Left {get {return _left;}}
+    public string Down {get {return _down;}}
+    public string LightAttack {get {return _light_attack;}}
+    public string MediumAttack{get {return _medium_attack;}}
+    public string HeavyAttack {get {return _heavy_attack;}}
     
     void Awake()
     {
@@ -42,9 +66,12 @@ public class CharacterStateMachine : MonoBehaviour
         Body = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
 
+        //set initial values
+        Body.velocity = new Vector2(0, 0);
+
         //setup state
         states = new CharacterStateFactory(this);
-        currentState = states.Grounded();
+        currentState = states.Standing();
         currentState.EnterState();
     }
 
@@ -58,5 +85,12 @@ public class CharacterStateMachine : MonoBehaviour
     {
 
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("collision with ground");
+        if(collision.gameObject.tag == "Ground")
+        {
+            IsGrounded = true;
+        }
+    }
 }

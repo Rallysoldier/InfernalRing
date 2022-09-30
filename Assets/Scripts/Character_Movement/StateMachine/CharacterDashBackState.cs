@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterInAirState : CharacterBaseState
+public class CharacterDashBackState : CharacterBaseState
 {
-    public CharacterInAirState(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory)
+    public CharacterDashBackState(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory)
     : base(currentContext, CharacterStateFactory)
     {
 
@@ -13,12 +13,15 @@ public class CharacterInAirState : CharacterBaseState
     public override void EnterState() { }
 
     public override void UpdateState()
-    {
-        CheckSwitchState();
-    }
+	{
+		CheckSwitchState();
+	}
     public override void ExitState() { }
 
     public override void InitializeSubState() { }
 
-    public override void CheckSwitchState() { }
+    public override void CheckSwitchState()
+    {
+
+    }
 }

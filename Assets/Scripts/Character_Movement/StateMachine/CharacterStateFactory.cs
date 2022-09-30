@@ -7,32 +7,41 @@ public class CharacterStateFactory
         context = currentContext;
     }
 
-    public CharacterBaseState Idle()
+
+    public CharacterBaseState Walking()
     {
-        return new CharacterIdleState(context, this);
+        return new CharacterWalkingState(context, this);
     }
-    public CharacterBaseState Running()
+    public CharacterBaseState Airborne()
     {
-        return new CharacterRunningState(context, this);
-    }
-    public CharacterBaseState InAir()
-    {
-        return new CharacterInAirState(context, this);
-    }
-    public CharacterBaseState Attacking()
-    {
-        return new CharacterAttackingState(context, this);
+        return new CharacterAirborneState(context, this);
     }
     public CharacterBaseState Crouching()
     {
         return new CharacterCrouchingState(context, this);
     }
-    public CharacterBaseState Grounded()
+    public CharacterBaseState Standing()
     {
-        return new CharacterGroundedState(context, this);
+        return new CharacterStandingState(context, this);
     }
-    public CharacterBaseState Jump()
+    public CharacterBaseState JumpStart()
     {
-        return new CharacterJumpState(context, this);
+        return new CharacterJumpStartState(context, this);
+    }
+    public CharacterBaseState Landing()
+    {
+        return new CharacterLandingState(context, this);
+    }
+        public CharacterBaseState GaurdStanding()
+    {
+        return new CharacterGaurdStandingState(context, this);
+    }
+    public CharacterBaseState GaurdCrouching()
+    {
+        return new CharacterGaurdCrouchingState(context, this);
+    }
+    public CharacterBaseState AirDodge()
+    {
+        return new CharacterAirDodgeState(context, this);
     }
 }

@@ -19,14 +19,17 @@ public class CharacterStandingState : CharacterBaseState
 
     public override void UpdateState()
     {
-        Debug.Log("Updating standing state");
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             ctx.IsJumpPressed = true;
         }
-        if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+        else if(Input.GetKey(KeyCode.RightArrow))
         {
-            ctx.IsRunPressed = true;
+            ctx.WalkRightTime = Time.time;
+        }
+        else if(Input.GetKey(KeyCode.LeftArrow))
+        {
+            ctx.WalkLeftTime = Time.time;
         }
         CheckSwitchState();
     }
@@ -46,10 +49,19 @@ public class CharacterStandingState : CharacterBaseState
             Debug.Log("switching from standing to Jumping");
             SwitchState(factory.JumpStart());
         }
-        if(ctx.IsRunPressed)
+        else if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
         {
+            if(Time.time - ctx.WalkRightTime < ctx.doubleTapTime)
+            {
+                SwitchState(factory.DashForward());
+            }
+            else if(Time.time - ctx.WalkLeftTime < ctx.doubleTapTime)
+            {
+                SwitchState(factory.DashBack());
+            }
             Debug.Log("switching from standing to walking");
             SwitchState(factory.Walking());
         }
+
     }
 }

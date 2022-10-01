@@ -10,13 +10,22 @@ public class CharacterDashBackState : CharacterBaseState
 
     }
 
-    public override void EnterState() { }
+    public override void EnterState()
+    {
+        Debug.Log("Entering DashBack State");
+        ctx.Anim.SetTrigger("Dash_BKWD");
+        ctx.LastDashTime = Time.time;
+
+    }
 
     public override void UpdateState()
 	{
+
 		CheckSwitchState();
 	}
-    public override void ExitState() { }
+    public override void ExitState()
+    {
+    }
 
     public override void InitializeSubState() { }
 

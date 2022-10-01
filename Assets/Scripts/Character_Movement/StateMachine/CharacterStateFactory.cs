@@ -44,4 +44,12 @@ public class CharacterStateFactory
     {
         return new CharacterAirDodgeState(context, this);
     }
+    public CharacterBaseState DashForward()
+    {
+        return new CharacterDashForwardState(context, this);
+    }
+    public CharacterBaseState DashBack()
+    {
+        return new CharacterDashBackState(context, this);
+    }
 }

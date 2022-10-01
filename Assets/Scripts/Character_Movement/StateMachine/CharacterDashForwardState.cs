@@ -10,13 +10,21 @@ public class CharacterDashForwardState : CharacterBaseState
 
     }
 
-    public override void EnterState() { }
+    public override void EnterState()
+    {
+        Debug.Log("Entering DashForward State");
+        ctx.Anim.SetTrigger("Dash_FWD");
+        ctx.LastDashTime = Time.time;
+
+    }
 
     public override void UpdateState()
 	{
 		CheckSwitchState();
 	}
-    public override void ExitState() { }
+    public override void ExitState()
+    {
+    }
 
     public override void InitializeSubState() { }
 

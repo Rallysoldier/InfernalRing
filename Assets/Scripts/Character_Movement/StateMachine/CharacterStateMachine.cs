@@ -9,8 +9,10 @@ public class CharacterStateMachine : MonoBehaviour
     [SerializeField] public float dashSpeed;
     [SerializeField] public float jumpSpeed;
     [SerializeField] public float doubleTapTime;
+    [SerializeField] public SpriteRenderer spriteRenderer;
+    [SerializeField] public float dashCoolDown;
 
-    //setting default keybinds
+    //setting default keybinds - didnt work as expected. cannot use string as key code
 
     string _jump = "UpArrow";
     string _right = "RightArrow";
@@ -28,7 +30,12 @@ public class CharacterStateMachine : MonoBehaviour
     bool isJumping;
     bool isStanding;
     bool isRunPressed;
-
+    float walkLeftTime;
+    float walkRightTime;
+    bool facingRight;
+    bool isWalkRightPressed;
+    bool isWalkLeftPressed;
+    public float _dashCoolDown;
 
     //state variables
     CharacterBaseState currentState;
@@ -41,15 +48,19 @@ public class CharacterStateMachine : MonoBehaviour
     public CharacterStateFactory State { get { return states; } set { states = value; } }
     public Rigidbody2D Body { get { return body; } set { body = value; } }
     public Animator Anim { get { return anim; } set { anim = value; } }
+    public SpriteRenderer SpriteRenderer {get {return spriteRenderer; } set {spriteRenderer = value;}}
+    public float DashCoolDown {get {return dashCoolDown;}}
+    public bool FacingRight {get {return facingRight; } set {facingRight = value;}}
     public bool IsJumpPressed {get {return isJumpPressed; } set {isJumpPressed = value; } }
     public bool IsJumping {get {return isJumping; } set { isJumping = value;} }
     public bool IsGrounded {get {return isStanding; } set {isStanding = value;}}
-    public bool IsRunPressed {get {return isRunPressed;} set {isRunPressed = value;}}
-
-    //getters and setters for movement speed
+    public bool IsWalkRightPressed {get {return isWalkRightPressed;} set {isWalkRightPressed = value;}}
+    public bool IsWalkLeftPressed {get {return isWalkLeftPressed; } set{ isWalkRightPressed = value; }}
     public float JumpSpeed {get {return jumpSpeed;}}
     public float HorizontalSpeed {get {return horizontalSpeed;}}
-
+    public float WalkLeftTime {get {return walkLeftTime;} set {walkLeftTime = value;}}
+    public float WalkRightTime {get {return walkRightTime;} set {walkRightTime = value;}}
+    public float LastDashTime {get {return _dashCoolDown;} set {_dashCoolDown = value;}}
 
     //Getters and setters for keyboard input
     public string Jump {get {return _jump;}}
@@ -65,6 +76,7 @@ public class CharacterStateMachine : MonoBehaviour
         //Grab references for RigidBody and Animator component on startup
         Body = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
 
         //set initial values
         Body.velocity = new Vector2(0, 0);
@@ -93,4 +105,9 @@ public class CharacterStateMachine : MonoBehaviour
             IsGrounded = true;
         }
     }
+
+
+    
 }
+
+    

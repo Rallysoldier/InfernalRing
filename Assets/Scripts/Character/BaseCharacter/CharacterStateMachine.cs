@@ -54,6 +54,10 @@ public class CharacterStateMachine : ScriptableObject
         this.inputStr = this.inputHandler.getCharacterInput();
         this.inputHandler.updateBufferTime();
 
+        if (this.inputStr.Length > 0) {
+            Debug.Log("Input: " + this.inputStr);
+        }
+
         switch (this.currentState.physicsType)
         {
             default:

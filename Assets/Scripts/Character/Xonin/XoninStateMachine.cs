@@ -6,7 +6,6 @@ public class XoninStateMachine : CharacterStateMachine
 {
     public XoninStateMachine() : base() {
         this.states = new XoninStateFactory(this);
-        this.inputHandler = new InputHandler(this);
     }
 
     public override void UpdateState()

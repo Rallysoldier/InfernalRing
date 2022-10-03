@@ -10,7 +10,7 @@ public class InputHandler {
     private int currentBufferTime;
     private const int MAX_BUFF_TIME = 30;
 
-    public InputHandler(CharacterStateMachine character) {
+    public InputHandler() {
     }
 
     public void mapP1Inputs() {

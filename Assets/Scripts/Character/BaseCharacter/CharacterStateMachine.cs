@@ -13,7 +13,6 @@ public class CharacterStateMachine : ScriptableObject
 
     //Physics/Motion Variables
     public Rigidbody2D body;
-    public int side;
     public int facing;
 
     public Vector2 velocityWalkForward = new Vector2(3,0);
@@ -25,7 +24,7 @@ public class CharacterStateMachine : ScriptableObject
     public Vector2 velocityJumpBack = new Vector2(-5,6);
     public float standingFriction = 0.05f;
     public float crouchingFriction = 0.15f;
-    public float gravity = 0.8f;
+    public float gravity = 1.0f;
 
     //state variables
     public CharacterState currentState;
@@ -38,7 +37,6 @@ public class CharacterStateMachine : ScriptableObject
 
     public CharacterStateMachine() {
         this.states = new CharacterStateFactory(this);
-        this.inputHandler = new InputHandler(this);
     }
 
     void Awake() {

@@ -6,16 +6,26 @@ public class CommonStateWalkForward : CharacterState
 {
     public CommonStateWalkForward(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory) : base(currentContext, CharacterStateFactory)
     {
-        
+        this.inputChangeState = true;
+        this.faceEnemyStart = false;
+        this.faceEnemyAlways = false;
+
+        this.physicsType = PhysicsType.STAND;
+        this.moveType = MoveType.STAND;
+	    this.stateType = StateType.IDLE;
     }
 
     public override void EnterState() {
         base.EnterState();
         this.character.anim.SetTrigger("WalkForward");
+
+        this.character.SetVelocity(this.character.velocityWalkForward);
     }
 
     public override void UpdateState() {
         base.UpdateState();
+        
+        this.character.SetVelocity(this.character.velocityWalkForward);
     }
 
     public override void ExitState() {

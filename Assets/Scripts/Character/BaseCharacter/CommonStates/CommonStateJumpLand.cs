@@ -8,7 +8,13 @@ public class CommonStateJumpLand : CharacterState
     public CommonStateJumpLand(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory)
     : base(currentContext, CharacterStateFactory)
     {
+        this.inputChangeState = true;
+        this.faceEnemyStart = true;
+        this.faceEnemyAlways = false;
 
+        this.physicsType = PhysicsType.STAND;
+        this.moveType = MoveType.CROUCH;
+	    this.stateType = StateType.IDLE;
     }
 
     public override void EnterState() {

@@ -26,8 +26,10 @@ public class GameController : MonoBehaviour {
         charGameObj2.stateMachine.anim = char2Obj.GetComponent<Animator>();
         charGameObj2.stateMachine.body = char2Obj.GetComponent<Rigidbody2D>();
 
-        charGameObj1.stateMachine.facing = 1;
-        charGameObj2.stateMachine.facing = -1;
+        charGameObj1.stateMachine.side = 1;
+        charGameObj2.stateMachine.side = -1;
+        charGameObj1.stateMachine.enemy = charGameObj2.stateMachine;
+        charGameObj2.stateMachine.enemy = charGameObj1.stateMachine;
 
         charGameObj1.stateMachine.inputHandler.mapP1Inputs();
         charGameObj2.stateMachine.inputHandler.mapP2Inputs();
@@ -36,7 +38,7 @@ public class GameController : MonoBehaviour {
         charGameObj2.stateMachine.currentState.EnterState();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (charGameObj1.stateMachine != null && charGameObj2.stateMachine != null) {
             charGameObj1.stateMachine.UpdateState();
@@ -44,10 +46,24 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public CharacterStateMachine setEnemyStateMachine(CharacterStateMachine sm) {
-        if (sm == charGameObj1.stateMachine) {
-            return charGameObj2.stateMachine;
+    void Update() {//Handle input
+        charGameObj1.stateMachine.inputHandler.releasedKeys.Clear();
+        charGameObj2.stateMachine.inputHandler.releasedKeys.Clear();
+        charGameObj1.stateMachine.inputHandler.heldKeys.Clear();
+        charGameObj2.stateMachine.inputHandler.heldKeys.Clear();
+        foreach (KeyCode kc in System.Enum.GetValues(typeof(KeyCode))) {
+            if (Input.GetKeyDown(kc)) {
+                charGameObj1.stateMachine.inputHandler.receiveInput(kc);
+                charGameObj2.stateMachine.inputHandler.receiveInput(kc);
+            }
+            if (Input.GetKeyUp(kc)) {
+                charGameObj1.stateMachine.inputHandler.addReleasedKey(kc);
+                charGameObj2.stateMachine.inputHandler.addReleasedKey(kc);
+            }
+            if (Input.GetKey(kc)) {
+                charGameObj1.stateMachine.inputHandler.addHeldKey(kc);
+                charGameObj2.stateMachine.inputHandler.addHeldKey(kc);
+            }
         }
-        return charGameObj1.stateMachine;
     }
 }

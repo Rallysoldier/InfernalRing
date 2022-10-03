@@ -5,7 +5,7 @@ public abstract class CharacterState
 	protected CharacterStateMachine character;
 	protected CharacterStateFactory factory;
 
-	public int stateTime = 0;
+	public int stateTime = -1;
 
 	//The variables below can be different for each state, and are only ever defined/mutated in the state's constructor.
 
@@ -44,6 +44,8 @@ public abstract class CharacterState
 
 	public virtual void SwitchState(CharacterState newState)
 	{
+		Debug.Log("Switching from " + this + " to " + newState);
+		
 		// exit current state
 		ExitState();
 

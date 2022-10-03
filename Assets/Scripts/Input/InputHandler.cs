@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InputHandler {
-    Dictionary<string,KeyCode> inputMapping = new Dictionary<string,KeyCode>();
-    
-    private CharacterStateMachine character;
-
+    public Dictionary<string,KeyCode> inputMapping = new Dictionary<string,KeyCode>();
+    public List<KeyCode> releasedKeys = new List<KeyCode>();
+    public List<KeyCode> heldKeys = new List<KeyCode>();
     public string command = "";
     private int currentBufferTime;
     private const int MAX_BUFF_TIME = 30;
@@ -54,17 +53,46 @@ public class InputHandler {
         }
     }
 
-    public string getCharacterInput() {
+    public void addReleasedKey(KeyCode keyCode) {
+        foreach (KeyValuePair<string,KeyCode> kvp in inputMapping) {
+            if (keyCode == kvp.Value) {
+                releasedKeys.Add(keyCode);
+            }
+        }
+    }
+    
+    public void addHeldKey(KeyCode keyCode) {
+        foreach (KeyValuePair<string,KeyCode> kvp in inputMapping) {
+            if (keyCode == kvp.Value) {
+                heldKeys.Add(keyCode);
+            }
+        }
+    }
+
+    public bool keyReleased(KeyCode keyCode) {
+        return releasedKeys.Contains(keyCode);
+    }
+
+    public string getCharacterInput(CharacterStateMachine character) {
         //Invert left/right inputs if facing the negative x direction
         string inputStr = String.Copy(command);
-        
-        if (this.character != null && this.character.facing == -1) {
-            inputStr.Replace("F","$");//Set forward to some unused meaningless char to swap B and F inputs correctly
-            inputStr.Replace("B","F");
-            inputStr.Replace("$","B");
+
+        if (character != null && character.facing == -1) {
+            inputStr = inputStr.Replace("F","$");//Set forward to some unused meaningless char to swap B and F inputs correctly
+            inputStr = inputStr.Replace("B","F");
+            inputStr = inputStr.Replace("$","B");
         }
 
         return inputStr;
+    }
+
+
+    public KeyCode ForwardInput(CharacterStateMachine character) {
+        return character != null && character.facing == 1 ? inputMapping["F"] : inputMapping["B"];
+    }
+
+    public KeyCode BackInput(CharacterStateMachine character) {
+        return character != null && character.facing == 1 ? inputMapping["B"] : inputMapping["F"];
     }
 
     public void updateBufferTime() {

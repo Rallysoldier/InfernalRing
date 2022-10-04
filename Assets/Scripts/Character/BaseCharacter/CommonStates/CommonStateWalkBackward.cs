@@ -26,6 +26,10 @@ public class CommonStateWalkBackward : CharacterState
         base.UpdateState();
         
         this.character.SetVelocity(this.character.velocityWalkBack);
+
+        if (!this.character.inputHandler.held(this.character.inputHandler.BackInput(this.character))) {
+            this.SwitchState(this.character.states.Stand());
+        }
     }
 
     public override void ExitState() {

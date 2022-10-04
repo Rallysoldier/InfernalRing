@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class InputHandler {
     public Dictionary<string,KeyCode> inputMapping = new Dictionary<string,KeyCode>();
-    public List<KeyCode> releasedKeys = new List<KeyCode>();
-    public List<KeyCode> heldKeys = new List<KeyCode>();
+    public List<string> releasedKeys = new List<string>();
+    public List<string> heldKeys = new List<string>();
     public string command = "";
     private int currentBufferTime;
     private const int MAX_BUFF_TIME = 30;
@@ -41,36 +41,30 @@ public class InputHandler {
         inputMapping["E"] = KeyCode.Keypad2;
     }
 
-    public void receiveInput(KeyCode keyCode) {
-        string translatedInput = validateCode(keyCode);
-
-        if (currentBufferTime >= 0 && translatedInput != "") {
+    public void receiveInput(string input) {
+        if (currentBufferTime >= 0 && input != "") {
             if (command.Length > 0) {
                 command += ",";
             }
-            command += translatedInput;
+            command += input;
             currentBufferTime = MAX_BUFF_TIME;
         }
     }
 
-    public void addReleasedKey(KeyCode keyCode) {
-        foreach (KeyValuePair<string,KeyCode> kvp in inputMapping) {
-            if (keyCode == kvp.Value) {
-                releasedKeys.Add(keyCode);
-            }
-        }
+    public void addReleasedKey(string input) {
+        releasedKeys.Add(input);
     }
     
-    public void addHeldKey(KeyCode keyCode) {
-        foreach (KeyValuePair<string,KeyCode> kvp in inputMapping) {
-            if (keyCode == kvp.Value) {
-                heldKeys.Add(keyCode);
-            }
-        }
+    public void addHeldKey(string input) {
+        heldKeys.Add(input);
     }
 
-    public bool keyReleased(KeyCode keyCode) {
-        return releasedKeys.Contains(keyCode);
+    public bool released(string input) {
+        return releasedKeys.Contains(input);
+    }
+
+    public bool held(string input) {
+        return heldKeys.Contains(input);
     }
 
     public string getCharacterInput(CharacterStateMachine character) {
@@ -87,12 +81,12 @@ public class InputHandler {
     }
 
 
-    public KeyCode ForwardInput(CharacterStateMachine character) {
-        return character != null && character.facing == 1 ? inputMapping["F"] : inputMapping["B"];
+    public string ForwardInput(CharacterStateMachine character) {
+        return character != null && character.facing == 1 ? "F" : "B";
     }
 
-    public KeyCode BackInput(CharacterStateMachine character) {
-        return character != null && character.facing == 1 ? inputMapping["B"] : inputMapping["F"];
+    public string BackInput(CharacterStateMachine character) {
+        return character != null && character.facing == 1 ? "B" : "F";
     }
 
     public void updateBufferTime() {
@@ -101,15 +95,5 @@ public class InputHandler {
         } else {
             command = "";
         }
-    }
-
-    private string validateCode(KeyCode keyCode) {
-        foreach (KeyValuePair<string,KeyCode> kvp in inputMapping) {
-            if (keyCode == kvp.Value) {
-                return kvp.Key;
-            }
-        }
-
-        return "";
     }
 }

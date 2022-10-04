@@ -26,6 +26,10 @@ public class CommonStateWalkForward : CharacterState
         base.UpdateState();
         
         this.character.SetVelocity(this.character.velocityWalkForward);
+
+        if (!this.character.inputHandler.held(this.character.inputHandler.ForwardInput(this.character))) {
+            this.SwitchState(this.character.states.Stand());
+        }
     }
 
     public override void ExitState() {

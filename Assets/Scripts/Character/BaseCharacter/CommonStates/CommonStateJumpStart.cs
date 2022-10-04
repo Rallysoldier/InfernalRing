@@ -22,9 +22,9 @@ public class CommonStateJumpStart : CharacterState
         base.EnterState();
         this.character.anim.SetTrigger("JumpStart");
 
-        if (this.character.inputHandler.heldKeys.Contains(this.character.inputHandler.ForwardInput(this.character))) {
+        if (this.character.inputHandler.held(this.character.inputHandler.ForwardInput(this.character))) {
             jumpVelocity = this.character.velocityJumpForward;
-        } else if (this.character.inputHandler.heldKeys.Contains(this.character.inputHandler.BackInput(this.character))) {
+        } else if (this.character.inputHandler.held(this.character.inputHandler.BackInput(this.character))) {
             jumpVelocity = this.character.velocityJumpBack;
         } else {
             jumpVelocity = this.character.velocityJumpNeutral;

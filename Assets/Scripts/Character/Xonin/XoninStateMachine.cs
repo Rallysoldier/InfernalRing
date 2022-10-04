@@ -12,7 +12,7 @@ public class XoninStateMachine : CharacterStateMachine
     {        
         if (this.currentState.inputChangeState) {
             if (this.currentState.moveType == MoveType.STAND) {
-                if (this.inputStr.EndsWith("F,F")) {
+                if (this.inputStr.EndsWith("L")) {
 
                 }
             } else if (this.currentState.moveType == MoveType.CROUCH) {

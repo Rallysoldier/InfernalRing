@@ -23,6 +23,10 @@ public class CommonStateCrouch : CharacterState
 
     public override void UpdateState() {
         base.UpdateState();
+
+        if (!this.character.inputHandler.held("D")) {
+            this.SwitchState(this.character.states.CrouchTransition());
+        }
     }
 
     public override void ExitState() {

@@ -28,6 +28,10 @@ public class CommonStateCrouchTransition : CharacterState
     public override void UpdateState() {
         base.UpdateState();
 
+        if (!this.character.inputHandler.held("D")) {
+            this.SwitchState(this.character.states.Stand());
+        }
+
         if (this.stateTime >= 3) {
             if (standToCrouch) {
                 this.SwitchState(this.character.states.Crouch());

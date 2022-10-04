@@ -19,12 +19,10 @@ public class GameController : MonoBehaviour {
         //Both state machines set to XoninStateMachine for now, will be able to set the state machines to different characters later.
         playerObj1 = char1Obj.GetComponent<PlayerGameObj>();
         playerObj1.stateMachine = ScriptableObject.CreateInstance<XoninStateMachine>();
-        playerObj1.inputHandler = new InputHandler();
         playerObj1.stateMachine.inputHandler = playerObj1.inputHandler;
 
         playerObj2 = char2Obj.GetComponent<PlayerGameObj>();
         playerObj2.stateMachine = ScriptableObject.CreateInstance<XoninStateMachine>();
-        playerObj2.inputHandler = new InputHandler();
         playerObj2.stateMachine.inputHandler = playerObj2.inputHandler;
 
         playerObj1.stateMachine.anim = char1Obj.GetComponent<Animator>();
@@ -52,24 +50,6 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    void Update() {//Process input, send to input handlers.
-        playerObj1.inputHandler.releasedKeys.Clear();
-        playerObj2.inputHandler.releasedKeys.Clear();
-        playerObj1.inputHandler.heldKeys.Clear();
-        playerObj2.inputHandler.heldKeys.Clear();
-        foreach (KeyCode kc in System.Enum.GetValues(typeof(KeyCode))) {
-            if (Input.GetKeyDown(kc)) {
-                playerObj1.inputHandler.receiveInput(kc);
-                playerObj2.inputHandler.receiveInput(kc);
-            }
-            if (Input.GetKeyUp(kc)) {
-                playerObj1.inputHandler.addReleasedKey(kc);
-                playerObj2.inputHandler.addReleasedKey(kc);
-            }
-            if (Input.GetKey(kc)) {
-                playerObj1.inputHandler.addHeldKey(kc);
-                playerObj2.inputHandler.addHeldKey(kc);
-            }
-        }
+    void Update() {
     }
 }

@@ -73,31 +73,21 @@ public class CharacterStateMachine : ScriptableObject
 
         if (this.currentState.inputChangeState) {
             if (this.currentState.moveType == MoveType.STAND) {
-                if (
-                    (!inputHandler.heldKeys.Contains(inputHandler.ForwardInput(this)) && this.currentState is CommonStateWalkForward) ||
-                    (!inputHandler.heldKeys.Contains(inputHandler.BackInput(this)) && this.currentState is CommonStateWalkBackward)
-                ) {
-                    this.currentState.SwitchState(states.Stand());
-                }
-                
                 if (inputStr.EndsWith("F,F")) {
                     this.currentState.SwitchState(states.RunForward());
                 } else if (inputStr.EndsWith("D") || inputStr.EndsWith("D,F") || inputStr.EndsWith("F,D") || inputStr.EndsWith("D,B")  || inputStr.EndsWith("B,D")
-                     || inputHandler.heldKeys.Contains(inputHandler.inputMapping["D"])) {
+                     || inputHandler.held("D")) {
                     this.currentState.SwitchState(states.CrouchTransition());
                 } else if (inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U")
-                     || inputHandler.heldKeys.Contains(inputHandler.inputMapping["U"])) {
+                     || inputHandler.held("U")) {
                     this.currentState.SwitchState(states.JumpStart());
-                } else if (inputStr.EndsWith("F") || inputHandler.heldKeys.Contains(inputHandler.ForwardInput(this))) {
+                } else if (inputStr.EndsWith("F") || inputHandler.held(inputHandler.ForwardInput(this))) {
                     this.currentState.SwitchState(states.WalkForward());
-                } else if (inputStr.EndsWith("B") || inputHandler.heldKeys.Contains(inputHandler.BackInput(this))) {
+                } else if (inputStr.EndsWith("B") || inputHandler.held(inputHandler.BackInput(this))) {
                     this.currentState.SwitchState(states.WalkBackward());
                 }
             } else if (this.currentState.moveType == MoveType.CROUCH) {
-                if (!inputHandler.heldKeys.Contains(inputHandler.inputMapping["D"])
-                 && (this.currentState is CommonStateCrouch || this.currentState is CommonStateCrouchTransition)) {
-                    this.currentState.SwitchState(states.Stand());
-                }
+                
             } else if (this.currentState.moveType == MoveType.AIR) {
                 
             }

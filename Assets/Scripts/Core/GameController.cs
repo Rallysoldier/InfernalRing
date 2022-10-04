@@ -27,9 +27,11 @@ public class GameController : MonoBehaviour {
 
         playerObj1.stateMachine.anim = char1Obj.GetComponent<Animator>();
         playerObj1.stateMachine.body = char1Obj.GetComponent<Rigidbody2D>();
+        playerObj1.stateMachine.spriteRenderer = char1Obj.GetComponent<SpriteRenderer>();
 
         playerObj2.stateMachine.anim = char2Obj.GetComponent<Animator>();
         playerObj2.stateMachine.body = char2Obj.GetComponent<Rigidbody2D>();
+        playerObj2.stateMachine.spriteRenderer = char2Obj.GetComponent<SpriteRenderer>();
 
         playerObj1.stateMachine.enemy = playerObj2.stateMachine;
         playerObj2.stateMachine.enemy = playerObj1.stateMachine;
@@ -51,5 +53,10 @@ public class GameController : MonoBehaviour {
     }
 
     void Update() {
+        Camera mainCamera = Camera.main;
+        float avgX = (playerObj1.stateMachine.body.position.x + playerObj2.stateMachine.body.position.x)/2;
+        float avgY = (playerObj1.stateMachine.body.position.y + playerObj2.stateMachine.body.position.y)/2;
+        Vector3 playerPosition = new Vector3(avgX,avgY + 2,-10);
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position,playerPosition,15.0f * Time.deltaTime);
     }
 }

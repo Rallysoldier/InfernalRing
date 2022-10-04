@@ -4,27 +4,29 @@ using UnityEngine;
 
 public class CharacterStateMachine : ScriptableObject
 {
+    public string characterName;
     //Misc Variables
     public InputHandler inputHandler;
     public CharacterStateMachine enemy;
 
     //Animation Variables
     public Animator anim;
+    public SpriteRenderer spriteRenderer;
 
     //Physics/Motion Variables
     public Rigidbody2D body;
     public int facing;
 
-    public Vector2 velocityWalkForward = new Vector2(3,0);
-    public Vector2 velocityWalkBack = new Vector2(-3,0);
-    public Vector2 velocityRunForward = new Vector2(6,0);
-    public Vector2 velocityRunBack = new Vector2(-6,0);
-    public Vector2 velocityJumpNeutral = new Vector2(0,6);
-    public Vector2 velocityJumpForward = new Vector2(5,6);
-    public Vector2 velocityJumpBack = new Vector2(-5,6);
+    public Vector2 velocityWalkForward = new Vector2(2,0);
+    public Vector2 velocityWalkBack = new Vector2(-2,0);
+    public Vector2 velocityRunForward = new Vector2(10,0);
+    public Vector2 velocityRunBack = new Vector2(-10,0);
+    public Vector2 velocityJumpNeutral = new Vector2(0,17);
+    public Vector2 velocityJumpForward = new Vector2(6.5f,17f);
+    public Vector2 velocityJumpBack = new Vector2(-6.5f,17f);
     public float standingFriction = 0.05f;
     public float crouchingFriction = 0.15f;
-    public float gravity = 1.0f;
+    public float gravity = 0.85f;
 
     //state variables
     public CharacterState currentState;
@@ -52,20 +54,19 @@ public class CharacterStateMachine : ScriptableObject
         this.inputStr = this.inputHandler.getCharacterInput(this);
         this.inputHandler.updateBufferTime();
 
+        body.gravityScale = 0.0f;
         switch (this.currentState.physicsType)
         {
             default:
                 break;
             case PhysicsType.STAND:
-                body.gravityScale = 0.0f;
-                this.SetVelocity(VelX()*this.standingFriction,VelY());
+                this.SetVelX(VelX()*this.standingFriction);
                 break;
             case PhysicsType.CROUCH:
-                body.gravityScale = 0.0f;
-                this.SetVelocity(VelX()*this.crouchingFriction,VelY());
+                this.SetVelX(VelX()*this.crouchingFriction);
                 break;
             case PhysicsType.AIR:
-                body.gravityScale = this.gravity;
+                this.SetVelY(VelY()-this.gravity);
                 break;
             case PhysicsType.CUSTOM:
                 break;
@@ -121,7 +122,18 @@ public class CharacterStateMachine : ScriptableObject
         body.velocity = new Vector2(velocity.x*facing,velocity.y);
     }
 
+    public void SetVelX(float velocity) {
+        body.velocity = new Vector2(velocity,VelY());
+    }
+
+    public void SetVelY(float velocity) {
+        body.velocity = new Vector2(VelX(),velocity);
+    }
+
     public void correctFacing() {
+        float oldFacing = this.facing;
         this.facing = this.PosX() < this.enemy.PosX() ? 1 : -1;
+
+        this.spriteRenderer.flipX = this.facing == -1;
     }
 }

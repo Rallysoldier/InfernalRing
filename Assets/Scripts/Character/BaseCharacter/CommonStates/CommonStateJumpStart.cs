@@ -14,13 +14,14 @@ public class CommonStateJumpStart : CharacterState
         this.faceEnemyAlways = false;
 
         this.physicsType = PhysicsType.STAND;
-        this.moveType = MoveType.CROUCH;
+        this.moveType = MoveType.STAND;
 	    this.stateType = StateType.IDLE;
+
+        this.animationName = this.character.characterName + "_JumpStart";
     }
 
     public override void EnterState() {
         base.EnterState();
-        this.character.anim.SetTrigger("JumpStart");
 
         if (this.character.inputHandler.held(this.character.inputHandler.ForwardInput(this.character))) {
             jumpVelocity = this.character.velocityJumpForward;

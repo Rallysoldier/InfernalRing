@@ -6,6 +6,7 @@ public abstract class CharacterState
 	protected CharacterStateFactory factory;
 
 	public int stateTime = -1;
+	public string animationName;
 
 	//The variables below can be different for each state, and are only ever defined/mutated in the state's constructor.
 
@@ -27,6 +28,9 @@ public abstract class CharacterState
 		if (this.faceEnemyStart || this.faceEnemyAlways) {
 			character.correctFacing();
 		}
+		if(!this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)) {
+            this.character.anim.Play(animationName);
+        }
 	}
 
 	public virtual void UpdateState() {
@@ -34,6 +38,9 @@ public abstract class CharacterState
 		if (this.faceEnemyAlways) {
 			character.correctFacing();
 		}
+		if(!this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)) {
+            this.character.anim.Play(animationName);
+        }
 	}
 
 	public virtual void ExitState() {}

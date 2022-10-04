@@ -13,11 +13,12 @@ public class CommonStateWalkBackward : CharacterState
         this.physicsType = PhysicsType.STAND;
         this.moveType = MoveType.STAND;
 	    this.stateType = StateType.IDLE;
+
+        this.animationName = this.character.characterName + "_WalkBackward";
     }
 
     public override void EnterState() {
         base.EnterState();
-        this.character.anim.SetTrigger("WalkBackward");
 
         this.character.SetVelocity(this.character.velocityWalkBack);
     }

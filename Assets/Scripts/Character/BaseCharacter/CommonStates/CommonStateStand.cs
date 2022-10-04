@@ -14,12 +14,11 @@ public class CommonStateStand : CharacterState
         this.moveType = MoveType.STAND;
 	    this.stateType = StateType.IDLE;
 
-        //this.character.anim.SetBool("key", bool);
+        this.animationName = this.character.characterName + "_Stand";
     }
 
     public override void EnterState() {
         base.EnterState();
-        this.character.anim.SetTrigger("Stand");
         this.character.SetVelocity(this.character.VelX(),0);
         this.character.body.position = new Vector2(this.character.PosX(),0);
     }

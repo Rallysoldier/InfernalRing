@@ -9,6 +9,7 @@ public class PlayerGameObj : MonoBehaviour
     public int wins = 0;
 
     void Awake() {
+        this.transform.localScale = new Vector2(3.0f,3.0f);
     }
 
     void Update() {

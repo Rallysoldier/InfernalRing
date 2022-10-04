@@ -13,11 +13,12 @@ public class CommonStateWalkForward : CharacterState
         this.physicsType = PhysicsType.STAND;
         this.moveType = MoveType.STAND;
 	    this.stateType = StateType.IDLE;
+
+        this.animationName = this.character.characterName + "_WalkForward";
     }
 
     public override void EnterState() {
         base.EnterState();
-        this.character.anim.SetTrigger("WalkForward");
 
         this.character.SetVelocity(this.character.velocityWalkForward);
     }

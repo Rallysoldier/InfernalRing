@@ -14,11 +14,12 @@ public class CommonStateCrouch : CharacterState
         this.physicsType = PhysicsType.CROUCH;
         this.moveType = MoveType.CROUCH;
 	    this.stateType = StateType.IDLE;
+
+        this.animationName = this.character.characterName + "_Crouch";
     }
 
     public override void EnterState() {
         base.EnterState();
-        this.character.anim.SetTrigger("Crouch");
     }
 
     public override void UpdateState() {

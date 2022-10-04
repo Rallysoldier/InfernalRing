@@ -14,17 +14,19 @@ public class CommonStateAirborne : CharacterState
         this.physicsType = PhysicsType.AIR;
         this.moveType = MoveType.AIR;
 	    this.stateType = StateType.IDLE;
+
+        this.animationName = this.character.characterName + "_Airborne";
     }
 
     public override void EnterState() {
         base.EnterState();
-        this.character.anim.SetTrigger("Airborne");
     }
 
     public override void UpdateState() {
         base.UpdateState();
 
-        if (this.character.body.position.y <= 0) {
+        if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {
+            this.character.SetVelocity(this.character.VelX(),0);
             this.SwitchState(this.character.states.JumpLand());
         }
     }

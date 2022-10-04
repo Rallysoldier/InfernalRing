@@ -15,12 +15,13 @@ public class CommonStateCrouchTransition : CharacterState
         this.physicsType = PhysicsType.CROUCH;
         this.moveType = MoveType.CROUCH;
 	    this.stateType = StateType.IDLE;
+
+        this.animationName = this.character.characterName + "_CrouchTransition";
     }
 
     public override void EnterState() {
         base.EnterState();
-        this.character.anim.SetTrigger("CrouchTransition");
-
+        
         if(this.character.currentState == this.character.states.Crouch())
             standToCrouch = false;
     }

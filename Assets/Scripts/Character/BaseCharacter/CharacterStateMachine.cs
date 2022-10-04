@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,10 +18,13 @@ public class CharacterStateMachine : ScriptableObject
     public Rigidbody2D body;
     public int facing;
 
+    public const int MAX_HEALTH = 1000;
+    public int health;
+
     public Vector2 velocityWalkForward = new Vector2(2,0);
     public Vector2 velocityWalkBack = new Vector2(-2,0);
-    public Vector2 velocityRunForward = new Vector2(10,0);
-    public Vector2 velocityRunBack = new Vector2(-10,0);
+    public Vector2 velocityRunForward = new Vector2(15,0);
+    public Vector2 velocityRunBack = new Vector2(-15,0);
     public Vector2 velocityJumpNeutral = new Vector2(0,17);
     public Vector2 velocityJumpForward = new Vector2(6.5f,17f);
     public Vector2 velocityJumpBack = new Vector2(-6.5f,17f);
@@ -32,6 +36,8 @@ public class CharacterStateMachine : ScriptableObject
     public CharacterState currentState;
     public CharacterStateFactory states;
     public string inputStr = "";
+    string prevInputStr = "";
+    public bool changedInput;
 
     //getters and setters
     public CharacterState CurrentState { get { return currentState; } set { currentState = value; } }
@@ -43,6 +49,7 @@ public class CharacterStateMachine : ScriptableObject
 
     void Awake() {
         this.currentState = states.Stand();
+        this.health = MAX_HEALTH;
     }
 
     void Update() {
@@ -52,6 +59,10 @@ public class CharacterStateMachine : ScriptableObject
         //Gets new character input based on the direction they're facing.
         //Inverts F and B inputs if the character is facing the -x direction (facing == -1)
         this.inputStr = this.inputHandler.getCharacterInput(this);
+        if (inputStr != prevInputStr) {
+            changedInput = true;
+        }
+        prevInputStr = inputStr;
         this.inputHandler.updateBufferTime();
 
         body.gravityScale = 0.0f;
@@ -61,9 +72,13 @@ public class CharacterStateMachine : ScriptableObject
                 break;
             case PhysicsType.STAND:
                 this.SetVelX(VelX()*this.standingFriction);
+                this.SetVelY(0);
+                this.body.position = new Vector2(this.PosX(),0);
                 break;
             case PhysicsType.CROUCH:
                 this.SetVelX(VelX()*this.crouchingFriction);
+                this.SetVelY(0);
+                this.body.position = new Vector2(this.PosX(),0);
                 break;
             case PhysicsType.AIR:
                 this.SetVelY(VelY()-this.gravity);
@@ -72,19 +87,28 @@ public class CharacterStateMachine : ScriptableObject
                 break;
         }
 
+        this.changeStateOnInput();
+
+        this.changedInput = false;
+        this.prevInputStr = inputStr;
+    }
+
+    public virtual void changeStateOnInput() {
         if (this.currentState.inputChangeState) {
             if (this.currentState.moveType == MoveType.STAND) {
-                if (inputStr.EndsWith("F,F")) {
+                if (inputStr.EndsWith("F,F") && this.changedInput) {
                     this.currentState.SwitchState(states.RunForward());
-                } else if (inputStr.EndsWith("D") || inputStr.EndsWith("D,F") || inputStr.EndsWith("F,D") || inputStr.EndsWith("D,B")  || inputStr.EndsWith("B,D")
+                } else if (inputStr.EndsWith("B,B") && this.changedInput) {
+                    this.currentState.SwitchState(states.RunBack());
+                } else if ((this.changedInput && (inputStr.EndsWith("D") || inputStr.EndsWith("D,F") || inputStr.EndsWith("F,D") || inputStr.EndsWith("D,B")  || inputStr.EndsWith("B,D")))
                      || inputHandler.held("D")) {
                     this.currentState.SwitchState(states.CrouchTransition());
-                } else if (inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U")
+                } else if ((this.changedInput && (inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U")))
                      || inputHandler.held("U")) {
                     this.currentState.SwitchState(states.JumpStart());
-                } else if (inputStr.EndsWith("F") || inputHandler.held(inputHandler.ForwardInput(this))) {
+                } else if (!(this.currentState is CommonStateRunForward) && ((inputStr.EndsWith("F") && this.changedInput) || inputHandler.held(inputHandler.ForwardInput(this)))) {
                     this.currentState.SwitchState(states.WalkForward());
-                } else if (inputStr.EndsWith("B") || inputHandler.held(inputHandler.BackInput(this))) {
+                } else if (!(this.currentState is CommonStateRunBack) && (((inputStr.EndsWith("B") && this.changedInput) || inputHandler.held(inputHandler.BackInput(this))))) {
                     this.currentState.SwitchState(states.WalkBackward());
                 }
             } else if (this.currentState.moveType == MoveType.CROUCH) {
@@ -93,8 +117,6 @@ public class CharacterStateMachine : ScriptableObject
                 
             }
         }
-
-        this.currentState.UpdateState();
     }
 
     public float PosX() {

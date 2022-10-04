@@ -1,5 +1,6 @@
 public enum MoveType {
     STAND,
     CROUCH,
-    AIR
+    AIR,
+    LYING
 }

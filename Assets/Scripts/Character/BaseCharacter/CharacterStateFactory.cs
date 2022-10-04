@@ -1,45 +1,74 @@
 public class CharacterStateFactory
 {
-    CharacterStateMachine context;
+    public CharacterStateMachine context;
 
     public CharacterStateFactory(CharacterStateMachine currentContext)
     {
         context = currentContext;
     }
 
-    public CharacterState Stand()
+    public virtual CharacterState HurtStand()
+    {
+        return new CommonStateHurtStand(context, this);
+    }
+
+    public virtual CharacterState HurtCrouch()
+    {
+        return new CommonStateHurtCrouch(context, this);
+    }
+
+    public virtual CharacterState HurtAir()
+    {
+        return new CommonStateHurtAir(context, this);
+    }
+
+    public virtual CharacterState HurtBounce()
+    {
+        return new CommonStateHurtBounce(context, this);
+    }
+
+    public virtual CharacterState LyingDown()
+    {
+        return new CommonStateLyingDown(context, this);
+    }
+
+    public virtual CharacterState Stand()
     {
         return new CommonStateStand(context, this);
     }
-    public CharacterState WalkForward()
+    public virtual CharacterState WalkForward()
     {
         return new CommonStateWalkForward(context, this);
     }
-    public CharacterState WalkBackward()
+    public virtual CharacterState WalkBackward()
     {
         return new CommonStateWalkBackward(context, this);
     }
-    public CharacterState RunForward()
+    public virtual CharacterState RunForward()
     {
         return new CommonStateRunForward(context, this);
     }
-    public CharacterState Airborne()
+    public virtual CharacterState RunBack()
+    {
+        return new CommonStateRunBack(context, this);
+    }
+    public virtual CharacterState Airborne()
     {
         return new CommonStateAirborne(context, this);
     }
-    public CharacterState CrouchTransition()
+    public virtual CharacterState CrouchTransition()
     {
         return new CommonStateCrouchTransition(context, this);
     }
-    public CharacterState Crouch()
+    public virtual CharacterState Crouch()
     {
         return new CommonStateCrouch(context, this);
     }
-    public CharacterState JumpStart()
+    public virtual CharacterState JumpStart()
     {
         return new CommonStateJumpStart(context, this);
     }
-    public CharacterState JumpLand()
+    public virtual CharacterState JumpLand()
     {
         return new CommonStateJumpLand(context, this);
     }

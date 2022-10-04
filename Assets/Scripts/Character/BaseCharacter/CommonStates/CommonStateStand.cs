@@ -19,7 +19,7 @@ public class CommonStateStand : CharacterState
 
     public override void EnterState() {
         base.EnterState();
-        this.character.SetVelocity(this.character.VelX(),0);
+        this.character.SetVelY(0);
         this.character.body.position = new Vector2(this.character.PosX(),0);
     }
 

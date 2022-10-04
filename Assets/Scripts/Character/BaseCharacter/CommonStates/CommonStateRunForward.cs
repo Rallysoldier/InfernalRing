@@ -7,7 +7,7 @@ public class CommonStateRunForward : CharacterState
     public CommonStateRunForward(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory)
     : base(currentContext, CharacterStateFactory)
     {
-        this.inputChangeState = false;
+        this.inputChangeState = true;
         this.faceEnemyStart = true;
         this.faceEnemyAlways = false;
 
@@ -30,7 +30,6 @@ public class CommonStateRunForward : CharacterState
         this.character.SetVelocity(this.character.velocityRunForward);
 
         if (!this.character.inputHandler.held(this.character.inputHandler.ForwardInput(this.character)) && this.stateTime > 4) {
-            this.inputChangeState = true;
             this.SwitchState(this.character.states.Stand());
         }
     }

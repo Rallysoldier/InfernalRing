@@ -56,7 +56,14 @@ public class GameController : MonoBehaviour {
         Camera mainCamera = Camera.main;
         float avgX = (playerObj1.stateMachine.body.position.x + playerObj2.stateMachine.body.position.x)/2;
         float avgY = (playerObj1.stateMachine.body.position.y + playerObj2.stateMachine.body.position.y)/2;
-        Vector3 playerPosition = new Vector3(avgX,avgY + 2,-10);
+        if (avgX < -4.7f) {
+            avgX = -4.7f;
+        } else if (avgX > 4.7f) {
+            avgX = 4.7f;
+        }
+
+        Vector3 playerPosition = new Vector3(avgX,avgY + 2.5f,-10);
+
         mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position,playerPosition,15.0f * Time.deltaTime);
     }
 }

@@ -20,6 +20,8 @@ public class CommonStateStand : CharacterState
     public override void EnterState() {
         base.EnterState();
         this.character.anim.SetTrigger("Stand");
+        this.character.SetVelocity(this.character.VelX(),0);
+        this.character.body.position = new Vector2(this.character.PosX(),0);
     }
 
     public override void UpdateState() {

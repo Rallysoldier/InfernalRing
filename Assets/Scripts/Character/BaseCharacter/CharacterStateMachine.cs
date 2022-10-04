@@ -15,9 +15,16 @@ public class CharacterStateMachine : ScriptableObject
     public Rigidbody2D body;
     public int facing;
 
-    public float standingFriction = 2.0f;
-    public float crouchingFriction = 1.0f;
-    public float gravity = 1.0f; //In caps, since technically "final" for each character.
+    public Vector2 velocityWalkForward = new Vector2(3,0);
+    public Vector2 velocityWalkBack = new Vector2(-3,0);
+    public Vector2 velocityRunForward = new Vector2(6,0);
+    public Vector2 velocityRunBack = new Vector2(-6,0);
+    public Vector2 velocityJumpNeutral = new Vector2(0,6);
+    public Vector2 velocityJumpForward = new Vector2(5,6);
+    public Vector2 velocityJumpBack = new Vector2(-5,6);
+    public float standingFriction = 0.05f;
+    public float crouchingFriction = 0.15f;
+    public float gravity = 1.0f;
 
     //state variables
     public CharacterState currentState;
@@ -30,7 +37,6 @@ public class CharacterStateMachine : ScriptableObject
 
     public CharacterStateMachine() {
         this.states = new CharacterStateFactory(this);
-        this.inputHandler = new InputHandler(this);
     }
 
     void Awake() {
@@ -41,22 +47,10 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public virtual void UpdateState() {
-        if (enemy == null) {
-            this.enemy = GameController.Instance.setEnemyStateMachine(this);
-        }
-
-        foreach (KeyCode kc in System.Enum.GetValues(typeof(KeyCode))) {
-            if (Input.GetKeyDown(kc))
-                this.inputHandler.receiveInput(kc);
-        }
         //Gets new character input based on the direction they're facing.
         //Inverts F and B inputs if the character is facing the -x direction (facing == -1)
-        this.inputStr = this.inputHandler.getCharacterInput();
+        this.inputStr = this.inputHandler.getCharacterInput(this);
         this.inputHandler.updateBufferTime();
-
-        if (this.inputStr.Length > 0) {
-            Debug.Log("Input: " + this.inputStr);
-        }
 
         switch (this.currentState.physicsType)
         {
@@ -64,11 +58,11 @@ public class CharacterStateMachine : ScriptableObject
                 break;
             case PhysicsType.STAND:
                 body.gravityScale = 0.0f;
-                this.SetVelocity(VelX()*this.standingFriction,0.0f);
+                this.SetVelocity(VelX()*this.standingFriction,VelY());
                 break;
             case PhysicsType.CROUCH:
                 body.gravityScale = 0.0f;
-                this.SetVelocity(VelX()*this.crouchingFriction,0.0f);
+                this.SetVelocity(VelX()*this.crouchingFriction,VelY());
                 break;
             case PhysicsType.AIR:
                 body.gravityScale = this.gravity;
@@ -81,17 +75,16 @@ public class CharacterStateMachine : ScriptableObject
             if (this.currentState.moveType == MoveType.STAND) {
                 if (inputStr.EndsWith("F,F")) {
                     this.currentState.SwitchState(states.RunForward());
-                } else if (inputStr.EndsWith("F")) {
-                    this.currentState.SwitchState(states.WalkForward());
-                } else if (inputStr.EndsWith("B")) {
-                    this.currentState.SwitchState(states.WalkBackward());
-                } else if (inputStr.EndsWith("D")) {
+                } else if (inputStr.EndsWith("D") || inputStr.EndsWith("D,F") || inputStr.EndsWith("F,D") || inputStr.EndsWith("D,B")  || inputStr.EndsWith("B,D")
+                     || inputHandler.held("D")) {
                     this.currentState.SwitchState(states.CrouchTransition());
-                } else if (inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("U,B")) {
-                    if (inputStr.Length > 0) {
-                        Debug.Log(inputStr);
-                    }
+                } else if (inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U")
+                     || inputHandler.held("U")) {
                     this.currentState.SwitchState(states.JumpStart());
+                } else if (inputStr.EndsWith("F") || inputHandler.held(inputHandler.ForwardInput(this))) {
+                    this.currentState.SwitchState(states.WalkForward());
+                } else if (inputStr.EndsWith("B") || inputHandler.held(inputHandler.BackInput(this))) {
+                    this.currentState.SwitchState(states.WalkBackward());
                 }
             } else if (this.currentState.moveType == MoveType.CROUCH) {
                 
@@ -104,11 +97,11 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public float PosX() {
-        return this.body.velocity.x;
+        return this.body.position.x;
     }
 
     public float PosY() {
-        return this.body.velocity.y;
+        return this.body.position.y;
     }
 
     public float VelX() {
@@ -124,13 +117,11 @@ public class CharacterStateMachine : ScriptableObject
         body.velocity = new Vector2(velx*facing,vely);
     }
 
+    public void SetVelocity(Vector2 velocity) {
+        body.velocity = new Vector2(velocity.x*facing,velocity.y);
+    }
+
     public void correctFacing() {
-        if (this.enemy != null) {
-            if (this.PosX() < this.enemy.PosX()) {
-                this.facing = 1;
-            } else if (this.PosX() > this.enemy.PosX()) {
-                this.facing = -1;
-            }
-        }
+        this.facing = this.PosX() < this.enemy.PosX() ? 1 : -1;
     }
 }

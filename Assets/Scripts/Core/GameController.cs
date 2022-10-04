@@ -3,8 +3,8 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
     public static GameController Instance;
 
-    public CharGameObj charGameObj1;
-    public CharGameObj charGameObj2;
+    public PlayerGameObj playerObj1;
+    public PlayerGameObj playerObj2;
 
     public GameController() {
         Instance = this;
@@ -15,39 +15,41 @@ public class GameController : MonoBehaviour {
         GameObject char1Obj = GameObject.FindGameObjectWithTag("Char1");
         GameObject char2Obj = GameObject.FindGameObjectWithTag("Char2");
 
-        charGameObj1 = char1Obj.GetComponent<CharGameObj>();
-        charGameObj1.stateMachine = ScriptableObject.CreateInstance<XoninStateMachine>();
-        charGameObj2 = char2Obj.GetComponent<CharGameObj>();
-        charGameObj2.stateMachine = ScriptableObject.CreateInstance<XoninStateMachine>();
+        //Instantiates player objects and their state machines, then gives an input handler from the player to their character (machine).
+        //Both state machines set to XoninStateMachine for now, will be able to set the state machines to different characters later.
+        playerObj1 = char1Obj.GetComponent<PlayerGameObj>();
+        playerObj1.stateMachine = ScriptableObject.CreateInstance<XoninStateMachine>();
+        playerObj1.stateMachine.inputHandler = playerObj1.inputHandler;
 
-        charGameObj1.stateMachine.anim = char1Obj.GetComponent<Animator>();
-        charGameObj1.stateMachine.body = char1Obj.GetComponent<Rigidbody2D>();
+        playerObj2 = char2Obj.GetComponent<PlayerGameObj>();
+        playerObj2.stateMachine = ScriptableObject.CreateInstance<XoninStateMachine>();
+        playerObj2.stateMachine.inputHandler = playerObj2.inputHandler;
 
-        charGameObj2.stateMachine.anim = char2Obj.GetComponent<Animator>();
-        charGameObj2.stateMachine.body = char2Obj.GetComponent<Rigidbody2D>();
+        playerObj1.stateMachine.anim = char1Obj.GetComponent<Animator>();
+        playerObj1.stateMachine.body = char1Obj.GetComponent<Rigidbody2D>();
 
-        charGameObj1.stateMachine.facing = 1;
-        charGameObj2.stateMachine.facing = -1;
+        playerObj2.stateMachine.anim = char2Obj.GetComponent<Animator>();
+        playerObj2.stateMachine.body = char2Obj.GetComponent<Rigidbody2D>();
 
-        charGameObj1.stateMachine.inputHandler.mapP1Inputs();
-        charGameObj2.stateMachine.inputHandler.mapP2Inputs();
+        playerObj1.stateMachine.enemy = playerObj2.stateMachine;
+        playerObj2.stateMachine.enemy = playerObj1.stateMachine;
 
-        charGameObj1.stateMachine.currentState.EnterState();
-        charGameObj2.stateMachine.currentState.EnterState();
+        //Inputs are predefined by us for now
+        playerObj1.inputHandler.mapP1Inputs();
+        playerObj2.inputHandler.mapP2Inputs();
+
+        playerObj1.stateMachine.currentState.EnterState();
+        playerObj2.stateMachine.currentState.EnterState();
     }
 
-    void Update()
+    void FixedUpdate()//Actual Game Controller loop. "Loop steps" in the design go here.
     {
-        if (charGameObj1.stateMachine != null && charGameObj2.stateMachine != null) {
-            charGameObj1.stateMachine.UpdateState();
-            charGameObj2.stateMachine.UpdateState();
+        if (playerObj1.stateMachine != null && playerObj2.stateMachine != null) {
+            playerObj1.stateMachine.UpdateState();
+            playerObj2.stateMachine.UpdateState();
         }
     }
 
-    public CharacterStateMachine setEnemyStateMachine(CharacterStateMachine sm) {
-        if (sm == charGameObj1.stateMachine) {
-            return charGameObj2.stateMachine;
-        }
-        return charGameObj1.stateMachine;
+    void Update() {
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BlackGardenStudios.HitboxStudioPro;
 
 public class CharacterStateMachine : ScriptableObject
 {
@@ -17,9 +18,13 @@ public class CharacterStateMachine : ScriptableObject
     //Physics/Motion Variables
     public Rigidbody2D body;
     public int facing;
+    public Vector2 hitVelocity;
+    public int hitVelocityTime;
 
     public const int MAX_HEALTH = 1000;
     public int health;
+    public int hitstun;
+    public int blockstun;
 
     public Vector2 velocityWalkForward = new Vector2(2,0);
     public Vector2 velocityWalkBack = new Vector2(-2,0);
@@ -43,8 +48,18 @@ public class CharacterStateMachine : ScriptableObject
     public CharacterState CurrentState { get { return currentState; } set { currentState = value; } }
     public CharacterStateFactory State { get { return states; } set { states = value; } }
 
+    //Temporary collision data, lasts one game tick
+    public ContactSummary contactSummary;
+    List<ContactData> bodyColData = new List<ContactData>();
+    List<ContactData> hurtColData = new List<ContactData>();
+    List<ContactData> guardColData = new List<ContactData>();
+    List<ContactData> armorColData = new List<ContactData>();
+    List<ContactData> grabColData = new List<ContactData>();
+    List<ContactData> techColData = new List<ContactData>();
+
     public CharacterStateMachine() {
         this.states = new CharacterStateFactory(this);
+        this.contactSummary = new ContactSummary(this);
     }
 
     void Awake() {
@@ -55,7 +70,7 @@ public class CharacterStateMachine : ScriptableObject
     void Update() {
     }
 
-    public virtual void UpdateState() {
+    public virtual ContactSummary UpdateStates() {
         //Gets new character input based on the direction they're facing.
         //Inverts F and B inputs if the character is facing the -x direction (facing == -1)
         this.inputStr = this.inputHandler.getCharacterInput(this);
@@ -87,10 +102,24 @@ public class CharacterStateMachine : ScriptableObject
                 break;
         }
 
+        if (this.hitVelocityTime > 0) {
+            this.hitVelocityTime--;
+            this.SetVelocity(this.hitVelocity);
+        }
+
         this.changeStateOnInput();
 
         this.changedInput = false;
         this.prevInputStr = inputStr;
+
+        contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
+        this.bodyColData.Clear();
+        this.hurtColData.Clear();
+        this.guardColData.Clear();
+        this.armorColData.Clear();
+        this.grabColData.Clear();
+        this.techColData.Clear();
+        return contactSummary;
     }
 
     public virtual void changeStateOnInput() {
@@ -157,5 +186,64 @@ public class CharacterStateMachine : ScriptableObject
         this.facing = this.PosX() < this.enemy.PosX() ? 1 : -1;
 
         this.spriteRenderer.flipX = this.facing == -1;
+    }
+
+    public virtual void HitboxContact(ContactData data) {
+        switch (data.MyHitbox.Type)
+        {
+            case HitboxType.TRIGGER:
+                bodyColData.Add(data);
+                break;
+            case HitboxType.HURT:
+                hurtColData.Add(data);
+                break;
+            case HitboxType.GUARD:
+                guardColData.Add(data);
+                break;
+            case HitboxType.ARMOR:
+                armorColData.Add(data);
+                break;
+            case HitboxType.GRAB:
+                grabColData.Add(data);
+                break;
+            case HitboxType.TECH:
+                techColData.Add(data);
+                break;
+        }
+    }
+
+    public virtual bool Block(ContactData hit) {
+        GameController.Instance.Pause(hit.Blockpause);
+        this.blockstun = hit.Blockstun;
+        this.health -= (int)hit.ChipDamage;
+
+        this.hitVelocity = hit.GroundVelocity;
+        this.SetVelocity(hit.GroundVelocity);
+
+        return true;
+    }
+
+    //Overload this function to have the character do something else on hit
+    public virtual bool Hit(ContactData hit) {
+        GameController.Instance.Pause(hit.Hitpause);
+        this.hitstun = hit.Hitstun;
+        this.health -= (int)hit.Damage;
+
+        this.hitVelocity = hit.AirVelocity;
+        this.SetVelocity(hit.AirVelocity);
+
+        switch (this.currentState.moveType) {
+            case MoveType.STAND:
+                this.currentState.SwitchState(states.HurtStand());
+                break;
+            case MoveType.CROUCH:
+                this.currentState.SwitchState(states.HurtCrouch());
+                break;
+            case MoveType.AIR:
+                this.currentState.SwitchState(states.HurtAir());
+                break;
+        }
+
+        return true;
     }
 }

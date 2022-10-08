@@ -24,7 +24,7 @@ public class CommonStateHurtAir : CharacterState
     public override void UpdateState() {
         base.UpdateState();
 
-        if (stateTime > 10 && this.character.health > 0)
+        if (stateTime > this.character.hitstun && this.character.health > 0)
             this.SwitchState(this.character.states.Airborne());
 
         if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {

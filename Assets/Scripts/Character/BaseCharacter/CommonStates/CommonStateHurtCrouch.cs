@@ -24,7 +24,7 @@ public class CommonStateHurtCrouch : CharacterState
     public override void UpdateState() {
         base.UpdateState();
 
-        if (stateTime > 10)
+        if (stateTime > this.character.hitstun)
             this.SwitchState(this.character.states.Crouch());
     }
 

@@ -51,7 +51,7 @@ public abstract class CharacterState
 
 	public virtual void SwitchState(CharacterState newState)
 	{
-		Debug.Log("Switching from " + this + " to " + newState);
+		//Debug.Log("Switching from " + this + " to " + newState);
 		
 		// exit current state
 		ExitState();

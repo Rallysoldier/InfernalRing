@@ -12,9 +12,15 @@ public class XoninStateMachine : CharacterStateMachine
         velocityRunBack = new Vector2(-10,7);
     }
 
-    public override void UpdateState()
+    public override ContactSummary UpdateStates()
     {
-        base.UpdateState();
+        ContactSummary summary =  base.UpdateStates();
+
+        /*
+        
+        
+        old demo code
+
 
         if (this.currentState.stateType == StateType.ATTACK && this.currentState.stateTime == 6 && this.enemy.health > 0
             && Vector2.Distance(this.enemy.body.position,this.body.position) < 2) {
@@ -38,9 +44,11 @@ public class XoninStateMachine : CharacterStateMachine
                     this.enemy.SetVelocity(-1,3);
                 }
             }
-        }
+        }*/
 
         this.currentState.UpdateState();
+
+        return summary;
     }
 
     public override void changeStateOnInput() {

@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour {
     public int playerPaused = -1;
     public int pause = 0;
 
-    Camera mainCamera = Camera.main;
+    public static Camera mainCamera;
     float cameraLerp = 15f;
 
     public GameController() {
@@ -27,6 +27,8 @@ public class GameController : MonoBehaviour {
 
     void Awake()
     {
+        mainCamera = Camera.main;
+        
         for (int c = 0; c < characterNames.Count; c++) {
             for (int i = 0; i < Characters.Length; i++) {
                 if (Characters[i].name == characterNames[c]) {

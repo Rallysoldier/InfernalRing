@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 59ea76509b70be741b60e71f115c8f9b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: caf03480790980b4ba8091790db523f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -157,10 +157,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -196,10 +200,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -235,10 +243,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -254,10 +266,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -273,10 +289,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -292,10 +312,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -311,10 +335,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -330,10 +358,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -349,10 +381,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -388,10 +424,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -439,10 +479,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -458,10 +502,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -477,10 +525,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -496,10 +548,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -515,10 +571,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -534,10 +594,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -553,10 +617,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -592,10 +660,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -637,10 +709,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -656,10 +732,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -675,10 +755,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -726,10 +810,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -745,10 +833,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -764,10 +856,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -783,10 +879,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -802,10 +902,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -821,10 +925,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -840,10 +948,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -879,10 +991,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -916,10 +1032,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -953,10 +1073,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -984,10 +1108,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1009,10 +1137,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1034,10 +1166,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1073,10 +1209,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1110,10 +1250,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1135,10 +1279,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1186,10 +1334,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1229,10 +1381,14 @@ MonoBehaviour:
       attackPriority: 2
       hitstun: 10
       blockstun: 10
-      groundVelocity: {x: -1, y: 0}
-      groundVelocityTime: 2
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: -5, y: 0}
+      hitGroundVelocityTime: 1
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: -5, y: 0}
+      blockGroundVelocityTime: 1
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 3
       blockpause: 0
       hitfxlabel: 0
@@ -1278,10 +1434,14 @@ MonoBehaviour:
       attackPriority: 2
       hitstun: 10
       blockstun: 10
-      groundVelocity: {x: -1, y: 0}
-      groundVelocityTime: 2
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: -5, y: 0}
+      hitGroundVelocityTime: 1
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: -5, y: 0}
+      blockGroundVelocityTime: 1
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 3
       blockpause: 0
       hitfxlabel: 0
@@ -1321,10 +1481,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1358,10 +1522,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1395,10 +1563,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1434,10 +1606,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1473,10 +1649,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1512,10 +1692,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1551,10 +1735,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1590,10 +1778,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1629,10 +1821,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1648,10 +1844,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1667,10 +1867,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1686,10 +1890,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1737,10 +1945,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1756,10 +1968,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1775,10 +1991,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1794,10 +2014,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1813,10 +2037,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1832,10 +2060,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1851,10 +2083,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1870,10 +2106,14 @@ MonoBehaviour:
       attackPriority: 0
       hitstun: 0
       blockstun: 0
-      groundVelocity: {x: 0, y: 0}
-      groundVelocityTime: 0
-      airVelocity: {x: 0, y: 0}
-      airVelocityTime: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
       hitpause: 0
       blockpause: 0
       hitfxlabel: 0
@@ -1896,7 +2136,7 @@ MonoBehaviour:
     hitfxuid: 0
   m_MaxHitboxes: 5
   m_CurrentAnimation: 11
-  m_CurrentFrame: 1
+  m_CurrentFrame: 2
   m_CurrentCollider: 0
 --- !u!95 &311075295377430597
 Animator:
@@ -1955,7 +2195,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4765625, y: 0.0625}
+    pivot: {x: 0.390625, y: 0.0625}
     oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5

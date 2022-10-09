@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BlackGardenStudios.HitboxStudioPro
 {
@@ -21,10 +20,14 @@ namespace BlackGardenStudios.HitboxStudioPro
         private AttackPriority m_attackPriority;
         private int m_hitstun;
         private int m_blockstun;
-        private Vector2 m_groundVelocity;
-        private int m_groundVelocityTime;
-        private Vector2 m_airVelocity;
-        private int m_airVelocityTime;
+        private Vector2 m_hitGroundVelocity;
+        private int m_hitGroundVelocityTime;
+        private Vector2 m_hitAirVelocity;
+        private int m_hitAirVelocityTime;
+        private Vector2 m_blockGroundVelocity;
+        private int m_blockGroundVelocityTime;
+        private Vector2 m_blockAirVelocity;
+        private int m_blockAirVelocityTime;
         private int m_frame;
         /****/
         private bool m_DidHit = false;
@@ -52,8 +55,9 @@ namespace BlackGardenStudios.HitboxStudioPro
 #endif
         public void Feed(Vector2 boxSize, Vector2 boxOffset, int ID, HitboxType type,
             float damage, float chipDamage, GuardType guardType, AttackPriority attackPriority, int hitstun, int blockstun,
-            Vector2 groundVelocity, int groundVelocityTime, Vector2 airVelocity, int airVelocityTime, int frame,
-            int hitpause, int blockpause, int fxUID, int hits)
+            Vector2 hitGroundVelocity, int hitGroundVelocityTime, Vector2 hitAirVelocity, int hitAirVelocityTime,
+            Vector2 blockGroundVelocity, int blockHroundVelocityTime, Vector2 blockAirVelocity, int blockAirVelocityTime,
+            int frame, int hitpause, int blockpause, int fxUID, int hits)
         {
             Type = type;
             m_Damage = damage;
@@ -66,10 +70,14 @@ namespace BlackGardenStudios.HitboxStudioPro
             m_attackPriority = attackPriority;
             m_hitstun = hitstun;
             m_blockstun = blockstun;
-            m_groundVelocity = groundVelocity;
-            m_groundVelocityTime = groundVelocityTime;
-            m_airVelocity = airVelocity;
-            m_airVelocityTime = airVelocityTime;
+            m_hitGroundVelocity = hitGroundVelocity;
+            m_hitGroundVelocityTime = hitGroundVelocityTime;
+            m_hitAirVelocity = hitAirVelocity;
+            m_hitAirVelocityTime = hitAirVelocityTime;
+            m_blockGroundVelocity = blockGroundVelocity;
+            m_blockGroundVelocityTime = blockHroundVelocityTime;
+            m_blockAirVelocity = blockAirVelocity;
+            m_blockAirVelocityTime = blockAirVelocityTime;
             m_frame = frame;
             /****/
             Collider.size = boxSize;
@@ -162,10 +170,14 @@ namespace BlackGardenStudios.HitboxStudioPro
                     Blockpause = feeder.m_blockpause,
                     Hitstun = feeder.m_hitstun,
                     Blockstun = feeder.m_blockstun,
-                    GroundVelocity = feeder.m_groundVelocity,
-                    GroundVelocityTime = feeder.m_groundVelocityTime,
-                    AirVelocity = feeder.m_airVelocity,
-                    AirVelocityTime = feeder.m_airVelocityTime,
+                    HitGroundVelocity = feeder.m_hitGroundVelocity,
+                    HitGroundVelocityTime = feeder.m_hitGroundVelocityTime,
+                    HitAirVelocity = feeder.m_hitAirVelocity,
+                    HitAirVelocityTime = feeder.m_hitAirVelocityTime,
+                    BlockGroundVelocity = feeder.m_blockGroundVelocity,
+                    BlockGroundVelocityTime = feeder.m_blockGroundVelocityTime,
+                    //BlockAirVelocity = feeder.m_blockAirVelocity,
+                    //BlockAirVelocityTime = feeder.m_blockAirVelocityTime,
                     Frame = m_frame,
                     /****/
                     fxID = feeder.m_FXUID

@@ -150,10 +150,14 @@ namespace BlackGardenStudios.HitboxStudioPro
             public AttackPriority attackPriority;
             public int hitstun;
             public int blockstun;
-            public Vector2 groundVelocity;
-            public int groundVelocityTime;
-            public Vector2 airVelocity;
-            public int airVelocityTime;
+            public Vector2 hitGroundVelocity;
+            public int hitGroundVelocityTime;
+            public Vector2 hitAirVelocity;
+            public int hitAirVelocityTime;
+            public Vector2 blockGroundVelocity;
+            public int blockGroundVelocityTime;
+            public Vector2 blockAirVelocity;
+            public int blockAirVelocityTime;
             int hitpause;
             int blockpause;
             public int hitfxuid;
@@ -174,10 +178,14 @@ namespace BlackGardenStudios.HitboxStudioPro
                     attackPriority = v.attackPriority,
                     hitstun = v.hitstun,
                     blockstun = v.blockstun,
-                    groundVelocity = v.groundVelocity,
-                    groundVelocityTime = v.groundVelocityTime,
-                    airVelocity = v.airVelocity,
-                    airVelocityTime = v.airVelocityTime,
+                    hitGroundVelocity = v.hitGroundVelocity,
+                    hitGroundVelocityTime = v.hitGroundVelocityTime,
+                    hitAirVelocity = v.hitAirVelocity,
+                    hitAirVelocityTime = v.hitAirVelocityTime,
+                    blockGroundVelocity = v.blockGroundVelocity,
+                    blockGroundVelocityTime = v.blockGroundVelocityTime,
+                    blockAirVelocity = v.blockAirVelocity,
+                    blockAirVelocityTime = v.blockAirVelocityTime,
                     hitpause = v.hitpause,
                     blockpause = v.blockpause,
                     hitfxuid = v.hitfxuid
@@ -260,10 +268,14 @@ namespace BlackGardenStudios.HitboxStudioPro
             public AttackPriority attackPriority;
             public int hitstun;
             public int blockstun;
-            public Vector2 groundVelocity;
-            public int groundVelocityTime;
-            public Vector2 airVelocity;
-            public int airVelocityTime;
+            public Vector2 hitGroundVelocity;
+            public int hitGroundVelocityTime;
+            public Vector2 hitAirVelocity;
+            public int hitAirVelocityTime;
+            public Vector2 blockGroundVelocity;
+            public int blockGroundVelocityTime;
+            public Vector2 blockAirVelocity;
+            public int blockAirVelocityTime;
             public int hitpause;
             public int blockpause;
             public int hitfxlabel;
@@ -724,6 +736,10 @@ namespace BlackGardenStudios.HitboxStudioPro
                     int groundVelocityTime = 0;
                     Vector2 airVelocity = new Vector2(0,0);
                     int airVelocityTime = 0;
+                    Vector2 blockGroundVelocity = new Vector2(0,0);
+                    int blockGroundVelocityTime = 0;
+                    Vector2 blockAirVelocity = new Vector2(0,0);
+                    int blockAirVelocityTime = 0;
                     int hitpause = 0;
                     int blockpause = 0;
                     int hitfxuid = 0;
@@ -736,10 +752,14 @@ namespace BlackGardenStudios.HitboxStudioPro
                         attackPriority = outputFramedata.attackPriority;
                         hitstun = outputFramedata.hitstun;
                         blockstun = outputFramedata.blockstun;
-                        groundVelocity = outputFramedata.groundVelocity;
-                        groundVelocityTime = outputFramedata.groundVelocityTime;
-                        airVelocity = outputFramedata.airVelocity;
-                        airVelocityTime = outputFramedata.airVelocityTime;
+                        groundVelocity = outputFramedata.hitGroundVelocity;
+                        groundVelocityTime = outputFramedata.hitGroundVelocityTime;
+                        airVelocity = outputFramedata.hitAirVelocity;
+                        airVelocityTime = outputFramedata.hitAirVelocityTime;
+                        blockGroundVelocity = outputFramedata.blockGroundVelocity;
+                        blockGroundVelocityTime = outputFramedata.blockGroundVelocityTime;
+                        blockAirVelocity = outputFramedata.blockAirVelocity;
+                        blockAirVelocityTime = outputFramedata.blockAirVelocityTime;
                         hitpause = outputFramedata.hitpause;
                         blockpause = outputFramedata.blockpause;
                         hitfxuid = outputFramedata.hitfxuid;
@@ -766,6 +786,10 @@ namespace BlackGardenStudios.HitboxStudioPro
                         groundVelocityTime,
                         airVelocity,
                         airVelocityTime,
+                        blockGroundVelocity,
+                        blockGroundVelocityTime,
+                        blockAirVelocity,
+                        blockAirVelocityTime,
                         m_CurrentFrame,
                         hitpause,
                         blockpause,

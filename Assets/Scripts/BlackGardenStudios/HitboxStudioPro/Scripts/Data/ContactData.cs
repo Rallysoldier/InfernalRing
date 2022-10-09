@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BlackGardenStudios.HitboxStudioPro
 {
@@ -50,6 +48,25 @@ namespace BlackGardenStudios.HitboxStudioPro
         /// The amount of time in ticks the enemy is set in a hit state if they block this attack frame
         /// </summary>
         public int Hitstun;
+
+        /// <summary>
+        /// If the enemy is on the ground, the enemy is set to this velocity.
+        /// </summary>
+        public Vector2 HitGroundVelocity;
+        /// <summary>
+        /// The enemy remains with the hit's ground velocity for this amount of ticks.
+        /// </summary>
+        public int HitGroundVelocityTime;
+
+        /// <summary>
+        /// If the enemy is in the air, the enemy is set to this velocity.
+        /// </summary>
+        public Vector2 HitAirVelocity;
+        /// <summary>
+        /// The enemy remains with the hit's air velocity for this amount of ticks.
+        /// </summary>
+        public int HitAirVelocityTime;
+
         /// <summary>
         /// The amount of time in ticks the enemy is set in a blocking state if they block this attack frame
         /// </summary>
@@ -58,20 +75,20 @@ namespace BlackGardenStudios.HitboxStudioPro
         /// <summary>
         /// If the enemy is on the ground, the enemy is set to this velocity.
         /// </summary>
-        public Vector2 GroundVelocity;
+        public Vector2 BlockGroundVelocity;
         /// <summary>
         /// The enemy remains with the hit's ground velocity for this amount of ticks.
         /// </summary>
-        public int GroundVelocityTime;
+        public int BlockGroundVelocityTime;
 
         /// <summary>
         /// If the enemy is in the air, the enemy is set to this velocity.
         /// </summary>
-        public Vector2 AirVelocity;
+        //public Vector2 BlockAirVelocity;
         /// <summary>
         /// The enemy remains with the hit's air velocity for this amount of ticks.
         /// </summary>
-        public int AirVelocityTime;
+        //public int BlockAirVelocityTime;
 
         /// <summary>
         /// Identifier of the hit effect this attack uses.

@@ -20,6 +20,8 @@ namespace BlackGardenStudios.HitboxStudioPro
         public bool showAudio;
         public bool showMove;
         public bool showHit;
+        public bool showHitVelocity;
+        public bool showBlockVelocity;
         public bool showAnimation;
         public bool showAttackData;
         public bool showFrameData;
@@ -312,24 +314,55 @@ namespace BlackGardenStudios.HitboxStudioPro
                                 var blockpause  = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("blockpause");
                                 var hitstun =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("hitstun");
                                 var blockstun =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("blockstun");
-                                var groundVelocity =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("groundVelocity");
-                                var groundVelocityTime =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("groundVelocityTime");
-                                var airVelocity =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("airVelocity");
-                                var airVelocityTime =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("airVelocityTime");
+
+                                var hitGroundVelocity =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("hitGroundVelocity");
+                                var hitGroundVelocityTime =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("hitGroundVelocityTime");
+                                var hitAirVelocity =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("hitAirVelocity");
+                                var hitAirVelocityTime =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("hitAirVelocityTime");
+
+                                var blockGroundVelocity =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("blockGroundVelocity");
+                                var blockGroundVelocityTime =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("blockGroundVelocityTime");
+                                var blockAirVelocity =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("blockAirVelocity");
+                                var blockAirVelocityTime =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("blockAirVelocityTime");
                                 
-                                EditorGUILayout.PropertyField(damage, new GUIContent("Attack Damage", "The amount of damage this attack frame will deal when it hits."));
-                                EditorGUILayout.PropertyField(chipDamage, new GUIContent("Chip Damage", "The amount of damage this attack frame will deal when it is guarded."));
-                                EditorGUILayout.PropertyField(guardType, new GUIContent("Guard Type", "The type of guard the enemy must make to block the attack frame."));
-                                EditorGUILayout.PropertyField(attackPriority, new GUIContent("Attack Priority", "The priority/strength of the attack frame compared to other attacks."));
+                                EditorGUILayout.PropertyField(damage, new GUIContent("Attack Damage", "The amount of damage this hit will deal when it hits."));
+                                EditorGUILayout.PropertyField(chipDamage, new GUIContent("Chip Damage", "The amount of damage this hit will deal when it is guarded."));
+                                EditorGUILayout.PropertyField(guardType, new GUIContent("Guard Type",
+                                    "The type of block the enemy must make to block the hit.\n"+
+                                    "MID: The hit can be blocked crouching or not crouching\n"+
+                                    "LOW: Must be blocked while crouching\n"+
+                                    "HIGH: Must be blocked while not crouching\n"+
+                                    "UNBLOCKABLE: The hit cannot be blocked"
+                                ));
+                                EditorGUILayout.PropertyField(attackPriority, new GUIContent("Attack Priority",
+                                    "The priority/strength of the hit compared to other attacks.\n"+
+                                    "Priorities are listed in ascending order of strength."
+                                ));
                                 EditorGUILayout.PropertyField(hitpause, new GUIContent("Hit Pause", "If hit, the game pauses for this many ticks."));
                                 EditorGUILayout.PropertyField(blockpause, new GUIContent("Block Pause", "If blocked, the game pauses for this many ticks."));
                                 EditorGUILayout.PropertyField(hitstun, new GUIContent("Hit Stun", "If hit, the enemy will remain in the hit state for this amount of ticks."));
                                 EditorGUILayout.PropertyField(blockstun, new GUIContent("Block Stun", "If blocked, the enemy will remain in the blocking state for this amount of ticks."));
-                                EditorGUILayout.PropertyField(groundVelocity, new GUIContent("Ground Velocity", "If the enemy is on the ground, the enemy is set to this velocity."));
-                                EditorGUILayout.PropertyField(groundVelocityTime, new GUIContent("G.Velocity Time", "The enemy remains with the above velocity for this amount of ticks."));
-                                EditorGUILayout.PropertyField(airVelocity, new GUIContent("Air Velocity", "If the enemy is on the ground, the enemy is set to this velocity."));
-                                EditorGUILayout.PropertyField(airVelocityTime, new GUIContent("A.Velocity Time", "The enemy remains with the above velocity for this amount of ticks."));
+                                
+                                showHitVelocity = EditorGUILayout.Foldout(showHitVelocity, "Velocity on Hit", true);
+                                if (showHitVelocity) {
+                                    EditorGUI.indentLevel++;
+                                    EditorGUILayout.PropertyField(hitGroundVelocity, new GUIContent("Ground Velocity", "If the enemy is on the ground, the enemy is set to this velocity."));
+                                    EditorGUILayout.PropertyField(hitGroundVelocityTime, new GUIContent("G.Velocity Time", "The enemy remains with the above velocity for this amount of ticks."));
+                                    EditorGUILayout.PropertyField(hitAirVelocity, new GUIContent("Air Velocity", "If the enemy is on the ground, the enemy is set to this velocity."));
+                                    EditorGUILayout.PropertyField(hitAirVelocityTime, new GUIContent("A.Velocity Time", "The enemy remains with the above velocity for this amount of ticks."));
+                                    EditorGUI.indentLevel--;
+                                }
 
+                                showBlockVelocity = EditorGUILayout.Foldout(showBlockVelocity, "Velocity on Block", true);
+                                if (showBlockVelocity) {
+                                    EditorGUI.indentLevel++;
+                                    EditorGUILayout.PropertyField(blockGroundVelocity, new GUIContent("Ground Velocity", "If the enemy is on the ground and blocks the hit, the enemy is set to this velocity."));
+                                    EditorGUILayout.PropertyField(blockGroundVelocityTime, new GUIContent("G.Velocity Time", "The enemy remains with the above velocity for this amount of ticks."));
+                                    //EditorGUILayout.PropertyField(blockAirVelocity, new GUIContent("Air Velocity", "If the enemy is on the ground and blocks the hit, the enemy is set to this velocity."));
+                                    //EditorGUILayout.PropertyField(blockAirVelocityTime, new GUIContent("A.Velocity Time", "The enemy remains with the above velocity for this amount of ticks."));
+                                    EditorGUI.indentLevel--;
+                                }
+ 
                                 var hitfxlabel = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("hitfxlabel");
                                 var hitfxuid = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("hitfxuid");
                                 var effects = EffectSpawner.GetPools();

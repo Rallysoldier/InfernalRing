@@ -11,6 +11,8 @@ public class XoninCrouchLightAttack : CharacterState
         this.moveType = MoveType.CROUCH;
 	    this.stateType = StateType.ATTACK;
 
+        this.attackPriority = AttackPriority.LIGHT;
+
         this.animationName = this.character.characterName + "_CrouchLightAttack";
     }
 

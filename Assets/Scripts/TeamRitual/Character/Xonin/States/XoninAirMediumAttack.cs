@@ -11,6 +11,8 @@ public class XoninAirMediumAttack : CharacterState
         this.moveType = MoveType.AIR;
 	    this.stateType = StateType.ATTACK;
 
+        this.attackPriority = AttackPriority.MEDIUM;
+
         this.animationName = this.character.characterName + "_AirMediumAttack";
     }
 

@@ -11,6 +11,8 @@ public class XoninStandLightAttack : CharacterState
         this.moveType = MoveType.STAND;
 	    this.stateType = StateType.ATTACK;
 
+        this.attackPriority = AttackPriority.LIGHT;
+
         this.animationName = this.character.characterName + "_StandLightAttack";
     }
 

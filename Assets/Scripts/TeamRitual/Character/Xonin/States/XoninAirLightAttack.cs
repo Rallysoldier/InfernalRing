@@ -11,6 +11,8 @@ public class XoninAirLightAttack : CharacterState
         this.moveType = MoveType.AIR;
 	    this.stateType = StateType.ATTACK;
 
+        this.attackPriority = AttackPriority.LIGHT;
+
         this.animationName = this.character.characterName + "_AirLightAttack";
     }
 

@@ -75,15 +75,6 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public virtual ContactSummary UpdateStates() {
-        //Gets new character input based on the direction they're facing.
-        //Inverts F and B inputs if the character is facing the -x direction (facing == -1)
-        this.inputStr = this.inputHandler.getCharacterInput(this);
-        if (inputStr != prevInputStr) {
-            changedInput = true;
-        }
-        prevInputStr = inputStr;
-        this.inputHandler.updateBufferTime();
-
         if (this.currentState.stateType != StateType.HURT) {
             this.hitstun = 0;
         }
@@ -136,6 +127,17 @@ public class CharacterStateMachine : ScriptableObject
         this.grabColData.Clear();
         this.techColData.Clear();
         return contactSummary;
+    }
+
+    public void updateInputHandler() {
+        //Gets new character input based on the direction they're facing.
+        //Inverts F and B inputs if the character is facing the -x direction (facing == -1)
+        this.inputStr = this.inputHandler.getCharacterInput(this);
+        if (inputStr != prevInputStr) {
+            changedInput = true;
+        }
+        prevInputStr = inputStr;
+        this.inputHandler.updateBufferTime();
     }
 
     public virtual void changeStateOnInput() {

@@ -11,6 +11,8 @@ public class XoninAirHeavyAttack : CharacterState
         this.moveType = MoveType.AIR;
 	    this.stateType = StateType.ATTACK;
 
+        this.attackPriority = AttackPriority.HEAVY;
+
         this.animationName = this.character.characterName + "_AirHeavyAttack";
     }
 

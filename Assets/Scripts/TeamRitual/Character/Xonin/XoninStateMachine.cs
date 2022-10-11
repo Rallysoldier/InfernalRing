@@ -21,7 +21,7 @@ public class XoninStateMachine : CharacterStateMachine
     }
 
     public override void changeStateOnInput() {
-        if (this.currentState.inputChangeState && changedInput) {
+        if (this.currentState.inputChangeState && changedInput || (this.currentState.stateType == StateType.ATTACK && this.enemy.hitstun > 0)) {
             if (this.currentState.moveType == MoveType.STAND) {
                 if (this.inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).StandLightAttack());
@@ -38,7 +38,7 @@ public class XoninStateMachine : CharacterStateMachine
                 if (this.inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).AirLightAttack());
                 } else if (this.inputStr.EndsWith("M")) {
-                    this.currentState.SwitchState((states as XoninStateFactory).CrouchLightAttack());
+                    this.currentState.SwitchState((states as XoninStateFactory).AirMediumAttack());
                 } else if (this.inputStr.EndsWith("H")) {
                     this.currentState.SwitchState((states as XoninStateFactory).AirHeavyAttack());
                 }

@@ -21,7 +21,8 @@ public class XoninCrouchLightAttack : CharacterState
     public override void UpdateState() {
         base.UpdateState();
 
-        if (stateTime > 10)
+        if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.animationName)
+            && this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
             this.SwitchState(this.character.states.Crouch());
     }
 

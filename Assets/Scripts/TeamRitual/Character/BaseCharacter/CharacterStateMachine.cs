@@ -84,6 +84,13 @@ public class CharacterStateMachine : ScriptableObject
         prevInputStr = inputStr;
         this.inputHandler.updateBufferTime();
 
+        if (this.currentState.stateType != StateType.HURT) {
+            this.hitstun = 0;
+        }
+        if (this.currentState != states.GuardStand() || this.currentState != states.GuardCrouch()) {
+            this.blockstun = 0;
+        }
+
         body.gravityScale = 0.0f;
         switch (this.currentState.physicsType)
         {

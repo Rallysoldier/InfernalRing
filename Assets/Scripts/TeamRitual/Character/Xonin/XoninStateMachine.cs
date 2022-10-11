@@ -25,14 +25,20 @@ public class XoninStateMachine : CharacterStateMachine
             if (this.currentState.moveType == MoveType.STAND) {
                 if (this.inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).StandLightAttack());
+                } else if (this.inputStr.EndsWith("M")) {
+                    this.currentState.SwitchState((states as XoninStateFactory).StandMediumAttack());
                 }
             } else if (this.currentState.moveType == MoveType.CROUCH) {
                 if (this.inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).CrouchLightAttack());
+                } else if (this.inputStr.EndsWith("M")) {
+                    this.currentState.SwitchState((states as XoninStateFactory).CrouchMediumAttack());
                 }
             } else if (this.currentState.moveType == MoveType.AIR) {
                 if (this.inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).AirLightAttack());
+                } else if (this.inputStr.EndsWith("M")) {
+                    this.currentState.SwitchState((states as XoninStateFactory).CrouchLightAttack());
                 } else if (this.inputStr.EndsWith("H")) {
                     this.currentState.SwitchState((states as XoninStateFactory).AirHeavyAttack());
                 }

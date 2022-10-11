@@ -28,6 +28,7 @@ public class CharacterStateMachine : ScriptableObject
     public int health;
     public int hitstun;
     public int blockstun;
+    public int cancelPriority = 0;
 
     public Vector2 velocityWalkForward = new Vector2(2,0);
     public Vector2 velocityWalkBack = new Vector2(-2,0);

@@ -114,7 +114,7 @@ public class GameController : MonoBehaviour {
             if (this.pause > 0) {
                 if (i != this.playerPaused) {
                     if (Players[i].m_Animator != null) {
-                        Players[i].m_Animator.speed = 0;
+                        Players[i].m_Animator.enabled = false;
                     }
                     if (Players[i].m_RigidBody != null) {
                         Players[i].m_RigidBody.Sleep();
@@ -123,7 +123,7 @@ public class GameController : MonoBehaviour {
             } else {
                 this.playerPaused = -1;
                 if (Players[i].m_Animator != null) {
-                    Players[i].m_Animator.speed = 1;
+                    Players[i].m_Animator.enabled = true;
                 }
                 if (Players[i].m_RigidBody != null) {
                     Players[i].m_RigidBody.WakeUp();
@@ -195,7 +195,7 @@ public class GameController : MonoBehaviour {
                         characterHurt.Hit(hit);
                     }
                 }
-            } else {
+            } else if (winningPriority > 0 && (Players[0].stateMachine.currentState.stateType == StateType.ATTACK || Players[1].stateMachine.currentState.stateType == StateType.ATTACK)) {
                 Pause(winningPriority*5);
                 if (P1_Hits.bodyColData.Count > 0) {
                     EffectSpawner.PlayHitEffect(

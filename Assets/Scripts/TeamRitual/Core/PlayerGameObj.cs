@@ -43,6 +43,7 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
         m_Renderer = GetComponent<SpriteRenderer>();
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_Renderer = GetComponent<SpriteRenderer>();
+        m_Animator = GetComponent<Animator>();
         m_HitboxManager = GetComponent<HitboxManager>();
         m_DefaultColor = m_Renderer.color;
     }

@@ -19,8 +19,7 @@ public class GameController : MonoBehaviour {
     public int playerPaused = -1;
     public int pause = 0;
 
-    public static Camera mainCamera;
-    float cameraLerp = 15f;
+    float cameraLerp = 10f;
 
     public GameController() {
         Instance = this;
@@ -28,8 +27,6 @@ public class GameController : MonoBehaviour {
 
     void Awake()
     {
-        mainCamera = Camera.main;
-        
         for (int c = 0; c < characterNames.Count; c++) {
             for (int i = 0; i < Characters.Length; i++) {
                 if (Characters[i].name == characterNames[c]) {
@@ -220,32 +217,25 @@ public class GameController : MonoBehaviour {
     void Update() {//Camera movement by linearly interpolating through points
 
         //TODO: Add more camera modes: CameraFocus.Player1, CameraFocus.Player2, CameraFocus.Both, CameraFocus.None
-        float avgX = (Players[0].stateMachine.body.position.x + 
-            Players.Count < 2 ? 0 : Players[1].stateMachine.body.position.x)/2;
-        float avgY = (Players[0].stateMachine.body.position.y + 
-            Players.Count < 2 ? 0 : Players[1].stateMachine.body.position.y)/2;
-        if (avgX < -4.7f) {
-            avgX = -4.7f;
-        } else if (avgX > 4.7f) {
-            avgX = 4.7f;
-        }
+        float avgX = (Players[0].m_RigidBody.position.x + Players[1].m_RigidBody.position.x)/2;
+        float avgY = (Players[0].m_RigidBody.position.y + Players[1].m_RigidBody.position.y)/2;
 
         Vector3 cameraDestination = new Vector3(avgX, avgY + 2.5f, -10); //Replace 2.5f with the average of characters' heights
         LerpCamera(cameraDestination);
     }
 
     void LerpCamera(Vector3 cameraDestination) {
-        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, cameraDestination, cameraLerp * Time.deltaTime);
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cameraDestination, cameraLerp * Time.deltaTime);
     }
 
     public void SetCameraPos(Vector2 pos) {
         Vector3 cameraDestination = new Vector3(pos.x, pos.y, -10);
-        mainCamera.transform.position = cameraDestination;
+        Camera.main.transform.position = cameraDestination;
     }
 
     public void SetCameraPos(float x, float y) {
         Vector3 cameraDestination = new Vector3(x, y,-10);
-        mainCamera.transform.position = cameraDestination;
+        Camera.main.transform.position = cameraDestination;
     }
 
     public void SetCameraLerp(float lerp) {

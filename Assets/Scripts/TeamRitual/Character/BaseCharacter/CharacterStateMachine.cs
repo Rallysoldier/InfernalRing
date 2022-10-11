@@ -275,6 +275,14 @@ public class CharacterStateMachine : ScriptableObject
                 break;
         }
 
+        switch (hit.AttackPriority) {
+            case AttackPriority.LIGHT:
+                EffectSpawner.PlayHitEffect(
+                    100, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
+                );
+                break;
+        }
+
         enemy.currentState.moveContact++;
         enemy.currentState.moveHit++;
         return true;

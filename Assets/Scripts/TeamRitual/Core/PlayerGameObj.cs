@@ -42,8 +42,6 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
         m_Transform.localScale = new Vector2(3.0f,3.0f);
         m_Renderer = GetComponent<SpriteRenderer>();
         m_RigidBody = GetComponent<Rigidbody2D>();
-        m_Animator = GetComponent<Animator>();
-        m_Animator.runtimeAnimatorController = Resources.Load("Animation/Character/AC_"+characterName) as RuntimeAnimatorController;
         m_Renderer = GetComponent<SpriteRenderer>();
         m_HitboxManager = GetComponent<HitboxManager>();
         m_DefaultColor = m_Renderer.color;

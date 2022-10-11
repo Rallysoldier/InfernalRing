@@ -662,7 +662,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c7e78ea490f05f346920e9e293dd4ee7, type: 2}
     - target: {fileID: 9109224229579291538, guid: 174d51cb6ab402f47b283c7ab8e7da0f, type: 3}
       propertyPath: m_MaxHitboxes
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9109224229579291538, guid: 174d51cb6ab402f47b283c7ab8e7da0f, type: 3}
       propertyPath: m_CurrentAnimation

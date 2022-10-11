@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour {
         
         for (int c = 0; c < characterNames.Count; c++) {
             for (int i = 0; i < Characters.Length; i++) {
-                if (Characters[i].characterName == characterNames[c]) {
+                if (Characters[i].name == characterNames[c]) {
                     Players.Add(Instantiate(Characters[i], new Vector3(5 * c == 0 ? 1 : -1, 0, 0), Quaternion.identity));
                     goto end_of_loop;
                 }
@@ -75,7 +75,7 @@ public class GameController : MonoBehaviour {
             }
 
             //Swap palettes if characters and selected palettes are the same
-            if (i > 0 && selectedPalettes[i] == selectedPalettes[i-1] && Players[i].characterName == Players[i-1].characterName) {
+            if (i > 0 && selectedPalettes[i] == selectedPalettes[i-1] && Players[i].name == Players[i-1].name) {
                 playerObj.SetPalette(playerObj.NextPaletteIndex(selectedPalettes[i]));
             } else {
                 playerObj.SetPalette(selectedPalettes[i]);
@@ -185,7 +185,7 @@ public class GameController : MonoBehaviour {
                                 blocked = true;
                             } else if (enemyHoldingDown && hit.GuardType == GuardType.LOW) {
                                 blocked = true;
-                            } else if (!enemyHoldingDown) {
+                            } else if (!enemyHoldingDown && hit.GuardType == GuardType.HIGH) {
                                 blocked = true;
                             }
                         }

@@ -177,15 +177,17 @@ public class GameController : MonoBehaviour {
                         break;
 
                     bool blocked = false;
-                    bool enemyHoldingBack = characterHurt.inputHandler.held(characterHurt.inputHandler.BackInput(characterHurt));
-                    bool enemyHoldingDown = characterHurt.inputHandler.held("D");
-                    if (enemyHoldingBack && hit.GuardType != GuardType.UNBLOCKABLE && characterHurt.currentState.moveType != MoveType.AIR) {//If holding back and attack isn't unblockable
-                        if (hit.GuardType == GuardType.MID) {
-                            blocked = true;
-                        } else if (enemyHoldingDown && hit.GuardType == GuardType.LOW) {
-                            blocked = true;
-                        } else if (!enemyHoldingDown) {
-                            blocked = true;
+                    if (characterHurt.currentState.inputChangeState) {
+                        bool enemyHoldingBack = characterHurt.inputHandler.held(characterHurt.inputHandler.BackInput(characterHurt));
+                        bool enemyHoldingDown = characterHurt.inputHandler.held("D");
+                        if (enemyHoldingBack && hit.GuardType != GuardType.UNBLOCKABLE && characterHurt.currentState.moveType != MoveType.AIR) {//If holding back and attack isn't unblockable
+                            if (hit.GuardType == GuardType.MID) {
+                                blocked = true;
+                            } else if (enemyHoldingDown && hit.GuardType == GuardType.LOW) {
+                                blocked = true;
+                            } else if (!enemyHoldingDown) {
+                                blocked = true;
+                            }
                         }
                     }
 

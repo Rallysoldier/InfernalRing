@@ -23,5 +23,9 @@ public class XoninStateFactory : CharacterStateFactory
         return new XoninAirLightAttack(context, this);
     }
 
+    public CharacterState AirHeavyAttack()
+    {
+        return new XoninAirHeavyAttack(context, this);
+    }
 }
 }

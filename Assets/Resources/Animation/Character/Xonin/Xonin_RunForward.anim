@@ -72,25 +72,3 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0
-    functionName: UpdateHitbox
-    data: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAHBCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAP////8NAAAAIgAAAFUAAAAAAAAA0////wgAAAAsAAAAHAAAAAAAAAA=
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 7
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: _EVENT_SET_SPEED
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.11666667
-    functionName: _EVENT_SET_SPEED
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0

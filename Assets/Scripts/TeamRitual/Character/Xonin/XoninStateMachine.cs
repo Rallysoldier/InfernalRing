@@ -33,6 +33,8 @@ public class XoninStateMachine : CharacterStateMachine
             } else if (this.currentState.moveType == MoveType.AIR) {
                 if (this.inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).AirLightAttack());
+                } else if (this.inputStr.EndsWith("H")) {
+                    this.currentState.SwitchState((states as XoninStateFactory).AirHeavyAttack());
                 }
             }
         }

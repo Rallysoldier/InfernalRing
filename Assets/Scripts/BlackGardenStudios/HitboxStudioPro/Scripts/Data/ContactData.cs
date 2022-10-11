@@ -7,6 +7,17 @@ namespace BlackGardenStudios.HitboxStudioPro
         public HitboxFeeder MyHitbox;
         public HitboxFeeder TheirHitbox;
 
+        
+        /// <summary>
+        /// Identifier of the hit effect this attack uses.
+        /// </summary>
+        public int fxID;
+
+        /// <summary>
+        /// Intersection point between these two hitboxes. Place a hit effect at this location.
+        /// </summary>
+        public Vector2 Point;
+
         /// <summary>
         /// The number of hits the attack this frame belongs to can make
         /// </summary>
@@ -84,22 +95,46 @@ namespace BlackGardenStudios.HitboxStudioPro
         /// <summary>
         /// If the enemy is in the air, the enemy is set to this velocity.
         /// </summary>
-        //public Vector2 BlockAirVelocity;
+        public Vector2 BlockAirVelocity;
         /// <summary>
         /// The enemy remains with the hit's air velocity for this amount of ticks.
         /// </summary>
-        //public int BlockAirVelocityTime;
+        public int BlockAirVelocityTime;
 
-        /// <summary>
-        /// Identifier of the hit effect this attack uses.
-        /// </summary>
-        public int fxID;
+        public float GiveSelfPower;
+        public float GiveEnemyPower;
 
-        /// <summary>
-        /// Intersection point between these two hitboxes. Place a hit effect at this location.
-        /// </summary>
-        public Vector2 Point;
+        public bool DownedHit;
+        public float DownedDamage;
+        public int DownedHitstun;
+        public Vector2 DownedVelocity;
 
-        //New custom fields
+        public float FallingGravity;
+        public bool FallAir;
+        public bool FallGround;
+        public bool FallRecover;
+
+        public Vector2 Bounce;
+        public float BounceGravity;
+        public float Slide;
+        public float SlideTime;
+        public bool BounceRecover;
+        public Vector2 WallBounce;
+        public float WallBounceGravity;
+        public float WallBounceSlide;
+        public int WallBounceTime;
+
+        public int DownTime;
+        public bool DownRecover;
+
+        public int HitShakeTime;
+        public float HitShakeX;
+        public float HitShakeY;
+        public int FallShakeTime;
+        public float FallShakeX;
+        public float FallShakeY;
+
+        public bool ForceStand;
+        public bool FlipEnemy;
     }
 }

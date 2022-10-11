@@ -28,6 +28,43 @@ namespace BlackGardenStudios.HitboxStudioPro
         private int m_blockGroundVelocityTime;
         private Vector2 m_blockAirVelocity;
         private int m_blockAirVelocityTime;
+
+        private float m_giveSelfPower;
+        private float m_giveEnemyPower;
+
+        private bool m_downedHit;
+        private float m_downedDamage;
+        private int m_downedHitstun;
+        private Vector2 m_downedVelocity;
+
+        private float m_fallingGravity;
+        private bool m_fallAir;
+        private bool m_fallGround;
+        private bool m_fallRecover;
+
+        private Vector2 m_bounce;
+        private float m_bounceGravity;
+        private bool m_bounceRecover;
+        private float m_slide;
+        private int m_slideTime;
+        private Vector2 m_wallBounce;
+        private float m_wallBounceGravity;
+        private float m_wallBounceSlide;
+        private int m_wallBounceTime;
+
+        private int m_downTime;
+        private bool m_downRecover;
+
+        private int m_hitShakeTime;
+        private float m_hitShakeX;
+        private float m_hitShakeY;
+        private int m_fallShakeTime;
+        private float m_fallShakeX;
+        private float m_fallShakeY;
+
+        private bool m_forceStand;
+        private bool m_flipEnemy;
+
         private int m_frame;
         /****/
         private bool m_DidHit = false;
@@ -56,8 +93,14 @@ namespace BlackGardenStudios.HitboxStudioPro
         public void Feed(Vector2 boxSize, Vector2 boxOffset, int ID, HitboxType type,
             float damage, float chipDamage, GuardType guardType, AttackPriority attackPriority, int hitstun, int blockstun,
             Vector2 hitGroundVelocity, int hitGroundVelocityTime, Vector2 hitAirVelocity, int hitAirVelocityTime,
-            Vector2 blockGroundVelocity, int blockHroundVelocityTime, Vector2 blockAirVelocity, int blockAirVelocityTime,
-            int frame, int hitpause, int blockpause, int fxUID, int hits)
+            Vector2 blockGroundVelocity, int blockGroundVelocityTime, Vector2 blockAirVelocity, int blockAirVelocityTime,
+            int frame, int hitpause, int blockpause, int fxUID, int hits,
+            float giveSelfPower, float giveEnemyPower, bool downedHit, float downedDamage, int downedHitstun, Vector2 downedVelocity,
+            float fallingGravity, bool fallAir, bool fallGround, bool fallRecover, Vector2 bounce, float bounceGravity, bool bounceRecover,
+            float slide, int slideTime, Vector2 wallBounce, float wallBounceGravity, float wallBounceSlide, int wallBounceTime,
+            int downTime, bool downRecover, int hitShakeTime, float hitShakeX, float hitShakeY, int fallShakeTime, float fallShakeX, float fallShakeY,
+            bool forceStand, bool flipEnemy
+            )
         {
             Type = type;
             m_Damage = damage;
@@ -75,9 +118,38 @@ namespace BlackGardenStudios.HitboxStudioPro
             m_hitAirVelocity = hitAirVelocity;
             m_hitAirVelocityTime = hitAirVelocityTime;
             m_blockGroundVelocity = blockGroundVelocity;
-            m_blockGroundVelocityTime = blockHroundVelocityTime;
+            m_blockGroundVelocityTime = blockGroundVelocityTime;
             m_blockAirVelocity = blockAirVelocity;
             m_blockAirVelocityTime = blockAirVelocityTime;
+            m_giveSelfPower = giveSelfPower;
+            m_giveEnemyPower = giveEnemyPower;
+            m_downedHit = downedHit;
+            m_downedDamage = downedDamage;
+            m_downedHitstun = downedHitstun;
+            m_downedVelocity = downedVelocity;
+            m_fallingGravity = fallingGravity;
+            m_fallAir = fallAir;
+            m_fallGround = fallGround;
+            m_fallRecover = fallRecover;
+            m_bounce = bounce;
+            m_bounceGravity = bounceGravity;
+            m_bounceRecover = bounceRecover;
+            m_slide = slide;
+            m_slideTime = slideTime;
+            m_wallBounce = wallBounce;
+            m_wallBounceGravity = wallBounceGravity;
+            m_wallBounceSlide = wallBounceSlide;
+            m_wallBounceTime = wallBounceTime;
+            m_downTime = downTime;
+            m_downRecover = downRecover;
+            m_hitShakeTime = hitShakeTime;
+            m_hitShakeX = hitShakeX;
+            m_hitShakeY = hitShakeY;
+            m_fallShakeTime = fallShakeTime;
+            m_fallShakeX = fallShakeX;
+            m_fallShakeY = fallShakeY;
+            m_forceStand = forceStand;
+            m_flipEnemy = flipEnemy;
             m_frame = frame;
             /****/
             Collider.size = boxSize;
@@ -176,9 +248,38 @@ namespace BlackGardenStudios.HitboxStudioPro
                     HitAirVelocityTime = feeder.m_hitAirVelocityTime,
                     BlockGroundVelocity = feeder.m_blockGroundVelocity,
                     BlockGroundVelocityTime = feeder.m_blockGroundVelocityTime,
-                    //BlockAirVelocity = feeder.m_blockAirVelocity,
-                    //BlockAirVelocityTime = feeder.m_blockAirVelocityTime,
+                    BlockAirVelocity = feeder.m_blockAirVelocity,
+                    BlockAirVelocityTime = feeder.m_blockAirVelocityTime,
                     Frame = m_frame,
+                    GiveSelfPower = feeder.m_giveSelfPower,
+                    GiveEnemyPower = feeder.m_giveEnemyPower,
+                    DownedHit = feeder.m_downedHit,
+                    DownedDamage = feeder.m_downedDamage,
+                    DownedHitstun = feeder.m_downedHitstun,
+                    DownedVelocity = feeder.m_downedVelocity,
+                    FallingGravity = feeder.m_fallingGravity,
+                    FallAir = feeder.m_fallAir,
+                    FallGround = feeder.m_fallGround,
+                    FallRecover = feeder.m_fallRecover,
+                    Bounce = feeder.m_bounce,
+                    BounceGravity = feeder.m_bounceGravity,
+                    BounceRecover = feeder.m_bounceRecover,
+                    Slide = feeder.m_slide,
+                    SlideTime = feeder.m_slideTime,
+                    WallBounce = feeder.m_wallBounce,
+                    WallBounceGravity = feeder.m_wallBounceGravity,
+                    WallBounceSlide = feeder.m_wallBounceSlide,
+                    WallBounceTime = feeder.m_wallBounceTime,
+                    DownTime = feeder.m_downTime,
+                    DownRecover = feeder.m_downRecover,
+                    HitShakeTime = feeder.m_hitShakeTime,
+                    HitShakeX = feeder.m_hitShakeX,
+                    HitShakeY = feeder.m_hitShakeY,
+                    FallShakeTime = feeder.m_fallShakeTime,
+                    FallShakeX = feeder.m_fallShakeX,
+                    FallShakeY = feeder.m_fallShakeY,
+                    ForceStand = feeder.m_forceStand,
+                    FlipEnemy = feeder.m_flipEnemy,
                     /****/
                     fxID = feeder.m_FXUID
                 }

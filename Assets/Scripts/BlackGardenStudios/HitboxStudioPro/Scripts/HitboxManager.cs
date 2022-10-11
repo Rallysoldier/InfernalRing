@@ -52,7 +52,7 @@ namespace BlackGardenStudios.HitboxStudioPro
 #if UNITY_EDITOR
             public string Serialize()
             {
-                List<byte> data = new List<byte>(256);
+                List<byte> data = new List<byte>();
                 data.AddRange(BinaryStructConverter.ToByteArray((serializableData)this));
 
                 if (frame.collider != null && frame.collider.Length > 0)
@@ -111,13 +111,7 @@ namespace BlackGardenStudios.HitboxStudioPro
                 public int numColliders;
                 public float framerate;
                 public float movementspeed;
-                public float poise;
-                public float strength;
-                public float damage;
-                public Vector2 force;
-                public Matrix2x2 direction;
                 public int numhits;
-                public int hitfxuid;
                 public bool hasnextframe;
 
                 public static implicit operator serializableData(internalFrameData v)
@@ -158,9 +152,45 @@ namespace BlackGardenStudios.HitboxStudioPro
             public int blockGroundVelocityTime;
             public Vector2 blockAirVelocity;
             public int blockAirVelocityTime;
-            int hitpause;
-            int blockpause;
+            public int hitpause;
+            public int blockpause;
             public int hitfxuid;
+
+            public float giveSelfPower;
+            public float giveEnemyPower;
+
+            public bool downedHit;
+            public float downedDamage;
+            public int downedHitstun;
+            public Vector2 downedVelocity;
+
+            public float fallingGravity;
+            public bool fallAir;
+            public bool fallGround;
+            public bool fallRecover;
+
+            public Vector2 bounce;
+            public float bounceGravity;
+            public bool bounceRecover;
+            public float slide;
+            public int slideTime;
+            public Vector2 wallBounce;
+            public float wallBounceGravity;
+            public float wallBounceSlide;
+            public int wallBounceTime;
+
+            public int downTime;
+            public bool downRecover;
+
+            public int hitShakeTime;
+            public float hitShakeX;
+            public float hitShakeY;
+            public int fallShakeTime;
+            public float fallShakeX;
+            public float fallShakeY;
+
+            public bool forceStand;
+            public bool flipEnemy;
 
             public static implicit operator internalHitboxData(HitboxAnimationFrame v)
             {
@@ -188,7 +218,35 @@ namespace BlackGardenStudios.HitboxStudioPro
                     blockAirVelocityTime = v.blockAirVelocityTime,
                     hitpause = v.hitpause,
                     blockpause = v.blockpause,
-                    hitfxuid = v.hitfxuid
+                    hitfxuid = v.hitfxuid,
+                    giveEnemyPower = v.giveEnemyPower,
+                    downedHit = v.downedHit,
+                    downedDamage = v.downedDamage,
+                    downedHitstun = v.downedHitstun,
+                    downedVelocity = v.downedVelocity,
+                    fallingGravity = v.fallingGravity,
+                    fallAir = v.fallAir,
+                    fallGround = v.fallGround,
+                    fallRecover = v.fallRecover,
+                    bounce = v.bounce,
+                    bounceGravity = v.bounceGravity,
+                    bounceRecover = v.bounceRecover,
+                    slide = v.slide,
+                    slideTime = v.slideTime,
+                    wallBounce = v.wallBounce,
+                    wallBounceGravity = v.wallBounceGravity,
+                    wallBounceSlide = v.wallBounceSlide,
+                    wallBounceTime = v.wallBounceTime,
+                    downTime = v.downTime,
+                    downRecover = v.downRecover,
+                    hitShakeTime = v.hitShakeTime,
+                    hitShakeX = v.hitShakeX,
+                    hitShakeY = v.hitShakeY,
+                    fallShakeTime = v.fallShakeTime,
+                    fallShakeX = v.fallShakeX,
+                    fallShakeY = v.fallShakeY,
+                    forceStand = v.forceStand,
+                    flipEnemy = v.flipEnemy,
 
                     /**************/
                 };
@@ -199,7 +257,52 @@ namespace BlackGardenStudios.HitboxStudioPro
                 return new internalHitboxData
                 {
                     capsuleOffset = v.capsuleOffset,
-                    smoothedOffset = v.smoothedOffset
+                    smoothedOffset = v.smoothedOffset,
+                    damage = v.damage,
+                    chipDamage = v.chipDamage,
+                    guardType = v.guardType,
+                    attackPriority = v.attackPriority,
+                    hitstun = v.hitstun,
+                    blockstun = v.blockstun,
+                    hitGroundVelocity = v.hitGroundVelocity,
+                    hitGroundVelocityTime = v.hitGroundVelocityTime,
+                    hitAirVelocity = v.hitAirVelocity,
+                    hitAirVelocityTime = v.hitAirVelocityTime,
+                    blockGroundVelocity = v.blockGroundVelocity,
+                    blockGroundVelocityTime = v.blockGroundVelocityTime,
+                    blockAirVelocity = v.blockAirVelocity,
+                    blockAirVelocityTime = v.blockAirVelocityTime,
+                    hitpause = v.hitpause,
+                    blockpause = v.blockpause,
+                    hitfxuid = v.hitfxuid,
+                    giveEnemyPower = v.giveEnemyPower,
+                    downedHit = v.downedHit,
+                    downedDamage = v.downedDamage,
+                    downedHitstun = v.downedHitstun,
+                    downedVelocity = v.downedVelocity,
+                    fallingGravity = v.fallingGravity,
+                    fallAir = v.fallAir,
+                    fallGround = v.fallGround,
+                    fallRecover = v.fallRecover,
+                    bounce = v.bounce,
+                    bounceGravity = v.bounceGravity,
+                    bounceRecover = v.bounceRecover,
+                    slide = v.slide,
+                    slideTime = v.slideTime,
+                    wallBounce = v.wallBounce,
+                    wallBounceGravity = v.wallBounceGravity,
+                    wallBounceSlide = v.wallBounceSlide,
+                    wallBounceTime = v.wallBounceTime,
+                    downTime = v.downTime,
+                    downRecover = v.downRecover,
+                    hitShakeTime = v.hitShakeTime,
+                    hitShakeX = v.hitShakeX,
+                    hitShakeY = v.hitShakeY,
+                    fallShakeTime = v.fallShakeTime,
+                    fallShakeX = v.fallShakeX,
+                    fallShakeY = v.fallShakeY,
+                    forceStand = v.forceStand,
+                    flipEnemy = v.flipEnemy,
                 };
             }
         }
@@ -210,12 +313,112 @@ namespace BlackGardenStudios.HitboxStudioPro
             public Vector2Int capsuleOffset;
             public bool smoothedOffset;
 
+            public float damage;
+            public float chipDamage;
+            public GuardType guardType;
+            public AttackPriority attackPriority;
+            public int hitstun;
+            public int blockstun;
+            public Vector2 hitGroundVelocity;
+            public int hitGroundVelocityTime;
+            public Vector2 hitAirVelocity;
+            public int hitAirVelocityTime;
+            public Vector2 blockGroundVelocity;
+            public int blockGroundVelocityTime;
+            public Vector2 blockAirVelocity;
+            public int blockAirVelocityTime;
+            public int hitpause;
+            public int blockpause;
+            public int hitfxuid;
+
+            public float giveSelfPower;
+            public float giveEnemyPower;
+
+            public bool downedHit;
+            public float downedDamage;
+            public int downedHitstun;
+            public Vector2 downedVelocity;
+
+            public float fallingGravity;
+            public bool fallAir;
+            public bool fallGround;
+            public bool fallRecover;
+
+            public Vector2 bounce;
+            public float bounceGravity;
+            public bool bounceRecover;
+            public float slide;
+            public int slideTime;
+            public Vector2 wallBounce;
+            public float wallBounceGravity;
+            public float wallBounceSlide;
+            public int wallBounceTime;
+
+            public int downTime;
+            public bool downRecover;
+
+            public int hitShakeTime;
+            public float hitShakeX;
+            public float hitShakeY;
+            public int fallShakeTime;
+            public float fallShakeX;
+            public float fallShakeY;
+
+            public bool forceStand;
+            public bool flipEnemy;
+
             public static implicit operator internalOffsetData(HitboxAnimationFrame v)
             {
                 return new internalOffsetData
                 {
                     capsuleOffset = v.capsuleOffset,
-                    smoothedOffset = v.smoothedOffset
+                    smoothedOffset = v.smoothedOffset,
+                    damage = v.damage,
+                    chipDamage = v.chipDamage,
+                    guardType = v.guardType,
+                    attackPriority = v.attackPriority,
+                    hitstun = v.hitstun,
+                    blockstun = v.blockstun,
+                    hitGroundVelocity = v.hitGroundVelocity,
+                    hitGroundVelocityTime = v.hitGroundVelocityTime,
+                    hitAirVelocity = v.hitAirVelocity,
+                    hitAirVelocityTime = v.hitAirVelocityTime,
+                    blockGroundVelocity = v.blockGroundVelocity,
+                    blockGroundVelocityTime = v.blockGroundVelocityTime,
+                    blockAirVelocity = v.blockAirVelocity,
+                    blockAirVelocityTime = v.blockAirVelocityTime,
+                    hitpause = v.hitpause,
+                    blockpause = v.blockpause,
+                    hitfxuid = v.hitfxuid,
+                    giveSelfPower = v.giveSelfPower,
+                    giveEnemyPower = v.giveEnemyPower,
+                    downedHit = v.downedHit,
+                    downedDamage = v.downedDamage,
+                    downedHitstun = v.downedHitstun,
+                    downedVelocity = v.downedVelocity,
+                    fallingGravity = v.fallingGravity,
+                    fallAir = v.fallAir,
+                    fallGround = v.fallGround,
+                    fallRecover = v.fallRecover,
+                    bounce = v.bounce,
+                    bounceGravity = v.bounceGravity,
+                    bounceRecover = v.bounceRecover,
+                    slide = v.slide,
+                    slideTime = v.slideTime,
+                    wallBounce = v.wallBounce,
+                    wallBounceGravity = v.wallBounceGravity,
+                    wallBounceSlide = v.wallBounceSlide,
+                    wallBounceTime = v.wallBounceTime,
+                    downTime = v.downTime,
+                    downRecover = v.downRecover,
+                    hitShakeTime = v.hitShakeTime,
+                    hitShakeX = v.hitShakeX,
+                    hitShakeY = v.hitShakeY,
+                    fallShakeTime = v.fallShakeTime,
+                    fallShakeX = v.fallShakeX,
+                    fallShakeY = v.fallShakeY,
+                    forceStand = v.forceStand,
+                    flipEnemy = v.flipEnemy,
                 };
             }
 
@@ -224,7 +427,53 @@ namespace BlackGardenStudios.HitboxStudioPro
                 return new internalOffsetData
                 {
                     capsuleOffset = v.capsuleOffset,
-                    smoothedOffset = v.smoothedOffset
+                    smoothedOffset = v.smoothedOffset,
+                    damage = v.damage,
+                    chipDamage = v.chipDamage,
+                    guardType = v.guardType,
+                    attackPriority = v.attackPriority,
+                    hitstun = v.hitstun,
+                    blockstun = v.blockstun,
+                    hitGroundVelocity = v.hitGroundVelocity,
+                    hitGroundVelocityTime = v.hitGroundVelocityTime,
+                    hitAirVelocity = v.hitAirVelocity,
+                    hitAirVelocityTime = v.hitAirVelocityTime,
+                    blockGroundVelocity = v.blockGroundVelocity,
+                    blockGroundVelocityTime = v.blockGroundVelocityTime,
+                    blockAirVelocity = v.blockAirVelocity,
+                    blockAirVelocityTime = v.blockAirVelocityTime,
+                    hitpause = v.hitpause,
+                    blockpause = v.blockpause,
+                    hitfxuid = v.hitfxuid,
+                    giveSelfPower = v.giveSelfPower,
+                    giveEnemyPower = v.giveEnemyPower,
+                    downedHit = v.downedHit,
+                    downedDamage = v.downedDamage,
+                    downedHitstun = v.downedHitstun,
+                    downedVelocity = v.downedVelocity,
+                    fallingGravity = v.fallingGravity,
+                    fallAir = v.fallAir,
+                    fallGround = v.fallGround,
+                    fallRecover = v.fallRecover,
+                    bounce = v.bounce,
+                    bounceGravity = v.bounceGravity,
+                    bounceRecover = v.bounceRecover,
+                    slide = v.slide,
+                    slideTime = v.slideTime,
+                    wallBounce = v.wallBounce,
+                    wallBounceGravity = v.wallBounceGravity,
+                    wallBounceSlide = v.wallBounceSlide,
+                    wallBounceTime = v.wallBounceTime,
+                    downTime = v.downTime,
+                    downRecover = v.downRecover,
+                    hitShakeTime = v.hitShakeTime,
+                    hitShakeX = v.hitShakeX,
+                    hitShakeY = v.hitShakeY,
+                    fallShakeTime = v.fallShakeTime,
+                    fallShakeX = v.fallShakeX,
+                    fallShakeY = v.fallShakeY,
+                    forceStand = v.forceStand,
+                    flipEnemy = v.flipEnemy,
                 };
             }
         }
@@ -245,14 +494,8 @@ namespace BlackGardenStudios.HitboxStudioPro
             public HitboxAnimationFrame[] framedata;
             public MovementState movementstate;
             public float movementspeed;
-            public float poise;
-            public float strength;
-            public float damage;
-            public Vector2 force;
-            public Matrix2x2 direction;
-            public int numhits;            
+            public int numhits;
             public int hitfxlabel;
-            public int hitfxuid;
         }
 
         [Serializable]
@@ -280,6 +523,41 @@ namespace BlackGardenStudios.HitboxStudioPro
             public int blockpause;
             public int hitfxlabel;
             public int hitfxuid;
+            public float giveSelfPower;
+            public float giveEnemyPower;
+
+            public bool downedHit;
+            public float downedDamage;
+            public int downedHitstun;
+            public Vector2 downedVelocity;
+
+            public float fallingGravity;
+            public bool fallAir;
+            public bool fallGround;
+            public bool fallRecover;
+
+            public Vector2 bounce;
+            public float bounceGravity;
+            public bool bounceRecover;
+            public float slide;
+            public int slideTime;
+            public Vector2 wallBounce;
+            public float wallBounceGravity;
+            public float wallBounceSlide;
+            public int wallBounceTime;
+
+            public int downTime;
+            public bool downRecover;
+
+            public int hitShakeTime;
+            public float hitShakeX;
+            public float hitShakeY;
+            public int fallShakeTime;
+            public float fallShakeX;
+            public float fallShakeY;
+
+            public bool forceStand;
+            public bool flipEnemy;
 
             /**************/
 
@@ -726,76 +1004,60 @@ namespace BlackGardenStudios.HitboxStudioPro
                         rect.x -= rect.width;
                     }
                     
-                    float damage = 0f;
-                    float chipDamage = 0f;
-                    GuardType guardType = GuardType.MID;
-                    AttackPriority attackPriority = AttackPriority.NONE;
-                    int hitstun = 0;
-                    int blockstun = 0;
-                    Vector2 groundVelocity = new Vector2(0,0);
-                    int groundVelocityTime = 0;
-                    Vector2 airVelocity = new Vector2(0,0);
-                    int airVelocityTime = 0;
-                    Vector2 blockGroundVelocity = new Vector2(0,0);
-                    int blockGroundVelocityTime = 0;
-                    Vector2 blockAirVelocity = new Vector2(0,0);
-                    int blockAirVelocityTime = 0;
-                    int hitpause = 0;
-                    int blockpause = 0;
-                    int hitfxuid = 0;
-
-                    if (!(m_Animations == null || m_Animations.Length == 0 || m_CurrentAnimation >= m_Animations.Length)) {
-                        HitboxAnimationFrame outputFramedata = m_Animations[m_CurrentAnimation].framedata[m_CurrentFrame];
-                        damage = outputFramedata.damage;
-                        chipDamage = outputFramedata.chipDamage;
-                        guardType = outputFramedata.guardType;
-                        attackPriority = outputFramedata.attackPriority;
-                        hitstun = outputFramedata.hitstun;
-                        blockstun = outputFramedata.blockstun;
-                        groundVelocity = outputFramedata.hitGroundVelocity;
-                        groundVelocityTime = outputFramedata.hitGroundVelocityTime;
-                        airVelocity = outputFramedata.hitAirVelocity;
-                        airVelocityTime = outputFramedata.hitAirVelocityTime;
-                        blockGroundVelocity = outputFramedata.blockGroundVelocity;
-                        blockGroundVelocityTime = outputFramedata.blockGroundVelocityTime;
-                        blockAirVelocity = outputFramedata.blockAirVelocity;
-                        blockAirVelocityTime = outputFramedata.blockAirVelocityTime;
-                        hitpause = outputFramedata.hitpause;
-                        blockpause = outputFramedata.blockpause;
-                        hitfxuid = outputFramedata.hitfxuid;
-                    }
 
                     m_Feeder[i].Feed(new Vector2(rect.width * m_UPP, rect.height * m_UPP),
                         new Vector2(rect.x * m_UPP + (rect.width * m_UPP / 2f), 
                         rect.y * m_UPP + (rect.height * m_UPP / 2f)),
                         m_CurrentId, collider.type,
 
-                        //************************************
-                        //Changed damage to be frame-dependent
-                        damage,
-                        //************************************
-        
-                        /**New Fields**/
-
-                        chipDamage,
-                        guardType,
-                        attackPriority,
-                        hitstun,
-                        blockstun,
-                        groundVelocity,
-                        groundVelocityTime,
-                        airVelocity,
-                        airVelocityTime,
-                        blockGroundVelocity,
-                        blockGroundVelocityTime,
-                        blockAirVelocity,
-                        blockAirVelocityTime,
+                        framedata.damage,
+                        framedata.chipDamage,
+                        framedata.guardType,
+                        framedata.attackPriority,
+                        framedata.hitstun,
+                        framedata.blockstun,
+                        framedata.hitGroundVelocity,
+                        framedata.hitGroundVelocityTime,
+                        framedata.hitAirVelocity,
+                        framedata.hitAirVelocityTime,
+                        framedata.blockGroundVelocity,
+                        framedata.blockGroundVelocityTime,
+                        framedata.blockAirVelocity,
+                        framedata.blockAirVelocityTime,
                         m_CurrentFrame,
-                        hitpause,
-                        blockpause,
-                        hitfxuid,
-                        animdata.numhits
-
+                        framedata.hitpause,
+                        framedata.blockpause,
+                        framedata.hitfxuid,
+                        animdata.numhits,
+                        framedata.giveSelfPower,
+                        framedata.giveEnemyPower,
+                        framedata.downedHit,
+                        framedata.downedDamage,
+                        framedata.downedHitstun,
+                        framedata.downedVelocity,
+                        framedata.fallingGravity,
+                        framedata.fallAir,
+                        framedata.fallGround,
+                        framedata.fallRecover,
+                        framedata.bounce,
+                        framedata.bounceGravity,
+                        framedata.bounceRecover,
+                        framedata.slide,
+                        framedata.slideTime,
+                        framedata.wallBounce,
+                        framedata.wallBounceGravity,
+                        framedata.wallBounceSlide,
+                        framedata.wallBounceTime,
+                        framedata.downTime,
+                        framedata.downRecover,
+                        framedata.hitShakeTime,
+                        framedata.hitShakeX,
+                        framedata.hitShakeY,
+                        framedata.fallShakeTime,
+                        framedata.fallShakeX,
+                        framedata.fallShakeY,
+                        framedata.forceStand,
+                        framedata.flipEnemy
                         /**************/
                         );
                 }

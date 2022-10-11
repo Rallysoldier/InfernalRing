@@ -380,6 +380,8 @@ namespace BlackGardenStudios.HitboxStudioPro
                                     hitfxuid.intValue = effects[hitfxlabel.intValue - 1].uniqueID;
                                 else
                                     hitfxuid.intValue = 0;
+                                
+                                EditorGUI.indentLevel--;
                             }
                             /**************/
 

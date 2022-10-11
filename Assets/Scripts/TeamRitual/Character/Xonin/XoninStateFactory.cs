@@ -43,6 +43,11 @@ public class XoninStateFactory : CharacterStateFactory
         return new XoninStandHeavyAttack(context, this);
     }
 
+    public CharacterState CrouchHeavyAttack()
+    {
+        return new XoninCrouchHeavyAttack(context, this);
+    }
+
     public CharacterState AirHeavyAttack()
     {
         return new XoninAirHeavyAttack(context, this);

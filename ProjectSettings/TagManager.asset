@@ -3,9 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Char1
-  - Char2
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -42,13 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: StageBack
-    uniqueID: 4060779165
-    locked: 0
-  - name: StageFront
-    uniqueID: 2902316963
-    locked: 0
-  - name: HUD
-    uniqueID: 3327205729
     locked: 0

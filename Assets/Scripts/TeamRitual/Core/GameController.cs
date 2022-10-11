@@ -200,6 +200,15 @@ public class GameController : MonoBehaviour {
                 }
             } else {
                 Pause(winningPriority*5);
+                if (P1_Hits.bodyColData.Count > 0) {
+                    EffectSpawner.PlayHitEffect(
+                        10, P1_Hits.bodyColData[0].Point, Players[0].stateMachine.spriteRenderer.sortingOrder + 1, !P1_Hits.bodyColData[0].TheirHitbox.Owner.FlipX
+                    );
+                } else if (P2_Hits.bodyColData.Count > 0) {
+                    EffectSpawner.PlayHitEffect(
+                        10, P2_Hits.bodyColData[0].Point, Players[1].stateMachine.spriteRenderer.sortingOrder + 1, !P2_Hits.bodyColData[0].TheirHitbox.Owner.FlipX
+                    );
+                }
             }
         }
 

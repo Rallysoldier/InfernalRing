@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 04ea2e4a97213d442a1a3dde0b0eb926, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b0674cb16cdd3514f857a246ef1e6ec1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -119,7 +119,7 @@ Animator:
   m_GameObject: {fileID: 311075295377430593}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9e06327211d4c8447adb4cef1bbab2f6, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -166,8 +166,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.48999998, y: 0.24509805}
-    oldSize: {x: 2, y: 1.02}
+    pivot: {x: 0.5125, y: 0}
+    oldSize: {x: 0.8, y: 1.4}
     newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -193,10 +193,16 @@ MonoBehaviour:
     framedata:
     - collider:
       - rect:
-          x: -31
-          y: -1
-          width: 65
-          height: 116
+          x: -44
+          y: -10
+          width: 95
+          height: 49
+        type: 0
+      - rect:
+          x: -24
+          y: 39
+          width: 42
+          height: 74
         type: 0
       damage: 0
       chipDamage: 0
@@ -5021,7 +5027,7 @@ MonoBehaviour:
       skipColliderUpdate: 0
     movementstate: 0
     movementspeed: 0
-    numhits: 0
+    numhits: 1
     hitfxlabel: 0
   - clip: {fileID: 7400000, guid: 2ef106f1c8f8f044ab615f1a07d38421, type: 2}
     framedata:
@@ -5734,6 +5740,6 @@ MonoBehaviour:
     numhits: 0
     hitfxlabel: 0
   m_MaxHitboxes: 3
-  m_CurrentAnimation: 14
+  m_CurrentAnimation: 17
   m_CurrentFrame: 0
   m_CurrentCollider: 1

@@ -424,6 +424,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 311075295377430597, guid: 174d51cb6ab402f47b283c7ab8e7da0f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9e06327211d4c8447adb4cef1bbab2f6, type: 2}
     - target: {fileID: 311075295377430598, guid: 174d51cb6ab402f47b283c7ab8e7da0f, type: 3}
       propertyPath: m_MaxHitboxes
       value: 5

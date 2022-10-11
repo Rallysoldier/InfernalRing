@@ -28,6 +28,8 @@ public class XoninStateMachine : CharacterStateMachine
                     this.currentState.SwitchState((states as XoninStateFactory).StandLightAttack());
                 } else if (this.inputStr.EndsWith("M")) {
                     this.currentState.SwitchState((states as XoninStateFactory).StandMediumAttack());
+                } else if (this.inputStr.EndsWith("H")) {
+                    this.currentState.SwitchState((states as XoninStateFactory).StandHeavyAttack());
                 }
             }
             if (this.currentState.moveType == MoveType.CROUCH || (this.currentState.moveType == MoveType.STAND && attacking && this.inputHandler.held("D"))) {

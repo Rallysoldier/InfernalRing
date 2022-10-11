@@ -265,13 +265,21 @@ public class CharacterStateMachine : ScriptableObject
                 this.hitVelocity = hit.HitGroundVelocity;
                 this.SetVelocity(hit.HitGroundVelocity);
                 this.hitVelocityTime = hit.HitGroundVelocityTime;
-                this.currentState.SwitchState(states.HurtStand());
+                if (this.hitVelocity.y > 0) {
+                    this.currentState.SwitchState(states.HurtAir());
+                } else {
+                    this.currentState.SwitchState(states.HurtStand());
+                }
                 break;
             case MoveType.CROUCH:
                 this.hitVelocity = hit.HitGroundVelocity;
                 this.SetVelocity(hit.HitGroundVelocity);
                 this.hitVelocityTime = hit.HitGroundVelocityTime;
-                this.currentState.SwitchState(states.HurtCrouch());
+                if (this.hitVelocity.y > 0) {
+                    this.currentState.SwitchState(states.HurtAir());
+                } else {
+                    this.currentState.SwitchState(states.HurtStand());
+                }
                 break;
             case MoveType.AIR:
                 this.hitVelocity = hit.HitAirVelocity;
@@ -290,6 +298,11 @@ public class CharacterStateMachine : ScriptableObject
             case AttackPriority.MEDIUM:
                 EffectSpawner.PlayHitEffect(
                     200, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
+                );
+                break;
+            case AttackPriority.HEAVY:
+                EffectSpawner.PlayHitEffect(
+                    300, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
                 );
                 break;
         }

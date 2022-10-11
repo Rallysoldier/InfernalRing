@@ -8,7 +8,7 @@ namespace TeamRitual.Core {
 public class PlayerGameObj : MonoBehaviour, ICharacter
 {
     [SerializeField]
-    public string name;
+    public string characterName;
     
     [SerializeField]
     protected float m_BasePoise = 1f;
@@ -43,7 +43,7 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
         m_Renderer = GetComponent<SpriteRenderer>();
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_Animator = GetComponent<Animator>();
-        m_Animator.runtimeAnimatorController = Resources.Load("Animation/Character/AC_"+name) as RuntimeAnimatorController;
+        m_Animator.runtimeAnimatorController = Resources.Load("Animation/Character/AC_"+characterName) as RuntimeAnimatorController;
         m_Renderer = GetComponent<SpriteRenderer>();
         m_HitboxManager = GetComponent<HitboxManager>();
         m_DefaultColor = m_Renderer.color;

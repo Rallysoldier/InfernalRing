@@ -156,6 +156,7 @@ namespace BlackGardenStudios.HitboxStudioPro
                         }
                         catch(System.Exception e)
                         {
+                            Debug.Log("CHARACTER EDITOR WINDOW: " + e);
                             drawDefaultInspector = true;
                             Editor.CreateEditor((Object)player).DrawDefaultInspector();
                         }

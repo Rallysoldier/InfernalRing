@@ -1,10 +1,10 @@
 # Modified from:
 #     https://github.com/github/gitignore/blob/master/Unity.gitignore
 
-#/[Ll]ibrary/
+/[Ll]ibrary/
 #/[Uu]serSettings/
-#[Tt]emp/
-#[Oo]bj/
+[Tt]emp/
+[Oo]bj/
 #/[Bb]uild/
 #/[Bb]uilds/
 /[Ll]ogs/
@@ -38,6 +38,7 @@ ExportedObj/
 *.VC.db
 
 # Unity3D generated meta files
+*.meta
 *.pidb.meta
 *.pdb.meta
 *.mdb.meta

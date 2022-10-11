@@ -1,9 +1,8 @@
-using BlackGardenStudios.HitboxStudioPro;
 using UnityEngine;
 
 namespace TeamRitual
 {
-    public class ClashEffect : MonoBehaviour
+    public class Spark_Medium_1 : MonoBehaviour
     {
         SpriteRenderer spriteRenderer;
         float scale = 0.3f;
@@ -13,23 +12,16 @@ namespace TeamRitual
         void Start()
         {
             updateTicks = 0;
-            maxTime = 15*10;
+            maxTime = 16*10;
             spriteRenderer = GetComponent<SpriteRenderer>();
             transform.localScale = new Vector2(scale,scale);
-
-            EffectSpawner.PlayHitEffect(
-                50, transform.position, spriteRenderer.sortingOrder + 1, true
-            );
+            GetComponent<Animator>().Play("hitspark_1");
         }
 
         void FixedUpdate()
         {
             updateTicks++;
-
-            transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0,1)*360);
-
-            transform.localScale = new Vector2(scale*(1 + 10f*(updateTicks/maxTime)), scale*(1 + 10f*(updateTicks/maxTime)));
-
+            transform.localScale = new Vector2(scale*(1 + 2f*(updateTicks/maxTime)), scale*(1 + 2f*(updateTicks/maxTime)));
             spriteRenderer.color = new Color(1f,1f,1f, 1f - updateTicks/maxTime);
 
             if (updateTicks > maxTime) {

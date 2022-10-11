@@ -29,6 +29,7 @@ public class CommonStateGuardStand : CharacterState {
 
     public override void ExitState() {
         base.ExitState();
+        this.character.blockstun = 0;
     }
 
     public override void InitializeSubState() {

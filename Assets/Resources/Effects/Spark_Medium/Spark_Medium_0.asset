@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22a598151942aea42a7629824ef3479d, type: 3}
-  m_Name: Airwave_01
+  m_Name: Spark_Medium_0
   m_EditorClassIdentifier: 
   Effects:
-  - {fileID: 3571932403836324236, guid: 5eb48b1a2cb5c434b96ae1a4829eefa8, type: 3}
-  uniqueID: 50
+  - {fileID: 3571932403836324236, guid: 72d4144fe75c48a4ea4e8b2cf025a0f1, type: 3}
+  uniqueID: 200

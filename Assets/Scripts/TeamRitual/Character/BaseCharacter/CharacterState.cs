@@ -1,3 +1,4 @@
+using UnityEngine;
 
 namespace TeamRitual.Character {
 public abstract class CharacterState
@@ -58,7 +59,9 @@ public abstract class CharacterState
 
 	public virtual void SwitchState(CharacterState newState)
 	{
-		//Debug.Log("Switching from " + this + " to " + newState);
+		if (this.GetType() == newState.GetType())
+			return;
+		
 		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK && newState.attackPriority < this.attackPriority)
 			return;
 

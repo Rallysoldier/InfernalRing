@@ -78,9 +78,6 @@ public class CharacterStateMachine : ScriptableObject
         if (this.currentState.stateType != StateType.HURT) {
             this.hitstun = 0;
         }
-        if (this.currentState != states.GuardStand() || this.currentState != states.GuardCrouch()) {
-            this.blockstun = 0;
-        }
 
         body.gravityScale = 0.0f;
         switch (this.currentState.physicsType)
@@ -253,7 +250,6 @@ public class CharacterStateMachine : ScriptableObject
                 break;
         }
         
-        enemy.currentState.moveContact++;
         EffectSpawner.PlayHitEffect(0, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
         return true;
     }
@@ -291,10 +287,13 @@ public class CharacterStateMachine : ScriptableObject
                     100, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
                 );
                 break;
+            case AttackPriority.MEDIUM:
+                EffectSpawner.PlayHitEffect(
+                    200, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
+                );
+                break;
         }
-
-        enemy.currentState.moveContact++;
-        enemy.currentState.moveHit++;
+        
         return true;
     }
 }

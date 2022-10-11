@@ -44,7 +44,7 @@ public class Menu : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        QuitGame();
+        
     }
 
     public void SetResolution(int resolutionIndex)

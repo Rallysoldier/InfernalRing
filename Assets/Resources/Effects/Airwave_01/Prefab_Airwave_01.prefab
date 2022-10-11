@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5943851173002963076}
   - component: {fileID: 4694494995771153768}
   m_Layer: 0
-  m_Name: Prefab_ClashEffect 1
+  m_Name: Prefab_Airwave_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TeamRitual
 {
-    public class ClashEffect1 : MonoBehaviour
+    public class Airwave_01 : MonoBehaviour
     {
         SpriteRenderer spriteRenderer;
         float scale = 0.6f;

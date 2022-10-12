@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using BlackGardenStudios.HitboxStudioPro;
 using TeamRitual.Input;
 using TeamRitual.Character;
@@ -37,8 +36,6 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
     protected Color m_DefaultColor;
 
     private HitboxManager m_HitboxManager;
-
-    public Image healthBarFill;
 
     void Awake() {
         m_Transform = transform;

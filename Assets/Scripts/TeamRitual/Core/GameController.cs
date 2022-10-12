@@ -1,23 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using BlackGardenStudios.HitboxStudioPro;
 using TeamRitual.Character;
-using TeamRitual.Stage;
 
 namespace TeamRitual.Core {
 public class GameController : MonoBehaviour {
     public static GameController Instance;
 
     [SerializeField]
-    public List<string> characterNames = new List<string>{"Xonin","Xonin"};
-    [SerializeField]
-    public List<int> selectedPalettes = new List<int>{1,3};
-    [SerializeField]
-    public string StageName = "BloodMoon";
+    public PlayerGameObj[] Characters;
 
-    public BaseStageObj Stage;
     public List<PlayerGameObj> Players;
+    public List<string> characterNames = new List<string>{"Xonin","Xonin"};
+    public List<int> selectedPalettes = new List<int>{1,3};
 
     public int Global_Time = 0;
     //Determines which player paused the game during a character pause
@@ -26,48 +21,28 @@ public class GameController : MonoBehaviour {
 
     float cameraLerp = 10f;
 
-    [SerializeField]
-    public int MaxRoundTime = 90;
-    public int remainingRoundTime;
-    public GameObject TimerUI;
-    Text Timer ;
-
     public GameController() {
         Instance = this;
     }
 
     void Start()
     {
-        remainingRoundTime = MaxRoundTime;
+        for (int c = 0; c < characterNames.Count; c++) {
+            for (int i = 0; i < Characters.Length; i++) {
+                if (Characters[i].name == characterNames[c]) {
+                    Players.Add(Instantiate(Characters[i], new Vector3(5 * c == 0 ? 1 : -1, 0, 0), Quaternion.identity));
+                    goto end_of_loop;
+                }
+            }
 
-        Timer = TimerUI.transform.GetComponent<Text>();
-        Timer.text = ""+remainingRoundTime;
-        GameObject P1HealthBar = GameObject.Find("P1HealthBar");
-        GameObject P2HealthBar = GameObject.Find("P2HealthBar");
-        Image P1HealthBarFill = null;
-        Image P2HealthBarFill = null;
-        if (P1HealthBar != null)
-        {
-            P1HealthBarFill = P1HealthBar.transform.GetChild(0).GetComponent<Image>();
-            Debug.Log(P1HealthBar.transform.GetChild(0).name);
-        }
-        if (P2HealthBar != null)
-        {
-            P2HealthBarFill = P2HealthBar.transform.GetChild(0).GetComponent<Image>();
-            Debug.Log(P2HealthBar.transform.GetChild(0).name);
+            Players.Add(Instantiate(Characters[0], new Vector3(5 * c == 0 ? 1 : -1, 0, 0), Quaternion.identity));
+
+            end_of_loop: {}
         }
 
-        GameObject stageObj = Instantiate(Resources.Load("Prefabs/Stages/StagePrefab_BloodMoon", typeof(GameObject))) as GameObject;
-        Stage = stageObj.GetComponent<BaseStageObj>();
-        
-        for (int i = 0; i < 2; i++) {
-            GameObject playerGO = Instantiate(Resources.Load("Prefabs/Characters/CharacterPrefab_"+characterNames[i], typeof(GameObject))) as GameObject;
-            Instantiate(playerGO);
-            Players.Add(playerGO.GetComponent<PlayerGameObj>());
-        }
-        
         float startPosP1 = -5.0f;
-        for (int i = 0; i < Players.Count; i++)
+
+        for (int i = 0; i < 2; i++)
         {
             var j = i;
 
@@ -87,10 +62,8 @@ public class GameController : MonoBehaviour {
             
             if (i%2 == 0) {
                 playerObj.inputHandler.mapP1Inputs();
-                playerObj.healthBarFill = P1HealthBarFill;
             } else {
                 playerObj.inputHandler.mapP2Inputs();
-                playerObj.healthBarFill = P2HealthBarFill;
             }
 
             if (i > 0) {
@@ -248,13 +221,6 @@ public class GameController : MonoBehaviour {
         //Always clear hit lists at the end
         P1_Hits.Clear();
         P2_Hits.Clear();
-
-        //Update HUD
-        EffectHealth(Players[0]);
-        EffectHealth(Players[1]);
-        if (Global_Time%80 == 0 && this.pause == 0) {
-            CountDownTimer();
-        }
     }
 
     void Update() {//Camera movement by linearly interpolating through points
@@ -262,8 +228,6 @@ public class GameController : MonoBehaviour {
         //TODO: Add more camera modes: CameraFocus.Player1, CameraFocus.Player2, CameraFocus.Both, CameraFocus.None
         float avgX = (Players[0].m_RigidBody.position.x + Players[1].m_RigidBody.position.x)/2;
         float avgY = (Players[0].m_RigidBody.position.y + Players[1].m_RigidBody.position.y)/2;
-
-        avgX = Mathf.Clamp(avgX, -11f + 4, 11f - 4);
 
         Vector3 cameraDestination = new Vector3(avgX, avgY + 2.5f, -10); //Replace 2.5f with the average of characters' heights
         LerpCamera(cameraDestination);
@@ -306,34 +270,6 @@ public class GameController : MonoBehaviour {
             }
         }
         this.pause = time;
-    }
-
-    public void EffectHealth(PlayerGameObj player)
-    {
-        player.healthBarFill.fillAmount = Mathf.Lerp(player.healthBarFill.fillAmount,player.stateMachine.health * 0.001f, 75f * Time.deltaTime);
-        if (player.stateMachine.health >= 0)
-        {
-            
-        }
-        else
-        {
-            Debug.Log("Game Over");
-        }
-    }
-
-    void CountDownTimer()
-    {
-        Timer = TimerUI.transform.GetComponent<Text>();
-
-        if (this.remainingRoundTime > 0)
-        {
-            this.remainingRoundTime--;
-            Timer.text = ""+this.remainingRoundTime;
-        }
-        else
-        {
-            Debug.Log("Game Over");
-        }
     }
 }
 }

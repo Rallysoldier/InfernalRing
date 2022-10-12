@@ -11,6 +11,8 @@ public class XoninStandLightAttack : CharacterState
         this.moveType = MoveType.STAND;
 	    this.stateType = StateType.ATTACK;
 
+        this.attackPriority = AttackPriority.LIGHT;
+
         this.animationName = this.character.characterName + "_StandLightAttack";
     }
 
@@ -21,7 +23,8 @@ public class XoninStandLightAttack : CharacterState
     public override void UpdateState() {
         base.UpdateState();
 
-        if (stateTime >= 10)
+       if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.animationName)
+            && this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
             this.SwitchState(this.character.states.Stand());
     }
 

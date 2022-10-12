@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour {
         Instance = this;
     }
 
-    void Awake()
+    void Start()
     {
         for (int c = 0; c < characterNames.Count; c++) {
             for (int i = 0; i < Characters.Length; i++) {
@@ -111,10 +111,12 @@ public class GameController : MonoBehaviour {
 
         for (int i = 0; i < Players.Count; i++)
         {
+            Players[i].stateMachine.updateInputHandler();
+
             if (this.pause > 0) {
                 if (i != this.playerPaused) {
                     if (Players[i].m_Animator != null) {
-                        Players[i].m_Animator.speed = 0;
+                        Players[i].m_Animator.enabled = false;
                     }
                     if (Players[i].m_RigidBody != null) {
                         Players[i].m_RigidBody.Sleep();
@@ -123,7 +125,7 @@ public class GameController : MonoBehaviour {
             } else {
                 this.playerPaused = -1;
                 if (Players[i].m_Animator != null) {
-                    Players[i].m_Animator.speed = 1;
+                    Players[i].m_Animator.enabled = true;
                 }
                 if (Players[i].m_RigidBody != null) {
                     Players[i].m_RigidBody.WakeUp();
@@ -174,7 +176,7 @@ public class GameController : MonoBehaviour {
                         break;
 
                     bool blocked = false;
-                    if (characterHurt.currentState.inputChangeState) {
+                    if (characterHurt.currentState.inputChangeState || characterHurt.blockstun > 0) {
                         bool enemyHoldingBack = characterHurt.inputHandler.held(characterHurt.inputHandler.BackInput(characterHurt));
                         bool enemyHoldingDown = characterHurt.inputHandler.held("D");
                         if (enemyHoldingBack && hit.GuardType != GuardType.UNBLOCKABLE && characterHurt.currentState.moveType != MoveType.AIR) {//If holding back and attack isn't unblockable
@@ -190,12 +192,19 @@ public class GameController : MonoBehaviour {
 
                     if (blocked) {
                         blocked = characterHurt.Block(hit, hit.GuardType);
+                        if (blocked) {
+                            characterHitting.currentState.moveContact++;
+                        }
                     }
                     if (!blocked) {
-                        characterHurt.Hit(hit);
+                        if (characterHurt.Hit(hit)) {
+                            characterHitting.currentState.moveContact++;
+                            characterHitting.currentState.moveHit++;
+                            Debug.Log(characterHitting.currentState.moveContact +" "+ hit.AttackHits);
+                        }
                     }
                 }
-            } else {
+            } else if (winningPriority > 0 && (Players[0].stateMachine.currentState.stateType == StateType.ATTACK || Players[1].stateMachine.currentState.stateType == StateType.ATTACK)) {
                 Pause(winningPriority*5);
                 if (P1_Hits.bodyColData.Count > 0) {
                     EffectSpawner.PlayHitEffect(

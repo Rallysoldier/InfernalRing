@@ -28,6 +28,7 @@ public class CharacterStateMachine : ScriptableObject
     public int health;
     public int hitstun;
     public int blockstun;
+    public int cancelPriority = 0;
 
     public Vector2 velocityWalkForward = new Vector2(2,0);
     public Vector2 velocityWalkBack = new Vector2(-2,0);
@@ -74,14 +75,9 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public virtual ContactSummary UpdateStates() {
-        //Gets new character input based on the direction they're facing.
-        //Inverts F and B inputs if the character is facing the -x direction (facing == -1)
-        this.inputStr = this.inputHandler.getCharacterInput(this);
-        if (inputStr != prevInputStr) {
-            changedInput = true;
+        if (this.currentState.stateType != StateType.HURT) {
+            this.hitstun = 0;
         }
-        prevInputStr = inputStr;
-        this.inputHandler.updateBufferTime();
 
         body.gravityScale = 0.0f;
         switch (this.currentState.physicsType)
@@ -128,6 +124,17 @@ public class CharacterStateMachine : ScriptableObject
         this.grabColData.Clear();
         this.techColData.Clear();
         return contactSummary;
+    }
+
+    public void updateInputHandler() {
+        //Gets new character input based on the direction they're facing.
+        //Inverts F and B inputs if the character is facing the -x direction (facing == -1)
+        this.inputStr = this.inputHandler.getCharacterInput(this);
+        if (inputStr != prevInputStr) {
+            changedInput = true;
+        }
+        prevInputStr = inputStr;
+        this.inputHandler.updateBufferTime();
     }
 
     public virtual void changeStateOnInput() {
@@ -243,7 +250,6 @@ public class CharacterStateMachine : ScriptableObject
                 break;
         }
         
-        enemy.currentState.moveContact++;
         EffectSpawner.PlayHitEffect(0, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
         return true;
     }
@@ -259,13 +265,21 @@ public class CharacterStateMachine : ScriptableObject
                 this.hitVelocity = hit.HitGroundVelocity;
                 this.SetVelocity(hit.HitGroundVelocity);
                 this.hitVelocityTime = hit.HitGroundVelocityTime;
-                this.currentState.SwitchState(states.HurtStand());
+                if (this.hitVelocity.y > 0) {
+                    this.currentState.SwitchState(states.HurtAir());
+                } else {
+                    this.currentState.SwitchState(states.HurtStand());
+                }
                 break;
             case MoveType.CROUCH:
                 this.hitVelocity = hit.HitGroundVelocity;
                 this.SetVelocity(hit.HitGroundVelocity);
                 this.hitVelocityTime = hit.HitGroundVelocityTime;
-                this.currentState.SwitchState(states.HurtCrouch());
+                if (this.hitVelocity.y > 0) {
+                    this.currentState.SwitchState(states.HurtAir());
+                } else {
+                    this.currentState.SwitchState(states.HurtStand());
+                }
                 break;
             case MoveType.AIR:
                 this.hitVelocity = hit.HitAirVelocity;
@@ -281,10 +295,18 @@ public class CharacterStateMachine : ScriptableObject
                     100, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
                 );
                 break;
+            case AttackPriority.MEDIUM:
+                EffectSpawner.PlayHitEffect(
+                    200, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
+                );
+                break;
+            case AttackPriority.HEAVY:
+                EffectSpawner.PlayHitEffect(
+                    300, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
+                );
+                break;
         }
-
-        enemy.currentState.moveContact++;
-        enemy.currentState.moveHit++;
+        
         return true;
     }
 }

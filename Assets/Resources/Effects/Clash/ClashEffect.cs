@@ -18,7 +18,7 @@ namespace TeamRitual
             transform.localScale = new Vector2(scale,scale);
 
             EffectSpawner.PlayHitEffect(
-                20, transform.position, spriteRenderer.sortingOrder + 1, true
+                50, transform.position, spriteRenderer.sortingOrder + 1, true
             );
         }
 

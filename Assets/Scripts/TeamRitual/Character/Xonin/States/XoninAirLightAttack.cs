@@ -11,6 +11,8 @@ public class XoninAirLightAttack : CharacterState
         this.moveType = MoveType.AIR;
 	    this.stateType = StateType.ATTACK;
 
+        this.attackPriority = AttackPriority.LIGHT;
+
         this.animationName = this.character.characterName + "_AirLightAttack";
     }
 
@@ -21,7 +23,8 @@ public class XoninAirLightAttack : CharacterState
     public override void UpdateState() {
         base.UpdateState();
 
-        if (stateTime > 10)
+        if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.animationName)
+            && this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
             this.SwitchState(this.character.states.Airborne());
 
         if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {

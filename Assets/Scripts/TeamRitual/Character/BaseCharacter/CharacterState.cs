@@ -1,3 +1,4 @@
+using UnityEngine;
 
 namespace TeamRitual.Character {
 public abstract class CharacterState
@@ -17,6 +18,8 @@ public abstract class CharacterState
 	public bool faceEnemyStart = false;	//State will adjust the facing variable in a character only at the start of the state.
 	public bool faceEnemyAlways = false;		//State will always adjust the facing variable in a character to face the correct direction.
 
+	public AttackPriority attackPriority = AttackPriority.NONE;
+
 	public PhysicsType physicsType = PhysicsType.CUSTOM;
 	public MoveType moveType = MoveType.STAND;
 	public StateType stateType = StateType.IDLE;
@@ -34,6 +37,8 @@ public abstract class CharacterState
 		if(!this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)) {
             this.character.anim.Play(animationName);
         }
+
+		this.character.cancelPriority = (int)this.attackPriority;
 	}
 
 	public virtual void UpdateState() {
@@ -54,8 +59,12 @@ public abstract class CharacterState
 
 	public virtual void SwitchState(CharacterState newState)
 	{
-		//Debug.Log("Switching from " + this + " to " + newState);
+		if (this.GetType() == newState.GetType())
+			return;
 		
+		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK && newState.attackPriority < this.attackPriority)
+			return;
+
 		// exit current state
 		ExitState();
 

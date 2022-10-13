@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Spark_Heavy_1
   m_EditorClassIdentifier: 
   Effects:
-  - {fileID: 3571932403836324236, guid: c4b018a18c0fd9045ba6ac0fb1708022, type: 3}
+  - {fileID: 3571932403836324236, guid: 25b1d3fc591849148947a28b9eb26197, type: 3}
   uniqueID: 301

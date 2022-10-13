@@ -822,13 +822,6 @@ namespace BlackGardenStudios.HitboxStudioPro
             else
                 m_RecentHits.Add(targetid);
 
-            if (hit) {
-                m_CurrentHitCount++;
-            }
-            if (m_CurrentHitCount >= m_CurrentMaxHitCount) {
-                hit = true;
-            }
-
             return !hit;
         }
 
@@ -882,7 +875,6 @@ namespace BlackGardenStudios.HitboxStudioPro
             return Mathf.RoundToInt(Vector3.Distance(aPos, bPos) * 1000f);
         }
 
-        private int m_CurrentHitCount;
         private int m_CurrentMaxHitCount;
         private AnimationClip m_LastClip;
         public int CurrentAnimationUID { get { return m_CurrentId; } }
@@ -906,7 +898,6 @@ namespace BlackGardenStudios.HitboxStudioPro
                     m_LastClip = _event.animatorClipInfo.clip;
                     m_CurrentId = m_PrivateUID++;
                     ResetReports();
-                    m_CurrentHitCount = 0;
                     m_CurrentMaxHitCount = Mathf.Max(1, animData.numhits);
                 }
 

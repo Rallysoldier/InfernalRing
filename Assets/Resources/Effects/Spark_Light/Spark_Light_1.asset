@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Spark_Light_1
   m_EditorClassIdentifier: 
   Effects:
-  - {fileID: 3571932403836324236, guid: 567383704228b8d4294eabc74a368772, type: 3}
+  - {fileID: 3571932403836324236, guid: 7c5977e3ed8d0534d94bef8d2330dbc4, type: 3}
   uniqueID: 101

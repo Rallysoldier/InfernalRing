@@ -4,6 +4,8 @@ namespace TeamRitual.Character {
 public class CommonStateJumpStart : CharacterState
 {
     Vector2 jumpVelocity;
+    float prevVelX;
+    StateType prevStateType;
 
     public CommonStateJumpStart(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory)
     : base(currentContext, CharacterStateFactory)
@@ -29,6 +31,9 @@ public class CommonStateJumpStart : CharacterState
         } else {
             jumpVelocity = this.character.velocityJumpNeutral;
         }
+
+        prevVelX = this.character.VelX()/this.character.standingFriction;
+        prevStateType = this.character.currentState.stateType;
     }
 
     public override void UpdateState() {
@@ -42,7 +47,11 @@ public class CommonStateJumpStart : CharacterState
     public override void ExitState() {
         base.ExitState();
 
-        this.character.SetVelocity(jumpVelocity);
+        if (prevVelX != 0 && Mathf.Abs(this.prevVelX) > Mathf.Abs(this.jumpVelocity.x)) {
+            this.character.SetVelocity(new Vector2(this.prevVelX * this.character.facing, this.jumpVelocity.y));
+        } else {
+            this.character.SetVelocity(jumpVelocity);
+        }
     }
 
     public override void InitializeSubState() {

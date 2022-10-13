@@ -21,9 +21,10 @@ public class XoninStateMachine : CharacterStateMachine
     }
 
     public override void changeStateOnInput() {
-        bool attacking = this.currentState.stateType == StateType.ATTACK && this.enemy.hitstun > 0;
-        if (this.currentState.inputChangeState && changedInput || attacking) {
-            if (this.currentState.moveType == MoveType.STAND || (this.currentState.moveType == MoveType.CROUCH && attacking && !this.inputHandler.held("D"))) {
+        bool hittingEnemy = this.currentState.moveHit > 0 && this.enemy.hitstun > 0;
+
+        if (this.changedInput && (this.currentState.inputChangeState || hittingEnemy)) {
+            if (this.currentState.moveType == MoveType.STAND || (this.currentState.moveType == MoveType.CROUCH && hittingEnemy && !this.inputHandler.held("D"))) {
                 if (this.inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).StandLightAttack());
                 } else if (this.inputStr.EndsWith("M")) {
@@ -32,7 +33,7 @@ public class XoninStateMachine : CharacterStateMachine
                     this.currentState.SwitchState((states as XoninStateFactory).StandHeavyAttack());
                 }
             }
-            if (this.currentState.moveType == MoveType.CROUCH || (this.currentState.moveType == MoveType.STAND && attacking && this.inputHandler.held("D"))) {
+            if (this.currentState.moveType == MoveType.CROUCH || (this.currentState.moveType == MoveType.STAND && hittingEnemy && this.inputHandler.held("D"))) {
                 if (this.inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).CrouchLightAttack());
                 } else if (this.inputStr.EndsWith("M")) {

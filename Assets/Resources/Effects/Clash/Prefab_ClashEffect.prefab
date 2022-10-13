@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5943851173002963076
 SpriteRenderer:
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_Size: {x: 2.35, y: 4.22}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &3260757030200282629
@@ -94,6 +94,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3571932403836324236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 698aa13b818fcb84da7d3a56d4aef708, type: 3}
+  m_Script: {fileID: 11500000, guid: cb1d01f23c7b07f469535a9efaf946f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

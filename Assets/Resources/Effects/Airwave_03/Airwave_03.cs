@@ -15,7 +15,6 @@ namespace TeamRitual
             maxTime = 20*10;
             spriteRenderer = GetComponent<SpriteRenderer>();
             transform.localScale = new Vector2(scale,scale);
-            GetComponent<Animator>().Play("airwave_1");
         }
 
         void FixedUpdate()

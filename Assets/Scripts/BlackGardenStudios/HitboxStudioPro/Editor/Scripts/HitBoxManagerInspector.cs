@@ -210,7 +210,7 @@ namespace BlackGardenStudios.HitboxStudioPro
                     var framedata = HitboxData.FindPropertyRelative("framedata");
                     var oldclip = clip.objectReferenceValue;
 
-                    showAnimation = EditorGUILayout.Foldout(showAnimation, "Animation Settings", true);
+                    /*showAnimation = EditorGUILayout.Foldout(showAnimation, "Animation Settings", true);
                     if (showAnimation)
                     {
                         var movementstate = HitboxData.FindPropertyRelative("movementstate");
@@ -225,7 +225,7 @@ namespace BlackGardenStudios.HitboxStudioPro
                         EditorGUILayout.PropertyField(poise, new GUIContent("Additional Poise", "The more poise a character has, the less likely they will be stagerred or knocked back."));
 
                         EditorGUI.indentLevel--;
-                    }
+                    }*/
 
                     showAttackData = EditorGUILayout.Foldout(showAttackData, "Attack Data", true);
                     if (showAttackData)

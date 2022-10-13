@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 08d1e5169d3afe04a85e63bf6f70597f, type: 2}
+  m_Motion: {fileID: 7400000, guid: 3741826de48ab71479159c0ad4a6fc17, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -103,7 +103,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ec0264e6a293eaa4f8a0ff600ad41d36, type: 2}
+  m_Motion: {fileID: 7400000, guid: 9a2c7209307a1ca4f800812d570eaa57, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -115,7 +115,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: hitspark_AC
+  m_Name: AC_Effects
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -151,7 +151,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0c4cb28dc80696d4b9d6fb3cccd9d3cb, type: 2}
+  m_Motion: {fileID: 7400000, guid: 68048ae1150f06c4485a9502f194142e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

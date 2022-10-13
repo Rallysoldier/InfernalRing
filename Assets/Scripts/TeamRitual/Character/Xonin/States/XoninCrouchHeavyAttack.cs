@@ -23,6 +23,15 @@ public class XoninCrouchHeavyAttack : CharacterState
     public override void UpdateState() {
         base.UpdateState();
 
+        if (this.moveHit > 0 && this.character.enemy.VelY() > 0) {
+            if ((this.character.changedInput && (this.character.inputStr.EndsWith("U") ||
+            this.character.inputStr.EndsWith("U,F") || this.character.inputStr.EndsWith("F,U") ||
+            this.character.inputStr.EndsWith("U,B")  || this.character.inputStr.EndsWith("B,U")))
+                     || this.character.inputHandler.held("U")) {
+                    this.SwitchState(this.character.states.JumpStart());
+                }
+        }
+
         if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.animationName)
             && this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
             this.SwitchState(this.character.states.Crouch());

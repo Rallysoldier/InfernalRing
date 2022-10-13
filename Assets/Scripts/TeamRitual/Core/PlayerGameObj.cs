@@ -29,6 +29,7 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
     public Transform Transform { get { return m_Transform; } }
     public Animator m_Animator;
     public Rigidbody2D m_RigidBody;
+    public Collider2D m_Collider;
 
     public Rigidbody2D RigidBody { get { return m_RigidBody; } }
     protected SpriteRenderer m_Renderer;
@@ -45,6 +46,7 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
         m_Renderer = GetComponent<SpriteRenderer>();
         m_Animator = GetComponent<Animator>();
         m_HitboxManager = GetComponent<HitboxManager>();
+        m_Collider = GetComponent<Collider2D>();
         m_DefaultColor = m_Renderer.color;
     }
 
@@ -115,5 +117,19 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
     {
         this.stateMachine.HitboxContact(data);
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.GetType());
+
+        if (collision.gameObject)
+        {
+            Physics2D.IgnoreCollision(
+                GameController.Instance.Players[0].m_Collider, GameController.Instance.Players[1].m_Collider
+            );
+        }
+    }
+
+    
 }
 }

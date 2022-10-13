@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ClashEffect
   m_EditorClassIdentifier: 
   Effects:
-  - {fileID: 3571932403836324236, guid: 1563440789d05354d940d3e577e1569a, type: 3}
+  - {fileID: 3571932403836324236, guid: 7be339e14280f9c43ad350199b05e7d0, type: 3}
   uniqueID: 10

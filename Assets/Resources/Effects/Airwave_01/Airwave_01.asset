@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Airwave_01
   m_EditorClassIdentifier: 
   Effects:
-  - {fileID: 3571932403836324236, guid: 5eb48b1a2cb5c434b96ae1a4829eefa8, type: 3}
+  - {fileID: 3571932403836324236, guid: d3dbd006730019742a541501d881ab44, type: 3}
   uniqueID: 50

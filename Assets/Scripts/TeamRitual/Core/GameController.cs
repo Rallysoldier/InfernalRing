@@ -7,16 +7,14 @@ namespace TeamRitual.Core {
 public class GameController : MonoBehaviour {
     public static GameController Instance;
 
-    [SerializeField]
-    public PlayerGameObj[] Characters;
-
-    public List<PlayerGameObj> Players;
     public List<string> characterNames = new List<string>{"Xonin","Xonin"};
     public List<int> selectedPalettes = new List<int>{1,3};
+    public string stageName = "BloodMoon";
+
+    public List<PlayerGameObj> Players;
 
     public int Global_Time = 0;
-    //Determines which player paused the game during a character pause
-    public int playerPaused = -1;
+    public int playerPaused = -1; //Determines which player paused the game during a character pause
     public int pause = 0;
 
     float cameraLerp = 10f;
@@ -27,17 +25,11 @@ public class GameController : MonoBehaviour {
 
     void Start()
     {
-        for (int c = 0; c < characterNames.Count; c++) {
-            for (int i = 0; i < Characters.Length; i++) {
-                if (Characters[i].name == characterNames[c]) {
-                    Players.Add(Instantiate(Characters[i], new Vector3(5 * c == 0 ? 1 : -1, 0, 0), Quaternion.identity));
-                    goto end_of_loop;
-                }
-            }
+        GameObject stageGO = Instantiate(Resources.Load("Prefabs/Stages/StagePrefab_" + stageName, typeof(GameObject))) as GameObject;
 
-            Players.Add(Instantiate(Characters[0], new Vector3(5 * c == 0 ? 1 : -1, 0, 0), Quaternion.identity));
-
-            end_of_loop: {}
+        for (int i = 0; i < 2; i++) {
+            GameObject playerGO = Instantiate(Resources.Load("Prefabs/Characters/CharacterPrefab_"+characterNames[i], typeof(GameObject))) as GameObject;
+            Players.Add(playerGO.GetComponent<PlayerGameObj>());
         }
 
         float startPosP1 = -5.0f;
@@ -200,7 +192,7 @@ public class GameController : MonoBehaviour {
                         if (characterHurt.Hit(hit)) {
                             characterHitting.currentState.moveContact++;
                             characterHitting.currentState.moveHit++;
-                            Debug.Log(characterHitting.currentState.moveContact +" "+ hit.AttackHits);
+                            //Debug.Log(characterHitting.currentState.moveContact +" "+ hit.AttackHits);
                         }
                     }
                 }

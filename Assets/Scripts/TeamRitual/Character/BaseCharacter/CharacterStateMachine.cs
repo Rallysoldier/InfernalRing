@@ -77,6 +77,11 @@ public class CharacterStateMachine : ScriptableObject
     public virtual ContactSummary UpdateStates() {
         if (this.currentState.stateType != StateType.HURT) {
             this.hitstun = 0;
+
+            if (this.health == 0) {
+                this.SetVelocity(-8,9);
+                this.currentState.SwitchState(this.states.HurtAir());
+            }
         }
 
         body.gravityScale = 0.0f;
@@ -256,16 +261,22 @@ public class CharacterStateMachine : ScriptableObject
 
     //Overload this function to have the character do something else when they're hit
     public virtual bool Hit(ContactData hit) {
+        if (this.health == 0f) {
+            return false;
+        }
+
+        this.health -= (int) hit.Damage;
+        this.health = (int) Mathf.Max(this.health,0f);
+
         GameController.Instance.Pause(hit.Hitpause);
         this.hitstun = hit.Hitstun;
-        this.health -= (int)hit.Damage;
 
         switch (this.currentState.moveType) {
             case MoveType.STAND:
                 this.hitVelocity = hit.HitGroundVelocity;
                 this.SetVelocity(hit.HitGroundVelocity);
                 this.hitVelocityTime = hit.HitGroundVelocityTime;
-                if (this.hitVelocity.y > 0) {
+                if (this.hitVelocity.y > 0 || this.health == 0) {
                     this.currentState.SwitchState(states.HurtAir());
                 } else {
                     this.currentState.SwitchState(states.HurtStand());
@@ -275,7 +286,7 @@ public class CharacterStateMachine : ScriptableObject
                 this.hitVelocity = hit.HitGroundVelocity;
                 this.SetVelocity(hit.HitGroundVelocity);
                 this.hitVelocityTime = hit.HitGroundVelocityTime;
-                if (this.hitVelocity.y > 0) {
+                if (this.hitVelocity.y > 0 || this.health == 0) {
                     this.currentState.SwitchState(states.HurtAir());
                 } else {
                     this.currentState.SwitchState(states.HurtStand());

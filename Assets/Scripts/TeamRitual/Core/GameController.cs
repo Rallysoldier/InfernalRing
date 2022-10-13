@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using BlackGardenStudios.HitboxStudioPro;
 using TeamRitual.Character;
 
@@ -19,12 +20,26 @@ public class GameController : MonoBehaviour {
 
     float cameraLerp = 10f;
 
+    [SerializeField]
+    public int maxTimerTime = 90;
+    public int remainingTimerTime;
+    public GameObject TimerUI;
+    public List<Image> HealthBarsUI = new List<Image>();
+
     public GameController() {
         Instance = this;
     }
 
     void Start()
     {
+        GameObject canvasGO = Instantiate(Resources.Load("Prefabs/HUD/HUDPrefab_GameCanvas", typeof(GameObject))) as GameObject;
+        TimerUI = GameObject.Find("Timer");
+        TimerUI.transform.GetComponent<Text>().text = "" + maxTimerTime;
+        remainingTimerTime = maxTimerTime;
+        for (int i = 1; i <= 2; i++) {
+            HealthBarsUI.Add(GameObject.Find("P"+i+"HealthBarFill").GetComponent<Image>());
+        }
+
         GameObject stageGO = Instantiate(Resources.Load("Prefabs/Stages/StagePrefab_" + stageName, typeof(GameObject))) as GameObject;
 
         for (int i = 0; i < 2; i++) {
@@ -213,6 +228,11 @@ public class GameController : MonoBehaviour {
         //Always clear hit lists at the end
         P1_Hits.Clear();
         P2_Hits.Clear();
+
+        if (pause == 0 && Global_Time%80 == 0) {
+            CountDownTimer();
+        }
+        UpdateHealthBars();
     }
 
     void Update() {//Camera movement by linearly interpolating through points
@@ -262,6 +282,28 @@ public class GameController : MonoBehaviour {
             }
         }
         this.pause = time;
+    }
+
+    public void UpdateHealthBars()
+    {
+        for (int i = 0; i < HealthBarsUI.Count; i++) {
+            CharacterStateMachine sm = Players[i].stateMachine;
+            if (sm.health >= 0)
+            {
+                HealthBarsUI[i].fillAmount = sm.health * 0.001f;
+            }
+        }
+    }
+
+    void CountDownTimer()
+    {
+        Text Timer = TimerUI.transform.GetComponent<Text>();
+
+        if (this.remainingTimerTime > 0)
+        {
+            Timer.text = "" + remainingTimerTime;
+            this.remainingTimerTime--;
+        }
     }
 }
 }

@@ -20,14 +20,15 @@ public class GameController : MonoBehaviour {
     public int playerPaused = -1; //Determines which player paused the game during a character pause
     public int pause = 0;
 
+    GameObject StageObj;
     float cameraLerp = 10f;
 
     [SerializeField]
     public int maxTimerTime = 90;
     public int remainingTimerTime;
     public GameObject TimerUI;
-    GameObject StageObj;
     public List<Image> HealthBarsUI = new List<Image>();
+    public List<Image> HealthBarsUIChange = new List<Image>();
 
     public GameController() {
         Instance = this;
@@ -41,6 +42,7 @@ public class GameController : MonoBehaviour {
         remainingTimerTime = maxTimerTime;
         for (int i = 1; i <= 2; i++) {
             HealthBarsUI.Add(GameObject.Find("P"+i+"HealthBarFill").GetComponent<Image>());
+            HealthBarsUIChange.Add(GameObject.Find("P"+i+"HealthBarChange").GetComponent<Image>());
         }
 
         StageObj = Instantiate(Resources.Load("Prefabs/Stages/StagePrefab_" + stageName, typeof(GameObject))) as GameObject;
@@ -302,7 +304,8 @@ public class GameController : MonoBehaviour {
             CharacterStateMachine sm = Players[i].stateMachine;
             if (sm.health >= 0)
             {
-                HealthBarsUI[i].fillAmount = sm.health * 0.001f;
+                HealthBarsUI[i].fillAmount =  sm.health * 0.001f;
+                HealthBarsUIChange[i].fillAmount =  Mathf.Lerp(HealthBarsUIChange[i].fillAmount, sm.health * 0.001f, 0.05f);
             }
         }
     }

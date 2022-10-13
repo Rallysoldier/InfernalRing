@@ -10,10 +10,6 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
     [SerializeField]
     public string characterName;
     
-    [SerializeField]
-    protected float m_BasePoise = 1f;
-    protected float m_Poise;
-
     public CharacterStateMachine stateMachine;
     public InputHandler inputHandler = new InputHandler();
     public int wins = 0;
@@ -96,12 +92,6 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
         }
 
         return 0;
-    }
-
-    public float Poise
-    {
-        get { return m_BasePoise + m_Poise; }
-        set { m_Poise = value; }
     }
 
     public SpritePalette ActivePalette { get { return m_ActivePalette; } }

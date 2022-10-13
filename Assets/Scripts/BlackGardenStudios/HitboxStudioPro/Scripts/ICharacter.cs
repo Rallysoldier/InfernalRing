@@ -9,8 +9,6 @@ namespace BlackGardenStudios.HitboxStudioPro
         SpritePalette ActivePalette { get; }
         SpritePaletteGroup PaletteGroup { get; }
 
-        float Poise { get; set; }
-
         /// <summary>
         /// Is the characters facing direction flipped?
         /// </summary>

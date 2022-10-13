@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour {
     public string stageName = "BloodMoon";
 
     public List<PlayerGameObj> Players;
+    public float StageWidth;
+    public float StageScale;
 
     public int Global_Time = 0;
     public int playerPaused = -1; //Determines which player paused the game during a character pause
@@ -24,6 +26,7 @@ public class GameController : MonoBehaviour {
     public int maxTimerTime = 90;
     public int remainingTimerTime;
     public GameObject TimerUI;
+    GameObject StageObj;
     public List<Image> HealthBarsUI = new List<Image>();
 
     public GameController() {
@@ -40,7 +43,9 @@ public class GameController : MonoBehaviour {
             HealthBarsUI.Add(GameObject.Find("P"+i+"HealthBarFill").GetComponent<Image>());
         }
 
-        GameObject stageGO = Instantiate(Resources.Load("Prefabs/Stages/StagePrefab_" + stageName, typeof(GameObject))) as GameObject;
+        StageObj = Instantiate(Resources.Load("Prefabs/Stages/StagePrefab_" + stageName, typeof(GameObject))) as GameObject;
+        StageWidth = StageObj.GetComponent<SpriteRenderer>().sprite.rect.width/100;
+        StageScale = StageObj.transform.localScale.x;
 
         for (int i = 0; i < 2; i++) {
             GameObject playerGO = Instantiate(Resources.Load("Prefabs/Characters/CharacterPrefab_"+characterNames[i], typeof(GameObject))) as GameObject;
@@ -238,10 +243,17 @@ public class GameController : MonoBehaviour {
     void Update() {//Camera movement by linearly interpolating through points
 
         //TODO: Add more camera modes: CameraFocus.Player1, CameraFocus.Player2, CameraFocus.Both, CameraFocus.None
-        float avgX = (Players[0].m_RigidBody.position.x + Players[1].m_RigidBody.position.x)/2;
-        float avgY = (Players[0].m_RigidBody.position.y + Players[1].m_RigidBody.position.y)/2;
+        float cameraX = (Players[0].m_RigidBody.position.x + Players[1].m_RigidBody.position.x)/2;
+        float cameraY = (Players[0].m_RigidBody.position.y + Players[1].m_RigidBody.position.y)/2;
 
-        Vector3 cameraDestination = new Vector3(avgX, avgY + 2.5f, -10); //Replace 2.5f with the average of characters' heights
+        float StageScale = StageObj.transform.localScale.x;
+        float cameraLimit = StageWidth + (2*StageScale - 4 - Camera.main.orthographicSize) * Camera.main.aspect;
+
+        if (cameraX < -1 * cameraLimit || cameraX > cameraLimit) {
+            cameraX = Mathf.Sign(cameraX) * cameraLimit;
+        }
+
+        Vector3 cameraDestination = new Vector3(cameraX, cameraY + 2.5f, -10); //Replace 2.5f with the average of characters' heights
         LerpCamera(cameraDestination);
     }
 

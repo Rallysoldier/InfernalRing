@@ -152,14 +152,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0a310d0427e0547b7ae9567ac563be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Players: []
   characterNames:
   - Xonin
   - Xonin
   selectedPalettes: 0100000003000000
+  stageName: BloodMoon
+  Players: []
   Global_Time: 0
   playerPaused: -1
   pause: 0
+  maxTimerTime: 90
+  remainingTimerTime: 0
+  TimerUI: {fileID: 0}
+  HealthBarsUI: []
 --- !u!4 &1018224496
 Transform:
   m_ObjectHideFlags: 0

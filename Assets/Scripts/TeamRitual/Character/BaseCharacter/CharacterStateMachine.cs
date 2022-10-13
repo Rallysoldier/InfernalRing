@@ -75,9 +75,14 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public virtual ContactSummary UpdateStates() {
-        if (this.currentState.stateType != StateType.HURT) {
-            this.hitstun = 0;
+        if (this.hitstun > 0) {
+            this.hitstun--;
+        }
+        if (this.blockstun > 0) {
+            this.blockstun--;
+        }
 
+        if (this.currentState.stateType != StateType.HURT) {
             if (this.health == 0) {
                 this.SetVelocity(-8,9);
                 this.currentState.SwitchState(this.states.HurtAir());
@@ -90,17 +95,22 @@ public class CharacterStateMachine : ScriptableObject
             default:
                 break;
             case PhysicsType.STAND:
-                this.SetVelX(VelX()*this.standingFriction);
-                this.SetVelY(0);
+                this.VelXDirect(VelX()*this.standingFriction);
+                this.VelY(0);
                 this.body.position = new Vector2(this.PosX(),0);
                 break;
             case PhysicsType.CROUCH:
-                this.SetVelX(VelX()*this.crouchingFriction);
-                this.SetVelY(0);
+                this.VelXDirect(VelX()*this.crouchingFriction);
+                this.VelY(0);
                 this.body.position = new Vector2(this.PosX(),0);
                 break;
             case PhysicsType.AIR:
-                this.SetVelY(VelY()-this.gravity);
+                if (this.currentState.stateType == StateType.ATTACK && this.currentState.attackPriority < AttackPriority.SPECIAL
+                    && this.currentState.moveHit > 0) {
+                    VelYAdd(-this.gravity/3);
+                } else {
+                    VelYAdd(-this.gravity);
+                }
                 break;
             case PhysicsType.CUSTOM:
                 break;
@@ -193,12 +203,20 @@ public class CharacterStateMachine : ScriptableObject
         body.velocity = new Vector2(velocity.x*facing,velocity.y);
     }
 
-    public void SetVelX(float velocity) {
+    public void VelX(float velocity) {
+        this.SetVelocity(velocity,VelY());
+    }
+
+    public void VelXDirect(float velocity) {
         body.velocity = new Vector2(velocity,VelY());
     }
 
-    public void SetVelY(float velocity) {
+    public void VelY(float velocity) {
         body.velocity = new Vector2(VelX(),velocity);
+    }
+
+    public void VelYAdd(float velocity) {
+        body.velocity = new Vector2(VelX(),VelY() + velocity);
     }
 
     public void correctFacing() {

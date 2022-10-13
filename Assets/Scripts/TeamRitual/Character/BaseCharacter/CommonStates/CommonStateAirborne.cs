@@ -24,7 +24,7 @@ public class CommonStateAirborne : CharacterState
         base.UpdateState();
 
         if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {
-            this.character.SetVelY(0);
+            this.character.VelY(0);
             this.SwitchState(this.character.states.JumpLand());
         }
     }

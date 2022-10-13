@@ -23,7 +23,7 @@ public class CommonStateHurtCrouch : CharacterState
 
         if (this.character.PosY() > 0) {
             this.SwitchState(this.character.states.HurtAir());
-        } else if (stateTime > this.character.hitstun) {
+        } else if (this.character.hitstun == 0) {
             this.SwitchState(this.character.states.Crouch());
         }
     }

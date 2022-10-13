@@ -16,14 +16,14 @@ public class CommonStateHurtBounce : CharacterState
 
     public override void EnterState() {
         base.EnterState();
-        this.character.SetVelY(7);
+        this.character.VelY(7);
     }
 
     public override void UpdateState() {
         base.UpdateState();
 
         if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {
-            this.character.SetVelY(0);
+            this.character.VelY(0);
             this.SwitchState(this.character.states.LyingDown());
         }
     }

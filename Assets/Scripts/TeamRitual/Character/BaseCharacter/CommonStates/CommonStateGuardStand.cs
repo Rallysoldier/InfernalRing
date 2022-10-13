@@ -22,14 +22,13 @@ public class CommonStateGuardStand : CharacterState {
 
         if (this.character.PosY() > 0) {
             this.SwitchState(this.character.states.Airborne());
-        } else if (stateTime > this.character.blockstun) {
+        } else if (this.character.blockstun == 0) {
             this.SwitchState(this.character.states.Stand());
         }
     }
 
     public override void ExitState() {
         base.ExitState();
-        this.character.blockstun = 0;
     }
 
     public override void InitializeSubState() {

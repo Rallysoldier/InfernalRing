@@ -24,11 +24,11 @@ public class XoninRunBack : CharacterState
         base.UpdateState();
 
         if (stateTime >= 1) {
-            this.character.SetVelY(this.character.VelY()-0.5f);
+            this.character.VelY(this.character.VelY()-0.5f);
         }
 
         if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {
-            this.character.SetVelY(0);
+            this.character.VelY(0);
             this.SwitchState(this.character.states.JumpLand());
         }
     }

@@ -214,7 +214,7 @@ public class GameController : MonoBehaviour {
                         if (characterHurt.Hit(hit)) {
                             characterHitting.currentState.moveContact++;
                             characterHitting.currentState.moveHit++;
-                            Debug.Log("Hits landed: "+characterHitting.currentState.moveContact +", Max hits: "+ hit.AttackHits);
+                            //Debug.Log("Hits landed: "+characterHitting.currentState.moveContact +", Max hits: "+ hit.AttackHits);
                         }
                     }
                 }

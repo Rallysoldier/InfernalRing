@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using TeamRitual.Core;
+using TeamRitual.Character;
+using System.Collections.Generic;
 
 namespace BlackGardenStudios.HitboxStudioPro
 {
@@ -67,7 +70,8 @@ namespace BlackGardenStudios.HitboxStudioPro
         private bool m_forceStand;
         private bool m_flipEnemy;
 
-        private int m_frame;
+        public int m_frame;
+        private int m_lastFrame;
         /****/
         private bool m_DidHit = false;
 
@@ -154,6 +158,7 @@ namespace BlackGardenStudios.HitboxStudioPro
             m_fallShakeY = fallShakeY;
             m_forceStand = forceStand;
             m_flipEnemy = flipEnemy;
+            m_lastFrame = m_frame;
             m_frame = frame;
             /****/
             Collider.size = boxSize;
@@ -217,11 +222,14 @@ namespace BlackGardenStudios.HitboxStudioPro
             if (feeder.ReportHit(m_Manager.UID) == false)
                 //Hit wasn't reported, this animation must have already hit us in a previous frame.
                 return;
+
+            //Debug.Log(m_Manager.UID + ": " + feeder.m_frame + " " + feeder.m_lastFrame);
+            
             //Consume the other hurtboxes hit for this frame.
             feeder.m_DidHit = true;
             //Proceed to generate contact data and pass event to the owner.
             var collision = feeder.Collider;
-
+            
             //Estimate approximately where the intersection took place.
             var contactPoint = Collider.bounds.ClosestPoint(collision.bounds.center);
             var startY = Mathf.Min(collision.bounds.center.y + collision.bounds.extents.y, Collider.bounds.center.y + (Collider.bounds.extents.y / 2f));
@@ -254,7 +262,8 @@ namespace BlackGardenStudios.HitboxStudioPro
                     BlockGroundVelocityTime = feeder.m_blockGroundVelocityTime,
                     BlockAirVelocity = feeder.m_blockAirVelocity,
                     BlockAirVelocityTime = feeder.m_blockAirVelocityTime,
-                    Frame = m_frame,
+                    HitFrame = feeder.m_frame,
+                    Frame = feeder.m_frame,
                     GiveSelfPower = feeder.m_giveSelfPower,
                     GiveEnemyPower = feeder.m_giveEnemyPower,
                     DownedHit = feeder.m_downedHit,

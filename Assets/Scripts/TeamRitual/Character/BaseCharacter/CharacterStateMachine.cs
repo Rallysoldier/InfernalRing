@@ -9,8 +9,24 @@ namespace TeamRitual.Character {
 public class CharacterStateMachine : ScriptableObject
 {
     public string characterName;
-    //Misc Variables
+
+    //Constant variables
+    public const int MAX_HEALTH = 1000;
+    public Vector2 velocityWalkForward = new Vector2(2,0);
+    public Vector2 velocityWalkBack = new Vector2(-2,0);
+    public Vector2 velocityRunForward = new Vector2(15,0);
+    public Vector2 velocityRunBack = new Vector2(-15,0);
+    public Vector2 velocityJumpNeutral = new Vector2(0,17);
+    public Vector2 velocityJumpForward = new Vector2(6.5f,17f);
+    public Vector2 velocityJumpBack = new Vector2(-6.5f,17f);
+
+
+    //input variables
     public InputHandler inputHandler;
+    public string inputStr = "";
+    string prevInputStr = "";
+    public bool changedInput;
+    
     public SoundHandler soundHandler;
     public CharacterStateMachine enemy;
 
@@ -20,37 +36,21 @@ public class CharacterStateMachine : ScriptableObject
 
     //Physics/Motion Variables
     public Rigidbody2D body;
-    public int facing;
-    public Vector2 hitVelocity;
-    public int hitVelocityTime;
-    public Vector2 blockVelocity;
-    public int blockVelocityTime;
-
-    public const int MAX_HEALTH = 1000;
-    public int health;
-    public int hitstun;
-    public int blockstun;
-    public int cancelPriority = 0;
-
-    public Vector2 velocityWalkForward = new Vector2(2,0);
-    public Vector2 velocityWalkBack = new Vector2(-2,0);
-    public Vector2 velocityRunForward = new Vector2(15,0);
-    public Vector2 velocityRunBack = new Vector2(-15,0);
-    public Vector2 velocityJumpNeutral = new Vector2(0,17);
-    public Vector2 velocityJumpForward = new Vector2(6.5f,17f);
-    public Vector2 velocityJumpBack = new Vector2(-6.5f,17f);
-
     public Vector2 velocity = new Vector2(0,0);
     public float standingFriction = 0.05f;
     public float crouchingFriction = 0.15f;
     public float gravity = 0.85f;
+    public int facing;
+
+    //Hit and health variables
+    public int health;
+    public int hitstun;
+    public int blockstun;
+    public ContactData lastContact;
 
     //state variables
     public CharacterState currentState;
     public CharacterStateFactory states;
-    public string inputStr = "";
-    string prevInputStr = "";
-    public bool changedInput;
 
     //getters and setters
     public CharacterState CurrentState { get { return currentState; } set { currentState = value; } }
@@ -64,6 +64,7 @@ public class CharacterStateMachine : ScriptableObject
     List<ContactData> armorColData = new List<ContactData>();
     List<ContactData> grabColData = new List<ContactData>();
     List<ContactData> techColData = new List<ContactData>();
+    //
 
     public CharacterStateMachine() {
         this.states = new CharacterStateFactory(this);
@@ -92,9 +93,43 @@ public class CharacterStateMachine : ScriptableObject
             }
         }
 
-        ApplyVelocity();
+        this.ApplyVelocity();
 
-        body.gravityScale = 0.0f;
+        this.UpdateStatePhysics();
+
+        this.ApplyHitVelocities();
+
+        this.ChangeStateOnInput();
+
+        this.changedInput = false;
+        this.prevInputStr = inputStr;
+        this.contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
+        this.bodyColData.Clear();
+        this.hurtColData.Clear();
+        this.guardColData.Clear();
+        this.armorColData.Clear();
+        this.grabColData.Clear();
+        this.techColData.Clear();
+        return contactSummary;
+    }
+
+    public void UpdateInputHandler() {
+        //Gets new character input based on the direction they're facing.
+        //Inverts F and B inputs if the character is facing the -x direction (facing == -1)
+        this.inputStr = this.inputHandler.getCharacterInput(this);
+        if (inputStr != prevInputStr) {
+            changedInput = true;
+        }
+        prevInputStr = inputStr;
+        this.inputHandler.updateBufferTime();
+    }
+
+    public void ApplyVelocity() {
+        this.SetPos(this.PosX() + this.VelX()/50f, this.PosY() + this.VelY()/50f);
+    }
+
+    public void UpdateStatePhysics() {
+        this.body.gravityScale = 0.0f;
         switch (this.currentState.physicsType)
         {
             default:
@@ -120,44 +155,26 @@ public class CharacterStateMachine : ScriptableObject
             case PhysicsType.CUSTOM:
                 break;
         }
-
-        if (this.hitVelocityTime > 0) {
-            this.hitVelocityTime--;
-            this.SetVelocity(this.hitVelocity);
-        }
-
-        if (this.blockVelocityTime > 0) {
-            this.blockVelocityTime--;
-            this.SetVelocity(this.blockVelocity);
-        }
-
-        this.changeStateOnInput();
-
-        this.changedInput = false;
-        this.prevInputStr = inputStr;
-
-        contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
-        this.bodyColData.Clear();
-        this.hurtColData.Clear();
-        this.guardColData.Clear();
-        this.armorColData.Clear();
-        this.grabColData.Clear();
-        this.techColData.Clear();
-        return contactSummary;
     }
 
-    public void updateInputHandler() {
-        //Gets new character input based on the direction they're facing.
-        //Inverts F and B inputs if the character is facing the -x direction (facing == -1)
-        this.inputStr = this.inputHandler.getCharacterInput(this);
-        if (inputStr != prevInputStr) {
-            changedInput = true;
+    public void ApplyHitVelocities() {
+        if (this.currentState.stateType == StateType.HURT) {
+            if (this.lastContact.HitGroundVelocityTime > 0) {
+                this.lastContact.HitGroundVelocityTime--;
+                this.SetVelocity(this.lastContact.HitGroundVelocity);
+            } else if (this.lastContact.HitAirVelocityTime > 0) {
+                this.lastContact.HitAirVelocityTime--;
+                this.SetVelocity(this.lastContact.HitAirVelocity);
+            }
         }
-        prevInputStr = inputStr;
-        this.inputHandler.updateBufferTime();
+
+        if (this.lastContact.BlockGroundVelocityTime > 0) {
+            this.lastContact.BlockGroundVelocityTime--;
+            this.SetVelocity(this.lastContact.BlockGroundVelocity);
+        }
     }
 
-    public virtual void changeStateOnInput() {
+    public virtual void ChangeStateOnInput() {
         if (this.currentState.inputChangeState) {
             if (this.currentState.moveType == MoveType.STAND) {
                 if (inputStr.EndsWith("F,F") && this.changedInput) {
@@ -181,10 +198,6 @@ public class CharacterStateMachine : ScriptableObject
                 
             }
         }
-    }
-
-    public void ApplyVelocity() {
-        this.SetPos(this.PosX() + this.VelX()/50f, this.PosY() + this.VelY()/50f);
     }
 
     public void SetPos(float posX, float posY) {
@@ -277,9 +290,7 @@ public class CharacterStateMachine : ScriptableObject
         this.blockstun = hit.Blockstun;
         this.health -= (int)hit.ChipDamage;
 
-        this.blockVelocity = hit.BlockGroundVelocity;
         this.SetVelocity(hit.BlockGroundVelocity);
-        this.blockVelocityTime = hit.BlockGroundVelocityTime;
 
         switch(hitGuardType) {
             case GuardType.MID:
@@ -294,6 +305,8 @@ public class CharacterStateMachine : ScriptableObject
                 this.currentState.SwitchState(states.GuardCrouch());
                 break;
         }
+
+        this.lastContact = hit;
         
         EffectSpawner.PlayHitEffect(0, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
         GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(0), hit.StopSounds);
@@ -306,6 +319,13 @@ public class CharacterStateMachine : ScriptableObject
             return false;
         }
 
+        //Avoid multiple hits within the same animation keyframe, if a hit has already landed.
+        if (this.lastContact.HitFrame == hit.HitFrame) {
+            return false;
+        }
+
+        Debug.Log(hit.Frame);
+
         this.health -= (int) hit.Damage;
         this.health = (int) Mathf.Max(this.health,0f);
 
@@ -314,32 +334,31 @@ public class CharacterStateMachine : ScriptableObject
 
         switch (this.currentState.moveType) {
             case MoveType.STAND:
-                this.hitVelocity = hit.HitGroundVelocity;
+                hit.HitAirVelocityTime = 0;
                 this.SetVelocity(hit.HitGroundVelocity);
-                this.hitVelocityTime = hit.HitGroundVelocityTime;
-                if (this.hitVelocity.y > 0 || this.health == 0) {
+                if (hit.HitGroundVelocity.y > 0 || this.health == 0) {
                     this.currentState.SwitchState(states.HurtAir());
                 } else {
                     this.currentState.SwitchState(states.HurtStand());
                 }
                 break;
             case MoveType.CROUCH:
-                this.hitVelocity = hit.HitGroundVelocity;
+                hit.HitAirVelocityTime = 0;
                 this.SetVelocity(hit.HitGroundVelocity);
-                this.hitVelocityTime = hit.HitGroundVelocityTime;
-                if (this.hitVelocity.y > 0 || this.health == 0) {
+                if (hit.HitGroundVelocity.y > 0 || this.health == 0) {
                     this.currentState.SwitchState(states.HurtAir());
                 } else {
                     this.currentState.SwitchState(states.HurtStand());
                 }
                 break;
             case MoveType.AIR:
-                this.hitVelocity = hit.HitAirVelocity;
+                hit.HitGroundVelocityTime = 0;
                 this.SetVelocity(hit.HitAirVelocity);
-                this.hitVelocityTime = hit.HitAirVelocityTime;
                 this.currentState.SwitchState(states.HurtAir());
                 break;
         }
+
+        this.lastContact = hit;
 
         EffectSpawner.PlayHitEffect(hit.fxID, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
         GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(hit.SoundID), hit.StopSounds);

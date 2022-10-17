@@ -7926,10 +7926,10 @@ MonoBehaviour:
       attackPriority: 4
       hitstun: 30
       blockstun: 15
-      hitGroundVelocity: {x: 0, y: 0}
-      hitGroundVelocityTime: 0
-      hitAirVelocity: {x: 0, y: 0}
-      hitAirVelocityTime: 0
+      hitGroundVelocity: {x: -4, y: 12}
+      hitGroundVelocityTime: 3
+      hitAirVelocity: {x: -3, y: 10}
+      hitAirVelocityTime: 3
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}

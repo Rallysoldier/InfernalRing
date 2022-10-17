@@ -20,7 +20,7 @@ public class XoninStateMachine : CharacterStateMachine
         return summary;
     }
 
-    public override void changeStateOnInput() {
+    public override void ChangeStateOnInput() {
         bool hittingEnemy = this.currentState.moveHit > 0 && this.enemy.hitstun > 0;
 
         if (this.changedInput && (this.currentState.inputChangeState || hittingEnemy)) {
@@ -52,7 +52,7 @@ public class XoninStateMachine : CharacterStateMachine
                 }
             }
         }
-        base.changeStateOnInput();
+        base.ChangeStateOnInput();
     }
 }
 }

@@ -131,7 +131,7 @@ public class GameController : MonoBehaviour {
 
         for (int i = 0; i < Players.Count; i++)
         {
-            Players[i].stateMachine.updateInputHandler();
+            Players[i].stateMachine.UpdateInputHandler();
 
             if (this.pause > 0) {
                 if (i != this.playerPaused) {

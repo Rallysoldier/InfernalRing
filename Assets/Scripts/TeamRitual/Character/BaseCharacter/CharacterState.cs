@@ -31,14 +31,14 @@ public abstract class CharacterState
 	}
 
 	public virtual void EnterState() {
+		this.character.lastContact.HitFrame = -1;
+
 		if (this.faceEnemyStart || this.faceEnemyAlways) {
 			character.correctFacing();
 		}
 		if(!this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)) {
             this.character.anim.Play(animationName);
         }
-
-		this.character.cancelPriority = (int)this.attackPriority;
 	}
 
 	public virtual void UpdateState() {

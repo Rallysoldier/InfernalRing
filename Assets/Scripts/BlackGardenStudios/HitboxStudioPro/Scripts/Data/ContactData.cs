@@ -24,6 +24,11 @@ namespace BlackGardenStudios.HitboxStudioPro
         public int AttackHits;
 
         /// <summary>
+        /// A copy of "Frame" used for detecting hits within the same frame while not erasing frame data.
+        /// </summary>
+        public int HitFrame;
+
+        /// <summary>
         /// The frame of animation this attack hit at
         /// </summary>
         public int Frame;

@@ -86,7 +86,6 @@ public class CharacterStateMachine : ScriptableObject
 
         if (this.currentState.stateType != StateType.HURT) {
             if (this.health == 0) {
-                this.SetVelocity(-8,9);
                 this.currentState.SwitchState(this.states.HurtAir());
             }
         }

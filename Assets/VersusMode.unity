@@ -158,6 +158,8 @@ MonoBehaviour:
   selectedPalettes: 0100000003000000
   stageName: BloodMoon
   Players: []
+  StageWidth: 0
+  StageScale: 0
   Global_Time: 0
   playerPaused: -1
   pause: 0
@@ -165,6 +167,7 @@ MonoBehaviour:
   remainingTimerTime: 0
   TimerUI: {fileID: 0}
   HealthBarsUI: []
+  HealthBarsUIChange: []
 --- !u!4 &1018224496
 Transform:
   m_ObjectHideFlags: 0

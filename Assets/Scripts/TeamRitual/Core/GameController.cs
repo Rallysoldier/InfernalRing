@@ -7,6 +7,7 @@ using TeamRitual.Character;
 namespace TeamRitual.Core {
 public class GameController : MonoBehaviour {
     public static GameController Instance;
+    public SoundHandler soundHandler;
 
     public List<string> characterNames = new List<string>{"Xonin","Xonin"};
     public List<int> selectedPalettes = new List<int>{1,3};
@@ -36,6 +37,8 @@ public class GameController : MonoBehaviour {
 
     void Start()
     {
+        soundHandler = new SoundHandler(GetComponent<AudioSource>());
+
         GameObject canvasGO = Instantiate(Resources.Load("Prefabs/HUD/HUDPrefab_GameCanvas", typeof(GameObject))) as GameObject;
         TimerUI = GameObject.Find("Timer");
         TimerUI.transform.GetComponent<Text>().text = "" + maxTimerTime;
@@ -67,6 +70,7 @@ public class GameController : MonoBehaviour {
 
             playerObj.stateMachine = CreateStateMachine(characterNames[i]);
             playerObj.stateMachine.inputHandler = playerObj.inputHandler;
+            playerObj.stateMachine.soundHandler = playerObj.soundHandler;
 
             playerObj.stateMachine.anim = playerObj.GetComponent<Animator>();
             playerObj.stateMachine.body = playerObj.GetComponent<Rigidbody2D>();
@@ -97,6 +101,8 @@ public class GameController : MonoBehaviour {
         {
             Players[i].stateMachine.currentState.EnterState();
         }
+        
+        AudioClip clip = EffectSpawner.GetSoundEffect(0);
     }
 
     CharacterStateMachine CreateStateMachine(string characterName) {

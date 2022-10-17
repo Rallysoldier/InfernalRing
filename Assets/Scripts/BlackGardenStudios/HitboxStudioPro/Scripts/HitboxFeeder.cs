@@ -11,6 +11,8 @@ namespace BlackGardenStudios.HitboxStudioPro
 
         private int m_hits = 1;
         private float m_Damage = 1f;
+        private int m_soundID;
+        private bool m_stopSounds;
         private int m_FXUID = 0;
         /**New fields**/
         private int m_hitpause;
@@ -99,12 +101,14 @@ namespace BlackGardenStudios.HitboxStudioPro
             float fallingGravity, bool fallAir, bool fallGround, bool fallRecover, Vector2 bounce, float bounceGravity, bool bounceRecover,
             float slide, int slideTime, Vector2 wallBounce, float wallBounceGravity, float wallBounceSlide, int wallBounceTime,
             int downTime, bool downRecover, int hitShakeTime, float hitShakeX, float hitShakeY, int fallShakeTime, float fallShakeX, float fallShakeY,
-            bool forceStand, bool flipEnemy
+            bool forceStand, bool flipEnemy, int soundid, bool stopSounds
             )
         {
             Type = type;
             m_Damage = damage;
             m_FXUID = fxUID;
+            m_soundID = soundid;
+            m_stopSounds = stopSounds;
             /**Feed new fields**/
             m_hitpause = hitpause;
             m_blockpause = blockpause;
@@ -281,7 +285,9 @@ namespace BlackGardenStudios.HitboxStudioPro
                     ForceStand = feeder.m_forceStand,
                     FlipEnemy = feeder.m_flipEnemy,
                     /****/
-                    fxID = feeder.m_FXUID
+                    fxID = feeder.m_FXUID,
+                    SoundID = feeder.m_soundID,
+                    StopSounds = feeder.m_stopSounds,
                 }
             );
         }

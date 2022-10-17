@@ -9,6 +9,7 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
 {
     [SerializeField]
     public string characterName;
+    public SoundHandler soundHandler;
     
     public CharacterStateMachine stateMachine;
     public InputHandler inputHandler = new InputHandler();
@@ -35,11 +36,11 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
     private HitboxManager m_HitboxManager;
 
     void Awake() {
+        soundHandler = new SoundHandler(GetComponent<AudioSource>());
         m_Transform = transform;
         m_Transform.localScale = new Vector2(3.0f,3.0f);
         m_Renderer = GetComponent<SpriteRenderer>();
         m_RigidBody = GetComponent<Rigidbody2D>();
-        m_Renderer = GetComponent<SpriteRenderer>();
         m_Animator = GetComponent<Animator>();
         m_HitboxManager = GetComponent<HitboxManager>();
         m_Collider = GetComponent<Collider2D>();
@@ -110,8 +111,6 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.GetType());
-
         if (collision.gameObject)
         {
             Physics2D.IgnoreCollision(

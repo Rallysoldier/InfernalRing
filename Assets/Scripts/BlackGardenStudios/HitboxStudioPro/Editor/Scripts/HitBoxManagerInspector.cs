@@ -380,6 +380,29 @@ namespace BlackGardenStudios.HitboxStudioPro
                                     hitfxuid.intValue = effects[hitfxlabel.intValue - 1].uniqueID;
                                 else
                                     hitfxuid.intValue = 0;
+
+
+                                var soundfxlabel = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("soundfxlabel");
+                                var soundfxuid = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("soundid");
+                                var soundEffects = EffectSpawner.GetSoundPools();
+                                var soundLabels = new List<string>();
+
+                                soundLabels.Add("None");
+
+                                for (int i = 0; i < soundEffects.Length; i++)
+                                    soundLabels.Add(soundEffects[i].name);
+
+                                soundfxlabel.intValue = EditorGUILayout.Popup("Sound Effect Pool",
+                                    soundfxlabel.intValue, soundLabels.ToArray(), EditorStyles.popup);
+
+                                if (soundfxlabel.intValue > 0)
+                                    soundfxuid.intValue = soundEffects[soundfxlabel.intValue - 1].uniqueID;
+                                else
+                                    soundfxuid.intValue = 0;
+
+                                var stopSound =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("stopSound");
+                                EditorGUILayout.PropertyField(stopSound, new GUIContent("Stop Sounds", "If hit and a sound plays, all other hit sounds are stopped for the sound to play if this is true."));
+
                                 
                                 EditorGUI.indentLevel--;
                             }

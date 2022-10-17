@@ -155,6 +155,8 @@ namespace BlackGardenStudios.HitboxStudioPro
             public int hitpause;
             public int blockpause;
             public int hitfxuid;
+            public int soundid;
+            public bool stopSound;
 
             public float giveSelfPower;
             public float giveEnemyPower;
@@ -219,6 +221,9 @@ namespace BlackGardenStudios.HitboxStudioPro
                     hitpause = v.hitpause,
                     blockpause = v.blockpause,
                     hitfxuid = v.hitfxuid,
+                    soundid = v.soundid,
+                    stopSound = v.stopSound,
+                    giveSelfPower = v.giveSelfPower,
                     giveEnemyPower = v.giveEnemyPower,
                     downedHit = v.downedHit,
                     downedDamage = v.downedDamage,
@@ -275,6 +280,9 @@ namespace BlackGardenStudios.HitboxStudioPro
                     hitpause = v.hitpause,
                     blockpause = v.blockpause,
                     hitfxuid = v.hitfxuid,
+                    soundid = v.soundid,
+                    stopSound = v.stopSound,
+                    giveSelfPower = v.giveSelfPower,
                     giveEnemyPower = v.giveEnemyPower,
                     downedHit = v.downedHit,
                     downedDamage = v.downedDamage,
@@ -330,6 +338,8 @@ namespace BlackGardenStudios.HitboxStudioPro
             public int hitpause;
             public int blockpause;
             public int hitfxuid;
+            public int soundid;
+            public bool stopSound;
 
             public float giveSelfPower;
             public float giveEnemyPower;
@@ -390,6 +400,8 @@ namespace BlackGardenStudios.HitboxStudioPro
                     hitpause = v.hitpause,
                     blockpause = v.blockpause,
                     hitfxuid = v.hitfxuid,
+                    soundid = v.soundid,
+                    stopSound = v.stopSound,
                     giveSelfPower = v.giveSelfPower,
                     giveEnemyPower = v.giveEnemyPower,
                     downedHit = v.downedHit,
@@ -445,6 +457,8 @@ namespace BlackGardenStudios.HitboxStudioPro
                     hitpause = v.hitpause,
                     blockpause = v.blockpause,
                     hitfxuid = v.hitfxuid,
+                    soundid = v.soundid,
+                    stopSound = v.stopSound,
                     giveSelfPower = v.giveSelfPower,
                     giveEnemyPower = v.giveEnemyPower,
                     downedHit = v.downedHit,
@@ -495,7 +509,6 @@ namespace BlackGardenStudios.HitboxStudioPro
             public MovementState movementstate;
             public float movementspeed;
             public int numhits;
-            public int hitfxlabel;
         }
 
         [Serializable]
@@ -523,6 +536,9 @@ namespace BlackGardenStudios.HitboxStudioPro
             public int blockpause;
             public int hitfxlabel;
             public int hitfxuid;
+            public int soundfxlabel;
+            public int soundid;
+            public bool stopSound;
             public float giveSelfPower;
             public float giveEnemyPower;
 
@@ -1048,7 +1064,9 @@ namespace BlackGardenStudios.HitboxStudioPro
                         framedata.fallShakeX,
                         framedata.fallShakeY,
                         framedata.forceStand,
-                        framedata.flipEnemy
+                        framedata.flipEnemy,
+                        framedata.soundid,
+                        framedata.stopSound
                         /**************/
                         );
                 }

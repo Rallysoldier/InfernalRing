@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using BlackGardenStudios.HitboxStudioPro;
 using TeamRitual.Core;
 using TeamRitual.Input;
@@ -10,6 +11,7 @@ public class CharacterStateMachine : ScriptableObject
     public string characterName;
     //Misc Variables
     public InputHandler inputHandler;
+    public SoundHandler soundHandler;
     public CharacterStateMachine enemy;
 
     //Animation Variables
@@ -106,7 +108,7 @@ public class CharacterStateMachine : ScriptableObject
                 break;
             case PhysicsType.AIR:
                 if (this.currentState.stateType == StateType.ATTACK && this.currentState.attackPriority < AttackPriority.SPECIAL
-                    && this.currentState.moveHit > 0) {
+                    && this.currentState.moveHit > 0 && this.enemy.currentState.moveType == MoveType.AIR) {
                     VelYAdd(-this.gravity/3);
                 } else {
                     VelYAdd(-this.gravity);
@@ -274,6 +276,7 @@ public class CharacterStateMachine : ScriptableObject
         }
         
         EffectSpawner.PlayHitEffect(0, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
+        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(0), hit.StopSounds);
         return true;
     }
 
@@ -318,24 +321,10 @@ public class CharacterStateMachine : ScriptableObject
                 break;
         }
 
-        switch (hit.AttackPriority) {
-            case AttackPriority.LIGHT:
-                EffectSpawner.PlayHitEffect(
-                    100, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
-                );
-                break;
-            case AttackPriority.MEDIUM:
-                EffectSpawner.PlayHitEffect(
-                    200, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
-                );
-                break;
-            case AttackPriority.HEAVY:
-                EffectSpawner.PlayHitEffect(
-                    300, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
-                );
-                break;
-        }
-        
+        EffectSpawner.PlayHitEffect(hit.fxID, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
+        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(hit.SoundID), hit.StopSounds);
+        //GameController.Instance.soundHandler.audioSource.PlayOneShot((AudioClip)Resources.Load("Sounds/SFX/Hit/hit-1"));
+
         return true;
     }
 }

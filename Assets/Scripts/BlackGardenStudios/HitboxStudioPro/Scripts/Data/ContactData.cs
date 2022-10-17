@@ -136,5 +136,14 @@ namespace BlackGardenStudios.HitboxStudioPro
 
         public bool ForceStand;
         public bool FlipEnemy;
+
+        /// <summary>
+        /// Identifier of the sound effect this attack uses.
+        /// </summary>
+        public int SoundID;
+        /// <summary>
+        /// If true, all hit sound effects other than this hit's sound effect are stopped
+        /// </summary>
+        public bool StopSounds;
     }
 }

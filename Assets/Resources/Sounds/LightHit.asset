@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cd41eb65d2f4fb42988208c85369546, type: 3}
+  m_Name: LightHit
+  m_EditorClassIdentifier: 
+  Effects:
+  - {fileID: 8300000, guid: d458ce5723572ad4a87363b70f6f674e, type: 3}
+  - {fileID: 8300000, guid: 4e11c5b6b16802c4f81e40295bd2365e, type: 3}
+  - {fileID: 8300000, guid: b1a1cf7fba25b064b9b001302753b51a, type: 3}
+  - {fileID: 8300000, guid: 2443be20416cbe047b6febd12fe96efe, type: 3}
+  - {fileID: 8300000, guid: 3032ab92075a37646af87257ced25a32, type: 3}
+  - {fileID: 8300000, guid: d3d5e6e2ab7798c4292edbca87db8e21, type: 3}
+  - {fileID: 8300000, guid: 0fe4d0d99831e594dbff9eb44f3d341a, type: 3}
+  - {fileID: 8300000, guid: d7568162f119eca409a00f63df393c80, type: 3}
+  uniqueID: 10

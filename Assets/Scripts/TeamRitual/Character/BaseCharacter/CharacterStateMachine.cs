@@ -39,6 +39,8 @@ public class CharacterStateMachine : ScriptableObject
     public Vector2 velocityJumpNeutral = new Vector2(0,17);
     public Vector2 velocityJumpForward = new Vector2(6.5f,17f);
     public Vector2 velocityJumpBack = new Vector2(-6.5f,17f);
+
+    public Vector2 velocity = new Vector2(0,0);
     public float standingFriction = 0.05f;
     public float crouchingFriction = 0.15f;
     public float gravity = 0.85f;
@@ -89,6 +91,8 @@ public class CharacterStateMachine : ScriptableObject
                 this.currentState.SwitchState(this.states.HurtAir());
             }
         }
+
+        ApplyVelocity();
 
         body.gravityScale = 0.0f;
         switch (this.currentState.physicsType)
@@ -179,29 +183,46 @@ public class CharacterStateMachine : ScriptableObject
         }
     }
 
+    public void ApplyVelocity() {
+        this.SetPos(this.PosX() + this.VelX()/50f, this.PosY() + this.VelY()/50f);
+    }
+
+    public void SetPos(float posX, float posY) {
+        this.body.position = new Vector2(posX,posY);
+    }
+    public Vector2 Pos() {
+        return this.body.position;
+    }
+
+    public void SetPosX(float x) {
+        this.SetPos(x, this.PosY());
+    }
     public float PosX() {
         return this.body.position.x;
     }
 
+    public void SetPosY(float y) {
+        this.SetPos(PosX(), y);
+    }
     public float PosY() {
         return this.body.position.y;
     }
 
     public float VelX() {
-        return this.body.velocity.x;
+        return this.velocity.x;
     }
 
     public float VelY() {
-        return this.body.velocity.y;
+        return this.velocity.y;
     }
 
     //Always use this to set velocity. Changes velocity based on the "facing" variable.
     public void SetVelocity(float velx, float vely) {
-        body.velocity = new Vector2(velx*facing,vely);
+        this.velocity = new Vector2(velx*facing,vely);
     }
 
     public void SetVelocity(Vector2 velocity) {
-        body.velocity = new Vector2(velocity.x*facing,velocity.y);
+        this.velocity = new Vector2(velocity.x*facing,velocity.y);
     }
 
     public void VelX(float velocity) {
@@ -209,15 +230,15 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public void VelXDirect(float velocity) {
-        body.velocity = new Vector2(velocity,VelY());
+        this.velocity = new Vector2(velocity, VelY());
     }
 
     public void VelY(float velocity) {
-        body.velocity = new Vector2(VelX(),velocity);
+        this.velocity = new Vector2(VelX(), velocity);
     }
 
     public void VelYAdd(float velocity) {
-        body.velocity = new Vector2(VelX(),VelY() + velocity);
+        this.velocity = new Vector2(VelX(), VelY() + velocity);
     }
 
     public void correctFacing() {

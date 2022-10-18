@@ -201,7 +201,7 @@ public class GameController : MonoBehaviour {
                 winningHits.RemoveAll(hit => (int) hit.AttackPriority < winningPriority);
 
                 foreach (ContactData hit in winningHits) {
-                    if (characterHitting.currentState.moveContact >= hit.AttackHits || characterHitting.currentState.stateTime <= 1)
+                    if (characterHitting.currentState.moveContact >= hit.AttackHits)
                         break;
 
                     bool blocked = false;
@@ -232,7 +232,7 @@ public class GameController : MonoBehaviour {
                             if (characterHitting.attackCancels.Count == 0) {
                                 characterHitting.attackCancels.Add(characterHitting.currentState.GetType().Name);
                             }
-                            //Debug.Log("Hits landed: "+characterHitting.currentState.moveContact +", Max hits: "+ hit.AttackHits);
+                            Debug.Log("Hits landed: "+characterHitting.currentState.moveContact +", Max hits: "+ hit.AttackHits);
                         }
                     }
                 }

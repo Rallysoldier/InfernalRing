@@ -107,12 +107,7 @@ public class CharacterStateMachine : ScriptableObject
         this.changedInput = false;
         this.prevInputStr = inputStr;
         this.contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
-        this.bodyColData.Clear();
-        this.hurtColData.Clear();
-        this.guardColData.Clear();
-        this.armorColData.Clear();
-        this.grabColData.Clear();
-        this.techColData.Clear();
+        this.ClearContactData();
         return contactSummary;
     }
 
@@ -132,6 +127,9 @@ public class CharacterStateMachine : ScriptableObject
 
         if (this.PosX() >= GameController.Instance.StageMaxBound() || this.PosX() <= GameController.Instance.StageMinBound() ||
             this.PosX() + velX >= GameController.Instance.StageMaxBound() || this.PosX() + velX <= GameController.Instance.StageMinBound()) {
+            velX = 0;
+        }
+        if (Mathf.Abs(this.PosX() + velX - this.enemy.PosX()) > 12.5f) {
             velX = 0;
         }
         this.SetPos(this.PosX() + velX, this.PosY() + this.VelY()/500f);
@@ -207,6 +205,15 @@ public class CharacterStateMachine : ScriptableObject
                 
             }
         }
+    }
+
+    public void ClearContactData() {
+        this.bodyColData.Clear();
+        this.hurtColData.Clear();
+        this.guardColData.Clear();
+        this.armorColData.Clear();
+        this.grabColData.Clear();
+        this.techColData.Clear();
     }
 
     public void SetPos(float posX, float posY) {

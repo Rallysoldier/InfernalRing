@@ -229,6 +229,9 @@ public class GameController : MonoBehaviour {
                         if (characterHurt.Hit(hit)) {
                             characterHitting.currentState.moveContact++;
                             characterHitting.currentState.moveHit++;
+                            if (characterHitting.attackCancels.Count == 0) {
+                                characterHitting.attackCancels.Add(characterHitting.currentState.GetType().Name);
+                            }
                             //Debug.Log("Hits landed: "+characterHitting.currentState.moveContact +", Max hits: "+ hit.AttackHits);
                         }
                     }

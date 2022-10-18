@@ -52,6 +52,7 @@ public class CharacterStateMachine : ScriptableObject
     //state variables
     public CharacterState currentState;
     public CharacterStateFactory states;
+    public List<string> attackCancels = new List<string>();
 
     //getters and setters
     public CharacterState CurrentState { get { return currentState; } set { currentState = value; } }
@@ -92,6 +93,9 @@ public class CharacterStateMachine : ScriptableObject
             if (this.health == 0) {
                 this.currentState.SwitchState(this.states.HurtAir());
             }
+        }
+        if (this.currentState.stateType != StateType.ATTACK) {
+            this.attackCancels.Clear();
         }
 
         this.UpdateStatePhysics();

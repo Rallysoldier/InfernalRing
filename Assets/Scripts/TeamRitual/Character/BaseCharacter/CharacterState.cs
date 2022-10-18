@@ -62,8 +62,14 @@ public abstract class CharacterState
 		if (this.GetType() == newState.GetType())
 			return;
 		
-		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK && newState.attackPriority < this.attackPriority)
-			return;
+		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK) {
+			if (newState.attackPriority < this.attackPriority || this.character.attackCancels.Contains(newState.GetType().Name))
+				return;
+
+			this.character.attackCancels.Add(newState.GetType().Name);
+		}
+
+
 
 		// exit current state
 		ExitState();

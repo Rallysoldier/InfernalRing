@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
     public List<PlayerGameObj> Players;
     public float StageWidth;
     public float StageScale;
+    public float TotalStageWidth;
 
     public int Global_Time = 0;
     public int playerPaused = -1; //Determines which player paused the game during a character pause
@@ -51,6 +52,7 @@ public class GameController : MonoBehaviour {
         StageObj = Instantiate(Resources.Load("Prefabs/Stages/StagePrefab_" + stageName, typeof(GameObject))) as GameObject;
         StageWidth = StageObj.GetComponent<SpriteRenderer>().sprite.rect.width/100;
         StageScale = StageObj.transform.localScale.x;
+        TotalStageWidth = StageWidth * StageScale;
 
         for (int i = 0; i < 2; i++) {
             GameObject playerGO = Instantiate(Resources.Load("Prefabs/Characters/CharacterPrefab_"+characterNames[i], typeof(GameObject))) as GameObject;
@@ -120,6 +122,13 @@ public class GameController : MonoBehaviour {
     ContactSummary P2_Hits;
     void FixedUpdate()
     {
+        for (int i = 0; i < Players.Count; i++)
+        {
+             if (this.pause == 0 || i == this.playerPaused) {
+                Players[i].stateMachine.ApplyVelocity();
+             }
+        }
+
         //True game ticks happen ten times as fast, every 0.00167s instead of 0.0167. This is for things that must be
         //calculated quickly like hitbox collisions.
         trueGameTicks++;
@@ -284,6 +293,14 @@ public class GameController : MonoBehaviour {
     }
     public float GetCameraLerp() {
         return cameraLerp;
+    }
+
+    public float StageMinBound() {
+        return -TotalStageWidth/2f + 1.2f;
+    }
+
+    public float StageMaxBound() {
+        return TotalStageWidth/2f - 1.2f;
     }
 
     //Used for hitpause

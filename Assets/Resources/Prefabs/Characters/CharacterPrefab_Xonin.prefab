@@ -36,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &585068910747281375
 SpriteRenderer:
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1709445816, guid: 6d79257118cb06044a3b539d0a23c9cf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 773bc1003d51bb643b6cbba49fb78b9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -149,7 +149,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &585068910747281188
 BoxCollider2D:
@@ -161,21 +161,21 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.36, y: 0.14}
-    oldSize: {x: 2.5, y: 2.5}
+    pivot: {x: 0.37438422, y: 0.35999998}
+    oldSize: {x: 2.03, y: 2}
     newSize: {x: 1.28, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.02}
+  m_Size: {x: 0.3, y: 1}
   m_EdgeRadius: 0
 --- !u!82 &-3165798292322632610
 AudioSource:
@@ -3930,8 +3930,8 @@ MonoBehaviour:
       blockstun: 5
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
-      hitAirVelocity: {x: 0, y: 0}
-      hitAirVelocityTime: 0
+      hitAirVelocity: {x: -1, y: 2}
+      hitAirVelocityTime: 4
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
@@ -3941,7 +3941,7 @@ MonoBehaviour:
       hitfxlabel: 6
       hitfxuid: 100
       soundfxlabel: 1
-      soundid: 10
+      soundid: 30
       stopSound: 0
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -3997,8 +3997,8 @@ MonoBehaviour:
       blockstun: 5
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
-      hitAirVelocity: {x: 0, y: 0}
-      hitAirVelocityTime: 0
+      hitAirVelocity: {x: -1, y: 2}
+      hitAirVelocityTime: 4
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
@@ -4008,7 +4008,7 @@ MonoBehaviour:
       hitfxlabel: 6
       hitfxuid: 100
       soundfxlabel: 1
-      soundid: 10
+      soundid: 30
       stopSound: 0
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -5243,8 +5243,8 @@ MonoBehaviour:
       blockstun: 10
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
-      hitAirVelocity: {x: 0, y: 0}
-      hitAirVelocityTime: 0
+      hitAirVelocity: {x: -1, y: 2}
+      hitAirVelocityTime: 2
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
@@ -5322,8 +5322,8 @@ MonoBehaviour:
       blockstun: 10
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
-      hitAirVelocity: {x: 0, y: 0}
-      hitAirVelocityTime: 0
+      hitAirVelocity: {x: -1, y: 2}
+      hitAirVelocityTime: 2
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
@@ -6270,7 +6270,7 @@ MonoBehaviour:
       forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
-      time: 0.050000004
+      time: 0.033333335
       smoothedOffset: 0
       skipColliderUpdate: 0
     - collider:
@@ -6337,7 +6337,7 @@ MonoBehaviour:
       forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
-      time: 0.10000001
+      time: 0.06666667
       smoothedOffset: 0
       skipColliderUpdate: 0
     - collider:
@@ -6355,25 +6355,13 @@ MonoBehaviour:
         type: 0
       - rect:
           x: 18
-          y: -40
-          width: 27
-          height: 60
-        type: 1
-      - rect:
-          x: -9
-          y: -17
-          width: 27
-          height: 60
-        type: 1
-      - rect:
-          x: 45
-          y: -62
-          width: 27
-          height: 60
+          y: -67
+          width: 70
+          height: 186
         type: 1
       damage: 50
       chipDamage: 0
-      guardType: 0
+      guardType: 2
       attackPriority: 4
       hitstun: 30
       blockstun: 15
@@ -6422,7 +6410,7 @@ MonoBehaviour:
       forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
-      time: 0.15
+      time: 0.10000001
       smoothedOffset: 0
       skipColliderUpdate: 0
     - collider:
@@ -6489,7 +6477,7 @@ MonoBehaviour:
       forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
-      time: 0.21666667
+      time: 0.16666669
       smoothedOffset: 0
       skipColliderUpdate: 0
     - collider:
@@ -6556,7 +6544,7 @@ MonoBehaviour:
       forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
-      time: 0.35000002
+      time: 0.3
       smoothedOffset: 0
       skipColliderUpdate: 0
     - collider:
@@ -6623,7 +6611,7 @@ MonoBehaviour:
       forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
-      time: 0.38333336
+      time: 0.33333334
       smoothedOffset: 0
       skipColliderUpdate: 0
     movementstate: 0
@@ -8313,6 +8301,6 @@ MonoBehaviour:
     movementspeed: 0
     numhits: 2
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 25
-  m_CurrentFrame: 5
-  m_CurrentCollider: 3
+  m_CurrentAnimation: 23
+  m_CurrentFrame: 3
+  m_CurrentCollider: 2

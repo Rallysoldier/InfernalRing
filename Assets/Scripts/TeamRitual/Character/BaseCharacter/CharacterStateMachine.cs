@@ -47,6 +47,7 @@ public class CharacterStateMachine : ScriptableObject
     public int hitstun;
     public int blockstun;
     public ContactData lastContact;
+    public CharacterState lastContactState;
 
     //state variables
     public CharacterState currentState;
@@ -93,8 +94,6 @@ public class CharacterStateMachine : ScriptableObject
             }
         }
 
-        this.ApplyVelocity();
-
         this.UpdateStatePhysics();
 
         this.ApplyHitVelocities();
@@ -125,7 +124,13 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public void ApplyVelocity() {
-        this.SetPos(this.PosX() + this.VelX()/50f, this.PosY() + this.VelY()/50f);
+        float velX = this.VelX()/500f;
+
+        if (this.PosX() >= GameController.Instance.StageMaxBound() || this.PosX() <= GameController.Instance.StageMinBound() ||
+            this.PosX() + velX >= GameController.Instance.StageMaxBound() || this.PosX() + velX <= GameController.Instance.StageMinBound()) {
+            velX = 0;
+        }
+        this.SetPos(this.PosX() + velX, this.PosY() + this.VelY()/500f);
     }
 
     public void UpdateStatePhysics() {
@@ -307,6 +312,7 @@ public class CharacterStateMachine : ScriptableObject
         }
 
         this.lastContact = hit;
+        this.lastContactState = this.enemy.currentState;
         
         EffectSpawner.PlayHitEffect(0, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
         GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(0), hit.StopSounds);
@@ -320,11 +326,11 @@ public class CharacterStateMachine : ScriptableObject
         }
 
         //Avoid multiple hits within the same animation keyframe, if a hit has already landed.
-        if (this.lastContact.HitFrame == hit.HitFrame) {
+        if (this.lastContact.HitFrame == hit.HitFrame && lastContactState == this.enemy.currentState) {
             return false;
         }
 
-        Debug.Log(hit.Frame);
+        //Debug.Log(hit.Frame);
 
         this.health -= (int) hit.Damage;
         this.health = (int) Mathf.Max(this.health,0f);
@@ -359,6 +365,7 @@ public class CharacterStateMachine : ScriptableObject
         }
 
         this.lastContact = hit;
+        this.lastContactState = this.enemy.currentState;
 
         EffectSpawner.PlayHitEffect(hit.fxID, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
         GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(hit.SoundID), hit.StopSounds);

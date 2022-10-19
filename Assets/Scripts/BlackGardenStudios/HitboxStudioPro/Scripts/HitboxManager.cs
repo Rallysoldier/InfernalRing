@@ -936,12 +936,9 @@ namespace BlackGardenStudios.HitboxStudioPro
                 var capsule = m_OffsetStep;
                 transform.root.localPosition += new Vector3(capsule.x * m_UPP, capsule.y * m_UPP);
             }
-
-            DoHitboxUpdates();
         }
 
-        private void DoHitboxUpdates()
-        {
+        private void Update() {
             m_Contacts.Sort(ContactComparison);
 
             for (int i = 0; i < m_Contacts.Count; i++)

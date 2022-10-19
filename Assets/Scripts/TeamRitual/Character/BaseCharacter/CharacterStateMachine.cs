@@ -124,11 +124,10 @@ public class CharacterStateMachine : ScriptableObject
 
     public void ApplyVelocity() {
         float velX = this.VelX()/500f;
+        float resultPosX = this.PosX() + velX;
 
-        if (this.PosX() + velX >= GameController.Instance.StageMaxBound() || this.PosX() + velX <= GameController.Instance.StageMinBound()) {
-            velX = 0;
-        }
-        if (Mathf.Abs(this.PosX() + velX - this.enemy.PosX()) > 18.5f) {
+        if (resultPosX >= GameController.Instance.StageMaxBound() || resultPosX <= GameController.Instance.StageMinBound()
+        || Mathf.Abs(resultPosX - this.enemy.PosX()) > 18.5f) {
             velX = 0;
         }
         this.SetPos(this.PosX() + velX, this.PosY() + this.VelY()/500f);

@@ -232,7 +232,7 @@ public class GameController : MonoBehaviour {
                             if (characterHitting.attackCancels.Count == 0) {
                                 characterHitting.attackCancels.Add(characterHitting.currentState.GetType().Name);
                             }
-                            Debug.Log("Hits landed: "+characterHitting.currentState.moveContact +", Max hits: "+ hit.AttackHits);
+                            //Debug.Log("Hits landed: "+characterHitting.currentState.moveContact +", Max hits: "+ hit.AttackHits);
                         }
                     }
                 }
@@ -273,7 +273,7 @@ public class GameController : MonoBehaviour {
             cameraX = Mathf.Sign(cameraX) * cameraLimit;
         }
 
-        Vector3 cameraDestination = new Vector3(cameraX, cameraY + 2.5f, -10); //Replace 2.5f with the average of characters' heights
+        Vector3 cameraDestination = new Vector3(cameraX, cameraY + 3.5f, -10); //Replace 2.5f with the average of characters' heights
         LerpCamera(cameraDestination);
     }
 

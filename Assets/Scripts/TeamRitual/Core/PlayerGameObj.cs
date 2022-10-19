@@ -38,7 +38,7 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
     void Awake() {
         soundHandler = new SoundHandler(GetComponent<AudioSource>());
         m_Transform = transform;
-        m_Transform.localScale = new Vector2(3.0f,3.0f);
+        m_Transform.localScale = new Vector2(4.0f,4.0f);
         m_Renderer = GetComponent<SpriteRenderer>();
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_Animator = GetComponent<Animator>();

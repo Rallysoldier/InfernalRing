@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 8ae97229af9f57443980502b6cc60fdb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5471b6d0e18c0664e96fc66fcad1e919, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   characterName: 
   stateMachine: {fileID: 0}
   wins: 0
-  m_ActivePalette: {fileID: 11400000, guid: e5b75531fb719c442b6d0b1660ae599d, type: 2}
+  m_ActivePalette: {fileID: 11400000, guid: e3eff5e8feaae5943a183ff7b2cce0ae, type: 2}
   m_PaletteGroup: {fileID: 11400000, guid: d9da731406228c942961049084084a08, type: 2}
   m_Animator: {fileID: 0}
   m_RigidBody: {fileID: 0}
@@ -167,8 +167,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4765625, y: 0.0625}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0.46875, y: 0.046666667}
+    oldSize: {x: 1.28, y: 1.5}
     newSize: {x: 1.28, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3322,7 +3322,7 @@ MonoBehaviour:
       hitfxlabel: 6
       hitfxuid: 100
       soundfxlabel: 1
-      soundid: 10
+      soundid: 30
       stopSound: 0
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -3380,8 +3380,8 @@ MonoBehaviour:
       chipDamage: 0
       guardType: 0
       attackPriority: 2
-      hitstun: 8
-      blockstun: 5
+      hitstun: 10
+      blockstun: 6
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
       hitAirVelocity: {x: 0, y: 0}
@@ -3395,7 +3395,7 @@ MonoBehaviour:
       hitfxlabel: 6
       hitfxuid: 100
       soundfxlabel: 1
-      soundid: 10
+      soundid: 30
       stopSound: 0
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -3926,7 +3926,7 @@ MonoBehaviour:
       chipDamage: 0
       guardType: 2
       attackPriority: 2
-      hitstun: 8
+      hitstun: 15
       blockstun: 5
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
@@ -3991,9 +3991,9 @@ MonoBehaviour:
         type: 1
       damage: 15
       chipDamage: 0
-      guardType: 0
+      guardType: 2
       attackPriority: 2
-      hitstun: 8
+      hitstun: 15
       blockstun: 5
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
@@ -6365,10 +6365,10 @@ MonoBehaviour:
       attackPriority: 4
       hitstun: 30
       blockstun: 15
-      hitGroundVelocity: {x: 0, y: 0}
-      hitGroundVelocityTime: 0
-      hitAirVelocity: {x: 0, y: 0}
-      hitAirVelocityTime: 0
+      hitGroundVelocity: {x: -3, y: -15}
+      hitGroundVelocityTime: 3
+      hitAirVelocity: {x: -3, y: -15}
+      hitAirVelocityTime: 3
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
@@ -8301,6 +8301,6 @@ MonoBehaviour:
     movementspeed: 0
     numhits: 2
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 17
+  m_CurrentAnimation: 0
   m_CurrentFrame: 0
   m_CurrentCollider: 2

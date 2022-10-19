@@ -36,9 +36,11 @@ public abstract class CharacterState
 		if (this.faceEnemyStart || this.faceEnemyAlways) {
 			character.correctFacing();
 		}
+		string prevAnimName = this.character.GetCurrentAnimationName();
 		if(!this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)) {
             this.character.anim.Play(animationName);
         }
+		Debug.Log(prevAnimName + " " + this.character.GetCurrentAnimationName());
 	}
 
 	public virtual void UpdateState() {

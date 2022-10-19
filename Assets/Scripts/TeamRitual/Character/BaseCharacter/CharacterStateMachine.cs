@@ -275,6 +275,10 @@ public class CharacterStateMachine : ScriptableObject
         this.spriteRenderer.flipX = this.facing == -1;
     }
 
+    public string GetCurrentAnimationName() {
+        return anim.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+    }
+
     public virtual void HitboxContact(ContactData data) {
         switch (data.MyHitbox.Type)
         {

@@ -201,8 +201,12 @@ public class GameController : MonoBehaviour {
                 winningHits.RemoveAll(hit => (int) hit.AttackPriority < winningPriority);
 
                 foreach (ContactData hit in winningHits) {
-                    if (characterHitting.currentState.moveContact >= hit.AttackHits)
-                        break;
+                    if (hit.PlayerIsSource) {
+                        if (characterHitting.currentState.moveContact >= hit.AttackHits || 
+                            hit.AnimationName != characterHitting.GetCurrentAnimationName() ||
+                            hit.AnimationName != characterHitting.currentState.animationName)
+                            break;
+                    }
 
                     bool blocked = false;
                     if (characterHurt.currentState.inputChangeState || characterHurt.blockstun > 0) {

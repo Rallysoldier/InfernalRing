@@ -40,7 +40,6 @@ public abstract class CharacterState
 		if(!this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)) {
             this.character.anim.Play(animationName);
         }
-		Debug.Log(prevAnimName + " " + this.character.GetCurrentAnimationName());
 	}
 
 	public virtual void UpdateState() {
@@ -63,10 +62,17 @@ public abstract class CharacterState
 	{
 		if (this.GetType() == newState.GetType())
 			return;
-		
+
 		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK) {
-			if (newState.attackPriority < this.attackPriority || this.character.attackCancels.Contains(newState.GetType().Name))
-				return;
+			bool canCancelInto = newState.attackPriority >= this.attackPriority &&
+				!this.character.attackCancels.Contains(newState.GetType().Name);
+
+			if (!canCancelInto) {
+				bool exceptions = newState.moveType == MoveType.AIR
+					|| (character.ReverseBeat() && this.attackPriority <= AttackPriority.HEAVY);
+				if (!exceptions)
+					return;
+			}
 
 			this.character.attackCancels.Add(newState.GetType().Name);
 		}
@@ -81,6 +87,8 @@ public abstract class CharacterState
 
 		//update context of state
 		character.currentState = newState;
+
+		//Debug.Log("Switched from " + this + " to " + newState);
 	}
 
 	protected void SetSuperState()

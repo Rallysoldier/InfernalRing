@@ -20,7 +20,6 @@ public class CharacterStateMachine : ScriptableObject
     public Vector2 velocityJumpForward = new Vector2(6.5f,17f);
     public Vector2 velocityJumpBack = new Vector2(-6.5f,17f);
 
-
     //input variables
     public InputHandler inputHandler;
     public string inputStr = "";
@@ -385,6 +384,11 @@ public class CharacterStateMachine : ScriptableObject
         //GameController.Instance.soundHandler.audioSource.PlayOneShot((AudioClip)Resources.Load("Sounds/SFX/Hit/hit-1"));
 
         return true;
+    }
+
+    //If true, allows higher priority basic attacks to be chained into lower priority attacks.
+    public virtual bool ReverseBeat() {
+        return false;
     }
 }
 }

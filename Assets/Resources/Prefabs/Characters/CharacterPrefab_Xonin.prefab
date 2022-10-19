@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: b0674cb16cdd3514f857a246ef1e6ec1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ae97229af9f57443980502b6cc60fdb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -167,8 +167,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5125, y: 0}
-    oldSize: {x: 0.8, y: 1.4}
+    pivot: {x: 0.4765625, y: 0.0625}
+    oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 1.28, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3307,7 +3307,7 @@ MonoBehaviour:
       chipDamage: 0
       guardType: 0
       attackPriority: 2
-      hitstun: 8
+      hitstun: 11
       blockstun: 5
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
@@ -3321,8 +3321,8 @@ MonoBehaviour:
       blockpause: 0
       hitfxlabel: 6
       hitfxuid: 100
-      soundfxlabel: 1
-      soundid: 30
+      soundfxlabel: 3
+      soundid: 10
       stopSound: 0
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -3380,7 +3380,7 @@ MonoBehaviour:
       chipDamage: 0
       guardType: 0
       attackPriority: 2
-      hitstun: 10
+      hitstun: 12
       blockstun: 6
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
@@ -3394,8 +3394,8 @@ MonoBehaviour:
       blockpause: 0
       hitfxlabel: 6
       hitfxuid: 100
-      soundfxlabel: 1
-      soundid: 30
+      soundfxlabel: 3
+      soundid: 10
       stopSound: 0
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -3726,7 +3726,7 @@ MonoBehaviour:
       chipDamage: 0
       guardType: 1
       attackPriority: 2
-      hitstun: 8
+      hitstun: 11
       blockstun: 5
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
@@ -3741,7 +3741,7 @@ MonoBehaviour:
       hitfxlabel: 6
       hitfxuid: 100
       soundfxlabel: 1
-      soundid: 10
+      soundid: 30
       stopSound: 0
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -4526,9 +4526,9 @@ MonoBehaviour:
         type: 0
       - rect:
           x: 25
-          y: 96
+          y: 61
           width: 68
-          height: 26
+          height: 61
         type: 1
       damage: 15
       chipDamage: 0
@@ -8301,6 +8301,6 @@ MonoBehaviour:
     movementspeed: 0
     numhits: 2
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 19
-  m_CurrentFrame: 0
-  m_CurrentCollider: 2
+  m_CurrentAnimation: 17
+  m_CurrentFrame: 4
+  m_CurrentCollider: 6

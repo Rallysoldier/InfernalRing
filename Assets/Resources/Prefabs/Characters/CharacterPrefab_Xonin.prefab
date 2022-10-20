@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 8ae97229af9f57443980502b6cc60fdb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5471b6d0e18c0664e96fc66fcad1e919, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -167,8 +167,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4765625, y: 0.0625}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0.46875, y: 0.046666667}
+    oldSize: {x: 1.28, y: 1.5}
     newSize: {x: 1.28, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3307,7 +3307,7 @@ MonoBehaviour:
       chipDamage: 0
       guardType: 0
       attackPriority: 2
-      hitstun: 11
+      hitstun: 12
       blockstun: 5
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
@@ -3380,7 +3380,7 @@ MonoBehaviour:
       chipDamage: 0
       guardType: 0
       attackPriority: 2
-      hitstun: 12
+      hitstun: 13
       blockstun: 6
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
@@ -4623,8 +4623,8 @@ MonoBehaviour:
       blockstun: 10
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
-      hitAirVelocity: {x: 0, y: 0}
-      hitAirVelocityTime: 0
+      hitAirVelocity: {x: -1, y: -8}
+      hitAirVelocityTime: 4
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
@@ -8301,6 +8301,6 @@ MonoBehaviour:
     movementspeed: 0
     numhits: 2
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 17
-  m_CurrentFrame: 4
+  m_CurrentAnimation: 0
+  m_CurrentFrame: 0
   m_CurrentCollider: 6

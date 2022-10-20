@@ -11,6 +11,7 @@ public abstract class CharacterState
 
 	public int moveHit;
 	public int moveContact;
+	public int hitsToCancel = 1;
 
 	//The variables below can be different for each state, and are only ever defined/mutated in the state's constructor.
 
@@ -63,9 +64,11 @@ public abstract class CharacterState
 		if (this.GetType() == newState.GetType())
 			return;
 
-		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK) {
-			bool canCancelInto = newState.attackPriority >= this.attackPriority &&
-				!this.character.attackCancels.Contains(newState.GetType().Name);
+		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK && moveHit >= hitsToCancel) {
+			bool canCancelInto =
+				((newState.attackPriority >= this.attackPriority && this.attackPriority <= AttackPriority.HEAVY)
+				|| (newState.attackPriority > this.attackPriority && this.attackPriority > AttackPriority.HEAVY))
+				&& !this.character.attackCancels.Contains(newState.GetType().Name);
 
 			if (!canCancelInto) {
 				bool exceptions = newState.moveType == MoveType.AIR

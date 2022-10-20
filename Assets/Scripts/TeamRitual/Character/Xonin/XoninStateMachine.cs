@@ -54,5 +54,9 @@ public class XoninStateMachine : CharacterStateMachine
         }
         base.ChangeStateOnInput();
     }
+
+    public override bool ReverseBeat() {
+        return false;
+    }
 }
 }

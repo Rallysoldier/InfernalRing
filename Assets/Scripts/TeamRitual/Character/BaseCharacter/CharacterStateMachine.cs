@@ -20,7 +20,6 @@ public class CharacterStateMachine : ScriptableObject
     public Vector2 velocityJumpForward = new Vector2(6.5f,17f);
     public Vector2 velocityJumpBack = new Vector2(-6.5f,17f);
 
-
     //input variables
     public InputHandler inputHandler;
     public string inputStr = "";
@@ -47,10 +46,12 @@ public class CharacterStateMachine : ScriptableObject
     public int hitstun;
     public int blockstun;
     public ContactData lastContact;
+    public CharacterState lastContactState;
 
     //state variables
     public CharacterState currentState;
     public CharacterStateFactory states;
+    public List<string> attackCancels = new List<string>();
 
     //getters and setters
     public CharacterState CurrentState { get { return currentState; } set { currentState = value; } }
@@ -92,8 +93,9 @@ public class CharacterStateMachine : ScriptableObject
                 this.currentState.SwitchState(this.states.HurtAir());
             }
         }
-
-        this.ApplyVelocity();
+        if (this.currentState.stateType != StateType.ATTACK) {
+            this.attackCancels.Clear();
+        }
 
         this.UpdateStatePhysics();
 
@@ -104,12 +106,7 @@ public class CharacterStateMachine : ScriptableObject
         this.changedInput = false;
         this.prevInputStr = inputStr;
         this.contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
-        this.bodyColData.Clear();
-        this.hurtColData.Clear();
-        this.guardColData.Clear();
-        this.armorColData.Clear();
-        this.grabColData.Clear();
-        this.techColData.Clear();
+        this.ClearContactData();
         return contactSummary;
     }
 
@@ -125,7 +122,14 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public void ApplyVelocity() {
-        this.SetPos(this.PosX() + this.VelX()/50f, this.PosY() + this.VelY()/50f);
+        float velX = this.VelX()/500f;
+        float resultPosX = this.PosX() + velX;
+
+        if (resultPosX >= GameController.Instance.StageMaxBound() || resultPosX <= GameController.Instance.StageMinBound()
+        || Mathf.Abs(resultPosX - this.enemy.PosX()) > 18.5f) {
+            velX = 0;
+        }
+        this.SetPos(this.PosX() + velX, this.PosY() + this.VelY()/500f);
     }
 
     public void UpdateStatePhysics() {
@@ -200,6 +204,15 @@ public class CharacterStateMachine : ScriptableObject
         }
     }
 
+    public void ClearContactData() {
+        this.bodyColData.Clear();
+        this.hurtColData.Clear();
+        this.guardColData.Clear();
+        this.armorColData.Clear();
+        this.grabColData.Clear();
+        this.techColData.Clear();
+    }
+
     public void SetPos(float posX, float posY) {
         this.body.position = new Vector2(posX,posY);
     }
@@ -261,6 +274,10 @@ public class CharacterStateMachine : ScriptableObject
         this.spriteRenderer.flipX = this.facing == -1;
     }
 
+    public string GetCurrentAnimationName() {
+        return anim.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+    }
+
     public virtual void HitboxContact(ContactData data) {
         switch (data.MyHitbox.Type)
         {
@@ -307,6 +324,7 @@ public class CharacterStateMachine : ScriptableObject
         }
 
         this.lastContact = hit;
+        this.lastContactState = this.enemy.currentState;
         
         EffectSpawner.PlayHitEffect(0, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
         GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(0), hit.StopSounds);
@@ -320,11 +338,11 @@ public class CharacterStateMachine : ScriptableObject
         }
 
         //Avoid multiple hits within the same animation keyframe, if a hit has already landed.
-        if (this.lastContact.HitFrame == hit.HitFrame) {
+        if (this.lastContact.HitFrame == hit.HitFrame && lastContactState == this.enemy.currentState) {
             return false;
         }
 
-        Debug.Log(hit.Frame);
+        //Debug.Log(hit.Frame);
 
         this.health -= (int) hit.Damage;
         this.health = (int) Mathf.Max(this.health,0f);
@@ -359,12 +377,18 @@ public class CharacterStateMachine : ScriptableObject
         }
 
         this.lastContact = hit;
+        this.lastContactState = this.enemy.currentState;
 
         EffectSpawner.PlayHitEffect(hit.fxID, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
         GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(hit.SoundID), hit.StopSounds);
         //GameController.Instance.soundHandler.audioSource.PlayOneShot((AudioClip)Resources.Load("Sounds/SFX/Hit/hit-1"));
 
         return true;
+    }
+
+    //If true, allows higher priority basic attacks to be chained into lower priority attacks.
+    public virtual bool ReverseBeat() {
+        return false;
     }
 }
 }

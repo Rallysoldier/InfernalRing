@@ -619,6 +619,9 @@ namespace BlackGardenStudios.HitboxStudioPro
         private SpriteRenderer m_Renderer;
         private List<HitboxFeeder> m_Feeder;
         private List<int> m_RecentHits = new List<int>(16);
+        private int lastHitAnim;
+        private int lastHitID;
+        private int lastHitMaxHits;
         private List<ContactPair> m_Contacts = new List<ContactPair>(10);
         private ICharacter m_Character;
         private float m_UPP = 1f / 32f;
@@ -817,6 +820,10 @@ namespace BlackGardenStudios.HitboxStudioPro
         }
         #endregion
 
+        public string GetCurrentAnimationName() {
+            return m_Animations[m_CurrentAnimation].clip.name;
+        }
+
         /// <summary>
         /// Record a hit that has been taken, if it has not already been taken.
         /// </summary>
@@ -825,20 +832,35 @@ namespace BlackGardenStudios.HitboxStudioPro
         /// <returns>Whether or not the hit has been recorded.</returns>
         public bool ReportHit(int id, int targetid)
         {
-            bool hit = false;
+            bool alreadyHit = false;
             var count = m_RecentHits.Count;
+
+            if (id == lastHitID && (m_CurrentMaxHitCount != lastHitMaxHits || lastHitAnim != m_CurrentAnimation)) {
+                return false;
+            }
+            lastHitID = id;
+            lastHitAnim = m_CurrentAnimation;
+            lastHitMaxHits = m_CurrentMaxHitCount;
 
             if (count > 0)
             {
-                if (!(count < m_CurrentMaxHitCount))
-                    hit = true;
+                if (count >= m_CurrentMaxHitCount)
+                {
+                    alreadyHit = true;
+                }
                 else
-                    hit = !m_RecentHits.TryUniqueAdd(targetid);
+                {
+                    alreadyHit = !m_RecentHits.TryUniqueAdd(targetid);
+                }
             }
             else
+            {
                 m_RecentHits.Add(targetid);
+            }
 
-            return !hit;
+            //Debug.Log(id + " " +  m_CurrentMaxHitCount + " " + m_Animations[m_CurrentAnimation].clip.name);
+
+            return !alreadyHit;
         }
 
         /// <summary>
@@ -867,12 +889,12 @@ namespace BlackGardenStudios.HitboxStudioPro
 
         private void LateUpdate()
         {
-            /*m_Contacts.Sort(ContactComparison);
+            m_Contacts.Sort(ContactComparison);
 
             for (int i = 0; i < m_Contacts.Count; i++)
                 m_Contacts[i].a.HandleContact(m_Contacts[i].b);
 
-            m_Contacts.Clear();*/
+            m_Contacts.Clear();
         }
 
         private int ContactComparison(ContactPair x, ContactPair y)
@@ -936,18 +958,6 @@ namespace BlackGardenStudios.HitboxStudioPro
                 var capsule = m_OffsetStep;
                 transform.root.localPosition += new Vector3(capsule.x * m_UPP, capsule.y * m_UPP);
             }
-
-            DoHitboxUpdates();
-        }
-
-        private void DoHitboxUpdates()
-        {
-            m_Contacts.Sort(ContactComparison);
-
-            for (int i = 0; i < m_Contacts.Count; i++)
-                m_Contacts[i].a.HandleContact(m_Contacts[i].b);
-
-            m_Contacts.Clear();
         }
 
         private void UpdateHitbox(internalFrameData animdata, int anim, int frame)

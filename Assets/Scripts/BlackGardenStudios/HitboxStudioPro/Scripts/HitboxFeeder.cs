@@ -243,6 +243,8 @@ namespace BlackGardenStudios.HitboxStudioPro
                 {
                     MyHitbox = this,
                     TheirHitbox = feeder,
+                    PlayerIsSource = feeder.Owner is PlayerGameObj,
+                    AnimationName = feeder.m_Manager.GetCurrentAnimationName(),
                     AttackHits = feeder.m_hits,
                     Damage = feeder.m_Damage,
                     Point = contactPoint,

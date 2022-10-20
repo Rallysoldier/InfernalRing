@@ -6,7 +6,8 @@ namespace BlackGardenStudios.HitboxStudioPro
     {
         public HitboxFeeder MyHitbox;
         public HitboxFeeder TheirHitbox;
-
+        public bool PlayerIsSource;
+        public string AnimationName;
         
         /// <summary>
         /// Identifier of the hit effect this attack uses.

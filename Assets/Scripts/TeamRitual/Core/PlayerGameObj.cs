@@ -38,7 +38,7 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
     void Awake() {
         soundHandler = new SoundHandler(GetComponent<AudioSource>());
         m_Transform = transform;
-        m_Transform.localScale = new Vector2(3.0f,3.0f);
+        m_Transform.localScale = new Vector2(4.0f,4.0f);
         m_Renderer = GetComponent<SpriteRenderer>();
         m_RigidBody = GetComponent<Rigidbody2D>();
         m_Animator = GetComponent<Animator>();
@@ -109,16 +109,24 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
         this.stateMachine.HitboxContact(data);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject)
-        {
-            Physics2D.IgnoreCollision(
-                GameController.Instance.Players[0].m_Collider, GameController.Instance.Players[1].m_Collider
-            );
+        if (collision.gameObject.name.Contains("StagePrefab")) {
+            float nextPos = this.stateMachine.PosX() + this.stateMachine.VelX();
+            float colX = (collision.bounds.max.x + collision.bounds.min.x)/2f < 1 ? collision.bounds.max.x - 1.5f : collision.bounds.min.x + 1.5f;
+
+            if (Mathf.Sign(colX) == -1 && nextPos < colX && this.stateMachine.VelX() < 1
+            || Mathf.Sign(colX) == 1 && nextPos > colX && this.stateMachine.VelX() > 1) {
+                this.stateMachine.VelX(0);
+            }
+        } else if (collision.gameObject.GetComponent<PlayerGameObj>() != null) {
+            CharacterStateMachine collidingSM = collision.gameObject.GetComponent<PlayerGameObj>().stateMachine;
+
+            if (Mathf.Abs(this.stateMachine.VelX()) > Mathf.Abs(collidingSM.VelX()) &&
+                Mathf.Sign(this.stateMachine.VelX()) == Mathf.Sign(collidingSM.PosX()-this.stateMachine.PosX())) {
+                collidingSM.VelXDirect(this.stateMachine.VelX());
+            }
         }
     }
-
-    
 }
 }

@@ -20,6 +20,7 @@ public class CommonStateJumpLand : CharacterState
 
     public override void EnterState() {
         base.EnterState();
+        this.character.VelX(0);
     }
 
     public override void UpdateState() {

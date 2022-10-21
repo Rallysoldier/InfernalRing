@@ -201,11 +201,14 @@ public class GameController : MonoBehaviour {
                 winningHits.RemoveAll(hit => (int) hit.AttackPriority < winningPriority);
 
                 foreach (ContactData hit in winningHits) {
+                    //Debug.Log(hit.AnimationName + " " + characterHitting.GetCurrentAnimationName() + " " + characterHitting.currentState.animationName);
+                    //Debug.Log(characterHitting.currentState.moveContact + " " + hit.AttackHits + " ");
                     if (hit.PlayerIsSource) {
                         if (characterHitting.currentState.moveContact >= hit.AttackHits || 
                             hit.AnimationName != characterHitting.GetCurrentAnimationName() ||
-                            hit.AnimationName != characterHitting.currentState.animationName)
+                            hit.AnimationName != characterHitting.currentState.animationName) {
                             break;
+                        }
                     }
 
                     bool blocked = false;

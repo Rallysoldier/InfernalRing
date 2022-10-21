@@ -16,6 +16,9 @@ public class CommonStateHurtAir : CharacterState
 
     public override void EnterState() {
         base.EnterState();
+        if (this.character.lastContact.HitFall && this.character.lastContact.FallingGravity > 0) {
+            this.character.gravity = this.character.lastContact.FallingGravity;
+        }
     }
 
     public override void UpdateState() {
@@ -25,13 +28,17 @@ public class CommonStateHurtAir : CharacterState
             if (this.stateTime < 3)
                 this.character.SetVelocity(-4,7);
         } else {
-            if (this.character.hitstun == 0)
+            if (this.character.hitstun == 0 && !this.character.lastContact.HitFall)
                 this.SwitchState(this.character.states.Airborne());
         }
 
         if (this.character.body.position.y <= 0 && this.character.VelY() < 0) {
             this.character.VelY(0);
-            this.SwitchState(this.character.states.HurtBounce());
+            if (this.character.lastContact.HitFall || this.character.health == 0) {
+                this.SwitchState(this.character.states.HurtBounce());
+            } else {
+                this.SwitchState(this.character.states.JumpLand());
+            }
         }
     }
 

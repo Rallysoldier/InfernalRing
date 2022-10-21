@@ -25,7 +25,8 @@ public class CommonStateLyingDown : CharacterState
     public override void UpdateState() {
         base.UpdateState();
 
-        if (stateTime > 40 && this.character.health > 0)
+        int downTime = this.character.lastContact.DownTime > 0 ? this.character.lastContact.DownTime : 20;
+        if (stateTime > downTime && this.character.health > 0)
             this.SwitchState(this.character.states.JumpLand());
     }
 

@@ -72,6 +72,7 @@ namespace BlackGardenStudios.HitboxStudioPro
 
         public int m_frame;
         private int m_lastFrame;
+        public string m_clipName;
         /****/
         private bool m_DidHit = false;
 
@@ -105,7 +106,8 @@ namespace BlackGardenStudios.HitboxStudioPro
             float fallingGravity, bool fallAir, bool fallGround, bool fallRecover, Vector2 bounce, float bounceGravity, bool bounceRecover,
             float slide, int slideTime, Vector2 wallBounce, float wallBounceGravity, float wallBounceSlide, int wallBounceTime,
             int downTime, bool downRecover, int hitShakeTime, float hitShakeX, float hitShakeY, int fallShakeTime, float fallShakeX, float fallShakeY,
-            bool forceStand, bool flipEnemy, int soundid, bool stopSounds
+            bool forceStand, bool flipEnemy, int soundid, bool stopSounds,
+            string animationName
             )
         {
             Type = type;
@@ -167,6 +169,7 @@ namespace BlackGardenStudios.HitboxStudioPro
             Id = ID;
             m_DidHit = false;
             m_hits = hits;
+            m_clipName = animationName;
 
             Collider.enabled = true;
         }
@@ -222,6 +225,14 @@ namespace BlackGardenStudios.HitboxStudioPro
             if (feeder.ReportHit(m_Manager.UID) == false)
                 //Hit wasn't reported, this animation must have already hit us in a previous frame.
                 return;
+
+            //Debug.Log("");
+            //Debug.Log(feeder.m_hits + " " + feeder.m_Manager.GetCurrentMaxHits());
+            //Debug.Log(feeder.m_clipName + " " + feeder.m_Manager.GetCurrentAnimationName());
+            
+            if (feeder.m_hits != feeder.m_Manager.GetCurrentMaxHits()) {
+                return;
+            }
 
             //Debug.Log(m_Manager.UID + ": " + feeder.m_frame + " " + feeder.m_lastFrame);
             

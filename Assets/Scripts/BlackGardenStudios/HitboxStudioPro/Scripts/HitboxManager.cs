@@ -824,6 +824,10 @@ namespace BlackGardenStudios.HitboxStudioPro
             return m_Animations[m_CurrentAnimation].clip.name;
         }
 
+        public int GetCurrentMaxHits() {
+            return m_Animations[m_CurrentAnimation].numhits;
+        }
+
         /// <summary>
         /// Record a hit that has been taken, if it has not already been taken.
         /// </summary>
@@ -832,35 +836,37 @@ namespace BlackGardenStudios.HitboxStudioPro
         /// <returns>Whether or not the hit has been recorded.</returns>
         public bool ReportHit(int id, int targetid)
         {
-            bool alreadyHit = false;
+            //bool alreadyHit = false;
             var count = m_RecentHits.Count;
 
-            if (id == lastHitID && (m_CurrentMaxHitCount != lastHitMaxHits || lastHitAnim != m_CurrentAnimation)) {
+            /*if (id == lastHitID && (m_CurrentMaxHitCount != lastHitMaxHits || lastHitAnim != m_CurrentAnimation)) {
                 return false;
             }
             lastHitID = id;
             lastHitAnim = m_CurrentAnimation;
-            lastHitMaxHits = m_CurrentMaxHitCount;
+            lastHitMaxHits = m_CurrentMaxHitCount;*/
 
             if (count > 0)
             {
-                if (count >= m_CurrentMaxHitCount)
+                return true;
+                /*if (count >= m_CurrentMaxHitCount)
                 {
                     alreadyHit = true;
                 }
                 else
                 {
                     alreadyHit = !m_RecentHits.TryUniqueAdd(targetid);
-                }
+                }*/
             }
             else
             {
                 m_RecentHits.Add(targetid);
+                return false;
             }
 
             //Debug.Log(id + " " +  m_CurrentMaxHitCount + " " + m_Animations[m_CurrentAnimation].clip.name);
 
-            return !alreadyHit;
+            //return !alreadyHit;
         }
 
         /// <summary>
@@ -1076,7 +1082,8 @@ namespace BlackGardenStudios.HitboxStudioPro
                         framedata.forceStand,
                         framedata.flipEnemy,
                         framedata.soundid,
-                        framedata.stopSound
+                        framedata.stopSound,
+                        this.GetCurrentAnimationName()
                         /**************/
                         );
                 }

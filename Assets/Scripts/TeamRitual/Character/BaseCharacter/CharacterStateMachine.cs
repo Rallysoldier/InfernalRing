@@ -13,6 +13,7 @@ public class CharacterStateMachine : ScriptableObject
     //Constant variables
     public const int MAX_HEALTH = 1000;
     public const int MAX_ENERGY = 1000;
+    public const float CONST_GRAVITY = 0.85f;
     public Vector2 velocityWalkForward = new Vector2(2,0);
     public Vector2 velocityWalkBack = new Vector2(-2,0);
     public Vector2 velocityRunForward = new Vector2(15,0);
@@ -137,6 +138,10 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public void UpdateStatePhysics() {
+        if (this.currentState.stateType == StateType.IDLE) {
+            this.gravity = CONST_GRAVITY;
+        }
+
         this.body.gravityScale = 0.0f;
         switch (this.currentState.physicsType)
         {
@@ -166,17 +171,10 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public void ApplyHitVelocities() {
-        if (this.currentState.stateType == StateType.HURT) {
-            if (this.lastContact.HitGroundVelocityTime > 0) {
-                this.lastContact.HitGroundVelocityTime--;
-                this.SetVelocity(this.lastContact.HitGroundVelocity);
-            } else if (this.lastContact.HitAirVelocityTime > 0) {
-                this.lastContact.HitAirVelocityTime--;
-                this.SetVelocity(this.lastContact.HitAirVelocity);
-            }
-        }
-
-        if (this.lastContact.BlockGroundVelocityTime > 0) {
+        if (this.currentState.stateType == StateType.HURT && this.lastContact.HitVelocityTime > 0) {
+            this.lastContact.HitVelocityTime--;
+            this.SetVelocity(this.lastContact.HitVelocity);
+        } else if (this.lastContact.BlockGroundVelocityTime > 0) {
             this.lastContact.BlockGroundVelocityTime--;
             this.SetVelocity(this.lastContact.BlockGroundVelocity);
         }
@@ -351,41 +349,69 @@ public class CharacterStateMachine : ScriptableObject
 
         //Avoid multiple hits within the same animation keyframe, if a hit has already landed.
         if (this.lastContact.HitFrame == hit.HitFrame && lastContactState == this.enemy.currentState) {
+            //Debug.Log(this.lastContact.HitFrame + " " + hit.HitFrame);
+            //Debug.Log(lastContactState + " " + this.enemy.currentState);
             return false;
         }
 
-        //Debug.Log(hit.Frame);
+        if (this.currentState.moveType == MoveType.LYING && !this.lastContact.DownedHit) {
+            return false;
+        }
 
-        this.health -= (int) hit.Damage;
-        this.health = (int) Mathf.Max(this.health,0f);
-
-        GameController.Instance.Pause(hit.Hitpause);
-        this.hitstun = hit.Hitstun;
-
-        if ((hit.ForceStand && this.currentState.moveType != MoveType.AIR) || this.currentState.moveType == MoveType.STAND) {
-            hit.HitAirVelocityTime = 0;
-            this.SetVelocity(hit.HitGroundVelocity);
-            if (hit.HitGroundVelocity.y > 0 || this.health == 0) {
+        if (this.currentState.moveType == MoveType.STAND) {
+            hit.HitVelocity = hit.HitGroundVelocity;
+            hit.HitVelocityTime = hit.HitGroundVelocityTime;
+            if (hit.HitVelocity.y > 0 || this.health == 0) {
                 this.currentState.SwitchState(states.HurtAir());
             } else {
                 this.currentState.SwitchState(states.HurtStand());
             }
         } else if (this.currentState.moveType == MoveType.CROUCH) {
-            hit.HitAirVelocityTime = 0;
-            this.SetVelocity(hit.HitGroundVelocity);
-            if (hit.HitGroundVelocity.y > 0 || this.health == 0) {
+            hit.HitVelocity = hit.HitGroundVelocity;
+            hit.HitVelocityTime = hit.HitGroundVelocityTime;
+            if (hit.HitVelocity.y > 0 || this.health == 0) {
+                this.currentState.SwitchState(states.HurtAir());
+            } else {
+                this.currentState.SwitchState(states.HurtCrouch());
+            }
+        } else if (this.currentState.moveType == MoveType.LYING) {
+            hit.HitVelocity = hit.DownedVelocity;
+            hit.HitVelocityTime = 1;
+            if (hit.HitVelocity.y > 0 || this.health == 0) {
                 this.currentState.SwitchState(states.HurtAir());
             } else {
                 this.currentState.SwitchState(states.HurtStand());
             }
         } else if (this.currentState.moveType == MoveType.AIR) {
-            hit.HitGroundVelocityTime = 0;
-            this.SetVelocity(hit.HitAirVelocity);
+            hit.HitVelocity = hit.HitAirVelocity;
+            hit.HitVelocityTime = hit.HitAirVelocityTime;
             this.currentState.SwitchState(states.HurtAir());
         }
 
+        if (hit.ForceStand && this.currentState.moveType != MoveType.AIR) {
+            this.currentState.SwitchState(states.HurtStand());
+        }
+        
+        this.SetVelocity(hit.HitVelocity);
+
+        if (hit.FlipEnemy) {
+            this.facing *= -1;
+        }
+
+        if (hit.DownedHit) {
+            this.health -= (int) hit.DownedDamage;
+            this.hitstun = hit.DownedHitstun;
+        } else {
+            this.health -= (int) hit.Damage;
+            this.hitstun = hit.Hitstun;
+        }
+        this.health = (int) Mathf.Max(this.health,0f);
+
         this.AddEnergy(hit.GiveEnemyPower);
         this.enemy.AddEnergy(hit.GiveSelfPower);
+
+        hit.HitFall = (this.currentState.moveType == MoveType.AIR && hit.FallAir)
+            || (this.currentState.moveType != MoveType.AIR && hit.FallGround);
 
         this.lastContact = hit;
         this.lastContactState = this.enemy.currentState;
@@ -394,6 +420,7 @@ public class CharacterStateMachine : ScriptableObject
         GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(hit.SoundID), hit.StopSounds);
         //GameController.Instance.soundHandler.audioSource.PlayOneShot((AudioClip)Resources.Load("Sounds/SFX/Hit/hit-1"));
 
+        GameController.Instance.Pause(hit.Hitpause);
         return true;
     }
 

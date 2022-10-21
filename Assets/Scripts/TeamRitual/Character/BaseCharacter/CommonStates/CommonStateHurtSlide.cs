@@ -1,14 +1,14 @@
 namespace TeamRitual.Character {
-public class CommonStateHurtBounce : CharacterState
+public class CommonStateHurtSlide : CharacterState
 {
-    public CommonStateHurtBounce(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory) : base(currentContext, CharacterStateFactory)
+    public CommonStateHurtSlide(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory) : base(currentContext, CharacterStateFactory)
     {
         this.inputChangeState = false;
         this.faceEnemyStart = false;
         this.faceEnemyAlways = false;
 
-        this.physicsType = PhysicsType.AIR;
-        this.moveType = MoveType.AIR;
+        this.physicsType = PhysicsType.CUSTOM;
+        this.moveType = MoveType.LYING;
 	    this.stateType = StateType.HURT;
 
         this.animationName = this.character.characterName + "_HurtBounce";
@@ -16,17 +16,17 @@ public class CommonStateHurtBounce : CharacterState
 
     public override void EnterState() {
         base.EnterState();
-        this.character.SetVelocity(this.character.lastContact.Bounce);
-        if (this.character.lastContact.BounceGravity > 0) {
-            this.character.gravity = this.character.lastContact.BounceGravity;
-        }
+        this.character.SetVelocity(this.character.lastContact.Slide,0);
     }
 
     public override void UpdateState() {
         base.UpdateState();
 
-        if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {
-            this.SwitchState(this.character.states.HurtSlide());
+        if (this.character.lastContact.SlideTime > 0) {
+            this.character.lastContact.SlideTime--;
+        } else {
+            this.character.SetVelocity(0,0);
+            this.SwitchState(this.character.states.LyingDown());
         }
     }
 

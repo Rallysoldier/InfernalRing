@@ -8,6 +8,18 @@ namespace BlackGardenStudios.HitboxStudioPro
         public HitboxFeeder TheirHitbox;
         public bool PlayerIsSource;
         public string AnimationName;
+
+
+
+
+        //Set in CharacterStateMachine.Hurt()    vvvv
+        public Vector2 HitVelocity;
+        public int HitVelocityTime;
+        public bool HitFall;
+        //                                       ^^^^
+
+
+
         
         /// <summary>
         /// Identifier of the hit effect this attack uses.
@@ -118,27 +130,29 @@ namespace BlackGardenStudios.HitboxStudioPro
         public float FallingGravity;
         public bool FallAir;
         public bool FallGround;
-        public bool FallRecover;
+        public bool FallRecover;            //TODO
 
         public Vector2 Bounce;
         public float BounceGravity;
+        public bool BounceRecover;          //TODO
         public float Slide;
         public float SlideTime;
-        public bool BounceRecover;
-        public Vector2 WallBounce;
+        public Vector2 WallBounce;          //TODO      vvvvv
         public float WallBounceGravity;
         public float WallBounceSlide;
-        public int WallBounceTime;
+        public int WallBounceTime;          //TODO      ^^^^^
 
         public int DownTime;
         public bool DownRecover;
 
+        //Not in the GUI yet    vvvvv
         public int HitShakeTime;
         public float HitShakeX;
         public float HitShakeY;
         public int FallShakeTime;
         public float FallShakeX;
         public float FallShakeY;
+        //Not in the GUI yet    ^^^^^
 
         public bool ForceStand;
         public bool FlipEnemy;

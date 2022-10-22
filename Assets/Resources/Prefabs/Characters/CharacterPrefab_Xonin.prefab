@@ -6377,7 +6377,7 @@ MonoBehaviour:
       blockpause: 8
       hitfxlabel: 2
       hitfxuid: 300
-      soundfxlabel: 1
+      soundfxlabel: 3
       soundid: 30
       stopSound: 0
       giveSelfPower: 0
@@ -6390,10 +6390,10 @@ MonoBehaviour:
       fallAir: 1
       fallGround: 1
       fallRecover: 0
-      bounce: {x: -2, y: 15}
+      bounce: {x: -3, y: 15}
       bounceGravity: 0
       bounceRecover: 0
-      slide: -5
+      slide: -12
       slideTime: 15
       wallBounce: {x: 0, y: 0}
       wallBounceGravity: 0

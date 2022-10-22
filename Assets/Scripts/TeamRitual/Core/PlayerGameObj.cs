@@ -122,7 +122,7 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
         } else if (collision.gameObject.GetComponent<PlayerGameObj>() != null) {
             CharacterStateMachine collidingSM = collision.gameObject.GetComponent<PlayerGameObj>().stateMachine;
 
-            if (Mathf.Abs(this.stateMachine.VelX()) > Mathf.Abs(collidingSM.VelX()) &&
+            if (collidingSM.health > 0 && Mathf.Abs(this.stateMachine.VelX()) > Mathf.Abs(collidingSM.VelX()) &&
                 Mathf.Sign(this.stateMachine.VelX()) == Mathf.Sign(collidingSM.PosX()-this.stateMachine.PosX())) {
                 collidingSM.VelXDirect(this.stateMachine.VelX());
             }

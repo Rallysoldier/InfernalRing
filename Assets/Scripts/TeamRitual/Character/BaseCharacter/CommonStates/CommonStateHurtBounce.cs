@@ -1,3 +1,6 @@
+using BlackGardenStudios.HitboxStudioPro;
+using TeamRitual.Core;
+
 namespace TeamRitual.Character {
 public class CommonStateHurtBounce : CharacterState
 {
@@ -16,9 +19,13 @@ public class CommonStateHurtBounce : CharacterState
 
     public override void EnterState() {
         base.EnterState();
-        this.character.SetVelocity(this.character.lastContact.Bounce);
-        if (this.character.lastContact.BounceGravity > 0) {
-            this.character.gravity = this.character.lastContact.BounceGravity;
+        if (this.character.lastContact.Bounce.y > 0) {
+            EffectSpawner.PlayHitEffect(60, this.character.body.position, this.character.spriteRenderer.sortingOrder + 1, true);
+            GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(60),false);
+            this.character.SetVelocity(this.character.lastContact.Bounce);
+            if (this.character.lastContact.BounceGravity > 0) {
+                this.character.gravity = this.character.lastContact.BounceGravity;
+            }
         }
     }
 

@@ -1,3 +1,6 @@
+using TeamRitual.Core;
+using BlackGardenStudios.HitboxStudioPro;
+
 namespace TeamRitual.Character {
 public class CommonStateHurtSlide : CharacterState
 {
@@ -23,6 +26,12 @@ public class CommonStateHurtSlide : CharacterState
         base.UpdateState();
 
         if (this.character.lastContact.SlideTime > 0) {
+            if (this.character.lastContact.SlideTime%6 == 0) {
+                EffectSpawner.PlayHitEffect(71, this.character.body.position, this.character.spriteRenderer.sortingOrder + 1, this.character.facing == -1);
+            }
+            if (this.character.lastContact.SlideTime%12 == 0) {
+                GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(50),false);
+            }
             this.character.lastContact.SlideTime--;
         } else {
             this.character.SetVelocity(0,0);

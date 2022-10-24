@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 773bc1003d51bb643b6cbba49fb78b9f, type: 3}
+  m_Sprite: {fileID: -1709445816, guid: 6d79257118cb06044a3b539d0a23c9cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -167,8 +167,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.37438422, y: 0.35999998}
-    oldSize: {x: 2.03, y: 2}
+    pivot: {x: 0.36, y: 0.14}
+    oldSize: {x: 2.5, y: 2.5}
     newSize: {x: 1.28, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6378,7 +6378,7 @@ MonoBehaviour:
       hitfxlabel: 2
       hitfxuid: 300
       soundfxlabel: 3
-      soundid: 30
+      soundid: 40
       stopSound: 0
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -7848,7 +7848,7 @@ MonoBehaviour:
       hitfxlabel: 2
       hitfxuid: 300
       soundfxlabel: 1
-      soundid: 30
+      soundid: 60
       stopSound: 1
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -7914,9 +7914,9 @@ MonoBehaviour:
       attackPriority: 4
       hitstun: 30
       blockstun: 15
-      hitGroundVelocity: {x: -4, y: 12}
+      hitGroundVelocity: {x: -4, y: 18}
       hitGroundVelocityTime: 3
-      hitAirVelocity: {x: -3, y: 10}
+      hitAirVelocity: {x: -3, y: 12}
       hitAirVelocityTime: 3
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
@@ -7927,7 +7927,7 @@ MonoBehaviour:
       hitfxlabel: 2
       hitfxuid: 300
       soundfxlabel: 1
-      soundid: 30
+      soundid: 60
       stopSound: 1
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -8301,6 +8301,6 @@ MonoBehaviour:
     movementspeed: 0
     numhits: 2
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 23
-  m_CurrentFrame: 3
+  m_CurrentAnimation: 25
+  m_CurrentFrame: 5
   m_CurrentCollider: 3

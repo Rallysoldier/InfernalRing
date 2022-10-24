@@ -3,8 +3,7 @@ using UnityEngine;
 namespace TeamRitual.Character {
 public class CommonStateJumpStart : CharacterState
 {
-    Vector2 jumpVelocity;
-    StateType prevStateType;
+    public Vector2 jumpVelocity = Vector2.zero;
 
     public CommonStateJumpStart(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory)
     : base(currentContext, CharacterStateFactory)
@@ -23,20 +22,20 @@ public class CommonStateJumpStart : CharacterState
     public override void EnterState() {
         base.EnterState();
 
-        if (this.character.inputHandler.held(this.character.inputHandler.ForwardInput(this.character))) {
-            jumpVelocity = this.character.velocityJumpForward;
-        } else if (this.character.inputHandler.held(this.character.inputHandler.BackInput(this.character))) {
-            jumpVelocity = this.character.velocityJumpBack;
-        } else {
-            jumpVelocity = this.character.velocityJumpNeutral;
-        }
+        if (jumpVelocity == Vector2.zero) {
+            if (this.character.inputHandler.held(this.character.inputHandler.ForwardInput(this.character))) {
+                jumpVelocity = this.character.velocityJumpForward;
+            } else if (this.character.inputHandler.held(this.character.inputHandler.BackInput(this.character))) {
+                jumpVelocity = this.character.velocityJumpBack;
+            } else {
+                jumpVelocity = this.character.velocityJumpNeutral;
+            }
 
-        float prevVelX = this.character.VelX()/this.character.standingFriction;
-        if (Mathf.Sign(prevVelX * this.character.facing) == Mathf.Sign(jumpVelocity.x) && Mathf.Abs(prevVelX) > Mathf.Abs(jumpVelocity.x)) {
-            jumpVelocity = new Vector2(prevVelX * this.character.facing, jumpVelocity.y);
+            float prevVelX = this.character.VelX()/this.character.standingFriction;
+            if (Mathf.Sign(prevVelX * this.character.facing) == Mathf.Sign(jumpVelocity.x) && Mathf.Abs(prevVelX) > Mathf.Abs(jumpVelocity.x)) {
+                jumpVelocity = new Vector2(prevVelX * this.character.facing, jumpVelocity.y);
+            }
         }
-
-        prevStateType = this.character.currentState.stateType;
     }
 
     public override void UpdateState() {

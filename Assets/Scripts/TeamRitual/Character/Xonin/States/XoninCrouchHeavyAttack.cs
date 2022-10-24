@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace TeamRitual.Character {
 public class XoninCrouchHeavyAttack : CharacterState
 {
@@ -28,7 +30,10 @@ public class XoninCrouchHeavyAttack : CharacterState
             this.character.inputStr.EndsWith("U,F") || this.character.inputStr.EndsWith("F,U") ||
             this.character.inputStr.EndsWith("U,B")  || this.character.inputStr.EndsWith("B,U")))
                      || this.character.inputHandler.held("U")) {
-                    this.SwitchState(this.character.states.JumpStart());
+                    CommonStateJumpStart jumpStart = this.character.states.JumpStart() as CommonStateJumpStart;
+                    Vector2 hitVelocity = this.character.enemy.lastContact.HitVelocity;
+                    jumpStart.jumpVelocity = new Vector2(-hitVelocity.x, hitVelocity.y);
+                    this.SwitchState(jumpStart);
                 }
         }
 

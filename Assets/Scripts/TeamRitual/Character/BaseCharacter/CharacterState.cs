@@ -12,6 +12,7 @@ public abstract class CharacterState
 	public int moveHit;
 	public int moveContact;
 	public int hitsToCancel = 1;
+	public bool jumpCancel = false;
 
 	//The variables below can be different for each state, and are only ever defined/mutated in the state's constructor.
 
@@ -45,11 +46,23 @@ public abstract class CharacterState
 
 	public virtual void UpdateState() {
 		this.stateTime++;
+
 		if (this.faceEnemyAlways) {
 			character.correctFacing();
 		}
 		if(!this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)) {
             this.character.anim.Play(animationName);
+        }
+		if (this.jumpCancel && this.character.enemy.VelY() > 0 && moveHit >= hitsToCancel) {
+            if ((this.character.changedInput && (this.character.inputStr.EndsWith("U") ||
+            this.character.inputStr.EndsWith("U,F") || this.character.inputStr.EndsWith("F,U") ||
+            this.character.inputStr.EndsWith("U,B")  || this.character.inputStr.EndsWith("B,U")))
+                     || this.character.inputHandler.held("U")) {
+                    CommonStateJumpStart jumpStart = this.character.states.JumpStart() as CommonStateJumpStart;
+                    Vector2 hitVelocity = this.character.enemy.lastContact.HitVelocity;
+                    jumpStart.jumpVelocity = new Vector2(-hitVelocity.x, hitVelocity.y);
+                    this.SwitchState(jumpStart);
+                }
         }
 	}
 

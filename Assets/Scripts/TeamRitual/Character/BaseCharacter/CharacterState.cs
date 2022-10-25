@@ -13,6 +13,7 @@ public abstract class CharacterState
 	public int moveContact;
 	public int hitsToCancel = 1;
 	public bool jumpCancel = false;
+	public int scalingStep = 1;
 
 	//The variables below can be different for each state, and are only ever defined/mutated in the state's constructor.
 

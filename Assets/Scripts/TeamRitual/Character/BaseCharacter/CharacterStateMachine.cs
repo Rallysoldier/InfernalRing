@@ -56,6 +56,8 @@ public class CharacterStateMachine : ScriptableObject
     //state variables
     public CharacterState currentState;
     public CharacterStateFactory states;
+
+    public ComboProcessor comboProcessor;
     public List<string> attackCancels = new List<string>();
 
     //getters and setters
@@ -75,6 +77,7 @@ public class CharacterStateMachine : ScriptableObject
     public CharacterStateMachine() {
         this.states = new CharacterStateFactory(this);
         this.contactSummary = new ContactSummary(this);
+        this.comboProcessor = new ComboProcessor(this);
     }
 
     void Awake() {
@@ -101,6 +104,8 @@ public class CharacterStateMachine : ScriptableObject
         if (this.currentState.stateType != StateType.ATTACK) {
             this.attackCancels.Clear();
         }
+
+        this.comboProcessor.Update();
 
         this.UpdateStatePhysics();
 
@@ -398,14 +403,11 @@ public class CharacterStateMachine : ScriptableObject
             this.facing *= -1;
         }
 
-        if (hit.DownedHit) {
-            this.health -= (int) hit.DownedDamage;
-            this.hitstun = hit.DownedHitstun;
-        } else {
-            this.health -= (int) hit.Damage;
-            this.hitstun = hit.Hitstun;
-        }
-        this.health = (int) Mathf.Max(this.health,0f);
+        bool hitDownedEnemy = this.currentState.moveType == MoveType.LYING && this.lastContact.DownedHit;
+        this.enemy.comboProcessor.ProcessHit(hit, this.enemy.currentState);
+        this.health -= this.enemy.comboProcessor.GetDamage(hitDownedEnemy);
+        this.hitstun = this.enemy.comboProcessor.GetHitstun(hitDownedEnemy);
+        this.health = (int) Mathf.Max(this.health, 0f);
 
         this.AddEnergy(hit.GiveEnemyPower);
         this.enemy.AddEnergy(hit.GiveSelfPower);

@@ -25,7 +25,6 @@ public class CharacterStateMachine : ScriptableObject
     //input variables
     public InputHandler inputHandler;
     public string inputStr = "";
-    string prevInputStr = "";
     public bool changedInput;
     
     public SoundHandler soundHandler;
@@ -113,22 +112,9 @@ public class CharacterStateMachine : ScriptableObject
 
         this.ChangeStateOnInput();
 
-        this.changedInput = false;
-        this.prevInputStr = inputStr;
         this.contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
         this.ClearContactData();
         return contactSummary;
-    }
-
-    public void UpdateInputHandler() {
-        //Gets new character input based on the direction they're facing.
-        //Inverts F and B inputs if the character is facing the -x direction (facing == -1)
-        this.inputStr = this.inputHandler.getCharacterInput(this);
-        if (inputStr != prevInputStr) {
-            changedInput = true;
-        }
-        prevInputStr = inputStr;
-        this.inputHandler.updateBufferTime();
     }
 
     public void ApplyVelocity() {

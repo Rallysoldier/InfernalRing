@@ -2,17 +2,30 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TeamRitual.Character;
+using TeamRitual.Core;
 
 namespace TeamRitual.Input {
 public class InputHandler {
+    CharacterStateMachine character = null;
+
     public Dictionary<string,KeyCode> inputMapping = new Dictionary<string,KeyCode>();
     public List<string> releasedKeys = new List<string>();
     public List<string> heldKeys = new List<string>();
     public string command = "";
+    string prevCommand = "";
     private int currentBufferTime;
-    private const int MAX_BUFF_TIME = 30;
+    private const int MAX_BUFF_TIME = 10;
+
+    public string characterInput = "";
+    string prevCharacterInput = "";
+
+    public bool changedInput;
 
     public InputHandler() {
+    }
+
+    public InputHandler(CharacterStateMachine character) {
+        this.character = character;
     }
 
     public void mapP1Inputs() {
@@ -43,13 +56,53 @@ public class InputHandler {
         inputMapping["E"] = KeyCode.Keypad2;
     }
 
-    public void receiveInput(string input) {
-        if (currentBufferTime >= 0 && input != "") {
-            if (command.Length > 0) {
-                command += ",";
+    public void UpdateBufferTime() {
+        this.changedInput = false;
+        if (this.character != null) {
+            if (this.character.currentState.moveHit > 0 && !this.character.inputHandler.changedInput &&
+                this.character.inputHandler.characterInput.Length > 0) {
+                this.character.changedInput = true;
+            } else {
+                this.character.changedInput = false;
             }
-            command += input;
-            currentBufferTime = MAX_BUFF_TIME;
+        }
+
+        if (currentBufferTime > 0) {
+            currentBufferTime--;
+        } else {
+            if (this.character != null && this.character.currentState.stateType != StateType.ATTACK) {
+                ClearInput();
+            }
+        }
+    }
+
+    public void ClearInput() {
+        this.command = "";
+        this.characterInput = "";
+        this.prevCommand = "";
+        this.prevCharacterInput = "";
+    }
+
+    public void receiveInput(string input) {
+        if (currentBufferTime < 0 || input == "")
+            return;
+        
+        this.prevCommand = this.command;
+        this.prevCharacterInput = this.characterInput;
+
+        if (command.Length > 0) {
+            command += ",";
+        }
+        command += input;
+        currentBufferTime = MAX_BUFF_TIME;
+        
+        if (character != null) {
+            this.characterInput = this.getCharacterInput(character);
+            this.changedInput = this.prevCharacterInput != this.characterInput;
+            this.character.inputStr = this.characterInput;
+            this.character.changedInput = this.changedInput;
+        } else {
+            this.changedInput = this.command != this.prevCommand;
         }
     }
 
@@ -69,6 +122,8 @@ public class InputHandler {
         return heldKeys.Contains(input);
     }
 
+    //Gets new character input based on the direction they're facing.
+    //Inverts F and B inputs if the character is facing the -x direction (facing == -1)
     public string getCharacterInput(CharacterStateMachine character) {
         //Invert left/right inputs if facing the negative x direction
         string inputStr = String.Copy(command);
@@ -89,14 +144,6 @@ public class InputHandler {
 
     public string BackInput(CharacterStateMachine character) {
         return character != null && character.facing == 1 ? "B" : "F";
-    }
-
-    public void updateBufferTime() {
-        if (currentBufferTime > 0) {
-            currentBufferTime--;
-        } else {
-            command = "";
-        }
     }
 }
 }

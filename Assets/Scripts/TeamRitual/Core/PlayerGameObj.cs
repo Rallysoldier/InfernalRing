@@ -12,7 +12,7 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
     public SoundHandler soundHandler;
     
     public CharacterStateMachine stateMachine;
-    public InputHandler inputHandler = new InputHandler();
+    public InputHandler inputHandler;
     public int wins = 0;
 
     [SerializeField]

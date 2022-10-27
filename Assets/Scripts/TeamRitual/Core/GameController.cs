@@ -70,7 +70,8 @@ public class GameController : MonoBehaviour {
             PlayerGameObj playerObj = Players[i];
             playerObj.gameObject.SetActive(true);
 
-            playerObj.stateMachine = CreateStateMachine(characterNames[i]);
+            playerObj.stateMachine = CreateStateMachine(playerObj,characterNames[i]);
+            playerObj.inputHandler = new Input.InputHandler(playerObj.stateMachine);
             playerObj.stateMachine.inputHandler = playerObj.inputHandler;
             playerObj.stateMachine.soundHandler = playerObj.soundHandler;
 
@@ -107,13 +108,15 @@ public class GameController : MonoBehaviour {
         AudioClip clip = EffectSpawner.GetSoundEffect(0);
     }
 
-    CharacterStateMachine CreateStateMachine(string characterName) {
+    CharacterStateMachine CreateStateMachine(PlayerGameObj playerGameObj, string characterName) {
+        Debug.Log("Creating state machine for " + characterName);
+        CharacterStateMachine stateMachine = ScriptableObject.CreateInstance<CharacterStateMachine>();
         switch (characterName) {
             case "Xonin":
-                Debug.Log("Creating state machine for " + characterName);
-                return ScriptableObject.CreateInstance<XoninStateMachine>();
+                stateMachine = ScriptableObject.CreateInstance<XoninStateMachine>();
+                break;
         }
-        return ScriptableObject.CreateInstance<CharacterStateMachine>();
+        return stateMachine;
     }
 
     //Actual Game Controller loop. "Loop steps" in the design go here.
@@ -140,8 +143,6 @@ public class GameController : MonoBehaviour {
 
         for (int i = 0; i < Players.Count; i++)
         {
-            Players[i].stateMachine.UpdateInputHandler();
-
             if (this.pause > 0) {
                 if (i != this.playerPaused) {
                     if (Players[i].m_Animator != null) {
@@ -164,6 +165,7 @@ public class GameController : MonoBehaviour {
             if (Players[i].stateMachine != null && (i == this.playerPaused || this.pause == 0)) {
                 Players[i].stateMachine.UpdateStates();
             }
+            Players[i].inputHandler.UpdateBufferTime();
         }
 
         if (this.pause > 0) {

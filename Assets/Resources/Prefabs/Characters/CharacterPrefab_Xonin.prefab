@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: c1e6ff6d94466334993df0e60ae1516b, type: 3}
+  m_Sprite: {fileID: -1709445816, guid: 6d79257118cb06044a3b539d0a23c9cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -167,8 +167,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.2642857, y: 0.18817204}
-    oldSize: {x: 1.4, y: 1.86}
+    pivot: {x: 0.36, y: 0.14}
+    oldSize: {x: 2.5, y: 2.5}
     newSize: {x: 1.28, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6377,8 +6377,8 @@ MonoBehaviour:
       blockpause: 8
       hitfxlabel: 2
       hitfxuid: 300
-      soundfxlabel: 3
-      soundid: 40
+      soundfxlabel: 4
+      soundid: 30
       stopSound: 0
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -7100,7 +7100,7 @@ MonoBehaviour:
       blockpause: 8
       hitfxlabel: 2
       hitfxuid: 300
-      soundfxlabel: 1
+      soundfxlabel: 4
       soundid: 30
       stopSound: 0
       giveSelfPower: 0
@@ -7185,7 +7185,7 @@ MonoBehaviour:
       blockpause: 8
       hitfxlabel: 2
       hitfxuid: 300
-      soundfxlabel: 1
+      soundfxlabel: 4
       soundid: 30
       stopSound: 0
       giveSelfPower: 0
@@ -7847,8 +7847,8 @@ MonoBehaviour:
       blockpause: 0
       hitfxlabel: 2
       hitfxuid: 300
-      soundfxlabel: 1
-      soundid: 60
+      soundfxlabel: 4
+      soundid: 30
       stopSound: 1
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -7926,8 +7926,8 @@ MonoBehaviour:
       blockpause: 8
       hitfxlabel: 2
       hitfxuid: 300
-      soundfxlabel: 1
-      soundid: 60
+      soundfxlabel: 4
+      soundid: 30
       stopSound: 1
       giveSelfPower: 0
       giveEnemyPower: 0
@@ -8301,6 +8301,6 @@ MonoBehaviour:
     movementspeed: 0
     numhits: 2
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 24
-  m_CurrentFrame: 0
+  m_CurrentAnimation: 25
+  m_CurrentFrame: 5
   m_CurrentCollider: 3

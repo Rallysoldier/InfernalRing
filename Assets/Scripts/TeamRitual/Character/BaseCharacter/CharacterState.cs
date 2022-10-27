@@ -106,9 +106,6 @@ public abstract class CharacterState
 		character.currentState = newState;
 
 		//Debug.Log("Switched from " + this + " to " + newState);
-		if (newState.stateType == StateType.ATTACK) {
-			this.character.inputHandler.ClearInput();
-		}
 	}
 
 	protected void SetSuperState()

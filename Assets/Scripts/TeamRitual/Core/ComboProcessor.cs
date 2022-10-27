@@ -7,7 +7,7 @@ namespace TeamRitual.Core {
 public class ComboProcessor {
     private CharacterStateMachine character;
 
-    private const float MIN_DAMAGE_SCALING = 0.1f;
+    private const float MIN_DAMAGE_SCALING = 0.05f;
     private Dictionary<AttackPriority,float> starterScalings = new Dictionary<AttackPriority,float>();
     private float[] stepDeductions = new float[] {
         -0.05f, -0.05f, -0.05f, -0.05f, -0.05f, -0.05f, -0.05f, 0, 0, 0, -0.025f, 0, 0, -0.025f, 0, 0, -0.025f, 0

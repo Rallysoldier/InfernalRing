@@ -114,7 +114,7 @@ public class CharacterStateMachine : ScriptableObject
 
         this.contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
         this.ClearContactData();
-        return contactSummary;
+        return this.contactSummary;
     }
 
     public void ApplyVelocity() {

@@ -21,7 +21,7 @@ public class XoninStateMachine : CharacterStateMachine
     }
 
     public override void ChangeStateOnInput() {
-        bool hittingEnemy = this.currentState.moveHit > 0 && this.enemy.hitstun > 0;
+        bool hittingEnemy = this.currentState.moveHit >= this.currentState.hitsToCancel && this.enemy.hitstun > 0;
 
         if (this.changedInput && (this.currentState.inputChangeState || hittingEnemy)) {
             if (this.currentState.moveType == MoveType.STAND || (this.currentState.moveType == MoveType.CROUCH && hittingEnemy && !this.inputHandler.held("D"))) {

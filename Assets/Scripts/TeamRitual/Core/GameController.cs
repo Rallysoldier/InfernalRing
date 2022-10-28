@@ -7,6 +7,7 @@ using TeamRitual.Character;
 namespace TeamRitual.Core {
 public class GameController : MonoBehaviour {
     public static GameController Instance;
+    public SoundHandler soundHandler;
 
     public List<string> characterNames = new List<string>{"Xonin","Xonin"};
     public List<int> selectedPalettes = new List<int>{1,3};
@@ -15,6 +16,7 @@ public class GameController : MonoBehaviour {
     public List<PlayerGameObj> Players;
     public float StageWidth;
     public float StageScale;
+    public float TotalStageWidth;
 
     public int Global_Time = 0;
     public int playerPaused = -1; //Determines which player paused the game during a character pause
@@ -36,6 +38,8 @@ public class GameController : MonoBehaviour {
 
     void Start()
     {
+        soundHandler = new SoundHandler(GetComponent<AudioSource>());
+
         GameObject canvasGO = Instantiate(Resources.Load("Prefabs/HUD/HUDPrefab_GameCanvas", typeof(GameObject))) as GameObject;
         TimerUI = GameObject.Find("Timer");
         TimerUI.transform.GetComponent<Text>().text = "" + maxTimerTime;
@@ -48,6 +52,7 @@ public class GameController : MonoBehaviour {
         StageObj = Instantiate(Resources.Load("Prefabs/Stages/StagePrefab_" + stageName, typeof(GameObject))) as GameObject;
         StageWidth = StageObj.GetComponent<SpriteRenderer>().sprite.rect.width/100;
         StageScale = StageObj.transform.localScale.x;
+        TotalStageWidth = StageWidth * StageScale;
 
         for (int i = 0; i < 2; i++) {
             GameObject playerGO = Instantiate(Resources.Load("Prefabs/Characters/CharacterPrefab_"+characterNames[i], typeof(GameObject))) as GameObject;
@@ -65,8 +70,10 @@ public class GameController : MonoBehaviour {
             PlayerGameObj playerObj = Players[i];
             playerObj.gameObject.SetActive(true);
 
-            playerObj.stateMachine = CreateStateMachine(characterNames[i]);
+            playerObj.stateMachine = CreateStateMachine(playerObj,characterNames[i]);
+            playerObj.inputHandler = new Input.InputHandler(playerObj.stateMachine);
             playerObj.stateMachine.inputHandler = playerObj.inputHandler;
+            playerObj.stateMachine.soundHandler = playerObj.soundHandler;
 
             playerObj.stateMachine.anim = playerObj.GetComponent<Animator>();
             playerObj.stateMachine.body = playerObj.GetComponent<Rigidbody2D>();
@@ -97,15 +104,19 @@ public class GameController : MonoBehaviour {
         {
             Players[i].stateMachine.currentState.EnterState();
         }
+        
+        AudioClip clip = EffectSpawner.GetSoundEffect(0);
     }
 
-    CharacterStateMachine CreateStateMachine(string characterName) {
+    CharacterStateMachine CreateStateMachine(PlayerGameObj playerGameObj, string characterName) {
+        Debug.Log("Creating state machine for " + characterName);
+        CharacterStateMachine stateMachine = ScriptableObject.CreateInstance<CharacterStateMachine>();
         switch (characterName) {
             case "Xonin":
-                Debug.Log("Creating state machine for " + characterName);
-                return ScriptableObject.CreateInstance<XoninStateMachine>();
+                stateMachine = ScriptableObject.CreateInstance<XoninStateMachine>();
+                break;
         }
-        return ScriptableObject.CreateInstance<CharacterStateMachine>();
+        return stateMachine;
     }
 
     //Actual Game Controller loop. "Loop steps" in the design go here.
@@ -114,6 +125,13 @@ public class GameController : MonoBehaviour {
     ContactSummary P2_Hits;
     void FixedUpdate()
     {
+        for (int i = 0; i < Players.Count; i++)
+        {
+             if (this.pause == 0 || i == this.playerPaused) {
+                Players[i].stateMachine.ApplyVelocity();
+             }
+        }
+
         //True game ticks happen ten times as fast, every 0.00167s instead of 0.0167. This is for things that must be
         //calculated quickly like hitbox collisions.
         trueGameTicks++;
@@ -125,8 +143,6 @@ public class GameController : MonoBehaviour {
 
         for (int i = 0; i < Players.Count; i++)
         {
-            Players[i].stateMachine.updateInputHandler();
-
             if (this.pause > 0) {
                 if (i != this.playerPaused) {
                     if (Players[i].m_Animator != null) {
@@ -149,6 +165,7 @@ public class GameController : MonoBehaviour {
             if (Players[i].stateMachine != null && (i == this.playerPaused || this.pause == 0)) {
                 Players[i].stateMachine.UpdateStates();
             }
+            Players[i].inputHandler.UpdateBufferTime();
         }
 
         if (this.pause > 0) {
@@ -186,8 +203,15 @@ public class GameController : MonoBehaviour {
                 winningHits.RemoveAll(hit => (int) hit.AttackPriority < winningPriority);
 
                 foreach (ContactData hit in winningHits) {
-                    if (characterHitting.currentState.moveContact >= hit.AttackHits || characterHitting.currentState.stateTime <= 1)
-                        break;
+                    //Debug.Log(hit.AnimationName + " " + characterHitting.GetCurrentAnimationName() + " " + characterHitting.currentState.animationName);
+                    //Debug.Log(characterHitting.currentState.moveContact + " " + hit.AttackHits + " ");
+                    if (hit.PlayerIsSource) {
+                        if (characterHitting.currentState.moveContact >= hit.AttackHits || 
+                            hit.AnimationName != characterHitting.GetCurrentAnimationName() ||
+                            hit.AnimationName != characterHitting.currentState.animationName) {
+                            break;
+                        }
+                    }
 
                     bool blocked = false;
                     if (characterHurt.currentState.inputChangeState || characterHurt.blockstun > 0) {
@@ -214,6 +238,9 @@ public class GameController : MonoBehaviour {
                         if (characterHurt.Hit(hit)) {
                             characterHitting.currentState.moveContact++;
                             characterHitting.currentState.moveHit++;
+                            if (characterHitting.attackCancels.Count == 0) {
+                                characterHitting.attackCancels.Add(characterHitting.currentState.GetType().Name);
+                            }
                             //Debug.Log("Hits landed: "+characterHitting.currentState.moveContact +", Max hits: "+ hit.AttackHits);
                         }
                     }
@@ -255,7 +282,7 @@ public class GameController : MonoBehaviour {
             cameraX = Mathf.Sign(cameraX) * cameraLimit;
         }
 
-        Vector3 cameraDestination = new Vector3(cameraX, cameraY + 2.5f, -10); //Replace 2.5f with the average of characters' heights
+        Vector3 cameraDestination = new Vector3(cameraX, cameraY + 3.5f, -10); //Replace 2.5f with the average of characters' heights
         LerpCamera(cameraDestination);
     }
 
@@ -278,6 +305,14 @@ public class GameController : MonoBehaviour {
     }
     public float GetCameraLerp() {
         return cameraLerp;
+    }
+
+    public float StageMinBound() {
+        return -TotalStageWidth/2f + 1.2f;
+    }
+
+    public float StageMaxBound() {
+        return TotalStageWidth/2f - 1.2f;
     }
 
     //Used for hitpause

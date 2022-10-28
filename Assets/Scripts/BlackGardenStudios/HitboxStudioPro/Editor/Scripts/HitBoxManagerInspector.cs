@@ -20,8 +20,15 @@ namespace BlackGardenStudios.HitboxStudioPro
         public bool showAudio;
         public bool showMove;
         public bool showHit;
-        public bool showHitVelocity;
-        public bool showBlockVelocity;
+        public bool hit_showHitVelocity;
+        public bool hit_showBlockVelocity;
+        public bool hit_showEnergy;
+        public bool hit_otg;
+        public bool hit_fall;
+        public bool hit_bounce;
+        public bool hit_slide;
+        public bool hit_wallBounce;
+        public bool hit_downedEnemy;
         public bool showAnimation;
         public bool showAttackData;
         public bool showFrameData;
@@ -325,6 +332,44 @@ namespace BlackGardenStudios.HitboxStudioPro
                                 var blockAirVelocity =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("blockAirVelocity");
                                 var blockAirVelocityTime =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("blockAirVelocityTime");
                                 
+                                var giveSelfPower = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("giveSelfPower");
+                                var giveEnemyPower = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("giveEnemyPower");
+                                
+                                var downedHit = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("downedHit");
+                                var downedDamage = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("downedDamage");
+                                var downedHitstun = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("downedHitstun");
+                                var downedVelocity = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("downedVelocity");
+                                
+                                var fallingGravity = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("fallingGravity");
+                                var fallAir = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("fallAir");
+                                var fallGround = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("fallGround");
+                                var fallRecover = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("fallRecover");
+                                
+                                var bounce = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("bounce");
+                                var bounceGravity = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("bounceGravity");
+                                var bounceRecover = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("bounceRecover");
+                                
+                                var slide = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("slide");
+                                var slideTime = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("slideTime");
+                                
+                                var wallBounce = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("wallBounce");
+                                var wallBounceGravity = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("wallBounceGravity");
+                                var wallBounceSlide = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("wallBounceSlide");
+                                var wallBounceTime = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("wallBounceTime");
+                                
+                                var downTime = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("downTime");
+                                var downRecover = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("downRecover");
+                                
+                                var hitShakeTime = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("hitShakeTime");
+                                var hitShakeX = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("hitShakeX");
+                                var hitShakeY = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("hitShakeY");
+                                var fallShakeTime = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("fallShakeTime");
+                                var fallShakeX = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("fallShakeX");
+                                var fallShakeY = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("fallShakeY");
+                                
+                                var forceStand = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("forceStand");
+                                var flipEnemy = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("flipEnemy");
+                                
                                 EditorGUILayout.PropertyField(damage, new GUIContent("Attack Damage", "The amount of damage this hit will deal when it hits."));
                                 EditorGUILayout.PropertyField(chipDamage, new GUIContent("Chip Damage", "The amount of damage this hit will deal when it is guarded."));
                                 EditorGUILayout.PropertyField(guardType, new GUIContent("Guard Type",
@@ -343,8 +388,8 @@ namespace BlackGardenStudios.HitboxStudioPro
                                 EditorGUILayout.PropertyField(hitstun, new GUIContent("Hit Stun", "If hit, the enemy will remain in the hit state for this amount of ticks."));
                                 EditorGUILayout.PropertyField(blockstun, new GUIContent("Block Stun", "If blocked, the enemy will remain in the blocking state for this amount of ticks."));
                                 
-                                showHitVelocity = EditorGUILayout.Foldout(showHitVelocity, "Velocity on Hit", true);
-                                if (showHitVelocity) {
+                                hit_showHitVelocity = EditorGUILayout.Foldout(hit_showHitVelocity, "Velocity on Hit", true);
+                                if (hit_showHitVelocity) {
                                     EditorGUI.indentLevel++;
                                     EditorGUILayout.PropertyField(hitGroundVelocity, new GUIContent("Ground Velocity", "If the enemy is on the ground, the enemy is set to this velocity."));
                                     EditorGUILayout.PropertyField(hitGroundVelocityTime, new GUIContent("G.Velocity Time", "The enemy remains with the above velocity for this amount of ticks."));
@@ -353,8 +398,8 @@ namespace BlackGardenStudios.HitboxStudioPro
                                     EditorGUI.indentLevel--;
                                 }
 
-                                showBlockVelocity = EditorGUILayout.Foldout(showBlockVelocity, "Velocity on Block", true);
-                                if (showBlockVelocity) {
+                                hit_showBlockVelocity = EditorGUILayout.Foldout(hit_showBlockVelocity, "Velocity on Block", true);
+                                if (hit_showBlockVelocity) {
                                     EditorGUI.indentLevel++;
                                     EditorGUILayout.PropertyField(blockGroundVelocity, new GUIContent("Ground Velocity", "If the enemy is on the ground and blocks the hit, the enemy is set to this velocity."));
                                     EditorGUILayout.PropertyField(blockGroundVelocityTime, new GUIContent("G.Velocity Time", "The enemy remains with the above velocity for this amount of ticks."));
@@ -362,6 +407,77 @@ namespace BlackGardenStudios.HitboxStudioPro
                                     //EditorGUILayout.PropertyField(blockAirVelocityTime, new GUIContent("A.Velocity Time", "The enemy remains with the above velocity for this amount of ticks."));
                                     EditorGUI.indentLevel--;
                                 }
+
+                                hit_showEnergy = EditorGUILayout.Foldout(hit_showEnergy, "Get/Give Energy", true);
+                                if (hit_showEnergy) {
+                                    EditorGUI.indentLevel++;
+                                    EditorGUILayout.PropertyField(giveSelfPower, new GUIContent("Get Energy", "On hit, the character hitting gets this much power."));
+                                    EditorGUILayout.PropertyField(giveEnemyPower, new GUIContent("Give Energy", "On hit, the character getting hit gets this much power."));
+                                    EditorGUI.indentLevel--;
+                                }
+
+                                hit_downedEnemy = EditorGUILayout.Foldout(hit_downedEnemy, "Downed options", true);
+                                if (hit_downedEnemy) {
+                                    EditorGUI.indentLevel++;
+                                    EditorGUILayout.PropertyField(downTime, new GUIContent("Down time", "The amount of time the player is left in the lying down state."));
+                                    EditorGUILayout.PropertyField(downRecover, new GUIContent("Recover", "Whether the player can recover from the lying down state differently."));
+                                    EditorGUI.indentLevel--;
+                                }
+
+                                hit_otg = EditorGUILayout.Foldout(hit_otg, "OTG (Off-the-Ground)", true);
+                                if (hit_otg) {
+                                    EditorGUI.indentLevel++;
+                                    EditorGUILayout.PropertyField(downedHit, new GUIContent("OTG", "Whether this hit should hit enemies that are in downed states."));
+                                    EditorGUILayout.PropertyField(downedDamage, new GUIContent("OTG Damage", "Damage dealt when the enemy is hit while downed."));
+                                    EditorGUILayout.PropertyField(downedHitstun, new GUIContent("OTG Hitstun", "Hitstun given when the enemy is hit while downed."));
+                                    EditorGUILayout.PropertyField(downedVelocity, new GUIContent("OTG Velocity", "The velocity of the enemy when hit while downed."));
+                                    EditorGUI.indentLevel--;
+                                }
+
+                                hit_fall = EditorGUILayout.Foldout(hit_fall, "Falling", true);
+                                if (hit_fall) {
+                                    EditorGUI.indentLevel++;
+                                    EditorGUILayout.PropertyField(fallGround, new GUIContent("Fall off of Ground",
+                                        "If true, and the enemy is hit into the air, the enemy will continue to fall after hitstun.\n" +
+                                        "The hit enemy's gravity is overrided by the fall gravity of this hit."
+                                    ));
+                                    EditorGUILayout.PropertyField(fallAir, new GUIContent("Fall in Air",
+                                        "If true, and the enemy was hit while in air, the enemy will continue to fall after hitstun.\n" +
+                                        "The hit enemy's gravity is overrided by the fall gravity of this hit."
+                                    ));
+                                    EditorGUILayout.PropertyField(fallingGravity, new GUIContent("Fall Gravity", "If not zero, the new fall gravity of the hit enemy."));
+                                    EditorGUILayout.PropertyField(fallRecover, new GUIContent("Recover", "Whether the enemy can recover out of the fall state or not."));
+                                    EditorGUI.indentLevel--;
+                                }
+
+                                hit_bounce = EditorGUILayout.Foldout(hit_bounce, "Ground Bounce", true);
+                                if (hit_bounce) {
+                                    EditorGUI.indentLevel++;
+                                    EditorGUILayout.PropertyField(bounce, new GUIContent("Velocity", "When the enemy first lands on the ground after falling, this velocity is applied."));
+                                    EditorGUILayout.PropertyField(bounceGravity, new GUIContent("Gravity", "If not zero, this gravity is applied to the enemy when in the bounce state."));
+                                    EditorGUILayout.PropertyField(bounceRecover, new GUIContent("Recover", "Whether the enemy can recover out of the bounce state or not."));
+                                    EditorGUI.indentLevel--;
+                                }
+
+                                hit_slide = EditorGUILayout.Foldout(hit_slide, "Ground Slide", true);
+                                if (hit_slide) {
+                                    EditorGUI.indentLevel++;
+                                    EditorGUILayout.PropertyField(slide, new GUIContent("Velocity", "When the enemy comes down from a ground bounce, this velocity is applied."));
+                                    EditorGUILayout.PropertyField(slideTime, new GUIContent("Time", "The amount of time the above velocity is applied. After this time exprires, the enemy enters the lying down state."));
+                                    EditorGUI.indentLevel--;
+                                }
+
+                                hit_wallBounce = EditorGUILayout.Foldout(hit_wallBounce, "Wall Bounce", true);
+                                if (hit_wallBounce) {
+                                    EditorGUI.indentLevel++;
+                                    EditorGUILayout.PropertyField(wallBounceTime, new GUIContent("Slide Time", "If not zero, the amount of ticks the enemy is stuck to the wall for if hit towards it."));
+                                    EditorGUILayout.PropertyField(wallBounceSlide, new GUIContent("Slide", "The speed at which the enemy slides down the wall while on it"));
+                                    EditorGUILayout.PropertyField(wallBounce, new GUIContent("Velocity", "The velocity the enemy comes off of the wall at."));
+                                    EditorGUILayout.PropertyField(wallBounceGravity, new GUIContent("Gravity", "If not zero, this gravity is applied to the enemy after coming off the wall."));
+                                    EditorGUI.indentLevel--;
+                                }
+
+                                EditorGUILayout.PropertyField(forceStand, new GUIContent("Force Stand", "When this attack lands and the enemy is not in the air, the enemy is forced into the standing hurt."));
  
                                 var hitfxlabel = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("hitfxlabel");
                                 var hitfxuid = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("hitfxuid");
@@ -380,6 +496,29 @@ namespace BlackGardenStudios.HitboxStudioPro
                                     hitfxuid.intValue = effects[hitfxlabel.intValue - 1].uniqueID;
                                 else
                                     hitfxuid.intValue = 0;
+
+
+                                var soundfxlabel = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("soundfxlabel");
+                                var soundfxuid = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("soundid");
+                                var soundEffects = EffectSpawner.GetSoundPools();
+                                var soundLabels = new List<string>();
+
+                                soundLabels.Add("None");
+
+                                for (int i = 0; i < soundEffects.Length; i++)
+                                    soundLabels.Add(soundEffects[i].name);
+
+                                soundfxlabel.intValue = EditorGUILayout.Popup("Sound Effect Pool",
+                                    soundfxlabel.intValue, soundLabels.ToArray(), EditorStyles.popup);
+
+                                if (soundfxlabel.intValue > 0)
+                                    soundfxuid.intValue = soundEffects[soundfxlabel.intValue - 1].uniqueID;
+                                else
+                                    soundfxuid.intValue = 0;
+
+                                var stopSound =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("stopSound");
+                                EditorGUILayout.PropertyField(stopSound, new GUIContent("Stop Sounds", "If hit and a sound plays, all other hit sounds are stopped for the sound to play if this is true."));
+
                                 
                                 EditorGUI.indentLevel--;
                             }

@@ -36,6 +36,11 @@ public class CharacterStateFactory
         return new CommonStateHurtBounce(context, this);
     }
 
+    public virtual CharacterState HurtSlide()
+    {
+        return new CommonStateHurtSlide(context, this);
+    }
+
     public virtual CharacterState LyingDown()
     {
         return new CommonStateLyingDown(context, this);

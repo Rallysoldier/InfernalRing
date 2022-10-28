@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using TeamRitual.Core;
+using TeamRitual.Character;
+using System.Collections.Generic;
 
 namespace BlackGardenStudios.HitboxStudioPro
 {
@@ -11,6 +14,8 @@ namespace BlackGardenStudios.HitboxStudioPro
 
         private int m_hits = 1;
         private float m_Damage = 1f;
+        private int m_soundID;
+        private bool m_stopSounds;
         private int m_FXUID = 0;
         /**New fields**/
         private int m_hitpause;
@@ -65,7 +70,9 @@ namespace BlackGardenStudios.HitboxStudioPro
         private bool m_forceStand;
         private bool m_flipEnemy;
 
-        private int m_frame;
+        public int m_frame;
+        private int m_lastFrame;
+        public string m_clipName;
         /****/
         private bool m_DidHit = false;
 
@@ -99,12 +106,15 @@ namespace BlackGardenStudios.HitboxStudioPro
             float fallingGravity, bool fallAir, bool fallGround, bool fallRecover, Vector2 bounce, float bounceGravity, bool bounceRecover,
             float slide, int slideTime, Vector2 wallBounce, float wallBounceGravity, float wallBounceSlide, int wallBounceTime,
             int downTime, bool downRecover, int hitShakeTime, float hitShakeX, float hitShakeY, int fallShakeTime, float fallShakeX, float fallShakeY,
-            bool forceStand, bool flipEnemy
+            bool forceStand, bool flipEnemy, int soundid, bool stopSounds,
+            string animationName
             )
         {
             Type = type;
             m_Damage = damage;
             m_FXUID = fxUID;
+            m_soundID = soundid;
+            m_stopSounds = stopSounds;
             /**Feed new fields**/
             m_hitpause = hitpause;
             m_blockpause = blockpause;
@@ -150,6 +160,7 @@ namespace BlackGardenStudios.HitboxStudioPro
             m_fallShakeY = fallShakeY;
             m_forceStand = forceStand;
             m_flipEnemy = flipEnemy;
+            m_lastFrame = m_frame;
             m_frame = frame;
             /****/
             Collider.size = boxSize;
@@ -158,6 +169,7 @@ namespace BlackGardenStudios.HitboxStudioPro
             Id = ID;
             m_DidHit = false;
             m_hits = hits;
+            m_clipName = animationName;
 
             Collider.enabled = true;
         }
@@ -213,11 +225,22 @@ namespace BlackGardenStudios.HitboxStudioPro
             if (feeder.ReportHit(m_Manager.UID) == false)
                 //Hit wasn't reported, this animation must have already hit us in a previous frame.
                 return;
+
+            //Debug.Log("");
+            //Debug.Log(feeder.m_hits + " " + feeder.m_Manager.GetCurrentMaxHits());
+            //Debug.Log(feeder.m_clipName + " " + feeder.m_Manager.GetCurrentAnimationName());
+            
+            if (feeder.m_hits != feeder.m_Manager.GetCurrentMaxHits()) {
+                return;
+            }
+
+            //Debug.Log(m_Manager.UID + ": " + feeder.m_frame + " " + feeder.m_lastFrame);
+            
             //Consume the other hurtboxes hit for this frame.
             feeder.m_DidHit = true;
             //Proceed to generate contact data and pass event to the owner.
             var collision = feeder.Collider;
-
+            
             //Estimate approximately where the intersection took place.
             var contactPoint = Collider.bounds.ClosestPoint(collision.bounds.center);
             var startY = Mathf.Min(collision.bounds.center.y + collision.bounds.extents.y, Collider.bounds.center.y + (Collider.bounds.extents.y / 2f));
@@ -231,6 +254,8 @@ namespace BlackGardenStudios.HitboxStudioPro
                 {
                     MyHitbox = this,
                     TheirHitbox = feeder,
+                    PlayerIsSource = feeder.Owner is PlayerGameObj,
+                    AnimationName = feeder.m_Manager.GetCurrentAnimationName(),
                     AttackHits = feeder.m_hits,
                     Damage = feeder.m_Damage,
                     Point = contactPoint,
@@ -250,7 +275,8 @@ namespace BlackGardenStudios.HitboxStudioPro
                     BlockGroundVelocityTime = feeder.m_blockGroundVelocityTime,
                     BlockAirVelocity = feeder.m_blockAirVelocity,
                     BlockAirVelocityTime = feeder.m_blockAirVelocityTime,
-                    Frame = m_frame,
+                    HitFrame = feeder.m_frame,
+                    Frame = feeder.m_frame,
                     GiveSelfPower = feeder.m_giveSelfPower,
                     GiveEnemyPower = feeder.m_giveEnemyPower,
                     DownedHit = feeder.m_downedHit,
@@ -281,7 +307,9 @@ namespace BlackGardenStudios.HitboxStudioPro
                     ForceStand = feeder.m_forceStand,
                     FlipEnemy = feeder.m_flipEnemy,
                     /****/
-                    fxID = feeder.m_FXUID
+                    fxID = feeder.m_FXUID,
+                    SoundID = feeder.m_soundID,
+                    StopSounds = feeder.m_stopSounds,
                 }
             );
         }

@@ -1,3 +1,5 @@
+using BlackGardenStudios.HitboxStudioPro;
+using TeamRitual.Core;
 using UnityEngine;
 
 namespace TeamRitual.Character {
@@ -20,12 +22,14 @@ public class CommonStateLyingDown : CharacterState
         base.EnterState();
         this.character.VelY(0);
         this.character.body.position = new Vector2(this.character.PosX(),0);
+        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(40),false);
     }
 
     public override void UpdateState() {
         base.UpdateState();
 
-        if (stateTime > 40 && this.character.health > 0)
+        int downTime = this.character.lastContact.DownTime > 0 ? this.character.lastContact.DownTime : 30;
+        if (stateTime > downTime && this.character.health > 0)
             this.SwitchState(this.character.states.JumpLand());
     }
 

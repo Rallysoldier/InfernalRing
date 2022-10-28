@@ -8,8 +8,9 @@ namespace BlackGardenStudios.HitboxStudioPro
     public class EffectSpawner : MonoBehaviour
     {
         AttackFX[] m_Effects;
-        Dictionary<int, AttackFX> m_EffectDict = new Dictionary<int, AttackFX>(12);
-
+        SoundFX[] m_SoundEffects;
+        Dictionary<int, AttackFX> m_EffectDict = new Dictionary<int, AttackFX>();
+        Dictionary<int, SoundFX> m_SoundEffectDict = new Dictionary<int, SoundFX>();
         static private EffectSpawner instance
         {
             get
@@ -50,6 +51,23 @@ namespace BlackGardenStudios.HitboxStudioPro
             }
         }
 
+        static public AudioClip GetSoundEffect(int uid)
+        {
+            return instance._GetSoundEffect(uid);
+        }
+
+        public AudioClip _GetSoundEffect(int uid)
+        {
+            SoundFX pool;
+
+            if (m_SoundEffectDict.TryGetValue(uid, out pool) && pool.Effects != null && pool.Effects.Length > 0)
+            {
+                AudioClip effect = pool.Effects[Random.Range(0, pool.Effects.Length)];
+                return effect;
+            }
+            return null;
+        }
+
         private WaitForSeconds m_Wait = new WaitForSeconds(1f);
 
         private IEnumerator DestroyEffect(GameObject go)
@@ -64,10 +82,13 @@ namespace BlackGardenStudios.HitboxStudioPro
             {
                 m_Instance = this;
                 m_Effects = Resources.LoadAll<AttackFX>("Effects/");
+                m_SoundEffects = Resources.LoadAll<SoundFX>("Sounds/");
 
                 for (int i = 0; i < m_Effects.Length; i++)
                     m_EffectDict.Add(m_Effects[i].uniqueID, m_Effects[i]);
 
+                for (int i = 0; i < m_SoundEffects.Length; i++)
+                    m_SoundEffectDict.Add(m_SoundEffects[i].uniqueID, m_SoundEffects[i]);
             }
             else
             {
@@ -80,6 +101,13 @@ namespace BlackGardenStudios.HitboxStudioPro
         {
             var list = Resources.LoadAll<AttackFX>("Effects/").ToList();
             list.Sort((AttackFX a, AttackFX b) => b.uniqueID - a.uniqueID);
+            return list.ToArray();
+        }
+
+        static public SoundFX[] GetSoundPools()
+        {
+            var list = Resources.LoadAll<SoundFX>("Sounds/").ToList();
+            list.Sort((SoundFX a, SoundFX b) => b.uniqueID - a.uniqueID);
             return list.ToArray();
         }
 

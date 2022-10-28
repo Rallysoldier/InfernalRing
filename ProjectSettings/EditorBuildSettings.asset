@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Versus Mode.unity
+    guid: d99063b6ff9da96429f550a714ad61bd
   m_configObjects: {}

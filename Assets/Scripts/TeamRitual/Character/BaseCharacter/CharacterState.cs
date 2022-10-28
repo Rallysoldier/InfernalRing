@@ -11,6 +11,9 @@ public abstract class CharacterState
 
 	public int moveHit;
 	public int moveContact;
+	public int hitsToCancel = 1;
+	public bool jumpCancel = false;
+	public int scalingStep = 1;
 
 	//The variables below can be different for each state, and are only ever defined/mutated in the state's constructor.
 
@@ -31,23 +34,36 @@ public abstract class CharacterState
 	}
 
 	public virtual void EnterState() {
+		this.character.lastContact.HitFrame = -1;
+
 		if (this.faceEnemyStart || this.faceEnemyAlways) {
 			character.correctFacing();
 		}
+		string prevAnimName = this.character.GetCurrentAnimationName();
 		if(!this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)) {
             this.character.anim.Play(animationName);
         }
-
-		this.character.cancelPriority = (int)this.attackPriority;
 	}
 
 	public virtual void UpdateState() {
 		this.stateTime++;
+
 		if (this.faceEnemyAlways) {
 			character.correctFacing();
 		}
 		if(!this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)) {
             this.character.anim.Play(animationName);
+        }
+		if (this.jumpCancel && this.character.enemy.VelY() > 0 && moveHit >= hitsToCancel) {
+            if ((this.character.changedInput && (this.character.inputStr.EndsWith("U") ||
+            this.character.inputStr.EndsWith("U,F") || this.character.inputStr.EndsWith("F,U") ||
+            this.character.inputStr.EndsWith("U,B")  || this.character.inputStr.EndsWith("B,U")))
+                     || this.character.inputHandler.held("U")) {
+                    CommonStateJumpStart jumpStart = this.character.states.JumpStart() as CommonStateJumpStart;
+                    Vector2 hitVelocity = this.character.enemy.lastContact.HitVelocity;
+                    jumpStart.jumpVelocity = new Vector2(-hitVelocity.x, hitVelocity.y);
+                    this.SwitchState(jumpStart);
+                }
         }
 	}
 
@@ -61,9 +77,24 @@ public abstract class CharacterState
 	{
 		if (this.GetType() == newState.GetType())
 			return;
-		
-		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK && newState.attackPriority < this.attackPriority)
-			return;
+
+		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK && moveHit >= hitsToCancel) {
+			bool canCancelInto =
+				((newState.attackPriority >= this.attackPriority && this.attackPriority <= AttackPriority.HEAVY)
+				|| (newState.attackPriority > this.attackPriority && this.attackPriority > AttackPriority.HEAVY))
+				&& !this.character.attackCancels.Contains(newState.GetType().Name);
+
+			if (!canCancelInto) {
+				bool exceptions = newState.moveType == MoveType.AIR
+					|| (character.ReverseBeat() && this.attackPriority <= AttackPriority.HEAVY);
+				if (!exceptions)
+					return;
+			}
+
+			this.character.attackCancels.Add(newState.GetType().Name);
+		}
+
+
 
 		// exit current state
 		ExitState();
@@ -73,6 +104,8 @@ public abstract class CharacterState
 
 		//update context of state
 		character.currentState = newState;
+
+		//Debug.Log("Switched from " + this + " to " + newState);
 	}
 
 	protected void SetSuperState()

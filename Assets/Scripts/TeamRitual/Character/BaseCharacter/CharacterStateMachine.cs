@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using BlackGardenStudios.HitboxStudioPro;
 using TeamRitual.Core;
 using TeamRitual.Input;
@@ -8,8 +9,25 @@ namespace TeamRitual.Character {
 public class CharacterStateMachine : ScriptableObject
 {
     public string characterName;
-    //Misc Variables
+
+    //Constant variables
+    public const int MAX_HEALTH = 1000;
+    public const int MAX_ENERGY = 1000;
+    public const float CONST_GRAVITY = 0.85f;
+    public Vector2 velocityWalkForward = new Vector2(2,0);
+    public Vector2 velocityWalkBack = new Vector2(-2,0);
+    public Vector2 velocityRunForward = new Vector2(15,0);
+    public Vector2 velocityRunBack = new Vector2(-15,0);
+    public Vector2 velocityJumpNeutral = new Vector2(0,17);
+    public Vector2 velocityJumpForward = new Vector2(6.5f,17f);
+    public Vector2 velocityJumpBack = new Vector2(-6.5f,17f);
+
+    //input variables
     public InputHandler inputHandler;
+    public string inputStr = "";
+    public bool changedInput;
+    
+    public SoundHandler soundHandler;
     public CharacterStateMachine enemy;
 
     //Animation Variables
@@ -18,35 +36,28 @@ public class CharacterStateMachine : ScriptableObject
 
     //Physics/Motion Variables
     public Rigidbody2D body;
-    public int facing;
-    public Vector2 hitVelocity;
-    public int hitVelocityTime;
-    public Vector2 blockVelocity;
-    public int blockVelocityTime;
-
-    public const int MAX_HEALTH = 1000;
-    public int health;
-    public int hitstun;
-    public int blockstun;
-    public int cancelPriority = 0;
-
-    public Vector2 velocityWalkForward = new Vector2(2,0);
-    public Vector2 velocityWalkBack = new Vector2(-2,0);
-    public Vector2 velocityRunForward = new Vector2(15,0);
-    public Vector2 velocityRunBack = new Vector2(-15,0);
-    public Vector2 velocityJumpNeutral = new Vector2(0,17);
-    public Vector2 velocityJumpForward = new Vector2(6.5f,17f);
-    public Vector2 velocityJumpBack = new Vector2(-6.5f,17f);
+    public Vector2 velocity = new Vector2(0,0);
     public float standingFriction = 0.05f;
     public float crouchingFriction = 0.15f;
     public float gravity = 0.85f;
+    public int facing;
+
+    //Hit and health variables
+    public int health;
+    public int hitstun;
+    public int blockstun;
+    public ContactData lastContact;
+    public CharacterState lastContactState;
+
+    //Energy variables
+    private float energy;
 
     //state variables
     public CharacterState currentState;
     public CharacterStateFactory states;
-    public string inputStr = "";
-    string prevInputStr = "";
-    public bool changedInput;
+
+    public ComboProcessor comboProcessor;
+    public List<string> attackCancels = new List<string>();
 
     //getters and setters
     public CharacterState CurrentState { get { return currentState; } set { currentState = value; } }
@@ -60,10 +71,12 @@ public class CharacterStateMachine : ScriptableObject
     List<ContactData> armorColData = new List<ContactData>();
     List<ContactData> grabColData = new List<ContactData>();
     List<ContactData> techColData = new List<ContactData>();
+    //
 
     public CharacterStateMachine() {
         this.states = new CharacterStateFactory(this);
         this.contactSummary = new ContactSummary(this);
+        this.comboProcessor = new ComboProcessor(this);
     }
 
     void Awake() {
@@ -84,12 +97,43 @@ public class CharacterStateMachine : ScriptableObject
 
         if (this.currentState.stateType != StateType.HURT) {
             if (this.health == 0) {
-                this.SetVelocity(-8,9);
                 this.currentState.SwitchState(this.states.HurtAir());
             }
         }
+        if (this.currentState.stateType != StateType.ATTACK) {
+            this.attackCancels.Clear();
+        }
 
-        body.gravityScale = 0.0f;
+        this.comboProcessor.Update();
+
+        this.UpdateStatePhysics();
+
+        this.ApplyHitVelocities();
+
+        this.ChangeStateOnInput();
+
+        this.contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
+        this.ClearContactData();
+        return this.contactSummary;
+    }
+
+    public void ApplyVelocity() {
+        float velX = this.VelX()/500f;
+        float resultPosX = this.PosX() + velX;
+
+        if (resultPosX >= GameController.Instance.StageMaxBound() || resultPosX <= GameController.Instance.StageMinBound()
+        || Mathf.Abs(resultPosX - this.enemy.PosX()) > 18.5f) {
+            velX = 0;
+        }
+        this.SetPos(this.PosX() + velX, this.PosY() + this.VelY()/500f);
+    }
+
+    public void UpdateStatePhysics() {
+        if (this.currentState.stateType == StateType.IDLE) {
+            this.gravity = CONST_GRAVITY;
+        }
+
+        this.body.gravityScale = 0.0f;
         switch (this.currentState.physicsType)
         {
             default:
@@ -106,7 +150,7 @@ public class CharacterStateMachine : ScriptableObject
                 break;
             case PhysicsType.AIR:
                 if (this.currentState.stateType == StateType.ATTACK && this.currentState.attackPriority < AttackPriority.SPECIAL
-                    && this.currentState.moveHit > 0) {
+                    && this.currentState.moveHit > 0 && this.enemy.currentState.moveType == MoveType.AIR) {
                     VelYAdd(-this.gravity/3);
                 } else {
                     VelYAdd(-this.gravity);
@@ -115,44 +159,19 @@ public class CharacterStateMachine : ScriptableObject
             case PhysicsType.CUSTOM:
                 break;
         }
-
-        if (this.hitVelocityTime > 0) {
-            this.hitVelocityTime--;
-            this.SetVelocity(this.hitVelocity);
-        }
-
-        if (this.blockVelocityTime > 0) {
-            this.blockVelocityTime--;
-            this.SetVelocity(this.blockVelocity);
-        }
-
-        this.changeStateOnInput();
-
-        this.changedInput = false;
-        this.prevInputStr = inputStr;
-
-        contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
-        this.bodyColData.Clear();
-        this.hurtColData.Clear();
-        this.guardColData.Clear();
-        this.armorColData.Clear();
-        this.grabColData.Clear();
-        this.techColData.Clear();
-        return contactSummary;
     }
 
-    public void updateInputHandler() {
-        //Gets new character input based on the direction they're facing.
-        //Inverts F and B inputs if the character is facing the -x direction (facing == -1)
-        this.inputStr = this.inputHandler.getCharacterInput(this);
-        if (inputStr != prevInputStr) {
-            changedInput = true;
+    public void ApplyHitVelocities() {
+        if (this.currentState.stateType == StateType.HURT && this.lastContact.HitVelocityTime > 0) {
+            this.lastContact.HitVelocityTime--;
+            this.SetVelocity(this.lastContact.HitVelocity);
+        } else if (this.lastContact.BlockGroundVelocityTime > 0) {
+            this.lastContact.BlockGroundVelocityTime--;
+            this.SetVelocity(this.lastContact.BlockGroundVelocity);
         }
-        prevInputStr = inputStr;
-        this.inputHandler.updateBufferTime();
     }
 
-    public virtual void changeStateOnInput() {
+    public virtual void ChangeStateOnInput() {
         if (this.currentState.inputChangeState) {
             if (this.currentState.moveType == MoveType.STAND) {
                 if (inputStr.EndsWith("F,F") && this.changedInput) {
@@ -178,29 +197,51 @@ public class CharacterStateMachine : ScriptableObject
         }
     }
 
+    public void ClearContactData() {
+        this.bodyColData.Clear();
+        this.hurtColData.Clear();
+        this.guardColData.Clear();
+        this.armorColData.Clear();
+        this.grabColData.Clear();
+        this.techColData.Clear();
+    }
+
+    public void SetPos(float posX, float posY) {
+        this.body.position = new Vector2(posX,posY);
+    }
+    public Vector2 Pos() {
+        return this.body.position;
+    }
+
+    public void SetPosX(float x) {
+        this.SetPos(x, this.PosY());
+    }
     public float PosX() {
         return this.body.position.x;
     }
 
+    public void SetPosY(float y) {
+        this.SetPos(PosX(), y);
+    }
     public float PosY() {
         return this.body.position.y;
     }
 
     public float VelX() {
-        return this.body.velocity.x;
+        return this.velocity.x;
     }
 
     public float VelY() {
-        return this.body.velocity.y;
+        return this.velocity.y;
     }
 
     //Always use this to set velocity. Changes velocity based on the "facing" variable.
     public void SetVelocity(float velx, float vely) {
-        body.velocity = new Vector2(velx*facing,vely);
+        this.velocity = new Vector2(velx*facing,vely);
     }
 
     public void SetVelocity(Vector2 velocity) {
-        body.velocity = new Vector2(velocity.x*facing,velocity.y);
+        this.velocity = new Vector2(velocity.x*facing,velocity.y);
     }
 
     public void VelX(float velocity) {
@@ -208,15 +249,15 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public void VelXDirect(float velocity) {
-        body.velocity = new Vector2(velocity,VelY());
+        this.velocity = new Vector2(velocity, VelY());
     }
 
     public void VelY(float velocity) {
-        body.velocity = new Vector2(VelX(),velocity);
+        this.velocity = new Vector2(VelX(), velocity);
     }
 
     public void VelYAdd(float velocity) {
-        body.velocity = new Vector2(VelX(),VelY() + velocity);
+        this.velocity = new Vector2(VelX(), VelY() + velocity);
     }
 
     public void correctFacing() {
@@ -224,6 +265,18 @@ public class CharacterStateMachine : ScriptableObject
         this.facing = this.PosX() < this.enemy.PosX() ? 1 : -1;
 
         this.spriteRenderer.flipX = this.facing == -1;
+    }
+
+    public virtual float GetEnergy() {
+        return this.energy;
+    }
+
+    public virtual void AddEnergy(float energy) {
+        this.energy = this.energy + energy >= MAX_ENERGY ? MAX_ENERGY : this.energy + energy;
+    }
+
+    public string GetCurrentAnimationName() {
+        return anim.GetCurrentAnimatorClipInfo(0)[0].clip.name;
     }
 
     public virtual void HitboxContact(ContactData data) {
@@ -255,9 +308,7 @@ public class CharacterStateMachine : ScriptableObject
         this.blockstun = hit.Blockstun;
         this.health -= (int)hit.ChipDamage;
 
-        this.blockVelocity = hit.BlockGroundVelocity;
         this.SetVelocity(hit.BlockGroundVelocity);
-        this.blockVelocityTime = hit.BlockGroundVelocityTime;
 
         switch(hitGuardType) {
             case GuardType.MID:
@@ -272,8 +323,12 @@ public class CharacterStateMachine : ScriptableObject
                 this.currentState.SwitchState(states.GuardCrouch());
                 break;
         }
+
+        this.lastContact = hit;
+        this.lastContactState = this.enemy.currentState;
         
         EffectSpawner.PlayHitEffect(0, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
+        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(0), hit.StopSounds);
         return true;
     }
 
@@ -283,60 +338,83 @@ public class CharacterStateMachine : ScriptableObject
             return false;
         }
 
-        this.health -= (int) hit.Damage;
-        this.health = (int) Mathf.Max(this.health,0f);
-
-        GameController.Instance.Pause(hit.Hitpause);
-        this.hitstun = hit.Hitstun;
-
-        switch (this.currentState.moveType) {
-            case MoveType.STAND:
-                this.hitVelocity = hit.HitGroundVelocity;
-                this.SetVelocity(hit.HitGroundVelocity);
-                this.hitVelocityTime = hit.HitGroundVelocityTime;
-                if (this.hitVelocity.y > 0 || this.health == 0) {
-                    this.currentState.SwitchState(states.HurtAir());
-                } else {
-                    this.currentState.SwitchState(states.HurtStand());
-                }
-                break;
-            case MoveType.CROUCH:
-                this.hitVelocity = hit.HitGroundVelocity;
-                this.SetVelocity(hit.HitGroundVelocity);
-                this.hitVelocityTime = hit.HitGroundVelocityTime;
-                if (this.hitVelocity.y > 0 || this.health == 0) {
-                    this.currentState.SwitchState(states.HurtAir());
-                } else {
-                    this.currentState.SwitchState(states.HurtStand());
-                }
-                break;
-            case MoveType.AIR:
-                this.hitVelocity = hit.HitAirVelocity;
-                this.SetVelocity(hit.HitAirVelocity);
-                this.hitVelocityTime = hit.HitAirVelocityTime;
-                this.currentState.SwitchState(states.HurtAir());
-                break;
+        //Avoid multiple hits within the same animation keyframe, if a hit has already landed.
+        if (this.lastContact.HitFrame == hit.HitFrame && lastContactState == this.enemy.currentState) {
+            //Debug.Log(this.lastContact.HitFrame + " " + hit.HitFrame);
+            //Debug.Log(lastContactState + " " + this.enemy.currentState);
+            return false;
         }
 
-        switch (hit.AttackPriority) {
-            case AttackPriority.LIGHT:
-                EffectSpawner.PlayHitEffect(
-                    100, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
-                );
-                break;
-            case AttackPriority.MEDIUM:
-                EffectSpawner.PlayHitEffect(
-                    200, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
-                );
-                break;
-            case AttackPriority.HEAVY:
-                EffectSpawner.PlayHitEffect(
-                    300, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX
-                );
-                break;
+        if (this.currentState.moveType == MoveType.LYING && !this.lastContact.DownedHit) {
+            return false;
+        }
+
+        if (this.currentState.moveType == MoveType.STAND) {
+            hit.HitVelocity = hit.HitGroundVelocity;
+            hit.HitVelocityTime = hit.HitGroundVelocityTime;
+            if (hit.HitVelocity.y > 0 || this.health == 0) {
+                this.currentState.SwitchState(states.HurtAir());
+            } else {
+                this.currentState.SwitchState(states.HurtStand());
+            }
+        } else if (this.currentState.moveType == MoveType.CROUCH) {
+            hit.HitVelocity = hit.HitGroundVelocity;
+            hit.HitVelocityTime = hit.HitGroundVelocityTime;
+            if (hit.HitVelocity.y > 0 || this.health == 0) {
+                this.currentState.SwitchState(states.HurtAir());
+            } else {
+                this.currentState.SwitchState(states.HurtCrouch());
+            }
+        } else if (this.currentState.moveType == MoveType.LYING) {
+            hit.HitVelocity = hit.DownedVelocity;
+            hit.HitVelocityTime = 1;
+            if (hit.HitVelocity.y > 0 || this.health == 0) {
+                this.currentState.SwitchState(states.HurtAir());
+            } else {
+                this.currentState.SwitchState(states.HurtStand());
+            }
+        } else if (this.currentState.moveType == MoveType.AIR) {
+            hit.HitVelocity = hit.HitAirVelocity;
+            hit.HitVelocityTime = hit.HitAirVelocityTime;
+            this.currentState.SwitchState(states.HurtAir());
+        }
+
+        if (hit.ForceStand && this.currentState.moveType != MoveType.AIR) {
+            this.currentState.SwitchState(states.HurtStand());
         }
         
+        this.SetVelocity(hit.HitVelocity);
+
+        if (hit.FlipEnemy) {
+            this.facing *= -1;
+        }
+
+        bool hitDownedEnemy = this.currentState.moveType == MoveType.LYING && this.lastContact.DownedHit;
+        this.enemy.comboProcessor.ProcessHit(hit, this.enemy.currentState);
+        this.health -= this.enemy.comboProcessor.GetDamage(hitDownedEnemy);
+        this.hitstun = this.enemy.comboProcessor.GetHitstun(hitDownedEnemy);
+        this.health = (int) Mathf.Max(this.health, 0f);
+
+        this.AddEnergy(hit.GiveEnemyPower);
+        this.enemy.AddEnergy(hit.GiveSelfPower);
+
+        hit.HitFall = (this.currentState.moveType == MoveType.AIR && hit.FallAir)
+            || (this.currentState.moveType != MoveType.AIR && hit.FallGround);
+
+        this.lastContact = hit;
+        this.lastContactState = this.enemy.currentState;
+
+        EffectSpawner.PlayHitEffect(hit.fxID, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
+        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(hit.SoundID), hit.StopSounds);
+        //GameController.Instance.soundHandler.audioSource.PlayOneShot((AudioClip)Resources.Load("Sounds/SFX/Hit/hit-1"));
+
+        GameController.Instance.Pause(hit.Hitpause);
         return true;
+    }
+
+    //If true, allows higher priority basic attacks to be chained into lower priority attacks.
+    public virtual bool ReverseBeat() {
+        return false;
     }
 }
 }

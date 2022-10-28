@@ -1,3 +1,6 @@
+using BlackGardenStudios.HitboxStudioPro;
+using TeamRitual.Core;
+
 namespace TeamRitual.Character {
 public class CommonStateHurtBounce : CharacterState
 {
@@ -8,7 +11,7 @@ public class CommonStateHurtBounce : CharacterState
         this.faceEnemyAlways = false;
 
         this.physicsType = PhysicsType.AIR;
-        this.moveType = MoveType.LYING;
+        this.moveType = MoveType.AIR;
 	    this.stateType = StateType.HURT;
 
         this.animationName = this.character.characterName + "_HurtBounce";
@@ -16,15 +19,21 @@ public class CommonStateHurtBounce : CharacterState
 
     public override void EnterState() {
         base.EnterState();
-        this.character.VelY(7);
+        if (this.character.lastContact.Bounce.y > 0) {
+            EffectSpawner.PlayHitEffect(60, this.character.body.position, this.character.spriteRenderer.sortingOrder + 1, true);
+            GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(60),false);
+            this.character.SetVelocity(this.character.lastContact.Bounce);
+            if (this.character.lastContact.BounceGravity > 0) {
+                this.character.gravity = this.character.lastContact.BounceGravity;
+            }
+        }
     }
 
     public override void UpdateState() {
         base.UpdateState();
 
         if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {
-            this.character.VelY(0);
-            this.SwitchState(this.character.states.LyingDown());
+            this.SwitchState(this.character.states.HurtSlide());
         }
     }
 

@@ -105,7 +105,7 @@ public abstract class CharacterState
 		//update context of state
 		character.currentState = newState;
 
-		Debug.Log("Switched from " + this + " to " + newState);
+		//Debug.Log("Switched from " + this + " to " + newState);
 	}
 
 	protected void SetSuperState()

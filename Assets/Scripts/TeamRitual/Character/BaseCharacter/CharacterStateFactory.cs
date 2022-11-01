@@ -75,6 +75,18 @@ public class CharacterStateFactory
     {
         return new CommonStateRunBack(context, this);
     }
+    public virtual CharacterState AirdashForward()
+    {
+        return new CommonStateAirdashForward(context, this);
+    }
+    public virtual CharacterState AirdashBack()
+    {
+        return new CommonStateAirdashBack(context, this);
+    }
+    public virtual CharacterState AirjumpStart()
+    {
+        return new CommonStateAirjumpStart(context, this);
+    }
     public virtual CharacterState Airborne()
     {
         return new CommonStateAirborne(context, this);

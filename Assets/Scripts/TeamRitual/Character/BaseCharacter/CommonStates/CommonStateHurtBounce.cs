@@ -1,5 +1,6 @@
 using BlackGardenStudios.HitboxStudioPro;
 using TeamRitual.Core;
+using UnityEngine;
 
 namespace TeamRitual.Character {
 public class CommonStateHurtBounce : CharacterState
@@ -37,7 +38,7 @@ public class CommonStateHurtBounce : CharacterState
             this.SwitchState(this.character.states.Recover());
         }
 
-        if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {
+        if (this.stateTime > 5 && this.character.body.position.y <= -0.1f && this.character.VelY() < 0) {
             this.SwitchState(this.character.states.HurtSlide());
         }
     }

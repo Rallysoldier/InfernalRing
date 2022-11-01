@@ -267,7 +267,7 @@ public class GameController : MonoBehaviour {
         P1_Hits.Clear();
         P2_Hits.Clear();
 
-        if (pause == 0 && Global_Time%80 == 0) {
+        if (pause == 0 && Global_Time%80 == 0 && Players[0].stateMachine.health > 0 && Players[1].stateMachine.health > 0) {
             CountDownTimer();
         }
         UpdateHealthBars();

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace TeamRitual.Character {
 public class CommonStateRunBack : CharacterState
 {
@@ -26,7 +28,16 @@ public class CommonStateRunBack : CharacterState
 
         this.character.SetVelocity(this.character.velocityRunBack);
 
+        if (this.stateTime == 3) {
+            this.character.Flash(new Vector4(1.5f,1.5f,1.5f,1f),6);
+            this.character.MakeInvincible();
+        }
+        if (this.stateTime == 9) {
+            this.character.ClearInvincibility();
+        }
+
         if (!this.character.inputHandler.held(this.character.inputHandler.BackInput(this.character)) && this.stateTime > 4) {
+            this.character.ClearInvincibility();
             this.SwitchState(this.character.states.Stand());
         }
     }

@@ -18,9 +18,16 @@ public class CharacterStateMachine : ScriptableObject
     public Vector2 velocityWalkBack = new Vector2(-2,0);
     public Vector2 velocityRunForward = new Vector2(15,0);
     public Vector2 velocityRunBack = new Vector2(-15,0);
+    public Vector2 velocityAirdashForward = new Vector2(14,2);
+    public Vector2 velocityAirdashBack = new Vector2(-14,2);
     public Vector2 velocityJumpNeutral = new Vector2(0,17);
     public Vector2 velocityJumpForward = new Vector2(6.5f,17f);
     public Vector2 velocityJumpBack = new Vector2(-6.5f,17f);
+    public int maxAirdashes = 1;
+    public int maxAirjumps = 1;
+
+    public int airdashCount = 0;
+    public int airjumpCount = 0;
 
     //input variables
     public InputHandler inputHandler;
@@ -135,6 +142,10 @@ public class CharacterStateMachine : ScriptableObject
     public void UpdateStatePhysics() {
         if (this.currentState.stateType == StateType.IDLE) {
             this.gravity = CONST_GRAVITY;
+            if (this.currentState.moveType == MoveType.STAND) {
+                airdashCount = 0;
+                airjumpCount = 0;
+            }
         }
 
         this.body.gravityScale = 0.0f;
@@ -196,7 +207,15 @@ public class CharacterStateMachine : ScriptableObject
             } else if (this.currentState.moveType == MoveType.CROUCH) {
                 
             } else if (this.currentState.moveType == MoveType.AIR) {
-                
+                if (inputStr.EndsWith("B,B") && this.changedInput && airdashCount < maxAirdashes) {
+                    this.currentState.SwitchState(states.AirdashBack());
+                } else if (inputStr.EndsWith("F,F") && this.changedInput && airdashCount < maxAirdashes) {
+                    this.currentState.SwitchState(states.AirdashForward());
+                } else if (this.changedInput && airjumpCount < maxAirjumps && airdashCount < maxAirdashes &&
+                    this.currentState is CommonStateAirborne && this.currentState.stateTime >= 10 &&
+                    (inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U")|| inputHandler.held("U"))) {
+                    this.currentState.SwitchState(states.AirjumpStart());
+                }
             }
         }
     }

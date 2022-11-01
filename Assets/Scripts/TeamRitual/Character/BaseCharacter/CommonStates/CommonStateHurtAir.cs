@@ -51,8 +51,6 @@ public class CommonStateHurtAir : CharacterState
         } else if (this.character.lastContact.WallBounceTime > 0 && this.stateTime > 5) {
             float posX = this.character.PosX();
 
-            Debug.Log(posX);
-
             if (posX >= GameController.Instance.StageMaxBound() - 1.2f || posX <= GameController.Instance.StageMinBound() + 1.2f) {
                 this.character.VelX(0);
                 this.SwitchState(this.character.states.HurtWallBounce());

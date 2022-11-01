@@ -30,8 +30,6 @@ public class CommonStateLyingDown : CharacterState
 
         int downTime = this.character.lastContact.DownTime > 0 ? this.character.lastContact.DownTime : 30;
         
-        Debug.Log(this.character.lastContact.DownRecover);
-
         if (this.character.lastContact.DownRecover && this.character.inputHandler.held("D")) {
             downTime += 20;
         }

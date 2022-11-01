@@ -1,10 +1,12 @@
+using UnityEngine;
+
 namespace TeamRitual.Character {
 public class XoninRunBack : CharacterState
 {
     public XoninRunBack(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory)
     : base(currentContext, CharacterStateFactory)
     {
-        this.inputChangeState = true;
+        this.inputChangeState = false;
         this.faceEnemyStart = true;
         this.faceEnemyAlways = false;
 
@@ -27,8 +29,14 @@ public class XoninRunBack : CharacterState
             this.character.VelY(this.character.VelY()-0.5f);
         }
 
+        if (this.stateTime == 4) {
+            this.character.Flash(new Vector4(1.5f,1.5f,1.5f,1f),10);
+            this.character.MakeInvincible();
+        }
+
         if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {
             this.character.VelY(0);
+            this.character.ClearInvincibility();
             this.SwitchState(this.character.states.JumpLand());
         }
     }

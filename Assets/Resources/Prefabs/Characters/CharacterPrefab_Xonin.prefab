@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1709445816, guid: 6d79257118cb06044a3b539d0a23c9cf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 773bc1003d51bb643b6cbba49fb78b9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -167,8 +167,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.36, y: 0.14}
-    oldSize: {x: 2.5, y: 2.5}
+    pivot: {x: 0.37438422, y: 0.35999998}
+    oldSize: {x: 2.03, y: 2}
     newSize: {x: 1.28, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6392,7 +6392,7 @@ MonoBehaviour:
       fallRecover: 0
       bounce: {x: -3, y: 15}
       bounceGravity: 0
-      bounceRecover: 0
+      bounceRecover: 1
       slide: -12
       slideTime: 15
       wallBounce: {x: 0, y: 0}
@@ -6400,7 +6400,7 @@ MonoBehaviour:
       wallBounceSlide: 0
       wallBounceTime: 0
       downTime: 0
-      downRecover: 0
+      downRecover: 1
       hitShakeTime: 0
       hitShakeX: 0
       hitShakeY: 0
@@ -7088,10 +7088,10 @@ MonoBehaviour:
       attackPriority: 4
       hitstun: 30
       blockstun: 15
-      hitGroundVelocity: {x: 0, y: 0}
-      hitGroundVelocityTime: 0
-      hitAirVelocity: {x: 0, y: 0}
-      hitAirVelocityTime: 0
+      hitGroundVelocity: {x: -15, y: 8}
+      hitGroundVelocityTime: 6
+      hitAirVelocity: {x: -15, y: 8}
+      hitAirVelocityTime: 6
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
@@ -7110,18 +7110,18 @@ MonoBehaviour:
       downedHitstun: 0
       downedVelocity: {x: 0, y: 0}
       fallingGravity: 0
-      fallAir: 0
-      fallGround: 0
+      fallAir: 1
+      fallGround: 1
       fallRecover: 0
       bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
       slideTime: 0
-      wallBounce: {x: 0, y: 0}
+      wallBounce: {x: 5, y: 10}
       wallBounceGravity: 0
-      wallBounceSlide: 0
-      wallBounceTime: 0
+      wallBounceSlide: -1
+      wallBounceTime: 5
       downTime: 0
       downRecover: 0
       hitShakeTime: 0
@@ -7203,10 +7203,10 @@ MonoBehaviour:
       bounceRecover: 0
       slide: 0
       slideTime: 0
-      wallBounce: {x: 0, y: 0}
+      wallBounce: {x: 5, y: 10}
       wallBounceGravity: 0
       wallBounceSlide: 0
-      wallBounceTime: 0
+      wallBounceTime: 10
       downTime: 0
       downRecover: 0
       hitShakeTime: 0
@@ -7938,7 +7938,7 @@ MonoBehaviour:
       fallingGravity: 0
       fallAir: 0
       fallGround: 0
-      fallRecover: 0
+      fallRecover: 1
       bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
@@ -7949,7 +7949,7 @@ MonoBehaviour:
       wallBounceSlide: 0
       wallBounceTime: 0
       downTime: 0
-      downRecover: 0
+      downRecover: 1
       hitShakeTime: 0
       hitShakeX: 0
       hitShakeY: 0
@@ -8300,7 +8300,73 @@ MonoBehaviour:
     movementstate: 0
     movementspeed: 0
     numhits: 2
+  - clip: {fileID: 7400000, guid: 8af298be5b9a7e94e90cf0457e31d031, type: 2}
+    framedata:
+    - collider:
+      - rect:
+          x: -44
+          y: 3
+          width: 83
+          height: 68
+        type: 0
+      damage: 0
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 0
+      hitstun: 0
+      blockstun: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 0
+      blockpause: 0
+      hitfxlabel: 0
+      hitfxuid: 0
+      soundfxlabel: 0
+      soundid: 0
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    movementstate: 0
+    movementspeed: 0
+    numhits: 2
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 25
-  m_CurrentFrame: 5
-  m_CurrentCollider: 3
+  m_CurrentAnimation: 23
+  m_CurrentFrame: 3
+  m_CurrentCollider: 0

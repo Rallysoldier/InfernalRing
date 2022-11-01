@@ -29,8 +29,21 @@ public class CommonStateLyingDown : CharacterState
         base.UpdateState();
 
         int downTime = this.character.lastContact.DownTime > 0 ? this.character.lastContact.DownTime : 30;
-        if (stateTime > downTime && this.character.health > 0)
-            this.SwitchState(this.character.states.JumpLand());
+        
+        Debug.Log(this.character.lastContact.DownRecover);
+
+        if (this.character.lastContact.DownRecover && this.character.inputHandler.held("D")) {
+            downTime += 20;
+        }
+
+        if (stateTime > downTime && this.character.health > 0) {
+            if (this.character.lastContact.DownRecover &&
+                (this.character.inputHandler.held("L") || this.character.inputHandler.held("M") || this.character.inputHandler.held("H"))) {
+                this.SwitchState(this.character.states.Recover());
+            } else {
+                this.SwitchState(this.character.states.JumpLand());
+            }
+        }
     }
 
     public override void ExitState() {

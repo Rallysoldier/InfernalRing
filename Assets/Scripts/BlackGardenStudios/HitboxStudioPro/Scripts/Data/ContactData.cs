@@ -130,17 +130,17 @@ namespace BlackGardenStudios.HitboxStudioPro
         public float FallingGravity;
         public bool FallAir;
         public bool FallGround;
-        public bool FallRecover;            //TODO
+        public bool FallRecover;
 
         public Vector2 Bounce;
         public float BounceGravity;
         public bool BounceRecover;          //TODO
         public float Slide;
         public float SlideTime;
-        public Vector2 WallBounce;          //TODO      vvvvv
+        public Vector2 WallBounce;
         public float WallBounceGravity;
         public float WallBounceSlide;
-        public int WallBounceTime;          //TODO      ^^^^^
+        public int WallBounceTime;
 
         public int DownTime;
         public bool DownRecover;

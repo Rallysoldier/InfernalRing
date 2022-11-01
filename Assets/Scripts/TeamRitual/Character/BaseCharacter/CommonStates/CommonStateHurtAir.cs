@@ -1,3 +1,6 @@
+using TeamRitual.Core;
+using UnityEngine;
+
 namespace TeamRitual.Character {
 public class CommonStateHurtAir : CharacterState
 {
@@ -27,9 +30,15 @@ public class CommonStateHurtAir : CharacterState
         if (this.character.health == 0) {
             if (this.stateTime < 3)
                 this.character.SetVelocity(-4,7);
-        } else {
-            if (this.character.hitstun == 0 && !this.character.lastContact.HitFall)
+        } else if (this.character.hitstun == 0) {
+            if (this.character.lastContact.FallRecover &&
+                (this.character.inputHandler.held("L") || this.character.inputHandler.held("M") || this.character.inputHandler.held("H"))) {
+                this.SwitchState(this.character.states.Recover());
+                return;
+            } else if (!this.character.lastContact.HitFall) {
                 this.SwitchState(this.character.states.Airborne());
+                return;
+            }
         }
 
         if (this.character.body.position.y <= 0 && this.character.VelY() < 0) {
@@ -38,6 +47,15 @@ public class CommonStateHurtAir : CharacterState
                 this.SwitchState(this.character.states.HurtBounce());
             } else {
                 this.SwitchState(this.character.states.JumpLand());
+            }
+        } else if (this.character.lastContact.WallBounceTime > 0 && this.stateTime > 5) {
+            float posX = this.character.PosX();
+
+            Debug.Log(posX);
+
+            if (posX >= GameController.Instance.StageMaxBound() - 1.2f || posX <= GameController.Instance.StageMinBound() + 1.2f) {
+                this.character.VelX(0);
+                this.SwitchState(this.character.states.HurtWallBounce());
             }
         }
     }

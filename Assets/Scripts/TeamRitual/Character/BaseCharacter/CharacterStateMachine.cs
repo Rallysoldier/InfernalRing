@@ -48,6 +48,8 @@ public class CharacterStateMachine : ScriptableObject
     public int blockstun;
     public ContactData lastContact;
     public CharacterState lastContactState;
+    public List<AttackPriority> immunePriorities = new List<AttackPriority>();
+    public List<MoveType> immuneMoveTypes = new List<MoveType>();
 
     //Energy variables
     private float energy;
@@ -279,6 +281,18 @@ public class CharacterStateMachine : ScriptableObject
         return anim.GetCurrentAnimatorClipInfo(0)[0].clip.name;
     }
 
+    public void MakeInvincible() {
+        this.immuneMoveTypes.Add(MoveType.STAND);
+        this.immuneMoveTypes.Add(MoveType.CROUCH);
+        this.immuneMoveTypes.Add(MoveType.AIR);
+        this.immuneMoveTypes.Add(MoveType.LYING);
+    }
+
+    public void ClearInvincibility() {
+        this.immuneMoveTypes.Clear();
+        this.immunePriorities.Clear();
+    }
+
     public virtual void HitboxContact(ContactData data) {
         switch (data.MyHitbox.Type)
         {
@@ -346,6 +360,10 @@ public class CharacterStateMachine : ScriptableObject
         }
 
         if (this.currentState.moveType == MoveType.LYING && !this.lastContact.DownedHit) {
+            return false;
+        }
+
+        if (this.immuneMoveTypes.Contains(this.enemy.currentState.moveType) || this.immunePriorities.Contains(this.enemy.currentState.attackPriority)) {
             return false;
         }
 

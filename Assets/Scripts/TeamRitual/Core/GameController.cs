@@ -248,7 +248,7 @@ public class GameController : MonoBehaviour {
                     }
                 }
             } else if (winningPriority > 0 && (Players[0].stateMachine.currentState.stateType == StateType.ATTACK || Players[1].stateMachine.currentState.stateType == StateType.ATTACK)) {
-                Pause(winningPriority*5);
+                Pause(10);
                 if (P1_Hits.bodyColData.Count > 0) {
                     EffectSpawner.PlayHitEffect(
                         10, P1_Hits.bodyColData[0].Point, Players[0].stateMachine.spriteRenderer.sortingOrder + 1, !P1_Hits.bodyColData[0].TheirHitbox.Owner.FlipX
@@ -258,6 +258,8 @@ public class GameController : MonoBehaviour {
                         10, P2_Hits.bodyColData[0].Point, Players[1].stateMachine.spriteRenderer.sortingOrder + 1, !P2_Hits.bodyColData[0].TheirHitbox.Owner.FlipX
                     );
                 }
+                Players[0].stateMachine.Flash(new Vector4(2f,2f,2f,1f),5);
+                Players[1].stateMachine.Flash(new Vector4(2f,2f,2f,1f),5);
             }
         }
 

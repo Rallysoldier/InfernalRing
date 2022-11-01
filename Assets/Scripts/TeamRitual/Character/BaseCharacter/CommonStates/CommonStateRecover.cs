@@ -4,8 +4,6 @@ using UnityEngine;
 namespace TeamRitual.Character {
 public class CommonStateRecover : CharacterState
 {
-    Color oldColor;
-
     public CommonStateRecover(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory)
     : base(currentContext, CharacterStateFactory)
     {
@@ -32,17 +30,14 @@ public class CommonStateRecover : CharacterState
 
         this.character.SetVelocity(recoverVelocity);
         this.character.MakeInvincible();
-        oldColor = this.character.spriteRenderer.color;
+        this.character.Flash(new Vector4(20f,20f,20f,1f),6);
     }
 
     public override void UpdateState() {
         base.UpdateState();
 
-        this.character.spriteRenderer.color = Color.Lerp(new Vector4(20f,20f,20f,1f), oldColor, Time.deltaTime * 15);
-
         if (this.stateTime > 6) {
             this.character.ClearInvincibility();
-            this.character.spriteRenderer.color = oldColor;
             if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {
                 this.character.VelY(0);
                 this.SwitchState(this.character.states.JumpLand());

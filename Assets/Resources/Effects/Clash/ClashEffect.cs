@@ -1,4 +1,5 @@
 using BlackGardenStudios.HitboxStudioPro;
+using TeamRitual.Core;
 using UnityEngine;
 
 namespace TeamRitual
@@ -20,6 +21,7 @@ namespace TeamRitual
             EffectSpawner.PlayHitEffect(
                 50, transform.position, spriteRenderer.sortingOrder + 1, true
             );
+            GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(5), false);
         }
 
         void FixedUpdate()

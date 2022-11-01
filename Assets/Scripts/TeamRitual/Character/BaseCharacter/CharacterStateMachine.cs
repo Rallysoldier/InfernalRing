@@ -114,6 +114,8 @@ public class CharacterStateMachine : ScriptableObject
 
         this.ChangeStateOnInput();
 
+        this.UpdateFlash();
+
         this.contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
         this.ClearContactData();
         return this.contactSummary;
@@ -291,6 +293,21 @@ public class CharacterStateMachine : ScriptableObject
     public void ClearInvincibility() {
         this.immuneMoveTypes.Clear();
         this.immunePriorities.Clear();
+    }
+
+    int flashTime;
+    Vector4 flashColor;
+    public void Flash(Vector4 color, int time) {
+        flashColor = color;
+        flashTime = time;
+    }
+    public void UpdateFlash() {
+        if (flashTime > 0) {
+            this.spriteRenderer.color = Color.Lerp(flashColor, Color.white, Time.deltaTime * 15);
+            flashTime--;
+        } else {
+            this.spriteRenderer.color = Color.white;
+        }
     }
 
     public virtual void HitboxContact(ContactData data) {

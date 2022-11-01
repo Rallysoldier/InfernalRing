@@ -20,7 +20,8 @@ public class CommonStateHurtWallBounce : CharacterState
     public override void EnterState() {
         base.EnterState();
         if (this.character.lastContact.WallBounce.y > 0) {
-            GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(60),false);
+            EffectSpawner.PlayHitEffect(65, this.character.body.position, this.character.spriteRenderer.sortingOrder + 1, false);
+            GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(65),false);
             this.character.VelY(this.character.lastContact.WallBounceSlide);
             if (this.character.lastContact.BounceGravity > 0) {
                 this.character.gravity = this.character.lastContact.BounceGravity;

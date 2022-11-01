@@ -436,6 +436,13 @@ public class CharacterStateMachine : ScriptableObject
         hit.HitFall = (this.currentState.moveType == MoveType.AIR && hit.FallAir)
             || (this.currentState.moveType != MoveType.AIR && hit.FallGround);
 
+        if (hit.WallBounceTime > 0 && !this.enemy.comboProcessor.AddWallBounce()) {
+            hit.WallBounceTime = 0;
+        }
+        if (hit.Bounce != Vector2.zero && hit.Bounce.y > 0 && !this.enemy.comboProcessor.AddGroundBounce()) {
+            hit.Bounce = Vector2.zero;
+        }
+
         this.lastContact = hit;
         this.lastContactState = this.enemy.currentState;
 

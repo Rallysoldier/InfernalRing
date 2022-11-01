@@ -303,6 +303,7 @@ MonoBehaviour:
   TimerUI: {fileID: 0}
   HealthBarsUI: []
   HealthBarsUIChange: []
+  EnergyBarsUI: []
 --- !u!4 &1018224496
 Transform:
   m_ObjectHideFlags: 0

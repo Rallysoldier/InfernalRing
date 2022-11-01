@@ -17,7 +17,11 @@ public class ComboProcessor {
     private List<ContactData> comboHits = new List<ContactData>();
     private float currentScaling = 1.0f;
     private int scalingStep = 0;
-    
+    private int maxGroundBounce = 2;
+    private int groundBounce = 0;
+    private int maxWallBounce = 2;
+    private int wallBounce = 0;
+
     private CharacterState recentHitState = null;
 
     public ComboProcessor(CharacterStateMachine character) {
@@ -48,6 +52,8 @@ public class ComboProcessor {
         this.currentScaling = 1.0f;
         this.scalingStep = 0;
         this.recentHitState = null;
+        this.groundBounce = 0;
+        this.wallBounce = 0;
     }
 
     public void ProcessHit(ContactData hit, CharacterState state) {
@@ -109,6 +115,24 @@ public class ComboProcessor {
             return 0;
         }
         return this.comboHits[this.comboHits.Count - 1].GiveSelfPower;
+    }
+
+    public bool AddWallBounce() {
+        if (wallBounce < maxWallBounce) {
+            wallBounce++;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool AddGroundBounce() {
+        if (groundBounce < maxGroundBounce) {
+            groundBounce++;
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 }

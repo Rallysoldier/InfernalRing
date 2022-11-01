@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd41eb65d2f4fb42988208c85369546, type: 3}
-  m_Name: New Sound FX
+  m_Script: {fileID: 11500000, guid: 22a598151942aea42a7629824ef3479d, type: 3}
+  m_Name: WallBounce_01
   m_EditorClassIdentifier: 
   Effects:
-  - {fileID: 8300000, guid: 644e4fddbc9a02d468a2165d1e92aa23, type: 3}
-  uniqueID: 5
+  - {fileID: 3571932403836324236, guid: 7dc80971da1e3bc43a3ef8874413aa72, type: 3}
+  uniqueID: 65

@@ -97,7 +97,7 @@ public class Menu : MonoBehaviour
 
     public void MultiplayerGame()
     {
-        SceneManager.LoadScene("VersusMode");
+        SceneManager.LoadScene("Game_Options");
     }
 
     public void QuitGame()

@@ -414,7 +414,7 @@ public class CharacterStateMachine : ScriptableObject
         this.health = (int) Mathf.Max(this.health, 0f);
 
         this.AddEnergy(hit.GiveEnemyPower);
-        this.enemy.AddEnergy(hit.GiveSelfPower);
+        this.enemy.AddEnergy(this.enemy.comboProcessor.GetSelfEnergy());
 
         hit.HitFall = (this.currentState.moveType == MoveType.AIR && hit.FallAir)
             || (this.currentState.moveType != MoveType.AIR && hit.FallGround);

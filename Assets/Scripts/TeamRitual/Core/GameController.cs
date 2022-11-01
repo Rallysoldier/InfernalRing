@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour {
     public GameObject TimerUI;
     public List<Image> HealthBarsUI = new List<Image>();
     public List<Image> HealthBarsUIChange = new List<Image>();
+    public List<Image> EnergyBarsUI = new List<Image>();
 
     public GameController() {
         Instance = this;
@@ -46,6 +47,7 @@ public class GameController : MonoBehaviour {
         remainingTimerTime = maxTimerTime;
         for (int i = 1; i <= 2; i++) {
             HealthBarsUI.Add(GameObject.Find("P"+i+"HealthBarFill").GetComponent<Image>());
+            EnergyBarsUI.Add(GameObject.Find("P"+i+"EnergyFill").GetComponent<Image>());
             HealthBarsUIChange.Add(GameObject.Find("P"+i+"HealthBarChange").GetComponent<Image>());
         }
 
@@ -339,8 +341,11 @@ public class GameController : MonoBehaviour {
             CharacterStateMachine sm = Players[i].stateMachine;
             if (sm.health >= 0)
             {
-                HealthBarsUI[i].fillAmount =  sm.health * 0.001f;
+                HealthBarsUI[i].fillAmount = sm.health * 0.001f;
                 HealthBarsUIChange[i].fillAmount =  Mathf.Lerp(HealthBarsUIChange[i].fillAmount, sm.health * 0.001f, 0.05f);
+            }
+            if (sm.GetEnergy() >= 0) {
+                EnergyBarsUI[i].fillAmount = sm.GetEnergy() * 0.001f;
             }
         }
     }

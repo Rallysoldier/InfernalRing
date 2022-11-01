@@ -78,6 +78,8 @@ public class ComboProcessor {
         hit.Damage = hit.Damage * damageScaling;
         hit.DownedDamage = hit.DownedDamage * damageScaling;
 
+        hit.GiveSelfPower = hit.GiveSelfPower * damageScaling;
+
         //change hitstun and downedHitstun based on scaling
         hit.Hitstun = Mathf.Max(hit.Hitstun - hitstunDecay, 0);
         hit.DownedHitstun = Mathf.Max(hit.DownedHitstun - hitstunDecay, 0);
@@ -100,6 +102,13 @@ public class ComboProcessor {
         }
         ContactData lastHit = this.comboHits[this.comboHits.Count - 1];
         return downedHit ? lastHit.DownedHitstun : lastHit.Hitstun;
+    }
+
+    public float GetSelfEnergy() {
+        if (this.comboHits.Count == 0) {
+            return 0;
+        }
+        return this.comboHits[this.comboHits.Count - 1].GiveSelfPower;
     }
 }
 }

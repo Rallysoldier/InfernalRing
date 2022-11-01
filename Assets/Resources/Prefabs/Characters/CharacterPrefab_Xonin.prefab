@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 773bc1003d51bb643b6cbba49fb78b9f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: caf03480790980b4ba8091790db523f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   characterName: 
   stateMachine: {fileID: 0}
   wins: 0
-  m_ActivePalette: {fileID: 11400000, guid: 634ff283347bc1447a3843eb7fd8bf69, type: 2}
+  m_ActivePalette: {fileID: 11400000, guid: e5b75531fb719c442b6d0b1660ae599d, type: 2}
   m_PaletteGroup: {fileID: 11400000, guid: d9da731406228c942961049084084a08, type: 2}
   m_Animator: {fileID: 0}
   m_RigidBody: {fileID: 0}
@@ -167,8 +167,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.37438422, y: 0.35999998}
-    oldSize: {x: 2.03, y: 2}
+    pivot: {x: 0.390625, y: 0.0625}
+    oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 1.28, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3321,11 +3321,11 @@ MonoBehaviour:
       blockpause: 0
       hitfxlabel: 6
       hitfxuid: 100
-      soundfxlabel: 3
+      soundfxlabel: 6
       soundid: 10
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 20
+      giveEnemyPower: 10
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -3394,11 +3394,11 @@ MonoBehaviour:
       blockpause: 0
       hitfxlabel: 6
       hitfxuid: 100
-      soundfxlabel: 3
+      soundfxlabel: 6
       soundid: 10
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 5
+      giveEnemyPower: 5
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -3740,11 +3740,11 @@ MonoBehaviour:
       blockpause: 0
       hitfxlabel: 6
       hitfxuid: 100
-      soundfxlabel: 3
+      soundfxlabel: 6
       soundid: 10
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 20
+      giveEnemyPower: 10
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -3940,11 +3940,11 @@ MonoBehaviour:
       blockpause: 0
       hitfxlabel: 6
       hitfxuid: 100
-      soundfxlabel: 3
+      soundfxlabel: 6
       soundid: 10
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 20
+      giveEnemyPower: 10
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -4007,11 +4007,11 @@ MonoBehaviour:
       blockpause: 0
       hitfxlabel: 6
       hitfxuid: 100
-      soundfxlabel: 3
+      soundfxlabel: 6
       soundid: 10
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 5
+      giveEnemyPower: 5
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -4548,11 +4548,11 @@ MonoBehaviour:
       blockpause: 3
       hitfxlabel: 4
       hitfxuid: 200
-      soundfxlabel: 2
+      soundfxlabel: 5
       soundid: 20
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 20
+      giveEnemyPower: 10
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -4633,11 +4633,11 @@ MonoBehaviour:
       blockpause: 3
       hitfxlabel: 4
       hitfxuid: 200
-      soundfxlabel: 2
+      soundfxlabel: 5
       soundid: 20
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 20
+      giveEnemyPower: 10
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -5253,11 +5253,11 @@ MonoBehaviour:
       blockpause: 5
       hitfxlabel: 4
       hitfxuid: 200
-      soundfxlabel: 2
+      soundfxlabel: 5
       soundid: 20
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 40
+      giveEnemyPower: 20
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -5332,11 +5332,11 @@ MonoBehaviour:
       blockpause: 5
       hitfxlabel: 4
       hitfxuid: 200
-      soundfxlabel: 2
+      soundfxlabel: 5
       soundid: 20
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 40
+      giveEnemyPower: 20
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -5824,11 +5824,11 @@ MonoBehaviour:
       blockpause: 5
       hitfxlabel: 4
       hitfxuid: 200
-      soundfxlabel: 2
+      soundfxlabel: 5
       soundid: 20
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 40
+      giveEnemyPower: 20
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -5903,11 +5903,11 @@ MonoBehaviour:
       blockpause: 5
       hitfxlabel: 4
       hitfxuid: 200
-      soundfxlabel: 2
+      soundfxlabel: 5
       soundid: 20
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 40
+      giveEnemyPower: 20
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -6380,8 +6380,8 @@ MonoBehaviour:
       soundfxlabel: 4
       soundid: 30
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 60
+      giveEnemyPower: 15
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -7103,8 +7103,8 @@ MonoBehaviour:
       soundfxlabel: 4
       soundid: 30
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 60
+      giveEnemyPower: 15
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -7188,8 +7188,8 @@ MonoBehaviour:
       soundfxlabel: 4
       soundid: 30
       stopSound: 0
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 60
+      giveEnemyPower: 5
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -7850,8 +7850,8 @@ MonoBehaviour:
       soundfxlabel: 4
       soundid: 30
       stopSound: 1
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 30
+      giveEnemyPower: 10
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -7929,8 +7929,8 @@ MonoBehaviour:
       soundfxlabel: 4
       soundid: 30
       stopSound: 1
-      giveSelfPower: 0
-      giveEnemyPower: 0
+      giveSelfPower: 30
+      giveEnemyPower: 10
       downedHit: 0
       downedDamage: 0
       downedHitstun: 0
@@ -8367,6 +8367,6 @@ MonoBehaviour:
     movementspeed: 0
     numhits: 2
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 23
+  m_CurrentAnimation: 17
   m_CurrentFrame: 3
-  m_CurrentCollider: 0
+  m_CurrentCollider: 1

@@ -61,7 +61,7 @@ public abstract class CharacterState
                      || this.character.inputHandler.held("U")) {
                     CommonStateJumpStart jumpStart = this.character.states.JumpStart() as CommonStateJumpStart;
                     Vector2 hitVelocity = this.character.enemy.lastContact.HitVelocity;
-                    jumpStart.jumpVelocity = new Vector2(-hitVelocity.x, hitVelocity.y);
+                    jumpStart.jumpVelocity = new Vector2(-hitVelocity.x, hitVelocity.y + 0.3f);
                     this.SwitchState(jumpStart);
                 }
         }

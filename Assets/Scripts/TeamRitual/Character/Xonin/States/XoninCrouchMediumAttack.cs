@@ -12,6 +12,7 @@ public class XoninCrouchMediumAttack : CharacterState
 	    this.stateType = StateType.ATTACK;
 
         this.attackPriority = AttackPriority.MEDIUM;
+        this.jumpCancel = true;
 
         this.animationName = this.character.characterName + "_CrouchMediumAttack";
     }

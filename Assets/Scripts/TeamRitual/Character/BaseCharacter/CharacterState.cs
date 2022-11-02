@@ -54,14 +54,30 @@ public abstract class CharacterState
 		if(!this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)) {
             this.character.anim.Play(animationName);
         }
+
+		//Jump & Dash Cancels
+		if (this.attackPriority > AttackPriority.NONE && this.attackPriority <= AttackPriority.HEAVY && this.moveHit >= this.hitsToCancel
+			&& this.character.GetEnergy() >= 200 && this.character.inputStr.EndsWith("F,F") && this.character.changedInput) {
+			this.character.AddEnergy(-200);
+	        this.character.Flash(new Vector4(1.5f,1.5f,1.5f,1f),4);
+			if (this.moveType == MoveType.AIR) {
+				this.SwitchState(this.factory.AirdashForward());
+			} else {
+				this.SwitchState(this.factory.RunForward());
+			}
+		}
 		if (this.jumpCancel && this.character.enemy.VelY() > 0 && moveHit >= hitsToCancel) {
             if ((this.character.changedInput && (this.character.inputStr.EndsWith("U") ||
             this.character.inputStr.EndsWith("U,F") || this.character.inputStr.EndsWith("F,U") ||
             this.character.inputStr.EndsWith("U,B")  || this.character.inputStr.EndsWith("B,U")))
                      || this.character.inputHandler.held("U")) {
                     CommonStateJumpStart jumpStart = this.character.states.JumpStart() as CommonStateJumpStart;
-                    Vector2 hitVelocity = this.character.enemy.lastContact.HitVelocity;
-                    jumpStart.jumpVelocity = new Vector2(-hitVelocity.x, hitVelocity.y + 0.3f);
+                    Vector2 hitVelocity = this.character.enemy.lastContact.HitVelocity;					
+					float yDistance = this.character.enemy.PosY() - this.character.PosY();
+
+					Debug.Log(yDistance);
+
+					jumpStart.jumpVelocity = new Vector2(-hitVelocity.x,  yDistance + hitVelocity.y);
                     this.SwitchState(jumpStart);
                 }
         }
@@ -79,13 +95,14 @@ public abstract class CharacterState
 			return;
 
 		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK && moveHit >= hitsToCancel) {
+			bool alreadyChained = this.character.attackCancels.Contains(newState.GetType().Name);
 			bool canCancelInto =
 				((newState.attackPriority >= this.attackPriority && this.attackPriority <= AttackPriority.HEAVY)
 				|| (newState.attackPriority > this.attackPriority && this.attackPriority > AttackPriority.HEAVY))
-				&& !this.character.attackCancels.Contains(newState.GetType().Name);
+				&& !alreadyChained;
 
 			if (!canCancelInto) {
-				bool exceptions = newState.moveType == MoveType.AIR
+				bool exceptions = (newState.moveType == MoveType.AIR && !alreadyChained)
 					|| (character.ReverseBeat() && this.attackPriority <= AttackPriority.HEAVY);
 				if (!exceptions)
 					return;

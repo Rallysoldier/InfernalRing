@@ -134,7 +134,7 @@ namespace BlackGardenStudios.HitboxStudioPro
 
         public Vector2 Bounce;
         public float BounceGravity;
-        public bool BounceRecover;          //TODO
+        public bool BounceRecover;
         public float Slide;
         public float SlideTime;
         public Vector2 WallBounce;

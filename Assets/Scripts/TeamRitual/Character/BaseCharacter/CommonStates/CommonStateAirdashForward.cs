@@ -4,7 +4,7 @@ public class CommonStateAirdashForward : CharacterState
     public CommonStateAirdashForward(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory)
     : base(currentContext, CharacterStateFactory)
     {
-        this.inputChangeState = false;
+        this.inputChangeState = true;
         this.faceEnemyStart = true;
         this.faceEnemyAlways = false;
 

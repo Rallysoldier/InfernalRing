@@ -11,15 +11,15 @@ public class CharacterStateMachine : ScriptableObject
     public string characterName;
 
     //Constant variables
-    public const int MAX_HEALTH = 1000;
-    public const int MAX_ENERGY = 1000;
+    public float MAX_HEALTH = 1000;
+    public float MAX_ENERGY = 1000;
     public const float CONST_GRAVITY = 0.85f;
     public Vector2 velocityWalkForward = new Vector2(2,0);
     public Vector2 velocityWalkBack = new Vector2(-2,0);
     public Vector2 velocityRunForward = new Vector2(15,0);
     public Vector2 velocityRunBack = new Vector2(-15,0);
-    public Vector2 velocityAirdashForward = new Vector2(14,2);
-    public Vector2 velocityAirdashBack = new Vector2(-14,2);
+    public Vector2 velocityAirdashForward = new Vector2(14,3);
+    public Vector2 velocityAirdashBack = new Vector2(-14,3);
     public Vector2 velocityJumpNeutral = new Vector2(0,17);
     public Vector2 velocityJumpForward = new Vector2(6.5f,17f);
     public Vector2 velocityJumpBack = new Vector2(-6.5f,17f);
@@ -44,13 +44,13 @@ public class CharacterStateMachine : ScriptableObject
     //Physics/Motion Variables
     public Rigidbody2D body;
     public Vector2 velocity = new Vector2(0,0);
-    public float standingFriction = 0.05f;
-    public float crouchingFriction = 0.15f;
+    public float standingFriction = 0.75f;
+    public float crouchingFriction = 0.85f;
     public float gravity = 0.85f;
     public int facing;
 
     //Hit and health variables
-    public int health;
+    public float health;
     public int hitstun;
     public int blockstun;
     public ContactData lastContact;
@@ -90,7 +90,7 @@ public class CharacterStateMachine : ScriptableObject
 
     void Awake() {
         this.currentState = states.Stand();
-        this.health = MAX_HEALTH;
+        this.health = 1;
     }
 
     void Update() {
@@ -119,7 +119,9 @@ public class CharacterStateMachine : ScriptableObject
 
         this.ApplyHitVelocities();
 
-        this.ChangeStateOnInput();
+        if (GameController.Instance.gcStateMachine.currentState.GetType() == GameController.Instance.gcStateMachine.states.Fight().GetType()) {
+            this.ChangeStateOnInput();
+        }
 
         this.UpdateFlash();
 
@@ -154,19 +156,18 @@ public class CharacterStateMachine : ScriptableObject
             default:
                 break;
             case PhysicsType.STAND:
-                this.VelXDirect(VelX()*this.standingFriction);
-                this.VelY(0);
-                this.body.position = new Vector2(this.PosX(),0);
-                break;
             case PhysicsType.CROUCH:
-                this.VelXDirect(VelX()*this.crouchingFriction);
+                float friction = this.currentState.physicsType == PhysicsType.STAND ? this.standingFriction : this.crouchingFriction;
+                friction = (float) Mathf.Pow((float)friction, this.currentState.attackPriority > AttackPriority.NONE && 
+                    this.currentState.attackPriority <= AttackPriority.HEAVY ? 0.5f : 1);
+                this.VelXDirect(VelX()*friction);
                 this.VelY(0);
                 this.body.position = new Vector2(this.PosX(),0);
                 break;
             case PhysicsType.AIR:
                 if (this.currentState.stateType == StateType.ATTACK && this.currentState.attackPriority < AttackPriority.SPECIAL
                     && this.currentState.moveHit > 0 && this.enemy.currentState.moveType == MoveType.AIR) {
-                    VelYAdd(-this.gravity/3);
+                    VelYAdd(-this.gravity/4);
                 } else {
                     VelYAdd(-this.gravity);
                 }
@@ -295,7 +296,7 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public virtual void AddEnergy(float energy) {
-        this.energy = this.energy + energy >= MAX_ENERGY ? MAX_ENERGY : this.energy + energy;
+        this.energy = Mathf.Clamp(this.energy + energy, 0, MAX_ENERGY);
     }
 
     public string GetCurrentAnimationName() {
@@ -356,7 +357,7 @@ public class CharacterStateMachine : ScriptableObject
     public virtual bool Block(ContactData hit, GuardType hitGuardType) {
         GameController.Instance.Pause(hit.Blockpause);
         this.blockstun = hit.Blockstun;
-        this.health -= (int)hit.ChipDamage;
+        this.health -= hit.ChipDamage;
 
         this.SetVelocity(hit.BlockGroundVelocity);
 
@@ -475,7 +476,7 @@ public class CharacterStateMachine : ScriptableObject
 
     //If true, allows higher priority basic attacks to be chained into lower priority attacks.
     public virtual bool ReverseBeat() {
-        return false;
+        return this.energy >= MAX_ENERGY;
     }
 }
 }

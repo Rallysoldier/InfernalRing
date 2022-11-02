@@ -7,6 +7,7 @@ using TeamRitual.Character;
 namespace TeamRitual.Core {
 public class GameController : MonoBehaviour {
     public static GameController Instance;
+    public GCStateMachine gcStateMachine;
     public SoundHandler soundHandler;
 
     public List<string> characterNames = new List<string>{"Xonin","Xonin"};
@@ -106,6 +107,9 @@ public class GameController : MonoBehaviour {
         {
             Players[i].stateMachine.currentState.EnterState();
         }
+
+        gcStateMachine = new GCStateMachine(this);
+        gcStateMachine.currentState = gcStateMachine.states.Intro();
         
         AudioClip clip = EffectSpawner.GetSoundEffect(0);
     }
@@ -132,6 +136,16 @@ public class GameController : MonoBehaviour {
              if (this.pause == 0 || i == this.playerPaused) {
                 Players[i].stateMachine.ApplyVelocity();
              }
+        }
+
+        if (this.gcStateMachine.currentState.GetType() == this.gcStateMachine.states.Intro().GetType() && trueGameTicks%3 == 0) {
+            for (int i = 0; i < GameController.Instance.Players.Count; i++)
+            {
+                GameController.Instance.Players[i].stateMachine.health += (int) (GameController.Instance.Players[i].stateMachine.MAX_HEALTH * 1f/100f);
+                if (GameController.Instance.Players[i].stateMachine.health > GameController.Instance.Players[i].stateMachine.MAX_HEALTH) {
+                    GameController.Instance.Players[i].stateMachine.health = GameController.Instance.Players[i].stateMachine.MAX_HEALTH;
+                }
+            }
         }
 
         //True game ticks happen ten times as fast, every 0.00167s instead of 0.0167. This is for things that must be
@@ -271,6 +285,7 @@ public class GameController : MonoBehaviour {
             CountDownTimer();
         }
         UpdateHealthBars();
+        this.gcStateMachine.currentState.UpdateState();
     }
 
     void Update() {//Camera movement by linearly interpolating through points
@@ -343,8 +358,8 @@ public class GameController : MonoBehaviour {
             CharacterStateMachine sm = Players[i].stateMachine;
             if (sm.health >= 0)
             {
-                HealthBarsUI[i].fillAmount = sm.health * 0.001f;
-                HealthBarsUIChange[i].fillAmount =  Mathf.Lerp(HealthBarsUIChange[i].fillAmount, sm.health * 0.001f, 0.05f);
+                HealthBarsUI[i].fillAmount = sm.health/sm.MAX_HEALTH;
+                HealthBarsUIChange[i].fillAmount =  Mathf.Lerp(HealthBarsUIChange[i].fillAmount, sm.health/sm.MAX_HEALTH, 0.05f);
             }
             if (sm.GetEnergy() >= 0) {
                 EnergyBarsUI[i].fillAmount = sm.GetEnergy() * 0.001f;

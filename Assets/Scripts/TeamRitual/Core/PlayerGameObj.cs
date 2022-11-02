@@ -61,7 +61,7 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
             if (UnityEngine.Input.GetKey(kvp.Value)) {
                 this.inputHandler.addHeldKey(kvp.Key);
             }
-         }
+        }
     }
 
     public void SetPalette(int paletteNumber) {

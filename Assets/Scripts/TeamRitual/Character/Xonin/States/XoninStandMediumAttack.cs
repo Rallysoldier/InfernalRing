@@ -12,6 +12,8 @@ public class XoninStandMediumAttack : CharacterState
 	    this.stateType = StateType.ATTACK;
 
         this.attackPriority = AttackPriority.MEDIUM;
+        this.jumpCancel = true;
+        this.hitsToCancel = 2;
 
         this.animationName = this.character.characterName + "_StandMediumAttack";
     }

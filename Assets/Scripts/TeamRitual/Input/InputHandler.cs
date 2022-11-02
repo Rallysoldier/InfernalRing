@@ -59,8 +59,9 @@ public class InputHandler {
     public void UpdateBufferTime() {
         this.changedInput = false;
         if (this.character != null) {
-            if (this.character.currentState.moveHit > 0 && !this.character.inputHandler.changedInput &&
-                this.character.inputHandler.characterInput.Length > 0) {
+            if (this.character.currentState.moveHit > 0 && !this.changedInput
+            && this.characterInput.Length > 0 && this.prevCharacterInput.Length > 0
+            && this.characterInput != this.prevCharacterInput) {
                 this.character.changedInput = true;
             } else {
                 this.character.changedInput = false;

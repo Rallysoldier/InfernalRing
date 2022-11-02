@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 48eec74f6f66ca0469642220c5f2ed9c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c7cd4bfb8fd5a7409ad18589bc5147c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -167,8 +167,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5125, y: 0.17837837}
-    oldSize: {x: 0.8, y: 1.85}
+    pivot: {x: 0.32142857, y: 0.049999997}
+    oldSize: {x: 1.4, y: 1}
     newSize: {x: 1.28, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5812,10 +5812,10 @@ MonoBehaviour:
       attackPriority: 3
       hitstun: 20
       blockstun: 10
-      hitGroundVelocity: {x: 0, y: 0}
-      hitGroundVelocityTime: 0
-      hitAirVelocity: {x: 0, y: 0}
-      hitAirVelocityTime: 0
+      hitGroundVelocity: {x: -3, y: 0}
+      hitGroundVelocityTime: 4
+      hitAirVelocity: {x: -2, y: 7}
+      hitAirVelocityTime: 4
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
@@ -5824,7 +5824,7 @@ MonoBehaviour:
       blockpause: 5
       hitfxlabel: 4
       hitfxuid: 200
-      soundfxlabel: 5
+      soundfxlabel: 6
       soundid: 20
       stopSound: 0
       giveSelfPower: 40
@@ -5891,10 +5891,10 @@ MonoBehaviour:
       attackPriority: 3
       hitstun: 20
       blockstun: 10
-      hitGroundVelocity: {x: 0, y: 0}
-      hitGroundVelocityTime: 0
-      hitAirVelocity: {x: 0, y: 0}
-      hitAirVelocityTime: 0
+      hitGroundVelocity: {x: -3, y: 0}
+      hitGroundVelocityTime: 4
+      hitAirVelocity: {x: -2, y: 7}
+      hitAirVelocityTime: 4
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
@@ -5903,7 +5903,7 @@ MonoBehaviour:
       blockpause: 5
       hitfxlabel: 4
       hitfxuid: 200
-      soundfxlabel: 5
+      soundfxlabel: 6
       soundid: 20
       stopSound: 0
       giveSelfPower: 40
@@ -8433,6 +8433,6 @@ MonoBehaviour:
     movementspeed: 0
     numhits: 2
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 27
-  m_CurrentFrame: 0
+  m_CurrentAnimation: 22
+  m_CurrentFrame: 3
   m_CurrentCollider: 0

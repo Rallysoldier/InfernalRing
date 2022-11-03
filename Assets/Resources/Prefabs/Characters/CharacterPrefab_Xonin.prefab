@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 42087c40d3c082a40bf845237477b32f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 29c4cb99b7153224ca22b3ccde3c57af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -167,8 +167,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.48, y: 0.33499998}
-    oldSize: {x: 2, y: 2}
+    pivot: {x: 0.48258704, y: -0}
+    oldSize: {x: 2.01, y: 2}
     newSize: {x: 1.28, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3938,9 +3938,9 @@ MonoBehaviour:
       blockAirVelocityTime: 0
       hitpause: 4
       blockpause: 0
-      hitfxlabel: 6
+      hitfxlabel: 9
       hitfxuid: 100
-      soundfxlabel: 6
+      soundfxlabel: 9
       soundid: 10
       stopSound: 0
       giveSelfPower: 20
@@ -4005,9 +4005,9 @@ MonoBehaviour:
       blockAirVelocityTime: 0
       hitpause: 4
       blockpause: 0
-      hitfxlabel: 6
+      hitfxlabel: 9
       hitfxuid: 100
-      soundfxlabel: 6
+      soundfxlabel: 9
       soundid: 10
       stopSound: 0
       giveSelfPower: 5
@@ -4545,11 +4545,11 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 5
-      blockpause: 3
-      hitfxlabel: 4
+      blockpause: 8
+      hitfxlabel: 7
       hitfxuid: 200
-      soundfxlabel: 5
-      soundid: 30
+      soundfxlabel: 8
+      soundid: 20
       stopSound: 0
       giveSelfPower: 20
       giveEnemyPower: 10
@@ -4630,11 +4630,11 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 5
-      blockpause: 3
-      hitfxlabel: 4
+      blockpause: 12
+      hitfxlabel: 7
       hitfxuid: 200
-      soundfxlabel: 5
-      soundid: 30
+      soundfxlabel: 8
+      soundid: 20
       stopSound: 0
       giveSelfPower: 20
       giveEnemyPower: 10
@@ -5250,11 +5250,11 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 8
-      blockpause: 5
-      hitfxlabel: 4
+      blockpause: 12
+      hitfxlabel: 7
       hitfxuid: 200
-      soundfxlabel: 5
-      soundid: 30
+      soundfxlabel: 8
+      soundid: 20
       stopSound: 0
       giveSelfPower: 40
       giveEnemyPower: 20
@@ -5329,11 +5329,11 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 8
-      blockpause: 5
-      hitfxlabel: 4
+      blockpause: 12
+      hitfxlabel: 7
       hitfxuid: 200
-      soundfxlabel: 5
-      soundid: 30
+      soundfxlabel: 8
+      soundid: 20
       stopSound: 0
       giveSelfPower: 40
       giveEnemyPower: 20
@@ -5821,10 +5821,10 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 8
-      blockpause: 5
-      hitfxlabel: 4
+      blockpause: 12
+      hitfxlabel: 7
       hitfxuid: 200
-      soundfxlabel: 6
+      soundfxlabel: 8
       soundid: 20
       stopSound: 0
       giveSelfPower: 40
@@ -5900,10 +5900,10 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 8
-      blockpause: 5
-      hitfxlabel: 4
+      blockpause: 12
+      hitfxlabel: 7
       hitfxuid: 200
-      soundfxlabel: 6
+      soundfxlabel: 8
       soundid: 20
       stopSound: 0
       giveSelfPower: 40
@@ -6375,10 +6375,10 @@ MonoBehaviour:
       blockAirVelocityTime: 0
       hitpause: 15
       blockpause: 8
-      hitfxlabel: 2
+      hitfxlabel: 5
       hitfxuid: 300
-      soundfxlabel: 4
-      soundid: 50
+      soundfxlabel: 7
+      soundid: 30
       stopSound: 0
       giveSelfPower: 60
       giveEnemyPower: 15
@@ -7097,10 +7097,10 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 15
-      blockpause: 8
-      hitfxlabel: 2
+      blockpause: 20
+      hitfxlabel: 5
       hitfxuid: 300
-      soundfxlabel: 4
+      soundfxlabel: 7
       soundid: 30
       stopSound: 0
       giveSelfPower: 60
@@ -7182,10 +7182,10 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 15
-      blockpause: 8
-      hitfxlabel: 2
+      blockpause: 20
+      hitfxlabel: 5
       hitfxuid: 300
-      soundfxlabel: 4
+      soundfxlabel: 7
       soundid: 30
       stopSound: 0
       giveSelfPower: 60
@@ -7844,10 +7844,10 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 10
-      blockpause: 0
-      hitfxlabel: 2
+      blockpause: 15
+      hitfxlabel: 5
       hitfxuid: 300
-      soundfxlabel: 4
+      soundfxlabel: 7
       soundid: 30
       stopSound: 1
       giveSelfPower: 30
@@ -7923,10 +7923,10 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 16
-      blockpause: 8
-      hitfxlabel: 2
+      blockpause: 15
+      hitfxlabel: 5
       hitfxuid: 300
-      soundfxlabel: 4
+      soundfxlabel: 7
       soundid: 30
       stopSound: 1
       giveSelfPower: 30
@@ -8542,10 +8542,10 @@ MonoBehaviour:
       blockAirVelocityTime: 0
       hitpause: 15
       blockpause: 10
-      hitfxlabel: 2
-      hitfxuid: 400
-      soundfxlabel: 2
-      soundid: 70
+      hitfxlabel: 5
+      hitfxuid: 300
+      soundfxlabel: 7
+      soundid: 30
       stopSound: 0
       giveSelfPower: 50
       giveEnemyPower: 20
@@ -8827,8 +8827,8 @@ MonoBehaviour:
       blockAirVelocityTime: 0
       hitpause: 15
       blockpause: 10
-      hitfxlabel: 2
-      hitfxuid: 401
+      hitfxlabel: 3
+      hitfxuid: 400
       soundfxlabel: 2
       soundid: 70
       stopSound: 0
@@ -9111,7 +9111,7 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 6
-      blockpause: 0
+      blockpause: 12
       hitfxlabel: 5
       hitfxuid: 300
       soundfxlabel: 8
@@ -9190,7 +9190,7 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 2
-      blockpause: 0
+      blockpause: 8
       hitfxlabel: 5
       hitfxuid: 300
       soundfxlabel: 8
@@ -9269,7 +9269,7 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 2
-      blockpause: 0
+      blockpause: 8
       hitfxlabel: 5
       hitfxuid: 300
       soundfxlabel: 7
@@ -9348,7 +9348,7 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 2
-      blockpause: 0
+      blockpause: 8
       hitfxlabel: 3
       hitfxuid: 400
       soundfxlabel: 7
@@ -9427,7 +9427,7 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 2
-      blockpause: 0
+      blockpause: 8
       hitfxlabel: 3
       hitfxuid: 400
       soundfxlabel: 7
@@ -9506,7 +9506,7 @@ MonoBehaviour:
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 30
-      blockpause: 0
+      blockpause: 20
       hitfxlabel: 1
       hitfxuid: 402
       soundfxlabel: 2
@@ -9683,6 +9683,6 @@ MonoBehaviour:
     movementspeed: 0
     numhits: 6
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 30
-  m_CurrentFrame: 1
+  m_CurrentAnimation: 28
+  m_CurrentFrame: 2
   m_CurrentCollider: 1

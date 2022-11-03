@@ -11,12 +11,12 @@ public class Menu : MonoBehaviour
 
       
 {
-  //  public GameObject pauseMenu, optionsMenu;
+    public GameObject mainMenu, settingsMenu;
     public AudioMixer audioMixer;
     public TMPro.TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
-    //public GameObject pauseFirstButton, optionsFirstButton, optionsClosedButton;
+    public GameObject mainFirstButton, settingsFirstButton, settingsClosedButton;
 
     void Start()
     {
@@ -44,7 +44,7 @@ public class Menu : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        
+        //SetFirstMainButton();
     }
 
     public void SetResolution(int resolutionIndex)
@@ -57,34 +57,35 @@ public class Menu : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
     }
-    /*void Update()
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Fire3"))
+        
+        /*if (SceneManager.GetActiveScene().name == "MainMenu")
         {
             PauseUnpause();
-        }
+        }*/
     }
+        
 
-    public void PauseUnpause()
+    /*public void SetFirstMainButton()
     {
-        if (!pauseMenu.activeInHierarchy)
+        if (mainMenu.activeInHierarchy)
         {
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0f;
+            //mainMenu.SetActive(true);
 
             //clears selected object
             EventSystem.current.SetSelectedGameObject(null);
             //set new selected object
-            EventSystem.current.SetSelectedGameObject(pauseFirstButton);
+            EventSystem.current.SetSelectedGameObject(mainFirstButton);
         }
         else
         {
-            pauseMenu.SetActive(false);
-            Time.timeScale = 1f;
-            optionsMenu.SetActive(false);
+            mainMenu.SetActive(false);
+            
+            settingsMenu.SetActive(true);
         }
-    }
-    */
+    }*/
+    
     public void SetVolume(float volume)
     {
         audioMixer.SetFloat("volume", volume);
@@ -106,24 +107,28 @@ public class Menu : MonoBehaviour
         Application.Quit();
     }
 
-    /*public void OpenOptions()
+    public void OpenSettings()
     {
-        optionsMenu.SetActive(true);
+        settingsMenu.SetActive(true);
+
+        mainMenu.SetActive(false);
 
         //clears selected object
         EventSystem.current.SetSelectedGameObject(null);
         //set new selected object
-        EventSystem.current.SetSelectedGameObject(optionsFirstButton);
+        EventSystem.current.SetSelectedGameObject(settingsFirstButton);
     }
 
-    public void CloseOptions()
+    public void CloseSettings()
     {
-        optionsMenu.SetActive(false);
+        mainMenu.SetActive(true);
+
+        settingsMenu.SetActive(false);
 
         //clears selected object
         EventSystem.current.SetSelectedGameObject(null);
         //set new selected object
-        EventSystem.current.SetSelectedGameObject(optionsClosedButton);
+        EventSystem.current.SetSelectedGameObject(settingsClosedButton);
     }
-    */
+    
 }

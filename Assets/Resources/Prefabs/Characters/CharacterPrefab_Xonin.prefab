@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 3c7cd4bfb8fd5a7409ad18589bc5147c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 42087c40d3c082a40bf845237477b32f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -167,8 +167,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.32142857, y: 0.049999997}
-    oldSize: {x: 1.4, y: 1}
+    pivot: {x: 0.48, y: 0.33499998}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1.28, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6378,7 +6378,7 @@ MonoBehaviour:
       hitfxlabel: 2
       hitfxuid: 300
       soundfxlabel: 4
-      soundid: 40
+      soundid: 50
       stopSound: 0
       giveSelfPower: 60
       giveEnemyPower: 15
@@ -8432,7 +8432,1257 @@ MonoBehaviour:
     movementstate: 0
     movementspeed: 0
     numhits: 2
+  - clip: {fileID: 7400000, guid: 293557073bf6f0a43af885c9824caead, type: 2}
+    framedata:
+    - collider:
+      - rect:
+          x: -34
+          y: 29
+          width: 78
+          height: 64
+        type: 0
+      - rect:
+          x: -20
+          y: 93
+          width: 32
+          height: 34
+        type: 0
+      damage: 0
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 0
+      hitstun: 0
+      blockstun: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 0
+      blockpause: 0
+      hitfxlabel: 0
+      hitfxuid: 0
+      soundfxlabel: 0
+      soundid: 0
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: 6
+          y: 19
+          width: 57
+          height: 44
+        type: 1
+      - rect:
+          x: -49
+          y: -12
+          width: 48
+          height: 96
+        type: 0
+      - rect:
+          x: 28
+          y: 29
+          width: 35
+          height: 34
+        type: 0
+      - rect:
+          x: -1
+          y: 10
+          width: 29
+          height: 37
+        type: 0
+      damage: 90
+      chipDamage: 20
+      guardType: 0
+      attackPriority: 5
+      hitstun: 30
+      blockstun: 20
+      hitGroundVelocity: {x: -5, y: 10}
+      hitGroundVelocityTime: 5
+      hitAirVelocity: {x: -5, y: 10}
+      hitAirVelocityTime: 5
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 15
+      blockpause: 10
+      hitfxlabel: 2
+      hitfxuid: 400
+      soundfxlabel: 2
+      soundid: 70
+      stopSound: 0
+      giveSelfPower: 50
+      giveEnemyPower: 20
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 1
+      fallGround: 1
+      fallRecover: 1
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: -3
+      slideTime: 15
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.050000004
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: -36
+          y: 26
+          width: 79
+          height: 61
+        type: 0
+      - rect:
+          x: -28
+          y: 87
+          width: 55
+          height: 52
+        type: 0
+      damage: 0
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 0
+      hitstun: 0
+      blockstun: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 0
+      blockpause: 0
+      hitfxlabel: 0
+      hitfxuid: 0
+      soundfxlabel: 0
+      soundid: 0
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.21666668
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: -36
+          y: 26
+          width: 79
+          height: 61
+        type: 0
+      - rect:
+          x: -28
+          y: 87
+          width: 55
+          height: 52
+        type: 0
+      damage: 0
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 0
+      hitstun: 0
+      blockstun: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 0
+      blockpause: 0
+      hitfxlabel: 0
+      hitfxuid: 0
+      soundfxlabel: 0
+      soundid: 0
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.28333336
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    movementstate: 0
+    movementspeed: 0
+    numhits: 1
+  - clip: {fileID: 7400000, guid: d640e2b12eded524ab2c0e805fad389a, type: 2}
+    framedata:
+    - collider:
+      - rect:
+          x: -34
+          y: 29
+          width: 78
+          height: 64
+        type: 0
+      - rect:
+          x: -20
+          y: 93
+          width: 32
+          height: 34
+        type: 0
+      damage: 0
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 0
+      hitstun: 0
+      blockstun: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 0
+      blockpause: 0
+      hitfxlabel: 0
+      hitfxuid: 0
+      soundfxlabel: 0
+      soundid: 0
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: -49
+          y: -12
+          width: 48
+          height: 96
+        type: 0
+      - rect:
+          x: -1
+          y: 10
+          width: 29
+          height: 37
+        type: 0
+      - rect:
+          x: 6
+          y: 19
+          width: 57
+          height: 44
+        type: 1
+      - rect:
+          x: 28
+          y: 29
+          width: 35
+          height: 34
+        type: 0
+      damage: 100
+      chipDamage: 20
+      guardType: 0
+      attackPriority: 5
+      hitstun: 30
+      blockstun: 20
+      hitGroundVelocity: {x: -7, y: 12}
+      hitGroundVelocityTime: 5
+      hitAirVelocity: {x: -7, y: 12}
+      hitAirVelocityTime: 5
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 15
+      blockpause: 10
+      hitfxlabel: 2
+      hitfxuid: 401
+      soundfxlabel: 2
+      soundid: 70
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 1
+      fallGround: 1
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: -2
+      slideTime: 20
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.16666667
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: -36
+          y: 26
+          width: 79
+          height: 61
+        type: 0
+      - rect:
+          x: -28
+          y: 87
+          width: 55
+          height: 52
+        type: 0
+      damage: 0
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 0
+      hitstun: 0
+      blockstun: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 0
+      blockpause: 0
+      hitfxlabel: 0
+      hitfxuid: 0
+      soundfxlabel: 0
+      soundid: 0
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.5
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: -36
+          y: 26
+          width: 79
+          height: 61
+        type: 0
+      - rect:
+          x: -28
+          y: 87
+          width: 55
+          height: 52
+        type: 0
+      damage: 0
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 0
+      hitstun: 0
+      blockstun: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 0
+      blockpause: 0
+      hitfxlabel: 0
+      hitfxuid: 0
+      soundfxlabel: 0
+      soundid: 0
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.56666666
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    movementstate: 0
+    movementspeed: 0
+    numhits: 1
+  - clip: {fileID: 7400000, guid: 49425fe90252885469c9096a141b274b, type: 2}
+    framedata:
+    - collider:
+      - rect:
+          x: -20
+          y: 93
+          width: 32
+          height: 34
+        type: 0
+      - rect:
+          x: -34
+          y: 29
+          width: 78
+          height: 64
+        type: 0
+      damage: 0
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 0
+      hitstun: 0
+      blockstun: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 0
+      blockpause: 0
+      hitfxlabel: 0
+      hitfxuid: 0
+      soundfxlabel: 0
+      soundid: 0
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: 28
+          y: 29
+          width: 35
+          height: 34
+        type: 0
+      - rect:
+          x: -1
+          y: 10
+          width: 29
+          height: 37
+        type: 0
+      - rect:
+          x: -49
+          y: -12
+          width: 48
+          height: 96
+        type: 0
+      - rect:
+          x: 6
+          y: 19
+          width: 57
+          height: 44
+        type: 1
+      damage: 10
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 5
+      hitstun: 20
+      blockstun: 10
+      hitGroundVelocity: {x: -4, y: 8}
+      hitGroundVelocityTime: 5
+      hitAirVelocity: {x: -4, y: 8}
+      hitAirVelocityTime: 5
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 6
+      blockpause: 0
+      hitfxlabel: 5
+      hitfxuid: 300
+      soundfxlabel: 8
+      soundid: 20
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.050000004
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: 28
+          y: 29
+          width: 35
+          height: 34
+        type: 0
+      - rect:
+          x: -1
+          y: 10
+          width: 29
+          height: 37
+        type: 0
+      - rect:
+          x: -49
+          y: -12
+          width: 48
+          height: 96
+        type: 0
+      - rect:
+          x: 6
+          y: 19
+          width: 57
+          height: 44
+        type: 1
+      damage: 10
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 5
+      hitstun: 20
+      blockstun: 10
+      hitGroundVelocity: {x: -4, y: 8}
+      hitGroundVelocityTime: 5
+      hitAirVelocity: {x: -4, y: 8}
+      hitAirVelocityTime: 5
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 2
+      blockpause: 0
+      hitfxlabel: 5
+      hitfxuid: 300
+      soundfxlabel: 8
+      soundid: 20
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.08333334
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: 28
+          y: 29
+          width: 35
+          height: 34
+        type: 0
+      - rect:
+          x: -1
+          y: 10
+          width: 29
+          height: 37
+        type: 0
+      - rect:
+          x: -49
+          y: -12
+          width: 48
+          height: 96
+        type: 0
+      - rect:
+          x: 6
+          y: 19
+          width: 57
+          height: 44
+        type: 1
+      damage: 10
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 5
+      hitstun: 20
+      blockstun: 10
+      hitGroundVelocity: {x: -4, y: 8}
+      hitGroundVelocityTime: 5
+      hitAirVelocity: {x: -4, y: 8}
+      hitAirVelocityTime: 5
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 2
+      blockpause: 0
+      hitfxlabel: 5
+      hitfxuid: 300
+      soundfxlabel: 7
+      soundid: 30
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.116666675
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: 28
+          y: 29
+          width: 35
+          height: 34
+        type: 0
+      - rect:
+          x: -1
+          y: 10
+          width: 29
+          height: 37
+        type: 0
+      - rect:
+          x: -49
+          y: -12
+          width: 48
+          height: 96
+        type: 0
+      - rect:
+          x: 6
+          y: 19
+          width: 57
+          height: 44
+        type: 1
+      damage: 10
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 5
+      hitstun: 20
+      blockstun: 10
+      hitGroundVelocity: {x: -4, y: 8}
+      hitGroundVelocityTime: 5
+      hitAirVelocity: {x: -4, y: 8}
+      hitAirVelocityTime: 5
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 2
+      blockpause: 0
+      hitfxlabel: 3
+      hitfxuid: 400
+      soundfxlabel: 7
+      soundid: 30
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.15
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: 28
+          y: 29
+          width: 35
+          height: 34
+        type: 0
+      - rect:
+          x: -1
+          y: 10
+          width: 29
+          height: 37
+        type: 0
+      - rect:
+          x: -49
+          y: -12
+          width: 48
+          height: 96
+        type: 0
+      - rect:
+          x: 6
+          y: 19
+          width: 57
+          height: 44
+        type: 1
+      damage: 10
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 5
+      hitstun: 20
+      blockstun: 10
+      hitGroundVelocity: {x: -4, y: 8}
+      hitGroundVelocityTime: 5
+      hitAirVelocity: {x: -4, y: 8}
+      hitAirVelocityTime: 5
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 2
+      blockpause: 0
+      hitfxlabel: 3
+      hitfxuid: 400
+      soundfxlabel: 7
+      soundid: 30
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.18333334
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: 28
+          y: 29
+          width: 35
+          height: 34
+        type: 0
+      - rect:
+          x: -1
+          y: 10
+          width: 29
+          height: 37
+        type: 0
+      - rect:
+          x: -49
+          y: -12
+          width: 48
+          height: 96
+        type: 0
+      - rect:
+          x: 6
+          y: 19
+          width: 57
+          height: 44
+        type: 1
+      damage: 100
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 5
+      hitstun: 60
+      blockstun: 30
+      hitGroundVelocity: {x: -20, y: 15}
+      hitGroundVelocityTime: 8
+      hitAirVelocity: {x: -20, y: 15}
+      hitAirVelocityTime: 8
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 30
+      blockpause: 0
+      hitfxlabel: 1
+      hitfxuid: 402
+      soundfxlabel: 2
+      soundid: 70
+      stopSound: 1
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 1
+      fallGround: 1
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 10
+      wallBounce: {x: 8, y: 14}
+      wallBounceGravity: 0
+      wallBounceSlide: 5
+      wallBounceTime: 10
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.21666667
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: -36
+          y: 26
+          width: 79
+          height: 61
+        type: 0
+      - rect:
+          x: -28
+          y: 87
+          width: 55
+          height: 52
+        type: 0
+      damage: 0
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 0
+      hitstun: 0
+      blockstun: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 0
+      blockpause: 0
+      hitfxlabel: 0
+      hitfxuid: 0
+      soundfxlabel: 0
+      soundid: 0
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.38333336
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    - collider:
+      - rect:
+          x: -36
+          y: 26
+          width: 79
+          height: 61
+        type: 0
+      - rect:
+          x: -28
+          y: 87
+          width: 55
+          height: 52
+        type: 0
+      damage: 0
+      chipDamage: 0
+      guardType: 0
+      attackPriority: 0
+      hitstun: 0
+      blockstun: 0
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
+      blockAirVelocity: {x: 0, y: 0}
+      blockAirVelocityTime: 0
+      hitpause: 0
+      blockpause: 0
+      hitfxlabel: 0
+      hitfxuid: 0
+      soundfxlabel: 0
+      soundid: 0
+      stopSound: 0
+      giveSelfPower: 0
+      giveEnemyPower: 0
+      downedHit: 0
+      downedDamage: 0
+      downedHitstun: 0
+      downedVelocity: {x: 0, y: 0}
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
+      fallRecover: 0
+      bounce: {x: 0, y: 0}
+      bounceGravity: 0
+      bounceRecover: 0
+      slide: 0
+      slideTime: 0
+      wallBounce: {x: 0, y: 0}
+      wallBounceGravity: 0
+      wallBounceSlide: 0
+      wallBounceTime: 0
+      downTime: 0
+      downRecover: 0
+      hitShakeTime: 0
+      hitShakeX: 0
+      hitShakeY: 0
+      fallShakeTime: 0
+      fallShakeX: 0
+      fallShakeY: 0
+      forceStand: 0
+      flipEnemy: 0
+      capsuleOffset: {x: 0, y: 0}
+      time: 0.45000002
+      smoothedOffset: 0
+      skipColliderUpdate: 0
+    movementstate: 0
+    movementspeed: 0
+    numhits: 6
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 22
-  m_CurrentFrame: 3
-  m_CurrentCollider: 0
+  m_CurrentAnimation: 30
+  m_CurrentFrame: 1
+  m_CurrentCollider: 1

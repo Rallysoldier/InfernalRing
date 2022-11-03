@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2149774880292581469}
-  - component: {fileID: 5943851173002963076}
-  - component: {fileID: -1024378701843138162}
+  - component: {fileID: -4298771747511968188}
+  - component: {fileID: -141587389580177109}
   m_Layer: 0
-  m_Name: Prefab_BlockEffect
+  m_Name: Prefab_Airwave_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,9 +31,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5943851173002963076
+--- !u!212 &-4298771747511968188
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,18 +74,18 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 287d521cf0a41e8498264ca10c0e3c53, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f5dd3197dbec89a4f9297761e244192c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.35, y: 4.22}
+  m_Size: {x: 5.69, y: 4.88}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-1024378701843138162
+--- !u!114 &-141587389580177109
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,6 +94,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3571932403836324236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fa6ace14ed221040b62f8acf0f11702, type: 3}
+  m_Script: {fileID: 11500000, guid: 8cd4556bf8009cc4990e56641221fc87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

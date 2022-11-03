@@ -56,5 +56,11 @@ public class XoninStateFactory : CharacterStateFactory
     public CharacterState Special1Light() {
         return new XoninSpecial1Light(context, this);
     }
+    public CharacterState Special1Medium() {
+        return new XoninSpecial1Medium(context, this);
+    }
+    public CharacterState Special1Heavy() {
+        return new XoninSpecial1Heavy(context, this);
+    }
 }
 }

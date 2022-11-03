@@ -123,8 +123,6 @@ public class CharacterStateMachine : ScriptableObject
             this.ChangeStateOnInput();
         }
 
-        this.UpdateFlash();
-
         this.contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
         this.ClearContactData();
         return this.contactSummary;
@@ -315,6 +313,11 @@ public class CharacterStateMachine : ScriptableObject
         this.immunePriorities.Clear();
     }
 
+    public void UpdateEffects() {
+        this.UpdateFlash();
+        this.EXEffect();
+    }
+
     int flashTime;
     Vector4 flashColor;
     public void Flash(Vector4 color, int time) {
@@ -324,9 +327,20 @@ public class CharacterStateMachine : ScriptableObject
     public void UpdateFlash() {
         if (flashTime > 0) {
             this.spriteRenderer.color = Color.Lerp(flashColor, Color.white, Time.deltaTime * 15);
-            flashTime--;
+            if (GameController.Instance.pause == 0) {
+                flashTime--;
+            }
         } else {
             this.spriteRenderer.color = Color.white;
+        }
+    }
+    public void EXEffectStart() {
+        this.AddEnergy(-500);
+        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(100), true);
+    }
+    public void EXEffect() {
+        if (this.currentState.EXFlash && GameController.Instance.Global_Time%4 == 0) {
+            this.Flash(new Vector4(2.0f,2.0f,1.0f,1.0f), 2);
         }
     }
 
@@ -385,9 +399,9 @@ public class CharacterStateMachine : ScriptableObject
 
     //Overload this function to have the character do something else when they're hit
     public virtual bool Hit(ContactData hit) {
-        if (this.health == 0f) {
+        /*if (this.health == 0f) {
             return false;
-        }
+        }*/
 
         //Avoid multiple hits within the same animation keyframe, if a hit has already landed.
         if (this.lastContact.HitFrame == hit.HitFrame && lastContactState == this.enemy.currentState) {
@@ -465,6 +479,8 @@ public class CharacterStateMachine : ScriptableObject
 
         this.lastContact = hit;
         this.lastContactState = this.enemy.currentState;
+
+        this.correctFacing();
 
         EffectSpawner.PlayHitEffect(hit.fxID, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
         GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(hit.SoundID), hit.StopSounds);

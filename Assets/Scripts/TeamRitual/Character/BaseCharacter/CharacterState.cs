@@ -15,6 +15,8 @@ public abstract class CharacterState
 	public bool jumpCancel = false;
 	public int scalingStep = 1;
 
+	public bool EXFlash = false;
+
 	//The variables below can be different for each state, and are only ever defined/mutated in the state's constructor.
 
 	public bool inputChangeState = false;	//State will allow inputs to change state in the character's UpdateState() function.
@@ -101,9 +103,8 @@ public abstract class CharacterState
 				|| (newState.attackPriority > this.attackPriority && this.attackPriority > AttackPriority.HEAVY))
 				&& !alreadyChained;
 
-			if (!canCancelInto) {
-				bool exceptions = (newState.moveType == MoveType.AIR && !alreadyChained)
-					|| (character.ReverseBeat() && this.attackPriority <= AttackPriority.HEAVY);
+			if (!canCancelInto && this.attackPriority <= AttackPriority.HEAVY) {
+				bool exceptions = newState.moveType == MoveType.AIR && !alreadyChained || character.ReverseBeat();
 				if (!exceptions)
 					return;
 			}

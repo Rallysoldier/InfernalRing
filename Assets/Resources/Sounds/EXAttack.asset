@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cd41eb65d2f4fb42988208c85369546, type: 3}
-  m_Name: Guard
+  m_Name: EXAttack
   m_EditorClassIdentifier: 
   Effects:
-  - {fileID: 8300000, guid: 74ac81461cac92345a06391603979d99, type: 3}
-  - {fileID: 8300000, guid: 1bb8c9d162ecacc48af2df195dbc115d, type: 3}
-  - {fileID: 8300000, guid: f84aee0a0291258438045a69e7464813, type: 3}
-  - {fileID: 8300000, guid: 73b9386429957464792a4d2397a058fe, type: 3}
-  uniqueID: 0
+  - {fileID: 8300000, guid: f8bca6726685cfa4389b4dc67acb1590, type: 3}
+  - {fileID: 8300000, guid: ac1626e9689ebef44961bb00a94389b2, type: 3}
+  uniqueID: 100

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TeamRitual
 {
-    public class BlockEffect : MonoBehaviour
+    public class Airwave_05 : MonoBehaviour
     {
         SpriteRenderer spriteRenderer;
         float scale = 0.6f;
@@ -12,7 +12,7 @@ namespace TeamRitual
         void Start()
         {
             updateTicks = 0;
-            maxTime = 15*10;
+            maxTime = 30*10;
             spriteRenderer = GetComponent<SpriteRenderer>();
             transform.localScale = new Vector2(scale,scale);
         }
@@ -20,14 +20,8 @@ namespace TeamRitual
         void FixedUpdate()
         {
             updateTicks++;
-
-            if (this.updateTicks > 5) {
-                transform.localScale = new Vector2(scale*(1 + 0.5f*(updateTicks/maxTime)), scale*(1 + 0.5f*(updateTicks/maxTime)));
-            }
-
-            if (this.updateTicks > 10) {
-                spriteRenderer.color = new Color(1f,1f,1f, 1f - updateTicks/maxTime);
-            }
+            transform.localScale = new Vector2(scale*(1 + 3f*(updateTicks/maxTime)), scale*(1 + 3f*(updateTicks/maxTime)));
+            spriteRenderer.color = new Color(1f,1f,1f, 1f - updateTicks/maxTime);
 
             if (updateTicks > maxTime) {
                 Destroy(this);

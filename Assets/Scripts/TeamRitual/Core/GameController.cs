@@ -182,6 +182,7 @@ public class GameController : MonoBehaviour {
                 Players[i].stateMachine.UpdateStates();
             }
             Players[i].inputHandler.UpdateBufferTime();
+            Players[i].stateMachine.UpdateEffects();
         }
 
         if (this.pause > 0) {
@@ -324,6 +325,13 @@ public class GameController : MonoBehaviour {
     }
     public float GetCameraLerp() {
         return cameraLerp;
+    }
+
+    public void SetCameraZoom(float zoom) {
+        Camera.main.orthographicSize = zoom;
+    }
+    public void ResetCameraZoom() {
+        Camera.main.orthographicSize = 5f;
     }
 
     public float StageMinBound() {

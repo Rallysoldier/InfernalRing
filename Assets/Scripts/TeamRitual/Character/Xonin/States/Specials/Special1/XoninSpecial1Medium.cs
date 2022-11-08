@@ -25,7 +25,7 @@ public class XoninSpecial1Medium : CharacterState {
 
         if (this.stateTime == 10) {
             this.physicsType = PhysicsType.AIR;
-            this.character.SetVelocity(12,16);
+            this.character.SetVelocity(15,16);
         }
 
         if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.character.characterName + "_Special1Medium")

@@ -21,7 +21,7 @@ public class XoninSpecial1Heavy : CharacterState {
 
     public override void EnterState() {
         base.EnterState();
-        this.character.SetVelocity(16,16);
+        this.character.SetVelocity(20,16);
         this.character.EXEffectStart();
     }
 

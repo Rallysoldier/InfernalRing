@@ -62,5 +62,35 @@ public class XoninStateFactory : CharacterStateFactory
     public CharacterState Special1Heavy() {
         return new XoninSpecial1Heavy(context, this);
     }
+
+    public CharacterState Special2LightRise() {
+        return new XoninSpecial2LightRise(context, this);
+    }
+    public CharacterState Special2LightChop() {
+        return new XoninSpecial2LightChop(context, this);
+    }
+    public CharacterState Special2LightLand() {
+        return new XoninSpecial2LightLand(context, this);
+    }
+
+    public CharacterState Special2MediumRise() {
+        return new XoninSpecial2MediumRise(context, this);
+    }
+    public CharacterState Special2MediumChop() {
+        return new XoninSpecial2MediumChop(context, this);
+    }
+    public CharacterState Special2MediumLand() {
+        return new XoninSpecial2MediumLand(context, this);
+    }
+
+    public CharacterState Special2HeavyRise() {
+        return new XoninSpecial2HeavyRise(context, this);
+    }
+    public CharacterState Special2HeavyChop() {
+        return new XoninSpecial2HeavyChop(context, this);
+    }
+    public CharacterState Special2HeavyLand() {
+        return new XoninSpecial2HeavyLand(context, this);
+    }
 }
 }

@@ -253,6 +253,12 @@ public class GameController : MonoBehaviour {
                     }
                     if (!blocked) {
                         if (characterHurt.Hit(hit)) {
+                            if (characterHitting.GetType() == typeof(XoninStateMachine)) {
+                                if (characterHitting.currentState.GetType() == typeof(XoninSpecial2HeavyLand)) {
+                                    GameController.Instance.SetCameraZoom(4f);
+                                }
+                            }
+
                             characterHitting.currentState.moveContact++;
                             characterHitting.currentState.moveHit++;
                             if (characterHitting.attackCancels.Count == 0) {

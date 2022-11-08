@@ -39,10 +39,27 @@ public class XoninStateMachine : CharacterStateMachine
                     return;
                 }
                 if (this.inputStr.EndsWith("D,F,H")) {
-                    if (this.GetEnergy() >= 500f) {
+                    if (this.GetEnergy() >= 0f) {
                         this.currentState.SwitchState((states as XoninStateFactory).Special1Heavy());
                     } else {
                         this.currentState.SwitchState((states as XoninStateFactory).Special1Medium());
+                    }
+                    return;
+                }
+
+                if (this.inputStr.EndsWith("D,B,L")) {
+                    this.currentState.SwitchState((states as XoninStateFactory).Special2LightRise());
+                    return;
+                }
+                if (this.inputStr.EndsWith("D,B,M")) {
+                    this.currentState.SwitchState((states as XoninStateFactory).Special2MediumRise());
+                    return;
+                }
+                if (this.inputStr.EndsWith("D,B,H")) {
+                    if (this.GetEnergy() >= 0f) {
+                        this.currentState.SwitchState((states as XoninStateFactory).Special2HeavyRise());
+                    } else {
+                        this.currentState.SwitchState((states as XoninStateFactory).Special2MediumRise());
                     }
                     return;
                 }

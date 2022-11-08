@@ -96,6 +96,15 @@ public abstract class CharacterState
 		if (this.GetType() == newState.GetType())
 			return;
 
+		if ((this.GetType() == (this.factory as XoninStateFactory).Ultimate1Punching1().GetType() ||
+			this.GetType() == (this.factory as XoninStateFactory).Ultimate1Punching2().GetType() ||
+			this.GetType() == (this.factory as XoninStateFactory).Ultimate1Punching3().GetType() ||
+			this.GetType() == (this.factory as XoninStateFactory).Ultimate1PunchingEnd().GetType()
+			)
+			&& newState.GetType() == (this.factory as XoninStateFactory).Ultimate1Start().GetType()) {
+			return;
+		}
+
 		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK && moveHit >= hitsToCancel) {
 			bool alreadyChained = this.character.attackCancels.Contains(newState.GetType().Name);
 			bool canCancelInto =
@@ -120,10 +129,10 @@ public abstract class CharacterState
 		//enter new state
 		newState.EnterState();
 
-		//update context of state
+		//update context of state0
 		character.currentState = newState;
 
-		//Debug.Log("Switched from " + this + " to " + newState);
+		Debug.Log("Switched from " + this + " to " + newState);
 	}
 
 	protected void SetSuperState()

@@ -30,6 +30,11 @@ public class XoninStateMachine : CharacterStateMachine
 
             //Air OK moves
             if (standingAttack || crouchingAttack || airborneAttack) {
+                if (this.inputStr.EndsWith("D,F,D,F,L") || this.inputStr.EndsWith("D,F,D,F,M") || this.inputStr.EndsWith("D,F,D,F,H")) {
+                    this.currentState.SwitchState((states as XoninStateFactory).Ultimate1Start());
+                    return;
+                }
+
                 if (this.inputStr.EndsWith("D,F,L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).Special1Light());
                     return;

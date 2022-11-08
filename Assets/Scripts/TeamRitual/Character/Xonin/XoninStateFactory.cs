@@ -92,5 +92,20 @@ public class XoninStateFactory : CharacterStateFactory
     public CharacterState Special2HeavyLand() {
         return new XoninSpecial2HeavyLand(context, this);
     }
+    public CharacterState Ultimate1Start() {
+        return new XoninUltimate1Start(context, this);
+    }
+    public CharacterState Ultimate1Punching1() {
+        return new XoninUltimate1Punching1(context, this);
+    }
+    public CharacterState Ultimate1Punching2() {
+        return new XoninUltimate1Punching2(context, this);
+    }
+    public CharacterState Ultimate1Punching3() {
+        return new XoninUltimate1Punching3(context, this);
+    }
+    public CharacterState Ultimate1PunchingEnd() {
+        return new XoninUltimate1PunchingEnd(context, this);
+    }
 }
 }

@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 109271646, guid: 02ae51b843652ea4f88c1a0e9708255b, type: 3}
+  m_Sprite: {fileID: -1339194424, guid: 02ae51b843652ea4f88c1a0e9708255b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12804,18 +12804,18 @@ MonoBehaviour:
           width: 62
           height: 110
         type: 1
-      damage: 100
+      damage: 50
       chipDamage: 30
       guardType: 0
       attackPriority: 4
       hitstun: 200
       blockstun: 5
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
-      blockGroundVelocity: {x: -6, y: 0}
-      blockGroundVelocityTime: 2
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 30
@@ -12832,10 +12832,10 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
-      bounce: {x: -2, y: 18}
+      bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
@@ -12852,7 +12852,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.4166667
@@ -12865,18 +12865,18 @@ MonoBehaviour:
           width: 62
           height: 110
         type: 1
-      damage: 100
+      damage: 50
       chipDamage: 30
       guardType: 0
       attackPriority: 4
       hitstun: 200
       blockstun: 5
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
-      blockGroundVelocity: {x: -6, y: 0}
-      blockGroundVelocityTime: 2
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 30
@@ -12893,10 +12893,10 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
-      bounce: {x: -2, y: 18}
+      bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
@@ -12913,7 +12913,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.5
@@ -13047,22 +13047,22 @@ MonoBehaviour:
   - clip: {fileID: 7400000, guid: c3a4dcd8050084742ba5fe56bf84cacf, type: 2}
     framedata:
     - collider: []
-      damage: 100
+      damage: 0
       chipDamage: 30
       guardType: 2
       attackPriority: 4
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 3
-      blockpause: 20
+      blockpause: 0
       hitfxlabel: 1
       hitfxuid: 402
       soundfxlabel: 2
@@ -13095,29 +13095,29 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0
       smoothedOffset: 0
       skipColliderUpdate: 0
     - collider: []
-      damage: 100
+      damage: 0
       chipDamage: 30
       guardType: 2
       attackPriority: 4
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 3
-      blockpause: 20
+      hitpause: 0
+      blockpause: 0
       hitfxlabel: 1
       hitfxuid: 402
       soundfxlabel: 2
@@ -13150,7 +13150,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.06666667
@@ -13166,19 +13166,19 @@ MonoBehaviour:
       damage: 5
       chipDamage: 30
       guardType: 0
-      attackPriority: 4
+      attackPriority: 6
       hitstun: 40
       blockstun: 15
       hitGroundVelocity: {x: 0, y: 0}
       hitGroundVelocityTime: 0
       hitAirVelocity: {x: 0, y: 0}
       hitAirVelocityTime: 0
-      blockGroundVelocity: {x: -6, y: 0}
-      blockGroundVelocityTime: 2
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 3
-      blockpause: 20
+      blockpause: 0
       hitfxlabel: 5
       hitfxuid: 300
       soundfxlabel: 7
@@ -13191,10 +13191,10 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
-      bounce: {x: -2, y: 18}
+      bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
@@ -13211,29 +13211,29 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.13333334
       smoothedOffset: 0
       skipColliderUpdate: 0
     - collider: []
-      damage: 100
+      damage: 0
       chipDamage: 30
       guardType: 2
       attackPriority: 4
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 30
-      blockpause: 20
+      hitpause: 0
+      blockpause: 0
       hitfxlabel: 1
       hitfxuid: 402
       soundfxlabel: 2
@@ -13266,7 +13266,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.20000002
@@ -13289,12 +13289,12 @@ MonoBehaviour:
       hitGroundVelocityTime: 0
       hitAirVelocity: {x: 0, y: 0}
       hitAirVelocityTime: 0
-      blockGroundVelocity: {x: -6, y: 0}
-      blockGroundVelocityTime: 2
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 3
-      blockpause: 20
+      blockpause: 0
       hitfxlabel: 5
       hitfxuid: 300
       soundfxlabel: 7
@@ -13307,8 +13307,8 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
       bounce: {x: -2, y: 18}
       bounceGravity: 0
@@ -13327,29 +13327,29 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.26666668
       smoothedOffset: 0
       skipColliderUpdate: 0
     - collider: []
-      damage: 100
+      damage: 0
       chipDamage: 30
       guardType: 2
       attackPriority: 4
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 30
-      blockpause: 20
+      hitpause: 0
+      blockpause: 0
       hitfxlabel: 1
       hitfxuid: 402
       soundfxlabel: 2
@@ -13382,29 +13382,29 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.33333334
       smoothedOffset: 0
       skipColliderUpdate: 0
     - collider: []
-      damage: 100
+      damage: 0
       chipDamage: 30
       guardType: 2
       attackPriority: 4
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 30
-      blockpause: 20
+      hitpause: 0
+      blockpause: 0
       hitfxlabel: 1
       hitfxuid: 402
       soundfxlabel: 2
@@ -13437,7 +13437,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.4
@@ -13460,12 +13460,12 @@ MonoBehaviour:
       hitGroundVelocityTime: 0
       hitAirVelocity: {x: 0, y: 0}
       hitAirVelocityTime: 0
-      blockGroundVelocity: {x: -6, y: 0}
-      blockGroundVelocityTime: 2
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 3
-      blockpause: 20
+      blockpause: 0
       hitfxlabel: 5
       hitfxuid: 300
       soundfxlabel: 7
@@ -13478,8 +13478,8 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
       bounce: {x: -2, y: 18}
       bounceGravity: 0
@@ -13498,29 +13498,29 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.46666667
       smoothedOffset: 0
       skipColliderUpdate: 0
     - collider: []
-      damage: 100
+      damage: 0
       chipDamage: 30
       guardType: 0
       attackPriority: 4
       hitstun: 200
       blockstun: 5
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 30
-      blockpause: 20
+      hitpause: 0
+      blockpause: 0
       hitfxlabel: 3
       hitfxuid: 400
       soundfxlabel: 2
@@ -13553,29 +13553,29 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.53333336
       smoothedOffset: 0
       skipColliderUpdate: 0
     - collider: []
-      damage: 100
+      damage: 0
       chipDamage: 30
       guardType: 0
       attackPriority: 4
       hitstun: 200
       blockstun: 5
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 30
-      blockpause: 20
+      hitpause: 0
+      blockpause: 0
       hitfxlabel: 3
       hitfxuid: 400
       soundfxlabel: 2
@@ -13608,7 +13608,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.6
@@ -13742,12 +13742,12 @@ MonoBehaviour:
       attackPriority: 4
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
-      blockGroundVelocity: {x: -6, y: 0}
-      blockGroundVelocityTime: 2
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
+      blockGroundVelocity: {x: 0, y: 0}
+      blockGroundVelocityTime: 0
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
       hitpause: 2
@@ -13764,10 +13764,10 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
-      bounce: {x: -2, y: 18}
+      bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
@@ -13825,10 +13825,10 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
-      bounce: {x: -2, y: 18}
+      bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
@@ -13845,7 +13845,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.05
@@ -13858,10 +13858,10 @@ MonoBehaviour:
       attackPriority: 4
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
@@ -13941,10 +13941,10 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
-      bounce: {x: -2, y: 18}
+      bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
@@ -13961,7 +13961,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.15
@@ -13974,10 +13974,10 @@ MonoBehaviour:
       attackPriority: 4
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
@@ -14057,10 +14057,10 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
-      bounce: {x: -2, y: 18}
+      bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
@@ -14077,7 +14077,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.25
@@ -14090,10 +14090,10 @@ MonoBehaviour:
       attackPriority: 4
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
@@ -14112,10 +14112,10 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
-      bounce: {x: -2, y: 18}
+      bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
@@ -14173,10 +14173,10 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
-      bounce: {x: -2, y: 18}
+      bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
@@ -14193,7 +14193,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.35000002
@@ -14206,10 +14206,10 @@ MonoBehaviour:
       attackPriority: 4
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
@@ -14228,10 +14228,10 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
-      bounce: {x: -2, y: 18}
+      bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
@@ -14248,7 +14248,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.40000004
@@ -14288,11 +14288,11 @@ MonoBehaviour:
       downedDamage: 60
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
-      fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallingGravity: 0
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
-      bounce: {x: -2, y: 18}
+      bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
@@ -14309,7 +14309,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.45000005
@@ -14322,10 +14322,10 @@ MonoBehaviour:
       attackPriority: 4
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: -3, y: 1}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -3, y: 1}
-      hitAirVelocityTime: 5
+      hitGroundVelocity: {x: 0, y: 0}
+      hitGroundVelocityTime: 0
+      hitAirVelocity: {x: 0, y: 0}
+      hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
@@ -14405,10 +14405,10 @@ MonoBehaviour:
       downedHitstun: 40
       downedVelocity: {x: -3, y: 12}
       fallingGravity: 1
-      fallAir: 1
-      fallGround: 1
+      fallAir: 0
+      fallGround: 0
       fallRecover: 0
-      bounce: {x: -2, y: 18}
+      bounce: {x: 0, y: 0}
       bounceGravity: 0
       bounceRecover: 0
       slide: 0
@@ -14425,7 +14425,7 @@ MonoBehaviour:
       fallShakeTime: 0
       fallShakeX: 0
       fallShakeY: 0
-      forceStand: 1
+      forceStand: 0
       flipEnemy: 0
       capsuleOffset: {x: 0, y: 0}
       time: 0.5500001
@@ -14457,7 +14457,7 @@ MonoBehaviour:
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 1
+      hitpause: 0
       blockpause: 20
       hitfxlabel: 1
       hitfxuid: 402
@@ -14518,7 +14518,7 @@ MonoBehaviour:
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 1
+      hitpause: 0
       blockpause: 20
       hitfxlabel: 3
       hitfxuid: 400
@@ -14579,7 +14579,7 @@ MonoBehaviour:
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 1
+      hitpause: 0
       blockpause: 20
       hitfxlabel: 3
       hitfxuid: 400
@@ -14640,7 +14640,7 @@ MonoBehaviour:
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 1
+      hitpause: 0
       blockpause: 20
       hitfxlabel: 1
       hitfxuid: 402
@@ -14701,7 +14701,7 @@ MonoBehaviour:
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 1
+      hitpause: 0
       blockpause: 20
       hitfxlabel: 3
       hitfxuid: 400
@@ -14762,7 +14762,7 @@ MonoBehaviour:
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 1
+      hitpause: 0
       blockpause: 20
       hitfxlabel: 3
       hitfxuid: 400
@@ -14823,7 +14823,7 @@ MonoBehaviour:
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 1
+      hitpause: 0
       blockpause: 20
       hitfxlabel: 1
       hitfxuid: 402
@@ -14884,7 +14884,7 @@ MonoBehaviour:
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 1
+      hitpause: 0
       blockpause: 20
       hitfxlabel: 3
       hitfxuid: 400
@@ -14945,7 +14945,7 @@ MonoBehaviour:
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 1
+      hitpause: 0
       blockpause: 20
       hitfxlabel: 3
       hitfxuid: 400
@@ -15006,7 +15006,7 @@ MonoBehaviour:
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 1
+      hitpause: 0
       blockpause: 20
       hitfxlabel: 1
       hitfxuid: 402
@@ -15067,7 +15067,7 @@ MonoBehaviour:
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 1
+      hitpause: 0
       blockpause: 20
       hitfxlabel: 3
       hitfxuid: 400
@@ -15128,7 +15128,7 @@ MonoBehaviour:
       blockGroundVelocityTime: 2
       blockAirVelocity: {x: 0, y: 0}
       blockAirVelocityTime: 0
-      hitpause: 1
+      hitpause: 0
       blockpause: 20
       hitfxlabel: 3
       hitfxuid: 400
@@ -15229,14 +15229,14 @@ MonoBehaviour:
       smoothedOffset: 0
       skipColliderUpdate: 0
     - collider: []
-      damage: 8
+      damage: 100
       chipDamage: 30
       guardType: 0
       attackPriority: 6
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: 0, y: 0}
-      hitGroundVelocityTime: 0
+      hitGroundVelocity: {x: -10, y: 20}
+      hitGroundVelocityTime: 10
       hitAirVelocity: {x: 0, y: 0}
       hitAirVelocityTime: 0
       blockGroundVelocity: {x: -6, y: 0}
@@ -15296,9 +15296,9 @@ MonoBehaviour:
       attackPriority: 6
       hitstun: 40
       blockstun: 15
-      hitGroundVelocity: {x: -10, y: 20}
-      hitGroundVelocityTime: 5
-      hitAirVelocity: {x: -10, y: 20}
+      hitGroundVelocity: {x: -10, y: 30}
+      hitGroundVelocityTime: 10
+      hitAirVelocity: {x: -10, y: 30}
       hitAirVelocityTime: 5
       blockGroundVelocity: {x: -6, y: 0}
       blockGroundVelocityTime: 2
@@ -15330,7 +15330,7 @@ MonoBehaviour:
       wallBounceGravity: 0
       wallBounceSlide: 0
       wallBounceTime: 0
-      downTime: 0
+      downTime: 45
       downRecover: 0
       hitShakeTime: 0
       hitShakeX: 0
@@ -15403,6 +15403,6 @@ MonoBehaviour:
     movementspeed: 0
     numhits: 1
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 41
-  m_CurrentFrame: 0
+  m_CurrentAnimation: 44
+  m_CurrentFrame: 2
   m_CurrentCollider: 0

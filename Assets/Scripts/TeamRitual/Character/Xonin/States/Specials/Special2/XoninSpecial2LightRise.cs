@@ -17,11 +17,12 @@ public class XoninSpecial2LightRise : CharacterState {
 
     public override void EnterState() {
         base.EnterState();
+        this.character.SetVelocity(4,12);
     }
 
     public override void UpdateState() {
         base.UpdateState();
-        this.character.SetVelocity(3,8);
+        this.character.SetVelocity(4,12);
 
         if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.character.characterName + "_Special2LightRise")
             && this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {

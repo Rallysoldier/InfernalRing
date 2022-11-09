@@ -21,7 +21,7 @@ public class XoninSpecial2HeavyChop : CharacterState {
 
     public override void EnterState() {
         base.EnterState();
-        this.character.VelY(-16);
+        this.character.VelY(-25);
     }
 
     public override void UpdateState() {

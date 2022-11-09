@@ -26,7 +26,7 @@ public class XoninSpecial2MediumRise : CharacterState {
         if (this.stateTime < 5) {
             float yDiff = this.character.enemy.PosY() - this.character.PosY();
             if (yDiff > 0) {
-                this.character.VelY(yDiff * 5 + 3);
+                this.character.VelY(yDiff * 4 + 2);
             } else {
                 this.character.VelY(8);
             }

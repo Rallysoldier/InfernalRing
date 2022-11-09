@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 3da1c54f5131dd344aa5778cdc150cde, type: 3}
+  m_Sprite: {fileID: 1131523609, guid: 1e0d57b193b35c24ba9c9412cd0f7150, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -167,8 +167,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.40136054, y: -0.2090909}
-    oldSize: {x: 1.47, y: 1.1}
+    pivot: {x: 0.5, y: 0.1}
+    oldSize: {x: 1.6666666, y: 1.6666666}
     newSize: {x: 1.28, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -11936,9 +11936,9 @@ MonoBehaviour:
       attackPriority: 5
       hitstun: 20
       blockstun: 20
-      hitGroundVelocity: {x: 0, y: -15}
+      hitGroundVelocity: {x: 0, y: -25}
       hitGroundVelocityTime: 4
-      hitAirVelocity: {x: 0, y: -15}
+      hitAirVelocity: {x: 0, y: -25}
       hitAirVelocityTime: 4
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
@@ -12015,9 +12015,9 @@ MonoBehaviour:
       attackPriority: 5
       hitstun: 20
       blockstun: 20
-      hitGroundVelocity: {x: 0, y: -15}
+      hitGroundVelocity: {x: 0, y: -25}
       hitGroundVelocityTime: 4
-      hitAirVelocity: {x: 0, y: -15}
+      hitAirVelocity: {x: 0, y: -25}
       hitAirVelocityTime: 4
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
@@ -12094,9 +12094,9 @@ MonoBehaviour:
       attackPriority: 5
       hitstun: 20
       blockstun: 20
-      hitGroundVelocity: {x: 0, y: -15}
+      hitGroundVelocity: {x: 0, y: -25}
       hitGroundVelocityTime: 4
-      hitAirVelocity: {x: 0, y: -15}
+      hitAirVelocity: {x: 0, y: -25}
       hitAirVelocityTime: 4
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
@@ -12173,9 +12173,9 @@ MonoBehaviour:
       attackPriority: 5
       hitstun: 20
       blockstun: 20
-      hitGroundVelocity: {x: 0, y: -15}
+      hitGroundVelocity: {x: 0, y: -25}
       hitGroundVelocityTime: 4
-      hitAirVelocity: {x: 0, y: -15}
+      hitAirVelocity: {x: 0, y: -25}
       hitAirVelocityTime: 4
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
@@ -12252,9 +12252,9 @@ MonoBehaviour:
       attackPriority: 5
       hitstun: 20
       blockstun: 20
-      hitGroundVelocity: {x: 0, y: -15}
+      hitGroundVelocity: {x: 0, y: -25}
       hitGroundVelocityTime: 4
-      hitAirVelocity: {x: 0, y: -15}
+      hitAirVelocity: {x: 0, y: -25}
       hitAirVelocityTime: 4
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
@@ -12331,9 +12331,9 @@ MonoBehaviour:
       attackPriority: 5
       hitstun: 20
       blockstun: 20
-      hitGroundVelocity: {x: 0, y: -15}
+      hitGroundVelocity: {x: 0, y: -25}
       hitGroundVelocityTime: 4
-      hitAirVelocity: {x: 0, y: -15}
+      hitAirVelocity: {x: 0, y: -25}
       hitAirVelocityTime: 4
       blockGroundVelocity: {x: 0, y: 0}
       blockGroundVelocityTime: 0
@@ -15403,6 +15403,6 @@ MonoBehaviour:
     movementspeed: 0
     numhits: 1
   m_MaxHitboxes: 7
-  m_CurrentAnimation: 21
-  m_CurrentFrame: 4
+  m_CurrentAnimation: 35
+  m_CurrentFrame: 0
   m_CurrentCollider: 0

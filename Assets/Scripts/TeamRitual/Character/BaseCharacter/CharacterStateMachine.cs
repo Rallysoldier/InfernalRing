@@ -129,12 +129,18 @@ public class CharacterStateMachine : ScriptableObject
         float maxBound = GameController.Instance.StageMaxBound();
         float minBound = GameController.Instance.StageMinBound();
 
-        if (resultPosX >= maxBound || resultPosX <= minBound || Mathf.Abs(resultPosX - this.enemy.PosX()) > 18.5f) {
+        bool closeToCornerEnemy = ((this.enemy.PosX() >= maxBound - 0.1f || this.enemy.PosX() <= minBound + 0.1f) && this.Distance(this.enemy.Pos()) < 1.5f);
+
+        if (resultPosX >= maxBound || resultPosX <= minBound || Mathf.Abs(resultPosX - this.enemy.PosX()) > 18.5f || closeToCornerEnemy) {
             velX = 0;
             if (resultPosX >= maxBound || resultPosX <= minBound) {
                 this.PosX(resultPosX >= maxBound ? maxBound - 0.01f : minBound + 0.01f);
             }
+            if (closeToCornerEnemy) {
+                this.PosX(this.enemy.PosX() + this.enemy.facing*1.5f);
+            }
         }
+
         this.SetPos(this.PosX() + velX, this.PosY() + this.VelY()/500f);
     }
 
@@ -238,6 +244,16 @@ public class CharacterStateMachine : ScriptableObject
     }
     public Vector2 Pos() {
         return this.body.position;
+    }
+
+    public float Distance(Vector2 vecTo) {
+        return Vector2.Distance(Pos(),vecTo);
+    }
+    public float XDistance(float x) {
+        return Mathf.Sqrt(x*x + PosX()*PosX());
+    }
+    public float YDistance(float x) {
+        return Mathf.Sqrt(x*x + PosX()*PosX());
     }
 
     public void PosX(float x) {

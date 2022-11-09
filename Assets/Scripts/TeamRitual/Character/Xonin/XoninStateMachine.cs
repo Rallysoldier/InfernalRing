@@ -50,7 +50,7 @@ public class XoninStateMachine : CharacterStateMachine
                     return;
                 }
                 if (inputStr.EndsWith("D,F,H")) {
-                    if (this.GetEnergy() >= 0f) {
+                    if (this.GetEnergy() >= 500f) {
                         this.currentState.SwitchState((states as XoninStateFactory).Special1Heavy());
                     } else {
                         this.currentState.SwitchState((states as XoninStateFactory).Special1Medium());
@@ -67,7 +67,7 @@ public class XoninStateMachine : CharacterStateMachine
                     return;
                 }
                 if (inputStr.EndsWith("D,B,H")) {
-                    if (this.GetEnergy() >= 0f) {
+                    if (this.GetEnergy() >= 500f) {
                         this.currentState.SwitchState((states as XoninStateFactory).Special2HeavyRise());
                     } else {
                         this.currentState.SwitchState((states as XoninStateFactory).Special2MediumRise());

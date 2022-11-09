@@ -21,8 +21,8 @@ public class XoninSpecial2HeavyRise : CharacterState {
     public override void EnterState() {
         base.EnterState();
 
-        this.character.SetPosX(this.character.enemy.PosX() - 1 * this.character.facing);
-        this.character.SetPosY(this.character.enemy.PosY() + 4);
+        this.character.PosX(this.character.enemy.PosX() - 1 * this.character.facing);
+        this.character.PosY(this.character.enemy.PosY() + 4);
         this.character.VelX(0);
         this.character.EXEffectStart();
     }

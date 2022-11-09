@@ -33,7 +33,7 @@ public class ComboProcessor {
         starterScalings[AttackPriority.MEDIUM] = 0.9f;
         starterScalings[AttackPriority.HEAVY] = 1.0f;
         starterScalings[AttackPriority.SPECIAL] = 0.8f;
-        starterScalings[AttackPriority.SUPER] = 0.8f;
+        starterScalings[AttackPriority.SUPER] = 1.0f;
     }
 
     public void Update() {
@@ -77,7 +77,7 @@ public class ComboProcessor {
 
         //Update scaling step on the first hit of the attack
         if (this.recentHitState != null && this.recentHitState.GetType() != state.GetType()) {
-            this.scalingStep = this.scalingStep + state.scalingStep;
+            this.scalingStep = (int) Mathf.Max(0, this.scalingStep + state.scalingStep);
         }
         
         //change damage and downedDamage based on scaling

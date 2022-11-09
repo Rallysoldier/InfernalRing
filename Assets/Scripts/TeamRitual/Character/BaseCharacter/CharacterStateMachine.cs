@@ -31,8 +31,6 @@ public class CharacterStateMachine : ScriptableObject
 
     //input variables
     public InputHandler inputHandler;
-    public string inputStr = "";
-    public bool changedInput;
     
     public SoundHandler soundHandler;
     public CharacterStateMachine enemy;
@@ -119,10 +117,6 @@ public class CharacterStateMachine : ScriptableObject
 
         this.ApplyHitVelocities();
 
-        if (GameController.Instance.gcStateMachine.currentState.GetType() == GameController.Instance.gcStateMachine.states.Fight().GetType()) {
-            this.ChangeStateOnInput();
-        }
-
         this.contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
         this.ClearContactData();
         return this.contactSummary;
@@ -132,9 +126,14 @@ public class CharacterStateMachine : ScriptableObject
         float velX = this.VelX()/500f;
         float resultPosX = this.PosX() + velX;
 
-        if (resultPosX >= GameController.Instance.StageMaxBound() || resultPosX <= GameController.Instance.StageMinBound()
-        || Mathf.Abs(resultPosX - this.enemy.PosX()) > 18.5f) {
+        float maxBound = GameController.Instance.StageMaxBound();
+        float minBound = GameController.Instance.StageMinBound();
+
+        if (resultPosX >= maxBound || resultPosX <= minBound || Mathf.Abs(resultPosX - this.enemy.PosX()) > 18.5f) {
             velX = 0;
+            if (resultPosX >= maxBound || resultPosX <= minBound) {
+                this.PosX(resultPosX >= maxBound ? maxBound - 0.1f : minBound + 0.1f);
+            }
         }
         this.SetPos(this.PosX() + velX, this.PosY() + this.VelY()/500f);
     }
@@ -186,37 +185,43 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public virtual void ChangeStateOnInput() {
+        string inputStr = this.GetInput();
+
         if (this.currentState.inputChangeState) {
             if (this.currentState.moveType == MoveType.STAND) {
-                if (inputStr.EndsWith("F,F") && this.changedInput) {
+                if (inputStr.EndsWith("F,F")) {
                     this.currentState.SwitchState(states.RunForward());
-                } else if (inputStr.EndsWith("B,B") && this.changedInput) {
+                } else if (inputStr.EndsWith("B,B")) {
                     this.currentState.SwitchState(states.RunBack());
-                } else if ((this.changedInput && (inputStr.EndsWith("D") || inputStr.EndsWith("D,F") || inputStr.EndsWith("F,D") || inputStr.EndsWith("D,B")  || inputStr.EndsWith("B,D")))
+                } else if (((inputStr.EndsWith("D") || inputStr.EndsWith("D,F") || inputStr.EndsWith("F,D") || inputStr.EndsWith("D,B")  || inputStr.EndsWith("B,D")))
                      || inputHandler.held("D")) {
                     this.currentState.SwitchState(states.CrouchTransition());
-                } else if ((this.changedInput && (inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U")))
+                } else if (((inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U")))
                      || inputHandler.held("U")) {
                     this.currentState.SwitchState(states.JumpStart());
-                } else if (!(this.currentState is CommonStateRunForward) && ((inputStr.EndsWith("F") && this.changedInput) || inputHandler.held(inputHandler.ForwardInput(this)))) {
+                } else if (!(this.currentState is CommonStateRunForward) && ((inputStr.EndsWith("F")) || inputHandler.held(inputHandler.ForwardInput(this)))) {
                     this.currentState.SwitchState(states.WalkForward());
-                } else if (!(this.currentState is CommonStateRunBack) && (((inputStr.EndsWith("B") && this.changedInput) || inputHandler.held(inputHandler.BackInput(this))))) {
+                } else if (!(this.currentState is CommonStateRunBack) && (((inputStr.EndsWith("B")) || inputHandler.held(inputHandler.BackInput(this))))) {
                     this.currentState.SwitchState(states.WalkBackward());
                 }
             } else if (this.currentState.moveType == MoveType.CROUCH) {
                 
             } else if (this.currentState.moveType == MoveType.AIR) {
-                if (inputStr.EndsWith("B,B") && this.changedInput && airdashCount < maxAirdashes) {
+                if (inputStr.EndsWith("B,B") && airdashCount < maxAirdashes) {
                     this.currentState.SwitchState(states.AirdashBack());
-                } else if (inputStr.EndsWith("F,F") && this.changedInput && airdashCount < maxAirdashes) {
+                } else if (inputStr.EndsWith("F,F") && airdashCount < maxAirdashes) {
                     this.currentState.SwitchState(states.AirdashForward());
-                } else if (this.changedInput && airjumpCount < maxAirjumps && airdashCount < maxAirdashes &&
+                } else if (airjumpCount < maxAirjumps && airdashCount < maxAirdashes &&
                     this.currentState is CommonStateAirborne && this.currentState.stateTime >= 10 &&
                     (inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U")|| inputHandler.held("U"))) {
                     this.currentState.SwitchState(states.AirjumpStart());
                 }
             }
         }
+    }
+
+    public string GetInput() {
+        return this.inputHandler.characterInput;
     }
 
     public void ClearContactData() {
@@ -235,14 +240,14 @@ public class CharacterStateMachine : ScriptableObject
         return this.body.position;
     }
 
-    public void SetPosX(float x) {
+    public void PosX(float x) {
         this.SetPos(x, this.PosY());
     }
     public float PosX() {
         return this.body.position.x;
     }
 
-    public void SetPosY(float y) {
+    public void PosY(float y) {
         this.SetPos(PosX(), y);
     }
     public float PosY() {

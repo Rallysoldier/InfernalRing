@@ -13,7 +13,8 @@ public class XoninUltimate1Punching3 : CharacterState {
 	    this.stateType = StateType.ATTACK;
 
         this.attackPriority = AttackPriority.SUPER;
-        this.EXFlash = true;
+        this.hitsToCancel = int.MaxValue;
+        this.scalingStep = 0;
 
         this.animationName = this.character.characterName + "_Ultimate1Punching3";
     }

@@ -62,6 +62,11 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
                 this.inputHandler.addHeldKey(kvp.Key);
             }
         }
+
+        if (GameController.Instance.gcStateMachine.currentState.GetType() == GameController.Instance.gcStateMachine.states.Fight().GetType() &&
+            GameController.Instance.pause == 0) {
+            this.stateMachine.ChangeStateOnInput();
+        }
     }
 
     public void SetPalette(int paletteNumber) {

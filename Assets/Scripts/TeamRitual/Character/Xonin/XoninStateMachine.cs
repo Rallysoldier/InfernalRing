@@ -21,29 +21,34 @@ public class XoninStateMachine : CharacterStateMachine
     }
 
     public override void ChangeStateOnInput() {
-        bool hittingEnemy = this.currentState.moveHit >= this.currentState.hitsToCancel && this.enemy.hitstun > 0;
+        string inputStr = this.GetInput();
+        bool hittingEnemy = this.currentState.moveHit >= this.currentState.hitsToCancel;
 
-        if (this.changedInput && (this.currentState.inputChangeState || hittingEnemy)) {
+        if (this.currentState.inputChangeState || hittingEnemy) {
+            if (hittingEnemy) {
+                this.inputHandler.ClearInput();
+            }
+
             bool standingAttack = this.currentState.moveType == MoveType.STAND || (this.currentState.moveType == MoveType.CROUCH && hittingEnemy && !this.inputHandler.held("D"));
             bool crouchingAttack = this.currentState.moveType == MoveType.CROUCH || (this.currentState.moveType == MoveType.STAND && hittingEnemy && this.inputHandler.held("D"));
             bool airborneAttack = this.currentState.moveType == MoveType.AIR;
 
             //Air OK moves
             if (standingAttack || crouchingAttack || airborneAttack) {
-                if (this.inputStr.EndsWith("D,F,D,F,L") || this.inputStr.EndsWith("D,F,D,F,M") || this.inputStr.EndsWith("D,F,D,F,H")) {
+                if (inputStr.EndsWith("D,F,D,F,L") || inputStr.EndsWith("D,F,D,F,M") || inputStr.EndsWith("D,F,D,F,H")) {
                     this.currentState.SwitchState((states as XoninStateFactory).Ultimate1Start());
                     return;
                 }
 
-                if (this.inputStr.EndsWith("D,F,L")) {
+                if (inputStr.EndsWith("D,F,L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).Special1Light());
                     return;
                 }
-                if (this.inputStr.EndsWith("D,F,M")) {
+                if (inputStr.EndsWith("D,F,M")) {
                     this.currentState.SwitchState((states as XoninStateFactory).Special1Medium());
                     return;
                 }
-                if (this.inputStr.EndsWith("D,F,H")) {
+                if (inputStr.EndsWith("D,F,H")) {
                     if (this.GetEnergy() >= 0f) {
                         this.currentState.SwitchState((states as XoninStateFactory).Special1Heavy());
                     } else {
@@ -52,15 +57,15 @@ public class XoninStateMachine : CharacterStateMachine
                     return;
                 }
 
-                if (this.inputStr.EndsWith("D,B,L")) {
+                if (inputStr.EndsWith("D,B,L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).Special2LightRise());
                     return;
                 }
-                if (this.inputStr.EndsWith("D,B,M")) {
+                if (inputStr.EndsWith("D,B,M")) {
                     this.currentState.SwitchState((states as XoninStateFactory).Special2MediumRise());
                     return;
                 }
-                if (this.inputStr.EndsWith("D,B,H")) {
+                if (inputStr.EndsWith("D,B,H")) {
                     if (this.GetEnergy() >= 0f) {
                         this.currentState.SwitchState((states as XoninStateFactory).Special2HeavyRise());
                     } else {
@@ -71,29 +76,29 @@ public class XoninStateMachine : CharacterStateMachine
             } 
 
             if (standingAttack) {
-                if (this.inputStr.EndsWith("L")) {
+                if (inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).StandLightAttack());
-                } else if (this.inputStr.EndsWith("M")) {
+                } else if (inputStr.EndsWith("M")) {
                     this.currentState.SwitchState((states as XoninStateFactory).StandMediumAttack());
-                } else if (this.inputStr.EndsWith("H")) {
+                } else if (inputStr.EndsWith("H")) {
                     this.currentState.SwitchState((states as XoninStateFactory).StandHeavyAttack());
                 }
             }
             if (crouchingAttack) {
-                if (this.inputStr.EndsWith("L")) {
+                if (inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).CrouchLightAttack());
-                } else if (this.inputStr.EndsWith("M")) {
+                } else if (inputStr.EndsWith("M")) {
                     this.currentState.SwitchState((states as XoninStateFactory).CrouchMediumAttack());
-                } else if (this.inputStr.EndsWith("H")) {
+                } else if (inputStr.EndsWith("H")) {
                     this.currentState.SwitchState((states as XoninStateFactory).CrouchHeavyAttack());
                 }
             }
             if (airborneAttack) {
-                if (this.inputStr.EndsWith("L")) {
+                if (inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).AirLightAttack());
-                } else if (this.inputStr.EndsWith("M")) {
+                } else if (inputStr.EndsWith("M")) {
                     this.currentState.SwitchState((states as XoninStateFactory).AirMediumAttack());
-                } else if (this.inputStr.EndsWith("H")) {
+                } else if (inputStr.EndsWith("H")) {
                     this.currentState.SwitchState((states as XoninStateFactory).AirHeavyAttack());
                 }
             }

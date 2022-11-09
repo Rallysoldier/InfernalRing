@@ -220,8 +220,8 @@ public class GameController : MonoBehaviour {
                 winningHits.RemoveAll(hit => (int) hit.AttackPriority < winningPriority);
 
                 foreach (ContactData hit in winningHits) {
-                    //Debug.Log(hit.AnimationName + " " + characterHitting.GetCurrentAnimationName() + " " + characterHitting.currentState.animationName);
-                    //Debug.Log(characterHitting.currentState.moveContact + " " + hit.AttackHits + " ");
+                    Debug.Log(hit.AnimationName + " " + characterHitting.GetCurrentAnimationName() + " " + characterHitting.currentState.animationName);
+                    Debug.Log(characterHitting.currentState.moveContact + " " + hit.AttackHits + " ");
                     if (hit.PlayerIsSource) {
                         if (characterHitting.currentState.moveContact >= hit.AttackHits || 
                             hit.AnimationName != characterHitting.GetCurrentAnimationName() ||

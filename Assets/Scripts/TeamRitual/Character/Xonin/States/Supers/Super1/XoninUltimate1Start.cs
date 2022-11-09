@@ -13,6 +13,9 @@ public class XoninUltimate1Start : CharacterState {
 	    this.stateType = StateType.ATTACK;
 
         this.attackPriority = AttackPriority.SUPER;
+        this.hitsToCancel = int.MaxValue;
+        this.EXFlash = true;
+        this.scalingStep = 0;
 
         this.animationName = this.character.characterName + "_Ultimate1Start";
     }
@@ -24,14 +27,6 @@ public class XoninUltimate1Start : CharacterState {
     }
     public override void UpdateState() {
         base.UpdateState();
-
-        if (this.stateTime > 10) {
-            this.character.VelX(0.5f);
-            this.character.VelY(0);
-        } else {
-            this.character.VelX(35);
-            this.character.VelY(0);
-        }
 
         if (this.stateTime > 40) {
             this.SwitchState((this.factory as XoninStateFactory).Ultimate1Punching1());

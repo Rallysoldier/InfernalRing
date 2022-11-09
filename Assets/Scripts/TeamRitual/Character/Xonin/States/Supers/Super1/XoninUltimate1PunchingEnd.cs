@@ -14,7 +14,9 @@ public class XoninUltimate1PunchingEnd : CharacterState {
 	    this.stateType = StateType.ATTACK;
 
         this.attackPriority = AttackPriority.SUPER;
+        this.hitsToCancel = int.MaxValue;
         this.EXFlash = true;
+        this.scalingStep = 0;
 
         this.animationName = this.character.characterName + "_Ultimate1End";
     }

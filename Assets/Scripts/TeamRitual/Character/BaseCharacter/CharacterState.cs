@@ -50,6 +50,8 @@ public abstract class CharacterState
 	public virtual void UpdateState() {
 		this.stateTime++;
 
+		string inputStr = this.character.GetInput();
+
 		if (this.faceEnemyAlways) {
 			character.correctFacing();
 		}
@@ -59,7 +61,7 @@ public abstract class CharacterState
 
 		//Jump & Dash Cancels
 		if (this.attackPriority > AttackPriority.NONE && this.attackPriority <= AttackPriority.HEAVY && this.moveHit >= this.hitsToCancel
-			&& this.character.GetEnergy() >= 200 && this.character.inputStr.EndsWith("F,F") && this.character.changedInput) {
+			&& this.character.GetEnergy() >= 200 && inputStr.EndsWith("F,F")) {
 			this.character.AddEnergy(-200);
 	        this.character.Flash(new Vector4(1.5f,1.5f,1.5f,1f),4);
 			if (this.moveType == MoveType.AIR) {
@@ -69,10 +71,8 @@ public abstract class CharacterState
 			}
 		}
 		if (this.jumpCancel && this.character.enemy.VelY() > 0 && moveHit >= hitsToCancel) {
-            if ((this.character.changedInput && (this.character.inputStr.EndsWith("U") ||
-            this.character.inputStr.EndsWith("U,F") || this.character.inputStr.EndsWith("F,U") ||
-            this.character.inputStr.EndsWith("U,B")  || this.character.inputStr.EndsWith("B,U")))
-                     || this.character.inputHandler.held("U")) {
+            if ((inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U"))
+				|| this.character.inputHandler.held("U")) {
                     CommonStateJumpStart jumpStart = this.character.states.JumpStart() as CommonStateJumpStart;
                     Vector2 hitVelocity = this.character.enemy.lastContact.HitVelocity;					
 					float yDistance = this.character.enemy.PosY() - this.character.PosY();
@@ -93,9 +93,6 @@ public abstract class CharacterState
 
 	public virtual void SwitchState(CharacterState newState)
 	{
-		if (this.GetType() == newState.GetType())
-			return;
-
 		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK && moveHit >= hitsToCancel) {
 			bool alreadyChained = this.character.attackCancels.Contains(newState.GetType().Name);
 			bool canCancelInto =
@@ -123,7 +120,7 @@ public abstract class CharacterState
 		//update context of state0
 		character.currentState = newState;
 
-		Debug.Log("Switched from " + this + " to " + newState);
+		//Debug.Log("Switched from " + this + " to " + newState);
 	}
 
 	protected void SetSuperState()

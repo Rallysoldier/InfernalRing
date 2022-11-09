@@ -168,12 +168,13 @@ public class CharacterStateMachine : ScriptableObject
                 this.body.position = new Vector2(this.PosX(),0);
                 break;
             case PhysicsType.AIR:
-                if (this.currentState.stateType == StateType.ATTACK && this.currentState.attackPriority < AttackPriority.SPECIAL
+                /*if (this.currentState.stateType == StateType.ATTACK && this.currentState.attackPriority < AttackPriority.SPECIAL
                     && this.currentState.moveHit > 0 && this.enemy.currentState.moveType == MoveType.AIR) {
-                    VelYAdd(-this.gravity/4);
+                    VelYAdd(-this.gravity/2);
                 } else {
                     VelYAdd(-this.gravity);
-                }
+                }*/
+                VelYAdd(-this.gravity);
                 break;
             case PhysicsType.CUSTOM:
                 break;

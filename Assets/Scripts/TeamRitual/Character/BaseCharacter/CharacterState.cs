@@ -60,28 +60,36 @@ public abstract class CharacterState
         }
 
 		//Jump & Dash Cancels
-		if (this.attackPriority > AttackPriority.NONE && this.attackPriority <= AttackPriority.HEAVY && this.moveHit >= this.hitsToCancel
-			&& this.character.GetEnergy() >= 200 && inputStr.EndsWith("F,F")) {
-			this.character.AddEnergy(-200);
-	        this.character.Flash(new Vector4(1.5f,1.5f,1.5f,1f),4);
-			if (this.moveType == MoveType.AIR) {
-				this.SwitchState(this.factory.AirdashForward());
-			} else {
-				this.SwitchState(this.factory.RunForward());
+		if (this.attackPriority > AttackPriority.NONE && this.attackPriority <= AttackPriority.HEAVY && this.moveHit >= this.hitsToCancel) {
+			if (this.character.airjumpCount < this.character.maxAirjumps && this.character.airdashCount < this.character.maxAirdashes
+				&& this.moveType == MoveType.AIR && 
+				(inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U")|| this.character.inputHandler.held("U"))) {
+				this.SwitchState(factory.AirjumpStart());
+			}
+
+			if (this.character.GetEnergy() >= 200 && inputStr.EndsWith("F,F")) {
+				this.character.AddEnergy(-200);
+				this.character.Flash(new Vector4(1.5f,1.5f,1.5f,1f),4);
+				if (this.moveType == MoveType.AIR) {
+					this.SwitchState(this.factory.AirdashForward());
+				} else {
+					this.SwitchState(this.factory.RunForward());
+				}
 			}
 		}
+
 		if (this.jumpCancel && this.character.enemy.VelY() > 0 && moveHit >= hitsToCancel) {
             if ((inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U"))
 				|| this.character.inputHandler.held("U")) {
-                    CommonStateJumpStart jumpStart = this.character.states.JumpStart() as CommonStateJumpStart;
-                    Vector2 hitVelocity = this.character.enemy.lastContact.HitVelocity;					
-					float yDistance = this.character.enemy.PosY() - this.character.PosY();
+				CommonStateJumpStart jumpStart = this.character.states.JumpStart() as CommonStateJumpStart;
+				Vector2 hitVelocity = this.character.enemy.lastContact.HitVelocity;					
+				float yDistance = this.character.enemy.PosY() - this.character.PosY();
 
-					Debug.Log(yDistance);
+				Debug.Log(yDistance);
 
-					jumpStart.jumpVelocity = new Vector2(-hitVelocity.x,  yDistance + hitVelocity.y);
-                    this.SwitchState(jumpStart);
-                }
+				jumpStart.jumpVelocity = new Vector2(-hitVelocity.x,  yDistance + hitVelocity.y);
+				this.SwitchState(jumpStart);
+			}
         }
 	}
 

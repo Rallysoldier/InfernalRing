@@ -40,7 +40,7 @@ public class CommonStateAirjumpStart : CharacterState
 
         if (this.stateTime == 4) {
             this.SwitchState(this.character.states.Airborne());
-            this.character.SetVelocity(jumpVelocity);
+            this.character.SetVelocity(new Vector2(jumpVelocity.x,jumpVelocity.y/1.1f));
         }
     }
 

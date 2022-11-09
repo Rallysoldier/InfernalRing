@@ -21,7 +21,7 @@ public class CommonStateHurtStand : CharacterState
     public override void UpdateState() {
         base.UpdateState();
 
-        if (this.character.PosY() > 0) {
+        if (this.character.PosY() > 0 || (this.character.health == 0 && this.character.hitstun == 0)) {
             this.SwitchState(this.character.states.HurtAir());
         } else if (this.character.hitstun == 0) {
             this.SwitchState(this.character.states.Stand());

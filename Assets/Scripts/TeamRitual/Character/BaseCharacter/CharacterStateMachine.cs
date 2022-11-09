@@ -8,6 +8,8 @@ using TeamRitual.Input;
 namespace TeamRitual.Character {
 public class CharacterStateMachine : ScriptableObject
 {
+    public int playerNumber;
+    public float width;
     public string characterName;
 
     //Constant variables
@@ -102,11 +104,6 @@ public class CharacterStateMachine : ScriptableObject
             this.blockstun--;
         }
 
-        if (this.currentState.stateType != StateType.HURT) {
-            if (this.health == 0) {
-                this.currentState.SwitchState(this.states.HurtAir());
-            }
-        }
         if (this.currentState.stateType != StateType.ATTACK) {
             this.attackCancels.Clear();
         }
@@ -129,7 +126,9 @@ public class CharacterStateMachine : ScriptableObject
         float maxBound = GameController.Instance.StageMaxBound();
         float minBound = GameController.Instance.StageMinBound();
 
-        bool closeToCornerEnemy = ((this.enemy.PosX() >= maxBound - 0.1f || this.enemy.PosX() <= minBound + 0.1f) && this.Distance(this.enemy.Pos()) < 1.5f);
+        float enemyWidth = this.enemy.width*2;
+
+        bool closeToCornerEnemy = ((this.enemy.PosX() >= maxBound - 0.1f || this.enemy.PosX() <= minBound + 0.1f) && this.Distance(this.enemy.Pos()) < enemyWidth);
 
         if (resultPosX >= maxBound || resultPosX <= minBound || Mathf.Abs(resultPosX - this.enemy.PosX()) > 18.5f || closeToCornerEnemy) {
             velX = 0;
@@ -137,7 +136,9 @@ public class CharacterStateMachine : ScriptableObject
                 this.PosX(resultPosX >= maxBound ? maxBound - 0.01f : minBound + 0.01f);
             }
             if (closeToCornerEnemy) {
-                this.PosX(this.enemy.PosX() + this.enemy.facing*1.5f);
+                this.PosX(
+                    this.enemy.PosX() + ((this.enemy.PosX() >= maxBound - 0.1f) ? -enemyWidth : enemyWidth)
+                );
             }
         }
 
@@ -168,12 +169,6 @@ public class CharacterStateMachine : ScriptableObject
                 this.body.position = new Vector2(this.PosX(),0);
                 break;
             case PhysicsType.AIR:
-                /*if (this.currentState.stateType == StateType.ATTACK && this.currentState.attackPriority < AttackPriority.SPECIAL
-                    && this.currentState.moveHit > 0 && this.enemy.currentState.moveType == MoveType.AIR) {
-                    VelYAdd(-this.gravity/2);
-                } else {
-                    VelYAdd(-this.gravity);
-                }*/
                 VelYAdd(-this.gravity);
                 break;
             case PhysicsType.CUSTOM:
@@ -185,7 +180,8 @@ public class CharacterStateMachine : ScriptableObject
         if (this.currentState.stateType == StateType.HURT && this.lastContact.HitVelocityTime > 0) {
             this.lastContact.HitVelocityTime--;
             this.SetVelocity(this.lastContact.HitVelocity);
-        } else if (this.lastContact.BlockGroundVelocityTime > 0) {
+        } else if (this.lastContact.BlockGroundVelocityTime > 0
+            && (this.currentState is CommonStateGuardCrouch || this.currentState is CommonStateGuardStand)) {
             this.lastContact.BlockGroundVelocityTime--;
             this.SetVelocity(this.lastContact.BlockGroundVelocity);
         }
@@ -414,17 +410,13 @@ public class CharacterStateMachine : ScriptableObject
         this.lastContact = hit;
         this.lastContactState = this.enemy.currentState;
         
-        EffectSpawner.PlayHitEffect(0, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
+        EffectSpawner.PlayHitEffect(10, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
         GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(0), hit.StopSounds);
         return true;
     }
 
     //Overload this function to have the character do something else when they're hit
     public virtual bool Hit(ContactData hit) {
-        /*if (this.health == 0f) {
-            return false;
-        }*/
-
         //Avoid multiple hits within the same animation keyframe, if a hit has already landed.
         if (this.lastContact.HitFrame == hit.HitFrame && lastContactState == this.enemy.currentState) {
             //Debug.Log(this.lastContact.HitFrame + " " + hit.HitFrame);
@@ -432,7 +424,7 @@ public class CharacterStateMachine : ScriptableObject
             return false;
         }
 
-        if (this.currentState.moveType == MoveType.LYING && !this.lastContact.DownedHit) {
+        if (this.currentState.moveType == MoveType.LYING && !hit.DownedHit) {
             return false;
         }
 
@@ -440,10 +432,48 @@ public class CharacterStateMachine : ScriptableObject
             return false;
         }
 
+        bool hitDownedEnemy = this.currentState.moveType == MoveType.LYING && this.lastContact.DownedHit;
+        this.enemy.comboProcessor.ProcessHit(hit, this.enemy.currentState);
+        this.health -= this.enemy.comboProcessor.GetDamage(hitDownedEnemy);
+        this.hitstun = this.enemy.comboProcessor.GetHitstun(hitDownedEnemy);
+        this.health = (int) Mathf.Max(this.health, 0f);
+
+        this.AddEnergy(hit.GiveEnemyPower);
+        this.enemy.AddEnergy(this.enemy.comboProcessor.GetSelfEnergy());
+
+        hit.HitFall = (this.currentState.moveType == MoveType.AIR && hit.FallAir)
+            || (this.currentState.moveType != MoveType.AIR && hit.FallGround);
+
+        if (this.health == 0) {
+            if (hit.AttackPriority == AttackPriority.LIGHT) {
+                hit.HitGroundVelocity = Vector2.zero;
+                hit.HitAirVelocity = Vector2.zero;
+                hit.DownedVelocity = Vector2.zero;
+                hit.HitFall = false;
+                hit.ForceStand = true;
+                this.hitstun = 30;
+            } else {
+                if (hit.HitGroundVelocity.y == 0 && (this.currentState.moveType == MoveType.STAND || this.currentState.moveType == MoveType.CROUCH)
+                    || hit.HitAirVelocity.y == 0 && this.currentState.moveType == MoveType.AIR
+                    || hit.DownedVelocity.y == 0 && this.currentState.moveType == MoveType.LYING) {
+                    hit.HitGroundVelocity = new Vector2(hit.HitGroundVelocity.x,13);
+                    hit.HitAirVelocity = new Vector2(hit.HitAirVelocity.x,13);
+                    hit.DownedVelocity = new Vector2(hit.DownedVelocity.x,13);
+                }
+            }
+        }
+
+        if (hit.WallBounceTime > 0 && !this.enemy.comboProcessor.AddWallBounce()) {
+            hit.WallBounceTime = 0;
+        }
+        if (hit.Bounce != Vector2.zero && hit.Bounce.y > 0 && !this.enemy.comboProcessor.AddGroundBounce()) {
+            hit.Bounce = Vector2.zero;
+        }
+
         if (this.currentState.moveType == MoveType.STAND) {
             hit.HitVelocity = hit.HitGroundVelocity;
             hit.HitVelocityTime = hit.HitGroundVelocityTime;
-            if (hit.HitVelocity.y > 0 || this.health == 0) {
+            if (hit.HitVelocity.y > 0) {
                 this.currentState.SwitchState(states.HurtAir());
             } else {
                 this.currentState.SwitchState(states.HurtStand());
@@ -451,7 +481,7 @@ public class CharacterStateMachine : ScriptableObject
         } else if (this.currentState.moveType == MoveType.CROUCH) {
             hit.HitVelocity = hit.HitGroundVelocity;
             hit.HitVelocityTime = hit.HitGroundVelocityTime;
-            if (hit.HitVelocity.y > 0 || this.health == 0) {
+            if (hit.HitVelocity.y > 0) {
                 this.currentState.SwitchState(states.HurtAir());
             } else {
                 this.currentState.SwitchState(states.HurtCrouch());
@@ -459,7 +489,7 @@ public class CharacterStateMachine : ScriptableObject
         } else if (this.currentState.moveType == MoveType.LYING) {
             hit.HitVelocity = hit.DownedVelocity;
             hit.HitVelocityTime = 1;
-            if (hit.HitVelocity.y > 0 || this.health == 0) {
+            if (hit.HitVelocity.y > 0) {
                 this.currentState.SwitchState(states.HurtAir());
             } else {
                 this.currentState.SwitchState(states.HurtStand());
@@ -478,25 +508,6 @@ public class CharacterStateMachine : ScriptableObject
 
         if (hit.FlipEnemy) {
             this.facing *= -1;
-        }
-
-        bool hitDownedEnemy = this.currentState.moveType == MoveType.LYING && this.lastContact.DownedHit;
-        this.enemy.comboProcessor.ProcessHit(hit, this.enemy.currentState);
-        this.health -= this.enemy.comboProcessor.GetDamage(hitDownedEnemy);
-        this.hitstun = this.enemy.comboProcessor.GetHitstun(hitDownedEnemy);
-        this.health = (int) Mathf.Max(this.health, 0f);
-
-        this.AddEnergy(hit.GiveEnemyPower);
-        this.enemy.AddEnergy(this.enemy.comboProcessor.GetSelfEnergy());
-
-        hit.HitFall = (this.currentState.moveType == MoveType.AIR && hit.FallAir)
-            || (this.currentState.moveType != MoveType.AIR && hit.FallGround);
-
-        if (hit.WallBounceTime > 0 && !this.enemy.comboProcessor.AddWallBounce()) {
-            hit.WallBounceTime = 0;
-        }
-        if (hit.Bounce != Vector2.zero && hit.Bounce.y > 0 && !this.enemy.comboProcessor.AddGroundBounce()) {
-            hit.Bounce = Vector2.zero;
         }
 
         this.lastContact = hit;

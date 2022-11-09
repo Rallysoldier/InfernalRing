@@ -9,7 +9,7 @@ public class XoninUltimate1PunchingEnd : CharacterState {
         this.faceEnemyStart = false;
         this.faceEnemyAlways = false;
 
-        this.physicsType = PhysicsType.CUSTOM;
+        this.physicsType = PhysicsType.AIR;
         this.moveType = MoveType.AIR;
 	    this.stateType = StateType.ATTACK;
 
@@ -23,6 +23,8 @@ public class XoninUltimate1PunchingEnd : CharacterState {
 
     public override void EnterState() {
         base.EnterState();
+        this.character.VelX(5);
+        this.character.VelY(25);
     }
     public override void UpdateState() {
         base.UpdateState();

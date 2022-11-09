@@ -109,7 +109,7 @@ public abstract class CharacterState
 				&& !alreadyChained;
 
 			if (!canCancelInto && this.attackPriority <= AttackPriority.HEAVY) {
-				bool exceptions = newState.moveType == MoveType.AIR && !alreadyChained || character.ReverseBeat();
+				bool exceptions = !alreadyChained && (newState.moveType == MoveType.AIR || character.ReverseBeat());
 				if (!exceptions)
 					return;
 			}

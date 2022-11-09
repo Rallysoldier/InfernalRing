@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Effects:
   - {fileID: 3571932403836324236, guid: 29e98f8601638744784fb5e4fc953d96, type: 3}
-  uniqueID: 0
+  uniqueID: 10

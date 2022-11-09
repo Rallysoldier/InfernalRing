@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
     public static GameController Instance;
     public GCStateMachine gcStateMachine;
     public SoundHandler soundHandler;
+    CameraFocus cameraFocus = CameraFocus.BOTH;
 
     public List<string> characterNames = new List<string>{"Xonin","Xonin"};
     public List<int> selectedPalettes = new List<int>{1,3};
@@ -24,7 +25,8 @@ public class GameController : MonoBehaviour {
     public int pause = 0;
 
     GameObject StageObj;
-    float cameraLerp = 10f;
+    const float DEFAULT_CAMERA_LERP = 10f;
+    float cameraLerp = DEFAULT_CAMERA_LERP;
 
     [SerializeField]
     public int maxTimerTime = 90;
@@ -77,6 +79,8 @@ public class GameController : MonoBehaviour {
             playerObj.inputHandler = new Input.InputHandler(playerObj.stateMachine);
             playerObj.stateMachine.inputHandler = playerObj.inputHandler;
             playerObj.stateMachine.soundHandler = playerObj.soundHandler;
+            playerObj.stateMachine.playerNumber = i;
+            playerObj.stateMachine.width = Mathf.Abs(playerObj.m_Collider.bounds.min.x-playerObj.m_Collider.bounds.max.x);
 
             playerObj.stateMachine.anim = playerObj.GetComponent<Animator>();
             playerObj.stateMachine.body = playerObj.GetComponent<Rigidbody2D>();
@@ -272,11 +276,11 @@ public class GameController : MonoBehaviour {
                 Pause(10);
                 if (P1_Hits.bodyColData.Count > 0) {
                     EffectSpawner.PlayHitEffect(
-                        10, P1_Hits.bodyColData[0].Point, Players[0].stateMachine.spriteRenderer.sortingOrder + 1, !P1_Hits.bodyColData[0].TheirHitbox.Owner.FlipX
+                        15, P1_Hits.bodyColData[0].Point, Players[0].stateMachine.spriteRenderer.sortingOrder + 1, !P1_Hits.bodyColData[0].TheirHitbox.Owner.FlipX
                     );
                 } else if (P2_Hits.bodyColData.Count > 0) {
                     EffectSpawner.PlayHitEffect(
-                        10, P2_Hits.bodyColData[0].Point, Players[1].stateMachine.spriteRenderer.sortingOrder + 1, !P2_Hits.bodyColData[0].TheirHitbox.Owner.FlipX
+                        15, P2_Hits.bodyColData[0].Point, Players[1].stateMachine.spriteRenderer.sortingOrder + 1, !P2_Hits.bodyColData[0].TheirHitbox.Owner.FlipX
                     );
                 }
                 Players[0].stateMachine.Flash(new Vector4(2f,2f,2f,1f),5);
@@ -298,8 +302,22 @@ public class GameController : MonoBehaviour {
     void Update() {//Camera movement by linearly interpolating through points
 
         //TODO: Add more camera modes: CameraFocus.Player1, CameraFocus.Player2, CameraFocus.Both, CameraFocus.None
-        float cameraX = (Players[0].m_RigidBody.position.x + Players[1].m_RigidBody.position.x)/2;
-        float cameraY = (Players[0].m_RigidBody.position.y + Players[1].m_RigidBody.position.y)/2;
+        float cameraX = GetCameraX();
+        float cameraY = GetCameraY();
+        switch (this.cameraFocus) {
+            case CameraFocus.PLAYER1:
+                cameraX = Players[0].m_RigidBody.position.x;
+                cameraY = Players[0].m_RigidBody.position.y;
+                break;
+            case CameraFocus.PLAYER2:
+                cameraX = Players[1].m_RigidBody.position.x;
+                cameraY = Players[1].m_RigidBody.position.y;
+                break;
+            case CameraFocus.BOTH:
+                cameraX = (Players[0].m_RigidBody.position.x + Players[1].m_RigidBody.position.x)/2;
+                cameraY = (Players[0].m_RigidBody.position.y + Players[1].m_RigidBody.position.y)/2;
+                break;
+        }
 
         float StageScale = StageObj.transform.localScale.x;
         float cameraLimit = StageWidth + (2*StageScale - 4 - Camera.main.orthographicSize) * Camera.main.aspect;
@@ -312,8 +330,16 @@ public class GameController : MonoBehaviour {
         LerpCamera(cameraDestination);
     }
 
-    void LerpCamera(Vector3 cameraDestination) {
-        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cameraDestination, cameraLerp * Time.deltaTime);
+    public void CameraFocusCharacter(CharacterStateMachine stateMachine) {
+        this.cameraFocus = stateMachine.playerNumber == 0 ? CameraFocus.PLAYER1 : stateMachine.playerNumber == 1 ? CameraFocus.PLAYER2 : CameraFocus.BOTH;
+    }
+
+    public void CameraFocusDisable() {
+        this.cameraFocus = CameraFocus.NONE;
+    }
+
+    public void CameraFocusReset() {
+        this.cameraFocus = CameraFocus.BOTH;
     }
 
     public void SetCameraPos(Vector2 pos) {
@@ -326,8 +352,27 @@ public class GameController : MonoBehaviour {
         Camera.main.transform.position = cameraDestination;
     }
 
+    public Vector3 GetCameraPos() {
+        return Camera.main.transform.position;
+    }
+
+    public float GetCameraX() {
+        return Camera.main.transform.position.x;
+    }
+
+    public float GetCameraY() {
+        return Camera.main.transform.position.y;
+    }
+
+    void LerpCamera(Vector3 cameraDestination) {
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cameraDestination, cameraLerp * Time.deltaTime);
+    }
+
     public void SetCameraLerp(float lerp) {
         cameraLerp = lerp;
+    }
+    public void ResetCameraLerp() {
+        this.cameraLerp = DEFAULT_CAMERA_LERP;
     }
     public float GetCameraLerp() {
         return cameraLerp;

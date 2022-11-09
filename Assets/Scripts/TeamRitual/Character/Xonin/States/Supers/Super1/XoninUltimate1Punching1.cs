@@ -28,10 +28,6 @@ public class XoninUltimate1Punching1 : CharacterState {
         this.character.VelX(0);
         this.character.VelY(0);
 
-        if (this.character.enemy.hitstun > 0) {
-            this.character.enemy.SetPos(this.character.PosX() + 4 * this.character.facing,this.character.PosY());
-        }
-
         if (this.stateTime > 60) {
             this.SwitchState((this.factory as XoninStateFactory).Ultimate1Punching2());
         }

@@ -27,10 +27,7 @@ public class CommonStateHurtAir : CharacterState
     public override void UpdateState() {
         base.UpdateState();
 
-        if (this.character.health == 0) {
-            if (this.stateTime < 3)
-                this.character.SetVelocity(-4,7);
-        } else if (this.character.hitstun == 0) {
+        if (this.character.health > 0 && this.character.hitstun == 0) {
             if (this.character.lastContact.FallRecover &&
                 (this.character.inputHandler.held("L") || this.character.inputHandler.held("M") || this.character.inputHandler.held("H"))) {
                 this.SwitchState(this.character.states.Recover());
@@ -46,7 +43,7 @@ public class CommonStateHurtAir : CharacterState
             if (this.character.lastContact.HitFall || this.character.health == 0) {
                 this.SwitchState(this.character.states.HurtBounce());
             } else {
-                this.SwitchState(this.character.states.JumpLand());
+                this.SwitchState(this.character.states.HurtStand());
             }
         } else if (this.character.lastContact.WallBounceTime > 0 && this.stateTime > 5) {
             float posX = this.character.PosX();

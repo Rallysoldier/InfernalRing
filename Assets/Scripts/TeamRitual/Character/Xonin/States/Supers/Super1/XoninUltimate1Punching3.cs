@@ -24,7 +24,7 @@ public class XoninUltimate1Punching3 : CharacterState {
     public override void UpdateState() {
         base.UpdateState();
 
-        this.character.VelX(1);
+        this.character.VelX(0.1f);
         this.character.VelY(0);
 
         if (this.character.enemy.hitstun > 0) {

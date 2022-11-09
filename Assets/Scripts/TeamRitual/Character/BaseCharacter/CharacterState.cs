@@ -96,15 +96,6 @@ public abstract class CharacterState
 		if (this.GetType() == newState.GetType())
 			return;
 
-		if ((this.GetType() == (this.factory as XoninStateFactory).Ultimate1Punching1().GetType() ||
-			this.GetType() == (this.factory as XoninStateFactory).Ultimate1Punching2().GetType() ||
-			this.GetType() == (this.factory as XoninStateFactory).Ultimate1Punching3().GetType() ||
-			this.GetType() == (this.factory as XoninStateFactory).Ultimate1PunchingEnd().GetType()
-			)
-			&& newState.GetType() == (this.factory as XoninStateFactory).Ultimate1Start().GetType()) {
-			return;
-		}
-
 		if (newState.stateType == StateType.ATTACK && this.stateType == StateType.ATTACK && moveHit >= hitsToCancel) {
 			bool alreadyChained = this.character.attackCancels.Contains(newState.GetType().Name);
 			bool canCancelInto =

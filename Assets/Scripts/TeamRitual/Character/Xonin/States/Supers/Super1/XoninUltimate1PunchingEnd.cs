@@ -1,3 +1,4 @@
+using TeamRitual.Core;
 using UnityEngine;
 
 namespace TeamRitual.Character{
@@ -24,8 +25,13 @@ public class XoninUltimate1PunchingEnd : CharacterState {
     public override void UpdateState() {
         base.UpdateState();
 
+        if (this.moveHit == 1) {
+            GameController.Instance.SetCameraZoom(4f);
+        }
+
         if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.character.characterName + "_Ultimate1End")
             && this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
+            GameController.Instance.ResetCameraZoom();
             this.SwitchState(this.factory.Airborne());
         }
     }

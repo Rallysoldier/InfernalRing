@@ -26,10 +26,10 @@ public class XoninUltimate1Start : CharacterState {
         base.UpdateState();
 
         if (this.stateTime > 10) {
-            this.character.VelX(0);
+            this.character.VelX(0.5f);
             this.character.VelY(0);
         } else {
-            this.character.VelX(20);
+            this.character.VelX(35);
             this.character.VelY(0);
         }
 

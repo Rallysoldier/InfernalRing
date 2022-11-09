@@ -85,6 +85,10 @@ public class InputHandler {
         this.releasedKeys.Clear();
     }
 
+    public static bool IsAttackInput(string input) {
+        return !(input.EndsWith("U") || input.EndsWith("D") || input.EndsWith("B") || input.EndsWith("F"));
+    }
+
     public void receiveInput(string input) {
         if (currentBufferTime < 0 || input == "")
             return;

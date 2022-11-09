@@ -1,4 +1,5 @@
 using TeamRitual.Core;
+using TeamRitual.Input;
 using UnityEngine;
 
 namespace TeamRitual.Character {
@@ -25,7 +26,7 @@ public class XoninStateMachine : CharacterStateMachine
         bool hittingEnemy = this.currentState.moveHit >= this.currentState.hitsToCancel;
 
         if (this.currentState.inputChangeState || hittingEnemy) {
-            if (hittingEnemy) {
+            if (hittingEnemy && InputHandler.IsAttackInput(inputStr)) {
                 this.inputHandler.ClearInput();
             }
 

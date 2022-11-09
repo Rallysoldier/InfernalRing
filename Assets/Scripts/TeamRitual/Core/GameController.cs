@@ -180,8 +180,8 @@ public class GameController : MonoBehaviour {
 
             if (Players[i].stateMachine != null && (i == this.playerPaused || this.pause == 0)) {
                 Players[i].stateMachine.UpdateStates();
-                Players[i].inputHandler.UpdateBufferTime();
             }
+            Players[i].inputHandler.UpdateBufferTime();
             Players[i].stateMachine.UpdateEffects();
         }
 
@@ -220,8 +220,8 @@ public class GameController : MonoBehaviour {
                 winningHits.RemoveAll(hit => (int) hit.AttackPriority < winningPriority);
 
                 foreach (ContactData hit in winningHits) {
-                    Debug.Log(hit.AnimationName + " " + characterHitting.GetCurrentAnimationName() + " " + characterHitting.currentState.animationName);
-                    Debug.Log(characterHitting.currentState.moveContact + " " + hit.AttackHits + " ");
+                    //Debug.Log(hit.AnimationName + " " + characterHitting.GetCurrentAnimationName() + " " + characterHitting.currentState.animationName);
+                    //Debug.Log(characterHitting.currentState.moveContact + " " + hit.AttackHits + " ");
                     if (hit.PlayerIsSource) {
                         if (characterHitting.currentState.moveContact >= hit.AttackHits || 
                             hit.AnimationName != characterHitting.GetCurrentAnimationName() ||

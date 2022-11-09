@@ -132,7 +132,7 @@ public class CharacterStateMachine : ScriptableObject
         if (resultPosX >= maxBound || resultPosX <= minBound || Mathf.Abs(resultPosX - this.enemy.PosX()) > 18.5f) {
             velX = 0;
             if (resultPosX >= maxBound || resultPosX <= minBound) {
-                this.PosX(resultPosX >= maxBound ? maxBound - 0.1f : minBound + 0.1f);
+                this.PosX(resultPosX >= maxBound ? maxBound - 0.01f : minBound + 0.01f);
             }
         }
         this.SetPos(this.PosX() + velX, this.PosY() + this.VelY()/500f);

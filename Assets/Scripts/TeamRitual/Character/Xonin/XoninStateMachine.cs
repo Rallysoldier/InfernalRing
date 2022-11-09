@@ -24,7 +24,7 @@ public class XoninStateMachine : CharacterStateMachine
     public override void ChangeStateOnInput() {
         string inputStr = this.GetInput();
         bool hittingEnemy = this.currentState.moveHit >= this.currentState.hitsToCancel
-            && this.enemy.hitstun > 0 && this.enemy.currentState.stateTime > 1;
+            && this.enemy.hitstun > 0 && this.enemy.currentState.stateTime > 3;
 
         if (this.currentState.inputChangeState || hittingEnemy) {
             if (hittingEnemy && InputHandler.IsAttackInput(inputStr)) {

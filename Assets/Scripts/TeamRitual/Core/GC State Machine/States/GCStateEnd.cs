@@ -27,7 +27,7 @@ public class GCStateEnd : GCState {
         CharacterStateMachine P2 = GameController.Instance.Players[1].stateMachine;
 
         //Slo-mo KO
-        if (stateTime < 80 && stateTime%2 == 0) {
+        if (stateTime > 40 && stateTime < 80 && stateTime%2 == 0) {
             GameController.Instance.Pause(1);
         }
 

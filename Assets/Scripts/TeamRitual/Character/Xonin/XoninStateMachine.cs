@@ -29,7 +29,7 @@ public class XoninStateMachine : CharacterStateMachine
                 this.inputHandler.ClearInput();
             }
 
-            bool standingAttack = this.currentState.moveType == MoveType.STAND || (this.currentState.moveType == MoveType.CROUCH && hittingEnemy && !this.inputHandler.held("D"));
+            bool standingAttack = this.currentState.moveType == MoveType.STAND || (this.currentState.moveType == MoveType.CROUCH && hittingEnemy && this.inputHandler.released("D"));
             bool crouchingAttack = this.currentState.moveType == MoveType.CROUCH || (this.currentState.moveType == MoveType.STAND && hittingEnemy && this.inputHandler.held("D"));
             bool airborneAttack = this.currentState.moveType == MoveType.AIR;
 
@@ -78,28 +78,37 @@ public class XoninStateMachine : CharacterStateMachine
             if (standingAttack) {
                 if (inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).StandLightAttack());
+                    return;
                 } else if (inputStr.EndsWith("M")) {
                     this.currentState.SwitchState((states as XoninStateFactory).StandMediumAttack());
+                    return;
                 } else if (inputStr.EndsWith("H")) {
                     this.currentState.SwitchState((states as XoninStateFactory).StandHeavyAttack());
+                    return;
                 }
             }
             if (crouchingAttack) {
                 if (inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).CrouchLightAttack());
+                    return;
                 } else if (inputStr.EndsWith("M")) {
                     this.currentState.SwitchState((states as XoninStateFactory).CrouchMediumAttack());
+                    return;
                 } else if (inputStr.EndsWith("H")) {
                     this.currentState.SwitchState((states as XoninStateFactory).CrouchHeavyAttack());
+                    return;
                 }
             }
             if (airborneAttack) {
                 if (inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).AirLightAttack());
+                    return;
                 } else if (inputStr.EndsWith("M")) {
                     this.currentState.SwitchState((states as XoninStateFactory).AirMediumAttack());
+                    return;
                 } else if (inputStr.EndsWith("H")) {
                     this.currentState.SwitchState((states as XoninStateFactory).AirHeavyAttack());
+                    return;
                 }
             }
         }

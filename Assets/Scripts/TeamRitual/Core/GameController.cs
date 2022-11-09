@@ -180,8 +180,8 @@ public class GameController : MonoBehaviour {
 
             if (Players[i].stateMachine != null && (i == this.playerPaused || this.pause == 0)) {
                 Players[i].stateMachine.UpdateStates();
+                Players[i].inputHandler.UpdateBufferTime();
             }
-            Players[i].inputHandler.UpdateBufferTime();
             Players[i].stateMachine.UpdateEffects();
         }
 

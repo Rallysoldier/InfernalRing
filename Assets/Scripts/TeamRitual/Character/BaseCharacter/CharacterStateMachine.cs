@@ -189,9 +189,9 @@ public class CharacterStateMachine : ScriptableObject
 
         if (this.currentState.inputChangeState) {
             if (this.currentState.moveType == MoveType.STAND) {
-                if (inputStr.EndsWith("F,F")) {
+                if (inputStr.EndsWith("F,F") && !(this.currentState is CommonStateRunForward)) {
                     this.currentState.SwitchState(states.RunForward());
-                } else if (inputStr.EndsWith("B,B")) {
+                } else if (inputStr.EndsWith("B,B") && !(this.currentState is CommonStateRunBack)) {
                     this.currentState.SwitchState(states.RunBack());
                 } else if (((inputStr.EndsWith("D") || inputStr.EndsWith("D,F") || inputStr.EndsWith("F,D") || inputStr.EndsWith("D,B")  || inputStr.EndsWith("B,D")))
                      || inputHandler.held("D")) {
@@ -199,17 +199,17 @@ public class CharacterStateMachine : ScriptableObject
                 } else if (((inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U")))
                      || inputHandler.held("U")) {
                     this.currentState.SwitchState(states.JumpStart());
-                } else if (!(this.currentState is CommonStateRunForward) && ((inputStr.EndsWith("F")) || inputHandler.held(inputHandler.ForwardInput(this)))) {
+                } else if (!(this.currentState is CommonStateRunForward) && !(this.currentState is CommonStateWalkForward) && ((inputStr.EndsWith("F")) || inputHandler.held(inputHandler.ForwardInput(this)))) {
                     this.currentState.SwitchState(states.WalkForward());
-                } else if (!(this.currentState is CommonStateRunBack) && (((inputStr.EndsWith("B")) || inputHandler.held(inputHandler.BackInput(this))))) {
+                } else if (!(this.currentState is CommonStateRunBack) && !(this.currentState is CommonStateWalkBackward)  && (((inputStr.EndsWith("B")) || inputHandler.held(inputHandler.BackInput(this))))) {
                     this.currentState.SwitchState(states.WalkBackward());
                 }
             } else if (this.currentState.moveType == MoveType.CROUCH) {
                 
             } else if (this.currentState.moveType == MoveType.AIR) {
-                if (inputStr.EndsWith("B,B") && airdashCount < maxAirdashes) {
+                if (inputStr.EndsWith("B,B") && airdashCount < maxAirdashes && !(this.currentState is CommonStateAirdashBack)) {
                     this.currentState.SwitchState(states.AirdashBack());
-                } else if (inputStr.EndsWith("F,F") && airdashCount < maxAirdashes) {
+                } else if (inputStr.EndsWith("F,F") && airdashCount < maxAirdashes && !(this.currentState is CommonStateAirdashForward)) {
                     this.currentState.SwitchState(states.AirdashForward());
                 } else if (airjumpCount < maxAirjumps && airdashCount < maxAirdashes &&
                     this.currentState is CommonStateAirborne && this.currentState.stateTime >= 10 &&

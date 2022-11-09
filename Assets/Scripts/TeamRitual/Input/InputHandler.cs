@@ -82,6 +82,7 @@ public class InputHandler {
         this.characterInput = "";
         this.prevCommand = "";
         this.prevCharacterInput = "";
+        this.releasedKeys.Clear();
     }
 
     public void receiveInput(string input) {

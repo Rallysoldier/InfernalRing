@@ -9,6 +9,8 @@ public class Game_Settings : MonoBehaviour
     public double healthMultiplier;
     public double dmgMultiplier;
     public double roundLimit;
+    public double spclMultiplier;
+    public double timerLimit;
 
     
     
@@ -53,6 +55,20 @@ public class Game_Settings : MonoBehaviour
         Debug.Log(dmgMultiplier);
     }
 
+    public void SpecialDropDownHandler(int val)
+    {
+        Dictionary<int, double> spclDict = new Dictionary<int, double>();
+
+        spclDict.Add(0, 1);
+        spclDict.Add(1, 0.25);
+        spclDict.Add(2, 0.5);
+        spclDict.Add(3, 2);
+        spclDict.Add(4, 5);
+
+        spclMultiplier = spclDict[val];
+        Debug.Log(spclMultiplier);
+    }
+
     public void RoundDropDownHandler(int val)
     {
         Dictionary<int, double> roundDict = new Dictionary<int, double>();
@@ -65,6 +81,23 @@ public class Game_Settings : MonoBehaviour
 
         roundLimit = roundDict[val];
         Debug.Log(roundLimit);
+    }
+
+    public void TimerDropDownHandler(int val)
+    {
+        Dictionary<int, double> timerDict = new Dictionary<int, double>();
+
+        timerDict.Add(0, 90);
+        timerDict.Add(1, 120);
+        timerDict.Add(2, 150);
+        timerDict.Add(3, 180);
+        timerDict.Add(4, 210);
+        timerDict.Add(5, 240);
+        timerDict.Add(6, 270);
+        timerDict.Add(7, 300);
+
+        timerLimit = timerDict[val];
+        Debug.Log(timerLimit);
     }
     public void BackToCharSelec()
     {

@@ -102,6 +102,6 @@ public class Game_Settings : MonoBehaviour
     public void BackToCharSelec()
     {
         Debug.Log("Back");
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MapSelect");
     }
 }

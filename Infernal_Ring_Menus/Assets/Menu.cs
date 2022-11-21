@@ -98,7 +98,7 @@ public class Menu : MonoBehaviour
 
     public void MultiplayerGame()
     {
-        SceneManager.LoadScene("Game_Options");
+        SceneManager.LoadScene("MapSelect");
     }
 
     public void QuitGame()

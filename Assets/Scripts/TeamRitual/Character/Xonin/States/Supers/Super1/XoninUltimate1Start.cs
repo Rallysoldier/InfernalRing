@@ -45,11 +45,11 @@ public class XoninUltimate1Start : CharacterState {
         }
 
         if (this.moveHit > 0) {
-            this.SwitchState((this.factory as XoninStateFactory).Ultimate1Punching1());
+            this.SwitchState((this.states as XoninStateFactory).Ultimate1Punching1());
         }
 
         if (this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
-            this.SwitchState(this.factory.Airborne());
+            this.SwitchState(this.states.Airborne());
         }
     }
 }

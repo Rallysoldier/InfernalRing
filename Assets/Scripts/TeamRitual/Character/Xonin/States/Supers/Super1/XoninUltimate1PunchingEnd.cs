@@ -36,7 +36,7 @@ public class XoninUltimate1PunchingEnd : CharacterState {
         if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.character.characterName + "_Ultimate1End")
             && this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
             GameController.Instance.ResetCameraZoom();
-            this.SwitchState(this.factory.Airborne());
+            this.SwitchState(this.states.Airborne());
         }
     }
 }

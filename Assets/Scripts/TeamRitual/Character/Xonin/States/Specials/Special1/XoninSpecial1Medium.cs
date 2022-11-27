@@ -23,7 +23,7 @@ public class XoninSpecial1Medium : CharacterState {
     public override void UpdateState() {
         base.UpdateState();
 
-        if (this.stateTime == 10) {
+        if (this.stateTime == 5) {
             this.physicsType = PhysicsType.AIR;
             this.character.SetVelocity(15,16);
         }
@@ -34,7 +34,7 @@ public class XoninSpecial1Medium : CharacterState {
             this.character.anim.Play(this.animationName);
         }
         
-        if (this.character.body.position.y <= 0 && this.character.VelY() < 0 && this.stateTime > 10) {
+        if (this.character.PosY() <= 0 && this.character.VelY() < 0 && this.stateTime > 5) {
             this.character.VelY(0);
             this.SwitchState(this.character.states.JumpLand());
         }

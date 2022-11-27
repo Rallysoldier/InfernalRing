@@ -60,6 +60,10 @@ namespace BlackGardenStudios.HitboxStudioPro
         /// </summary>
         public float Damage;
         /// <summary>
+        /// Minimum damage after damage scaling that should be dealt to the enemy
+        /// </summary>
+        public float MinDamage;
+        /// <summary>
         /// Damage that should be dealt to the enemy if they block
         /// </summary>
         public float ChipDamage;
@@ -150,7 +154,6 @@ namespace BlackGardenStudios.HitboxStudioPro
         public float HitShakeX;
         public float HitShakeY;
         public int FallShakeTime;
-        public float FallShakeX;
         public float FallShakeY;
         //Not in the GUI yet    ^^^^^
 

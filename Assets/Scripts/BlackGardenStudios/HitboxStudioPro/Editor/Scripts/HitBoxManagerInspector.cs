@@ -314,6 +314,7 @@ namespace BlackGardenStudios.HitboxStudioPro
                                 EditorGUI.indentLevel++;
 
                                 var damage  = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("damage");
+                                var minDamage  = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("minDamage");
                                 var chipDamage =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("chipDamage");
                                 var guardType =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("guardType");
                                 var attackPriority =  framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("attackPriority");
@@ -371,6 +372,7 @@ namespace BlackGardenStudios.HitboxStudioPro
                                 var flipEnemy = framedata.GetArrayElementAtIndex(SelectedFrame).FindPropertyRelative("flipEnemy");
                                 
                                 EditorGUILayout.PropertyField(damage, new GUIContent("Attack Damage", "The amount of damage this hit will deal when it hits."));
+                                EditorGUILayout.PropertyField(minDamage, new GUIContent("Min. Attack Damage", "The minimum amount of damage this hit will deal after damage scaling."));
                                 EditorGUILayout.PropertyField(chipDamage, new GUIContent("Chip Damage", "The amount of damage this hit will deal when it is guarded."));
                                 EditorGUILayout.PropertyField(guardType, new GUIContent("Guard Type",
                                     "The type of block the enemy must make to block the hit.\n"+

@@ -35,6 +35,8 @@ public class GameController : MonoBehaviour {
     public List<Image> HealthBarsUI = new List<Image>();
     public List<Image> HealthBarsUIChange = new List<Image>();
     public List<Image> EnergyBarsUI = new List<Image>();
+    public List<Image> RingsUI = new List<Image>();
+    public List<Sprite> RingImages = new List<Sprite>();
 
     public GameController() {
         Instance = this;
@@ -42,7 +44,7 @@ public class GameController : MonoBehaviour {
 
     void Start()
     {
-        soundHandler = new SoundHandler(GetComponent<AudioSource>());
+        soundHandler = new SoundHandler(GetComponents<AudioSource>());
 
         GameObject canvasGO = Instantiate(Resources.Load("Prefabs/HUD/HUDPrefab_GameCanvas", typeof(GameObject))) as GameObject;
         TimerUI = GameObject.Find("Timer");
@@ -51,7 +53,13 @@ public class GameController : MonoBehaviour {
         for (int i = 1; i <= 2; i++) {
             HealthBarsUI.Add(GameObject.Find("P"+i+"HealthBarFill").GetComponent<Image>());
             EnergyBarsUI.Add(GameObject.Find("P"+i+"EnergyFill").GetComponent<Image>());
+            RingsUI.Add(GameObject.Find("P"+i+"Ring").GetComponent<Image>());
             HealthBarsUIChange.Add(GameObject.Find("P"+i+"HealthBarChange").GetComponent<Image>());
+        }
+
+        RingImages.Add(Resources.Load<Sprite>("Sprites/HUD/ring/ringzero"));
+        for (int i = 1; i <= 9; i++) {
+            RingImages.Add(Resources.Load<Sprite>("Sprites/HUD/ring/ring"+i));
         }
 
         StageObj = Instantiate(Resources.Load("Prefabs/Stages/StagePrefab_" + stageName, typeof(GameObject))) as GameObject;
@@ -95,6 +103,8 @@ public class GameController : MonoBehaviour {
             }
 
             if (i > 0) {
+                Players[i-1].enemy = Players[i];
+                Players[i].enemy = Players[i-1];
                 Players[i-1].stateMachine.enemy = Players[i].stateMachine;
                 Players[i].stateMachine.enemy = Players[i-1].stateMachine;
             }
@@ -142,12 +152,12 @@ public class GameController : MonoBehaviour {
              }
         }
 
-        if (this.gcStateMachine.currentState.GetType() == this.gcStateMachine.states.Intro().GetType() && trueGameTicks%3 == 0) {
+        if (this.gcStateMachine.currentState is GCStateIntro && trueGameTicks%3 == 0) {
             for (int i = 0; i < GameController.Instance.Players.Count; i++)
             {
-                GameController.Instance.Players[i].stateMachine.health += (int) (GameController.Instance.Players[i].stateMachine.MAX_HEALTH * 1f/100f);
-                if (GameController.Instance.Players[i].stateMachine.health > GameController.Instance.Players[i].stateMachine.MAX_HEALTH) {
-                    GameController.Instance.Players[i].stateMachine.health = GameController.Instance.Players[i].stateMachine.MAX_HEALTH;
+                GameController.Instance.Players[i].stateMachine.health += (int) (GameController.Instance.Players[i].stateMachine.maxHealth * 1f/100f);
+                if (GameController.Instance.Players[i].stateMachine.health > GameController.Instance.Players[i].stateMachine.maxHealth) {
+                    GameController.Instance.Players[i].stateMachine.health = GameController.Instance.Players[i].stateMachine.maxHealth;
                 }
             }
         }
@@ -238,13 +248,17 @@ public class GameController : MonoBehaviour {
                     if (characterHurt.currentState.inputChangeState || characterHurt.blockstun > 0) {
                         bool enemyHoldingBack = characterHurt.inputHandler.held(characterHurt.inputHandler.BackInput(characterHurt));
                         bool enemyHoldingDown = characterHurt.inputHandler.held("D");
-                        if (enemyHoldingBack && hit.GuardType != GuardType.UNBLOCKABLE && characterHurt.currentState.moveType != MoveType.AIR) {//If holding back and attack isn't unblockable
-                            if (hit.GuardType == GuardType.MID) {
-                                blocked = true;
-                            } else if (enemyHoldingDown && hit.GuardType == GuardType.LOW) {
-                                blocked = true;
-                            } else if (!enemyHoldingDown && hit.GuardType == GuardType.HIGH) {
-                                blocked = true;
+                        if (enemyHoldingBack && hit.GuardType != GuardType.UNBLOCKABLE) {//If holding back and attack isn't unblockable
+                            switch (hit.GuardType) {
+                                case GuardType.MID:
+                                    blocked = true;
+                                    break;
+                                case GuardType.LOW:
+                                    blocked = enemyHoldingDown && characterHurt.currentState.moveType != MoveType.AIR;
+                                    break;
+                                case GuardType.HIGH:
+                                    blocked = !enemyHoldingDown || characterHurt.currentState.moveType == MoveType.AIR;
+                                    break;
                             }
                         }
                     }
@@ -252,19 +266,15 @@ public class GameController : MonoBehaviour {
                     if (blocked) {
                         blocked = characterHurt.Block(hit, hit.GuardType);
                         if (blocked) {
+                            characterHitting.currentState.OnEnemyBlocked();
                             characterHitting.currentState.moveContact++;
                         }
                     }
                     if (!blocked) {
                         if (characterHurt.Hit(hit)) {
-                            if (characterHitting.GetType() == typeof(XoninStateMachine)) {
-                                if (characterHitting.currentState.GetType() == typeof(XoninSpecial2HeavyLand)) {
-                                    GameController.Instance.SetCameraZoom(4f);
-                                }
-                            }
-
                             characterHitting.currentState.moveContact++;
                             characterHitting.currentState.moveHit++;
+                            characterHitting.currentState.OnHitEnemy();
                             if (characterHitting.attackCancels.Count == 0) {
                                 characterHitting.attackCancels.Add(characterHitting.currentState.GetType().Name);
                             }
@@ -292,7 +302,8 @@ public class GameController : MonoBehaviour {
         P1_Hits.Clear();
         P2_Hits.Clear();
 
-        if (pause == 0 && Global_Time%80 == 0 && Players[0].stateMachine.health > 0 && Players[1].stateMachine.health > 0) {
+        if (pause == 0 && Global_Time%80 == 0 && Players[0].stateMachine.health > 0 && Players[1].stateMachine.health > 0
+            && this.gcStateMachine.currentState is GCStateFight) {
             CountDownTimer();
         }
         UpdateHealthBars();
@@ -411,18 +422,29 @@ public class GameController : MonoBehaviour {
         this.pause = time;
     }
 
+    public Color32 GetRingColor(RingMode mode) {
+        return new Color32(255,(byte)(220 - (int)mode*220/9),(byte)((int)mode*100/9),255);
+    }
+
+    public bool AnimationOver(Animator anim, string animationName) {
+        return anim.GetCurrentAnimatorStateInfo(0).IsName(animationName) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1;
+    }
+
     public void UpdateHealthBars()
     {
         for (int i = 0; i < HealthBarsUI.Count; i++) {
             CharacterStateMachine sm = Players[i].stateMachine;
             if (sm.health >= 0)
             {
-                HealthBarsUI[i].fillAmount = sm.health/sm.MAX_HEALTH;
-                HealthBarsUIChange[i].fillAmount =  Mathf.Lerp(HealthBarsUIChange[i].fillAmount, sm.health/sm.MAX_HEALTH, 0.05f);
+                HealthBarsUI[i].fillAmount = sm.health/sm.maxHealth;
+                HealthBarsUIChange[i].fillAmount =  Mathf.Lerp(HealthBarsUIChange[i].fillAmount, sm.health/sm.maxHealth, 0.05f);
             }
             if (sm.GetEnergy() >= 0) {
                 EnergyBarsUI[i].fillAmount = sm.GetEnergy() * 0.001f;
             }
+            EnergyBarsUI[i].color = GetRingColor(sm.GetRingMode());
+            RingsUI[i].color = GetRingColor(sm.GetRingMode());
+            RingsUI[i].sprite = RingImages[(int)sm.GetRingMode()];
         }
     }
 

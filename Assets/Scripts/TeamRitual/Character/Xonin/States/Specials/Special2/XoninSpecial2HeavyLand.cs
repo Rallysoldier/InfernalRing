@@ -27,15 +27,22 @@ public class XoninSpecial2HeavyLand : CharacterState {
     public override void UpdateState() {
         base.UpdateState();
 
-        if (this.moveHit == 1) {
-            GameController.Instance.SetCameraZoom(4f);
-        }
-
         if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.character.characterName + "_Special2HeavyLand")
             && this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
             GameController.Instance.ResetCameraZoom();
-            this.SwitchState(this.factory.CrouchTransition());
+            this.SwitchState(this.states.CrouchTransition());
         }
+    }
+    public override bool OnHitEnemy() {
+        if (this.moveHit == 1) {
+            GameController.Instance.SetCameraZoom(4f);
+        }
+        return true;
+	}
+
+    public override bool OnHurt() {
+        GameController.Instance.ResetCameraZoom();
+        return true;
     }
 }
 }

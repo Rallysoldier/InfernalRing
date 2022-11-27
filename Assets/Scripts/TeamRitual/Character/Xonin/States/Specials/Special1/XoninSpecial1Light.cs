@@ -30,7 +30,7 @@ public class XoninSpecial1Light : CharacterState {
             this.character.anim.Play(this.animationName);
         }
         
-        if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {
+        if (this.character.body.position.y <= 0 && this.character.VelY() < 0) {
             this.character.VelY(0);
             this.SwitchState(this.character.states.JumpLand());
         }

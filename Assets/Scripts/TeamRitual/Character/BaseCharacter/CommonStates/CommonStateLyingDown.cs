@@ -23,6 +23,9 @@ public class CommonStateLyingDown : CharacterState
         this.character.VelY(0);
         this.character.body.position = new Vector2(this.character.PosX(),0);
         GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(40),false);
+        EffectSpawner.PlayHitEffect(
+            61, new Vector2(this.character.PosX(),this.character.PosY()), this.character.spriteRenderer.sortingOrder + 1, this.character.facing != 1
+        );
     }
 
     public override void UpdateState() {
@@ -46,14 +49,6 @@ public class CommonStateLyingDown : CharacterState
 
     public override void ExitState() {
         base.ExitState();
-    }
-
-    public override void InitializeSubState() {
-        base.InitializeSubState();
-    }
-
-    public override void CheckSwitchState() {
-        base.CheckSwitchState();
     }
 }
 }

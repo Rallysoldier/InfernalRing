@@ -64,7 +64,7 @@ namespace BlackGardenStudios.HitboxStudioPro
         private float m_hitShakeX;
         private float m_hitShakeY;
         private int m_fallShakeTime;
-        private float m_fallShakeX;
+        private float m_minDamage;
         private float m_fallShakeY;
 
         private bool m_forceStand;
@@ -105,7 +105,7 @@ namespace BlackGardenStudios.HitboxStudioPro
             float giveSelfPower, float giveEnemyPower, bool downedHit, float downedDamage, int downedHitstun, Vector2 downedVelocity,
             float fallingGravity, bool fallAir, bool fallGround, bool fallRecover, Vector2 bounce, float bounceGravity, bool bounceRecover,
             float slide, int slideTime, Vector2 wallBounce, float wallBounceGravity, float wallBounceSlide, int wallBounceTime,
-            int downTime, bool downRecover, int hitShakeTime, float hitShakeX, float hitShakeY, int fallShakeTime, float fallShakeX, float fallShakeY,
+            int downTime, bool downRecover, int hitShakeTime, float hitShakeX, float hitShakeY, int fallShakeTime, float minDamage, float fallShakeY,
             bool forceStand, bool flipEnemy, int soundid, bool stopSounds,
             string animationName
             )
@@ -156,7 +156,7 @@ namespace BlackGardenStudios.HitboxStudioPro
             m_hitShakeX = hitShakeX;
             m_hitShakeY = hitShakeY;
             m_fallShakeTime = fallShakeTime;
-            m_fallShakeX = fallShakeX;
+            m_minDamage = minDamage;
             m_fallShakeY = fallShakeY;
             m_forceStand = forceStand;
             m_flipEnemy = flipEnemy;
@@ -302,7 +302,7 @@ namespace BlackGardenStudios.HitboxStudioPro
                     HitShakeX = feeder.m_hitShakeX,
                     HitShakeY = feeder.m_hitShakeY,
                     FallShakeTime = feeder.m_fallShakeTime,
-                    FallShakeX = feeder.m_fallShakeX,
+                    MinDamage = feeder.m_minDamage,
                     FallShakeY = feeder.m_fallShakeY,
                     ForceStand = feeder.m_forceStand,
                     FlipEnemy = feeder.m_flipEnemy,

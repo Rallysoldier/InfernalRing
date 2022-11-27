@@ -9,7 +9,8 @@ public class XoninStateMachine : CharacterStateMachine
         this.states = new XoninStateFactory(this);
         this.characterName = "Xonin";
 
-        velocityRunBack = new Vector2(-10,7);
+        this.height = 6f;
+        this.velocityRunBack = new Vector2(-10,7);
     }
 
     public override ContactSummary UpdateStates()
@@ -31,13 +32,14 @@ public class XoninStateMachine : CharacterStateMachine
                 this.inputHandler.ClearInput();
             }
 
-            bool standingAttack = this.currentState.moveType == MoveType.STAND || (this.currentState.moveType == MoveType.CROUCH && hittingEnemy && this.inputHandler.released("D"));
-            bool crouchingAttack = this.currentState.moveType == MoveType.CROUCH || (this.currentState.moveType == MoveType.STAND && hittingEnemy && this.inputHandler.held("D"));
-            bool airborneAttack = this.currentState.moveType == MoveType.AIR;
+            bool standingState = !this.inputHandler.held("D") && (this.currentState.moveType == MoveType.STAND || (this.currentState.moveType == MoveType.CROUCH && hittingEnemy));
+            bool crouchingState =  this.inputHandler.held("D") && (this.currentState.moveType == MoveType.CROUCH || (this.currentState.moveType == MoveType.STAND && hittingEnemy));
+            bool airborneState = this.currentState.moveType == MoveType.AIR;
 
             //Air OK moves
-            if (standingAttack || crouchingAttack || airborneAttack) {
-                if (inputStr.EndsWith("D,F,D,F,L") || inputStr.EndsWith("D,F,D,F,M") || inputStr.EndsWith("D,F,D,F,H")) {
+            if (standingState || crouchingState || airborneState) {
+                if ((inputStr.EndsWith("D,F,D,F,L") || inputStr.EndsWith("D,F,D,F,M") || inputStr.EndsWith("D,F,D,F,H"))
+                    && this.GetRingMode() != RingMode.SECOND && this.GetRingMode() != RingMode.SIXTH) {
                     this.currentState.SwitchState((states as XoninStateFactory).Ultimate1Start());
                     return;
                 }
@@ -51,7 +53,7 @@ public class XoninStateMachine : CharacterStateMachine
                     return;
                 }
                 if (inputStr.EndsWith("D,F,H")) {
-                    if (this.GetEnergy() >= 500f) {
+                    if (this.GetEnergy() >= 500f && this.GetRingMode() != RingMode.SIXTH) {
                         this.currentState.SwitchState((states as XoninStateFactory).Special1Heavy());
                     } else {
                         this.currentState.SwitchState((states as XoninStateFactory).Special1Medium());
@@ -68,16 +70,30 @@ public class XoninStateMachine : CharacterStateMachine
                     return;
                 }
                 if (inputStr.EndsWith("D,B,H")) {
-                    if (this.GetEnergy() >= 500f) {
+                    if (this.GetEnergy() >= 500f && this.GetRingMode() != RingMode.SIXTH) {
                         this.currentState.SwitchState((states as XoninStateFactory).Special2HeavyRise());
                     } else {
                         this.currentState.SwitchState((states as XoninStateFactory).Special2MediumRise());
                     }
                     return;
                 }
-            } 
+            }
 
-            if (standingAttack) {
+            if (standingState || crouchingState) {
+                if (inputStr.EndsWith("B,S") || (inputHandler.held(inputHandler.BackInput(this)) && inputStr.EndsWith("S"))) {
+                    this.currentState.SwitchState((states as XoninStateFactory).UniqueCrane());
+                    return;
+                } else if (inputStr.EndsWith("F,S") || (inputHandler.held(inputHandler.ForwardInput(this)) && inputStr.EndsWith("S"))) {
+                    this.currentState.SwitchState((states as XoninStateFactory).UniqueTiger());
+                    return;
+                } else if (inputStr.EndsWith("S") && this.GetEnergy() >= 500f) {
+                    this.AddEnergy(-500f);
+                    this.currentState.SwitchState((states as XoninStateFactory).UniqueDragon());
+                    return;
+                }
+            }
+
+            if (standingState) {
                 if (inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).StandLightAttack());
                     return;
@@ -89,7 +105,7 @@ public class XoninStateMachine : CharacterStateMachine
                     return;
                 }
             }
-            if (crouchingAttack) {
+            if (crouchingState) {
                 if (inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).CrouchLightAttack());
                     return;
@@ -101,7 +117,7 @@ public class XoninStateMachine : CharacterStateMachine
                     return;
                 }
             }
-            if (airborneAttack) {
+            if (airborneState) {
                 if (inputStr.EndsWith("L")) {
                     this.currentState.SwitchState((states as XoninStateFactory).AirLightAttack());
                     return;

@@ -28,9 +28,8 @@ public class XoninSpecial2HeavyChop : CharacterState {
         base.UpdateState();
 
         if (this.character.body.position.y <= 0.2) {
-            Debug.Log("Entered state");
             this.character.VelY(0);
-            this.SwitchState((this.factory as XoninStateFactory).Special2HeavyLand());
+            this.SwitchState((this.states as XoninStateFactory).Special2HeavyLand());
         }
     }    
 }

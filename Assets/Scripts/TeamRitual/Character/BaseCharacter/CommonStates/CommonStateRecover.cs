@@ -29,7 +29,7 @@ public class CommonStateRecover : CharacterState
         }
 
         this.character.SetVelocity(recoverVelocity);
-        this.character.MakeInvincible();
+        this.MakeInvincible();
         this.character.Flash(new Vector4(20f,20f,20f,1f),6);
     }
 
@@ -37,7 +37,7 @@ public class CommonStateRecover : CharacterState
         base.UpdateState();
 
         if (this.stateTime > 6) {
-            this.character.ClearInvincibility();
+            this.ClearInvincibility();
             if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {
                 this.character.VelY(0);
                 this.SwitchState(this.character.states.JumpLand());
@@ -49,14 +49,6 @@ public class CommonStateRecover : CharacterState
 
     public override void ExitState() {
         base.ExitState();
-    }
-
-    public override void InitializeSubState() {
-        base.InitializeSubState();
-    }
-
-    public override void CheckSwitchState() {
-        base.CheckSwitchState();
     }
 }
 }

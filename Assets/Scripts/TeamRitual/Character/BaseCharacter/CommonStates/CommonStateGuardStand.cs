@@ -21,7 +21,7 @@ public class CommonStateGuardStand : CharacterState {
         base.UpdateState();
 
         if (this.character.PosY() > 0) {
-            this.SwitchState(this.character.states.Airborne());
+            this.SwitchState(this.character.states.GuardAir());
         } else if (this.character.blockstun == 0) {
             this.SwitchState(this.character.states.Stand());
         }
@@ -29,14 +29,6 @@ public class CommonStateGuardStand : CharacterState {
 
     public override void ExitState() {
         base.ExitState();
-    }
-
-    public override void InitializeSubState() {
-        base.InitializeSubState();
-    }
-
-    public override void CheckSwitchState() {
-        base.CheckSwitchState();
     }
 }
 }

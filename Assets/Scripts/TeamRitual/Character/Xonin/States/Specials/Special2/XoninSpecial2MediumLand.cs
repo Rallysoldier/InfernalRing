@@ -25,7 +25,7 @@ public class XoninSpecial2MediumLand : CharacterState {
 
         if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.character.characterName + "_Special2MediumLand")
             && this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
-            this.SwitchState(this.factory.CrouchTransition());
+            this.SwitchState(this.states.CrouchTransition());
         }
     }
 }

@@ -38,7 +38,7 @@ public class XoninSpecial2MediumRise : CharacterState {
 
         if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.character.characterName + "_Special2MediumRise")
             && this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
-            this.SwitchState((this.factory as XoninStateFactory).Special2MediumChop());
+            this.SwitchState((this.states as XoninStateFactory).Special2MediumChop());
         }
     }
 }

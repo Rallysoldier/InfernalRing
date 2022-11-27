@@ -25,11 +25,11 @@ public class XoninUltimate1Punching1 : CharacterState {
     public override void UpdateState() {
         base.UpdateState();
 
-        this.character.VelX(0);
+        this.character.VelX(0.2f);
         this.character.VelY(0);
 
-        if (this.stateTime > 60) {
-            this.SwitchState((this.factory as XoninStateFactory).Ultimate1Punching2());
+        if (this.stateTime > 50) {
+            this.SwitchState((this.states as XoninStateFactory).Ultimate1Punching2());
         }
     }
 }

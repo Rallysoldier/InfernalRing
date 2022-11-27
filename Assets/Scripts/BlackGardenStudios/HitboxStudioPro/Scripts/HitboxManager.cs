@@ -188,7 +188,7 @@ namespace BlackGardenStudios.HitboxStudioPro
             public float hitShakeX;
             public float hitShakeY;
             public int fallShakeTime;
-            public float fallShakeX;
+            public float minDamage;
             public float fallShakeY;
 
             public bool forceStand;
@@ -248,7 +248,7 @@ namespace BlackGardenStudios.HitboxStudioPro
                     hitShakeX = v.hitShakeX,
                     hitShakeY = v.hitShakeY,
                     fallShakeTime = v.fallShakeTime,
-                    fallShakeX = v.fallShakeX,
+                    minDamage = v.minDamage,
                     fallShakeY = v.fallShakeY,
                     forceStand = v.forceStand,
                     flipEnemy = v.flipEnemy,
@@ -307,7 +307,7 @@ namespace BlackGardenStudios.HitboxStudioPro
                     hitShakeX = v.hitShakeX,
                     hitShakeY = v.hitShakeY,
                     fallShakeTime = v.fallShakeTime,
-                    fallShakeX = v.fallShakeX,
+                    minDamage = v.minDamage,
                     fallShakeY = v.fallShakeY,
                     forceStand = v.forceStand,
                     flipEnemy = v.flipEnemy,
@@ -371,7 +371,7 @@ namespace BlackGardenStudios.HitboxStudioPro
             public float hitShakeX;
             public float hitShakeY;
             public int fallShakeTime;
-            public float fallShakeX;
+            public float minDamage;
             public float fallShakeY;
 
             public bool forceStand;
@@ -427,7 +427,7 @@ namespace BlackGardenStudios.HitboxStudioPro
                     hitShakeX = v.hitShakeX,
                     hitShakeY = v.hitShakeY,
                     fallShakeTime = v.fallShakeTime,
-                    fallShakeX = v.fallShakeX,
+                    minDamage = v.minDamage,
                     fallShakeY = v.fallShakeY,
                     forceStand = v.forceStand,
                     flipEnemy = v.flipEnemy,
@@ -484,7 +484,7 @@ namespace BlackGardenStudios.HitboxStudioPro
                     hitShakeX = v.hitShakeX,
                     hitShakeY = v.hitShakeY,
                     fallShakeTime = v.fallShakeTime,
-                    fallShakeX = v.fallShakeX,
+                    minDamage = v.minDamage,
                     fallShakeY = v.fallShakeY,
                     forceStand = v.forceStand,
                     flipEnemy = v.flipEnemy,
@@ -569,7 +569,7 @@ namespace BlackGardenStudios.HitboxStudioPro
             public float hitShakeX;
             public float hitShakeY;
             public int fallShakeTime;
-            public float fallShakeX;
+            public float minDamage;
             public float fallShakeY;
 
             public bool forceStand;
@@ -1077,7 +1077,7 @@ namespace BlackGardenStudios.HitboxStudioPro
                         framedata.hitShakeX,
                         framedata.hitShakeY,
                         framedata.fallShakeTime,
-                        framedata.fallShakeX,
+                        framedata.minDamage,
                         framedata.fallShakeY,
                         framedata.forceStand,
                         framedata.flipEnemy,

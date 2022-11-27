@@ -1,3 +1,4 @@
+using BlackGardenStudios.HitboxStudioPro;
 using UnityEngine;
 
 namespace TeamRitual.Character {
@@ -21,6 +22,9 @@ public class CommonStateRunBack : CharacterState
         base.EnterState();
 
         this.character.SetVelocity(this.character.velocityRunBack);
+        EffectSpawner.PlayHitEffect(
+            91, new Vector2(this.character.PosX() + 1.5f * this.character.facing,this.character.PosY()), this.character.spriteRenderer.sortingOrder + 1, this.character.facing != 1
+        );
     }
 
     public override void UpdateState() {
@@ -30,28 +34,20 @@ public class CommonStateRunBack : CharacterState
 
         if (this.stateTime == 3) {
             this.character.Flash(new Vector4(1.5f,1.5f,1.5f,1f),6);
-            this.character.MakeInvincible();
+            this.MakeInvincible();
         }
         if (this.stateTime == 9) {
-            this.character.ClearInvincibility();
+            this.ClearInvincibility();
         }
 
         if (!this.character.inputHandler.held(this.character.inputHandler.BackInput(this.character)) && this.stateTime > 4) {
-            this.character.ClearInvincibility();
+            this.ClearInvincibility();
             this.SwitchState(this.character.states.Stand());
         }
     }
 
     public override void ExitState() {
         base.ExitState();
-    }
-
-    public override void InitializeSubState() {
-        base.InitializeSubState();
-    }
-
-    public override void CheckSwitchState() {
-        base.CheckSwitchState();
     }
 }
 }

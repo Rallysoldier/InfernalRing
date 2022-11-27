@@ -13,8 +13,8 @@ public class InputHandler {
     public List<string> heldKeys = new List<string>();
     public string command = "";
     string prevCommand = "";
-    private int currentBufferTime;
-    private const int MAX_BUFF_TIME = 10;
+    public int currentBufferTime;
+    public const int MAX_BUFF_TIME = 10;
 
     public string characterInput = "";
     string prevCharacterInput = "";
@@ -96,11 +96,11 @@ public class InputHandler {
         this.prevCommand = this.command;
         this.prevCharacterInput = this.characterInput;
 
-        if (command.Length > 0) {
-            command += ",";
+        if (this.command.Length > 0) {
+            this.command += ",";
         }
-        command += input;
-        currentBufferTime = MAX_BUFF_TIME;
+        this.command += input;
+        this.currentBufferTime = MAX_BUFF_TIME;
         
         if (character != null) {
             this.characterInput = this.getCharacterInput(character);

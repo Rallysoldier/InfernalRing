@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TeamRitual.Character {
 public abstract class CharacterState
 {
 	protected CharacterStateMachine character;
-	protected CharacterStateFactory factory;
+	protected CharacterStateFactory states;
 
 	public int stateTime = -1;
 	public string animationName;
@@ -15,6 +16,9 @@ public abstract class CharacterState
 	public bool jumpCancel = false;
 	public int scalingStep = 1;
 
+	public int maxSelfChain = 0;
+	public int selfChain = 0;
+
 	public bool EXFlash = false;
 
 	//The variables below can be different for each state, and are only ever defined/mutated in the state's constructor.
@@ -24,6 +28,8 @@ public abstract class CharacterState
 	public bool faceEnemyAlways = false;		//State will always adjust the facing variable in a character to face the correct direction.
 
 	public AttackPriority attackPriority = AttackPriority.NONE;
+    public List<AttackPriority> immunePriorities = new List<AttackPriority>();
+    public List<MoveType> immuneMoveTypes = new List<MoveType>();
 
 	public PhysicsType physicsType = PhysicsType.CUSTOM;
 	public MoveType moveType = MoveType.STAND;
@@ -31,8 +37,8 @@ public abstract class CharacterState
 
 	public CharacterState(CharacterStateMachine currentContext, CharacterStateFactory CharacterStateFactory)
 	{
-		character = currentContext;
-		factory = CharacterStateFactory;
+		this.character = currentContext;
+		this.states = CharacterStateFactory;
 	}
 
 	public virtual void EnterState() {
@@ -64,16 +70,16 @@ public abstract class CharacterState
 			if (this.character.airjumpCount < this.character.maxAirjumps && this.character.airdashCount < this.character.maxAirdashes
 				&& this.moveType == MoveType.AIR && 
 				(inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U")|| this.character.inputHandler.held("U"))) {
-				this.SwitchState(factory.AirjumpStart());
+				this.SwitchState(this.states.AirjumpStart());
 			}
 
 			if (this.character.GetEnergy() >= 200 && inputStr.EndsWith("F,F")) {
 				this.character.AddEnergy(-200);
 				this.character.Flash(new Vector4(1.5f,1.5f,1.5f,1f),4);
 				if (this.moveType == MoveType.AIR) {
-					this.SwitchState(this.factory.AirdashForward());
+					this.SwitchState(this.states.AirdashForward());
 				} else {
-					this.SwitchState(this.factory.RunForward());
+					this.SwitchState(this.states.RunForward());
 				}
 			}
 		}
@@ -81,23 +87,18 @@ public abstract class CharacterState
 		if (this.jumpCancel && this.character.enemy.VelY() > 0 && moveHit >= hitsToCancel) {
             if ((inputStr.EndsWith("U") || inputStr.EndsWith("U,F") || inputStr.EndsWith("F,U") || inputStr.EndsWith("U,B")  || inputStr.EndsWith("B,U"))
 				|| this.character.inputHandler.held("U")) {
-				CommonStateJumpStart jumpStart = this.character.states.JumpStart() as CommonStateJumpStart;
+				CommonStateJumpStart jumpStart = this.states.JumpStart() as CommonStateJumpStart;
 				Vector2 hitVelocity = this.character.enemy.lastContact.HitVelocity;					
 				float yDistance = this.character.enemy.PosY() - this.character.PosY();
-
-				Debug.Log(yDistance);
-
 				jumpStart.jumpVelocity = new Vector2(-hitVelocity.x,  yDistance + hitVelocity.y);
 				this.SwitchState(jumpStart);
 			}
         }
 	}
 
-	public virtual void ExitState() {}
-
-	public virtual void CheckSwitchState() {}
-
-	public virtual void InitializeSubState() {}
+	public virtual void ExitState() {
+		this.ClearInvincibility();
+	}
 
 	public virtual void SwitchState(CharacterState newState)
 	{
@@ -109,7 +110,8 @@ public abstract class CharacterState
 				&& !alreadyChained;
 
 			if (!canCancelInto && this.attackPriority <= AttackPriority.HEAVY) {
-				bool exceptions = !alreadyChained && (newState.moveType == MoveType.AIR || character.ReverseBeat());
+				bool exceptions = !alreadyChained
+					&& (newState.moveType == MoveType.AIR || character.ReverseBeat());
 				if (!exceptions)
 					return;
 			}
@@ -131,14 +133,28 @@ public abstract class CharacterState
 		//Debug.Log("Switched from " + this + " to " + newState);
 	}
 
-	protected void SetSuperState()
-	{
-
+	public virtual bool OnHitEnemy() {
+		return true;
 	}
 
-	protected void SetSubState()
-	{
-
+	public virtual bool OnEnemyBlocked() {
+		return true;
 	}
+
+	public virtual bool OnHurt() {
+		return true;
+	}
+
+    public void MakeInvincible() {
+        this.immuneMoveTypes.Add(MoveType.STAND);
+        this.immuneMoveTypes.Add(MoveType.CROUCH);
+        this.immuneMoveTypes.Add(MoveType.AIR);
+        this.immuneMoveTypes.Add(MoveType.LYING);
+    }
+
+    public void ClearInvincibility() {
+        this.immuneMoveTypes.Clear();
+        this.immunePriorities.Clear();
+    }
 }
 }

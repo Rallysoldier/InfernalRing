@@ -7,7 +7,7 @@ namespace TeamRitual.Core {
 public class ComboProcessor {
     private CharacterStateMachine character;
 
-    private const float MIN_DAMAGE_SCALING = 0.05f;
+    private const float MIN_DAMAGE_SCALING = 0.15f;
     private Dictionary<AttackPriority,float> starterScalings = new Dictionary<AttackPriority,float>();
     private float[] stepDeductions = new float[] {
         -0.05f, -0.05f, -0.05f, -0.05f, -0.05f, -0.05f, -0.05f, 0, 0, 0, -0.025f, 0, 0, -0.025f, 0, 0, -0.025f, 0
@@ -66,8 +66,17 @@ public class ComboProcessor {
         } else {
             //Update damage scaling
             if (this.scalingStep > 0) {
-                this.currentScaling = this.currentScaling + this.stepDeductions[this.scalingStep - 1];
-                this.currentScaling = Mathf.Max(this.currentScaling, MIN_DAMAGE_SCALING);
+                float deduction = this.stepDeductions[this.scalingStep - 1];
+                switch (this.character.GetRingMode()) {
+                    case RingMode.THIRD:
+                        deduction /= 1.5f;
+                        break;
+                    case RingMode.FIFTH:
+                        deduction *= 1.5f;
+                        break;
+                }
+
+                this.currentScaling = Mathf.Max(this.currentScaling + deduction, MIN_DAMAGE_SCALING);
             }
             damageScaling = this.currentScaling;
 
@@ -81,8 +90,8 @@ public class ComboProcessor {
         }
         
         //change damage and downedDamage based on scaling
-        hit.Damage = hit.Damage * damageScaling;
-        hit.DownedDamage = hit.DownedDamage * damageScaling;
+        hit.Damage = Mathf.Max(hit.Damage * damageScaling, hit.MinDamage);
+        hit.DownedDamage = Mathf.Max(hit.DownedDamage * damageScaling, 1f);
 
         hit.GiveSelfPower = hit.GiveSelfPower * damageScaling;
 
@@ -99,7 +108,21 @@ public class ComboProcessor {
             return 0;
         }
         ContactData lastHit = this.comboHits[this.comboHits.Count - 1];
-        return downedHit ? (int) lastHit.DownedDamage : (int) lastHit.Damage;
+        int damage = downedHit ? (int) lastHit.DownedDamage : (int) lastHit.Damage;
+
+        switch (this.character.GetRingMode()) {
+            case RingMode.SIXTH:
+                damage = (int) Mathf.Ceil(damage*1.5f);
+                break;
+            case RingMode.SEVENTH:
+                damage = (int) Mathf.Ceil(damage/1.2f);
+                break;
+            case RingMode.EIGHTH:
+                damage = (int) Mathf.Ceil(damage*1.3f);
+                break;
+        }
+
+        return damage;
     }
 
     public int GetHitstun(bool downedHit) {

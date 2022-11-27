@@ -33,7 +33,7 @@ public class CommonStateJumpStart : CharacterState
 
             float prevVelX = this.character.VelX()/this.character.standingFriction;
             if (Mathf.Sign(prevVelX * this.character.facing) == Mathf.Sign(jumpVelocity.x) && Mathf.Abs(prevVelX) > Mathf.Abs(jumpVelocity.x)) {
-                jumpVelocity = new Vector2(prevVelX * this.character.facing, jumpVelocity.y);
+                jumpVelocity = new Vector2(jumpVelocity.x * 2f, jumpVelocity.y);
             }
         }
     }
@@ -49,15 +49,12 @@ public class CommonStateJumpStart : CharacterState
     public override void ExitState() {
         base.ExitState();
         
-        this.character.SetVelocity(jumpVelocity);
-    }
-
-    public override void InitializeSubState() {
-        base.InitializeSubState();
-    }
-
-    public override void CheckSwitchState() {
-        base.CheckSwitchState();
+        this.character.SetVelocity(this.jumpVelocity);
+        this.character.SetVelocity(
+            this.jumpVelocity.x * 
+            (this.character.GetRingMode() == RingMode.FIFTH ? 1.5f : this.character.GetRingMode() == RingMode.EIGHTH ? 0.7f : 1f),
+            this.jumpVelocity.y
+        );
     }
 }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using BlackGardenStudios.HitboxStudioPro;
@@ -11,6 +12,7 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
     public string characterName;
     public SoundHandler soundHandler;
     
+    public PlayerGameObj enemy;
     public CharacterStateMachine stateMachine;
     public InputHandler inputHandler;
     public int wins = 0;
@@ -19,6 +21,10 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
     protected SpritePalette m_ActivePalette;
     [SerializeField]
     protected SpritePaletteGroup m_PaletteGroup;
+    public int paletteNumber;
+
+    public bool paletteSelected;
+    public bool modeSelected;
 
     protected bool LockFlip { get; set; }
 
@@ -36,7 +42,7 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
     private HitboxManager m_HitboxManager;
 
     void Awake() {
-        soundHandler = new SoundHandler(GetComponent<AudioSource>());
+        soundHandler = new SoundHandler(GetComponents<AudioSource>());
         m_Transform = transform;
         m_Transform.localScale = new Vector2(4.0f,4.0f);
         m_Renderer = GetComponent<SpriteRenderer>();
@@ -63,14 +69,113 @@ public class PlayerGameObj : MonoBehaviour, ICharacter
             }
         }
 
-        if (GameController.Instance.gcStateMachine.currentState.GetType() == GameController.Instance.gcStateMachine.states.Fight().GetType() &&
-            GameController.Instance.pause == 0) {
+        if (GameController.Instance.gcStateMachine.currentState is GCStateFight && GameController.Instance.pause == 0) {
             this.stateMachine.ChangeStateOnInput();
         }
+
+        string input = this.inputHandler.command;
+        if (!this.paletteSelected) {
+            if (input.EndsWith("F")) {
+                this.inputHandler.command += ",";
+                this.stateMachine.Flash(new Vector4(20f,20f,20f,1f),15);
+                this.paletteForward(1);
+            } else if (input.EndsWith("B")) {
+                this.inputHandler.command += ",";
+                this.stateMachine.Flash(new Vector4(20f,20f,20f,1f),15);
+                this.paletteBack(1);
+            } else if (input.EndsWith("L") || input.EndsWith("M") || input.EndsWith("H")) {
+                GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(1001), true);
+                this.stateMachine.Flash(new Vector4(20f,20f,20f,1f),30);
+                this.inputHandler.command += ",";
+                this.paletteSelected = true;
+            }
+        } else if (!this.modeSelected) {
+            if (input.EndsWith("F")) {
+                this.inputHandler.command += ",";
+                this.modeForward();
+            } else if (input.EndsWith("B")) {
+                this.inputHandler.command += ",";
+                this.modeBack();
+            } else if (input.EndsWith("L") || input.EndsWith("M") || input.EndsWith("H")) {
+                GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(1011), true);
+                EffectSpawner.PlayHitEffect(
+                    1011, new Vector2(this.stateMachine.PosX(),this.stateMachine.height/2f), m_Renderer.sortingOrder + 1, true,
+                    GameController.Instance.GetRingColor(this.stateMachine.GetRingMode())
+                );
+                this.stateMachine.Flash(new Vector4(20f,1f,1f,1f),30);
+                this.inputHandler.command += ",";
+                this.modeSelected = true;
+            }
+        }
+    }
+
+    public void modeForward() {
+        int modeNum = (int) this.stateMachine.GetRingMode() + 1;
+        RingMode newMode = RingMode.FIRST;
+
+        foreach (int mn in Enum.GetValues(typeof(RingMode))) {
+            if (mn == modeNum) {
+                newMode = (RingMode) mn;
+                break;
+            }
+        }
+
+        this.stateMachine.SetRingMode(newMode);
+        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(1010), true);
+        EffectSpawner.PlayHitEffect(
+            1010, new Vector2(this.stateMachine.PosX(),this.stateMachine.height/2f), m_Renderer.sortingOrder - 1, true,
+            GameController.Instance.GetRingColor(this.stateMachine.GetRingMode())
+        );
+    }
+
+    public void modeBack() {
+        int modeNum = (int) this.stateMachine.GetRingMode() - 1;
+        RingMode newMode = RingMode.NINTH;
+
+        foreach (int mn in Enum.GetValues(typeof(RingMode))) {
+            if (mn == modeNum) {
+                newMode = (RingMode) mn;
+                break;
+            }
+        }
+
+        this.stateMachine.SetRingMode(newMode);
+        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(1010), true);
+        EffectSpawner.PlayHitEffect(
+            1010, new Vector2(this.stateMachine.PosX(),this.stateMachine.height/2f), m_Renderer.sortingOrder - 1, true,
+            GameController.Instance.GetRingColor(this.stateMachine.GetRingMode())
+        );
+    }
+
+    public void paletteForward(int amount) {
+        int paletteNumber = (this.paletteNumber + amount)%m_PaletteGroup.Palettes.Length;
+        if (paletteNumber == this.enemy.paletteNumber || paletteNumber == 0) {
+            this.paletteNumber += 1;
+            this.paletteForward(1);
+            return;
+        }
+        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(1000), true);
+        this.SetPalette(paletteNumber);
+    }
+
+    public void paletteBack(int amount) {
+        int paletteNumber = this.paletteNumber - amount;
+        if (paletteNumber <= 0) {
+            paletteNumber = m_PaletteGroup.Palettes.Length - paletteNumber;
+        }
+
+        if (paletteNumber == this.enemy.paletteNumber) {
+            this.paletteNumber = this.enemy.paletteNumber;
+            this.paletteBack(1);
+            return;
+        }
+        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(1000), true);
+        this.SetPalette(paletteNumber);
     }
 
     public void SetPalette(int paletteNumber) {
         m_ActivePalette = m_PaletteGroup.Palettes[paletteNumber-1];
+        this.paletteNumber = paletteNumber;
         SetPalette(m_ActivePalette);
     }
 

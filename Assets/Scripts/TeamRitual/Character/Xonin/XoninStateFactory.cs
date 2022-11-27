@@ -92,6 +92,23 @@ public class XoninStateFactory : CharacterStateFactory
     public CharacterState Special2HeavyLand() {
         return new XoninSpecial2HeavyLand(context, this);
     }
+
+    public CharacterState UniqueCrane() {
+        return new XoninUniqueCrane(context, this);
+    }
+    public CharacterState UniqueCraneCounter() {
+        return new XoninUniqueCraneCounter(context, this);
+    }
+    public CharacterState UniqueTiger() {
+        return new XoninUniqueTiger(context, this);
+    }
+    public CharacterState UniqueTigerCounter() {
+        return new XoninUniqueTigerCounter(context, this);
+    }
+    public CharacterState UniqueDragon() {
+        return new XoninUniqueDragon(context, this);
+    }
+
     public CharacterState Ultimate1Start() {
         return new XoninUltimate1Start(context, this);
     }

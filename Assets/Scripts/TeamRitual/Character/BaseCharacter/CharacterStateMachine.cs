@@ -9,12 +9,13 @@ namespace TeamRitual.Character {
 public class CharacterStateMachine : ScriptableObject
 {
     public int playerNumber;
+    public float height;
     public float width;
     public string characterName;
 
     //Constant variables
-    public float MAX_HEALTH = 1000;
-    public float MAX_ENERGY = 1000;
+    public float CONST_MAX_HEALTH = 1000;
+    public float CONST_MAX_ENERGY = 1000;
     public const float CONST_GRAVITY = 0.85f;
     public Vector2 velocityWalkForward = new Vector2(2,0);
     public Vector2 velocityWalkBack = new Vector2(-2,0);
@@ -25,11 +26,15 @@ public class CharacterStateMachine : ScriptableObject
     public Vector2 velocityJumpNeutral = new Vector2(0,17);
     public Vector2 velocityJumpForward = new Vector2(6.5f,17f);
     public Vector2 velocityJumpBack = new Vector2(-6.5f,17f);
-    public int maxAirdashes = 1;
-    public int maxAirjumps = 1;
+    public int CONST_MAX_AIRDASHES = 1;
+    public int CONST_MAX_AIRJUMPS = 1;
 
     public int airdashCount = 0;
     public int airjumpCount = 0;
+    public int maxAirdashes = 1;
+    public int maxAirjumps = 1;
+
+    RingMode ringMode = RingMode.FIRST;
 
     //input variables
     public InputHandler inputHandler;
@@ -50,13 +55,13 @@ public class CharacterStateMachine : ScriptableObject
     public int facing;
 
     //Hit and health variables
+    public float maxHealth = 1000;
+    public float maxEnergy = 1000;
     public float health;
     public int hitstun;
     public int blockstun;
     public ContactData lastContact;
     public CharacterState lastContactState;
-    public List<AttackPriority> immunePriorities = new List<AttackPriority>();
-    public List<MoveType> immuneMoveTypes = new List<MoveType>();
 
     //Energy variables
     private float energy;
@@ -94,6 +99,34 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     void Update() {
+    }
+
+    public void SetRingMode(RingMode ringMode) {
+        this.ringMode = ringMode;
+        switch (this.ringMode) {
+            case RingMode.FOURTH:
+                this.maxHealth = Mathf.Ceil(this.CONST_MAX_HEALTH*0.7f);
+                break;
+            case RingMode.SEVENTH:
+                this.maxHealth = Mathf.Ceil(this.CONST_MAX_HEALTH*1.2f);
+                break;
+            case RingMode.EIGHTH:
+                this.maxHealth = Mathf.Ceil(this.CONST_MAX_HEALTH*1.4f);
+                this.maxAirdashes = 0;
+                this.maxAirjumps = 0;
+                break;
+            case RingMode.NINTH:
+                this.maxHealth = Mathf.Ceil(this.CONST_MAX_HEALTH*0.15f);
+                break;
+            case RingMode.FIFTH:
+                this.maxAirdashes = this.CONST_MAX_AIRDASHES + 1;
+                this.maxAirjumps = this.CONST_MAX_AIRJUMPS + 1;
+                break;
+        }
+    }
+
+    public RingMode GetRingMode() {
+        return this.ringMode;
     }
 
     public virtual ContactSummary UpdateStates() {
@@ -210,9 +243,9 @@ public class CharacterStateMachine : ScriptableObject
             } else if (this.currentState.moveType == MoveType.CROUCH) {
                 
             } else if (this.currentState.moveType == MoveType.AIR) {
-                if (inputStr.EndsWith("B,B") && airdashCount < maxAirdashes && !(this.currentState is CommonStateAirdashBack)) {
+                if (inputStr.EndsWith("B,B") && airdashCount < maxAirdashes && !(this.currentState is CommonStateAirdashBack) && this.currentState.stateTime >= 5) {
                     this.currentState.SwitchState(states.AirdashBack());
-                } else if (inputStr.EndsWith("F,F") && airdashCount < maxAirdashes && !(this.currentState is CommonStateAirdashForward)) {
+                } else if (inputStr.EndsWith("F,F") && airdashCount < maxAirdashes && !(this.currentState is CommonStateAirdashForward) && this.currentState.stateTime >= 5) {
                     this.currentState.SwitchState(states.AirdashForward());
                 } else if (airjumpCount < maxAirjumps && airdashCount < maxAirdashes &&
                     this.currentState is CommonStateAirborne && this.currentState.stateTime >= 10 &&
@@ -308,27 +341,35 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public virtual float GetEnergy() {
+        if (this.ringMode == RingMode.NINTH)
+            return this.maxEnergy;
+
         return this.energy;
     }
 
     public virtual void AddEnergy(float energy) {
-        this.energy = Mathf.Clamp(this.energy + energy, 0, MAX_ENERGY);
+        switch (this.ringMode) {
+            case RingMode.THIRD:
+                energy = energy > 0 ? energy/1.5f : energy;
+                break;
+            case RingMode.FOURTH:
+                energy = energy > 0 ? energy*1.5f : energy;
+                break;
+        }
+
+        this.energy = Mathf.Clamp(this.energy + energy, 0, maxEnergy);
     }
 
     public string GetCurrentAnimationName() {
         return anim.GetCurrentAnimatorClipInfo(0)[0].clip.name;
     }
 
-    public void MakeInvincible() {
-        this.immuneMoveTypes.Add(MoveType.STAND);
-        this.immuneMoveTypes.Add(MoveType.CROUCH);
-        this.immuneMoveTypes.Add(MoveType.AIR);
-        this.immuneMoveTypes.Add(MoveType.LYING);
-    }
+    public bool StateAnimationOver() {
+        if (this.anim.GetCurrentAnimatorStateInfo(0).IsName(this.currentState.animationName)
+            && this.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+            return true;
 
-    public void ClearInvincibility() {
-        this.immuneMoveTypes.Clear();
-        this.immunePriorities.Clear();
+        return false;
     }
 
     public void UpdateEffects() {
@@ -387,6 +428,10 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public virtual bool Block(ContactData hit, GuardType hitGuardType) {
+        if (this.ringMode == RingMode.SIXTH) {
+            return false;
+        }
+
         GameController.Instance.Pause(hit.Blockpause);
         this.blockstun = hit.Blockstun;
         this.health -= hit.ChipDamage;
@@ -396,11 +441,14 @@ public class CharacterStateMachine : ScriptableObject
         switch(hitGuardType) {
             case GuardType.MID:
                 this.currentState.SwitchState(
-                    this.currentState.moveType == MoveType.CROUCH ? states.GuardCrouch() : states.GuardStand()
+                    this.currentState.moveType == MoveType.CROUCH ? states.GuardCrouch()
+                    : this.currentState.moveType == MoveType.STAND ? states.GuardStand() : states.GuardAir()
                 );
                 break;
             case GuardType.HIGH:
-                this.currentState.SwitchState(states.GuardStand());
+                this.currentState.SwitchState(
+                    this.currentState.moveType == MoveType.STAND ? states.GuardStand() : states.GuardAir()
+                );
                 break;
             case GuardType.LOW:
                 this.currentState.SwitchState(states.GuardCrouch());
@@ -409,9 +457,9 @@ public class CharacterStateMachine : ScriptableObject
 
         this.lastContact = hit;
         this.lastContactState = this.enemy.currentState;
-        
+
         EffectSpawner.PlayHitEffect(10, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
-        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(0), hit.StopSounds);
+        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(1), hit.StopSounds);
         return true;
     }
 
@@ -428,7 +476,11 @@ public class CharacterStateMachine : ScriptableObject
             return false;
         }
 
-        if (this.immuneMoveTypes.Contains(this.enemy.currentState.moveType) || this.immunePriorities.Contains(this.enemy.currentState.attackPriority)) {
+        if (this.currentState.immuneMoveTypes.Contains(this.enemy.currentState.moveType) || this.currentState.immunePriorities.Contains(this.enemy.currentState.attackPriority)) {
+            return false;
+        }
+        
+        if (!this.currentState.OnHurt() || !this.enemy.currentState.OnHitEnemy()) {
             return false;
         }
 
@@ -436,7 +488,7 @@ public class CharacterStateMachine : ScriptableObject
         this.enemy.comboProcessor.ProcessHit(hit, this.enemy.currentState);
         this.health -= this.enemy.comboProcessor.GetDamage(hitDownedEnemy);
         this.hitstun = this.enemy.comboProcessor.GetHitstun(hitDownedEnemy);
-        this.health = (int) Mathf.Max(this.health, 0f);
+        this.health = Mathf.Max(this.health, 0f);
 
         this.AddEnergy(hit.GiveEnemyPower);
         this.enemy.AddEnergy(this.enemy.comboProcessor.GetSelfEnergy());
@@ -444,7 +496,7 @@ public class CharacterStateMachine : ScriptableObject
         hit.HitFall = (this.currentState.moveType == MoveType.AIR && hit.FallAir)
             || (this.currentState.moveType != MoveType.AIR && hit.FallGround);
 
-        if (this.health == 0) {
+        if (this.health == 0 && hit.AttackPriority < AttackPriority.SPECIAL) {
             if (hit.AttackPriority == AttackPriority.LIGHT) {
                 hit.HitGroundVelocity = Vector2.zero;
                 hit.HitAirVelocity = Vector2.zero;
@@ -516,7 +568,9 @@ public class CharacterStateMachine : ScriptableObject
         this.correctFacing();
 
         EffectSpawner.PlayHitEffect(hit.fxID, hit.Point, spriteRenderer.sortingOrder + 1, !hit.TheirHitbox.Owner.FlipX);
-        GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(hit.SoundID), hit.StopSounds);
+        if (EffectSpawner.GetSoundEffect(hit.SoundID) != null) {
+            GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(hit.SoundID), hit.StopSounds);
+        }
         //GameController.Instance.soundHandler.audioSource.PlayOneShot((AudioClip)Resources.Load("Sounds/SFX/Hit/hit-1"));
 
         GameController.Instance.Pause(hit.Hitpause);
@@ -525,7 +579,7 @@ public class CharacterStateMachine : ScriptableObject
 
     //If true, allows higher priority basic attacks to be chained into lower priority attacks.
     public virtual bool ReverseBeat() {
-        return this.energy >= MAX_ENERGY;
+        return this.energy >= maxEnergy;
     }
 }
 }

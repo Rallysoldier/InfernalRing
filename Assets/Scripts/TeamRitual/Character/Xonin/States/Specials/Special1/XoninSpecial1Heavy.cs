@@ -28,22 +28,30 @@ public class XoninSpecial1Heavy : CharacterState {
     public override void UpdateState() {
         base.UpdateState();
 
-        if (this.moveHit == 5) {
-            GameController.Instance.SetCameraZoom(4f);
-        }
-
         if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.character.characterName + "_Special1Heavy")) {
             if (this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
                 GameController.Instance.ResetCameraZoom();
-                this.SwitchState(this.factory.Airborne());
+                this.SwitchState(this.states.Airborne());
             }
         }
         
         if (this.character.body.position.y <= 0.2 && this.character.VelY() < 0) {
             GameController.Instance.ResetCameraZoom();
             this.character.VelY(0);
-            this.SwitchState(this.factory.JumpLand());
+            this.SwitchState(this.states.JumpLand());
         }
+    }
+    
+    public override bool OnHitEnemy() {
+        if (this.moveHit == 5) {
+            GameController.Instance.SetCameraZoom(4f);
+        }
+        return true;
+	}
+
+    public override bool OnHurt() {
+        GameController.Instance.ResetCameraZoom();
+        return true;
     }
 }
 }

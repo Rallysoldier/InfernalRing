@@ -14,7 +14,9 @@ public class GCStateIntro : GCState {
     public override void UpdateState() {
         base.UpdateState();
 
-        if (stateTime > 80) {
+        PlayerGameObj P1 = GameController.Instance.Players[0];
+        PlayerGameObj P2 = GameController.Instance.Players[1];
+        if (stateTime > 80 && P1.paletteSelected && P2.paletteSelected && P1.modeSelected && P2.modeSelected) {
             this.SwitchState(this.stateFactory.Countdown());
         }
     }

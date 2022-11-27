@@ -46,13 +46,5 @@ public class CommonStateHurtBounce : CharacterState
     public override void ExitState() {
         base.ExitState();
     }
-
-    public override void InitializeSubState() {
-        base.InitializeSubState();
-    }
-
-    public override void CheckSwitchState() {
-        base.CheckSwitchState();
-    }
 }
 }

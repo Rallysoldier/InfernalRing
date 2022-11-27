@@ -30,12 +30,17 @@ namespace BlackGardenStudios.HitboxStudioPro
 
         static private EffectSpawner m_Instance;
 
-        static public void PlayHitEffect(int uid, Vector3 point, int order, bool flipx)
+        static public GameObject PlayHitEffect(int uid, Vector3 point, int order, bool flipx)
         {
-            instance._PlayHitEffect(uid, point, order, flipx);
+            return instance._PlayHitEffect(uid, point, order, flipx, new Color32(255,255,255,1));
         }
 
-        public void _PlayHitEffect(int uid, Vector3 point, int order, bool flipx)
+        static public GameObject PlayHitEffect(int uid, Vector3 point, int order, bool flipx, Color32 color)
+        {
+            return instance._PlayHitEffect(uid, point, order, flipx, color);
+        }
+
+        public GameObject _PlayHitEffect(int uid, Vector3 point, int order, bool flipx, Color32 color)
         {
             AttackFX pool;
 
@@ -47,8 +52,12 @@ namespace BlackGardenStudios.HitboxStudioPro
 
                 renderer.flipX = flipx;
                 renderer.sortingOrder = order;
+                renderer.color = color;
                 StartCoroutine(DestroyEffect(go));
+                return effect;
             }
+
+            return null;
         }
 
         static public AudioClip GetSoundEffect(int uid)

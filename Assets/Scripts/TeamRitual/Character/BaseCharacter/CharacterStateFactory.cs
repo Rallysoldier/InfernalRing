@@ -8,6 +8,10 @@ public class CharacterStateFactory
         context = currentContext;
     }
 
+    public virtual CharacterState GuardAir() {
+        return new CommonStateGuardAir(context,this);
+    }
+
     public virtual CharacterState GuardStand() {
         return new CommonStateGuardStand(context,this);
     }

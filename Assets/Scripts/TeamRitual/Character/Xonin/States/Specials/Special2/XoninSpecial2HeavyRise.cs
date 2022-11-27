@@ -31,7 +31,7 @@ public class XoninSpecial2HeavyRise : CharacterState {
 
         if (this.character.anim.GetCurrentAnimatorStateInfo(0).IsName(this.character.characterName + "_Special2HeavyRise")
             && this.character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1) {
-            this.SwitchState((this.factory as XoninStateFactory).Special2HeavyChop());
+            this.SwitchState((this.states as XoninStateFactory).Special2HeavyChop());
         }
     }
 }

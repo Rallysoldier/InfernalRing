@@ -26,7 +26,7 @@ public class XoninSpecial2MediumChop : CharacterState {
 
         if (this.character.body.position.y <= 0 && this.character.VelY() < 0) {
             this.character.VelY(0);
-            this.SwitchState((this.factory as XoninStateFactory).Special2MediumLand());
+            this.SwitchState((this.states as XoninStateFactory).Special2MediumLand());
         }
     }    
 }

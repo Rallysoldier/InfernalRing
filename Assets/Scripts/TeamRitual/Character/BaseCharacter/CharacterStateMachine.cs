@@ -35,6 +35,7 @@ public class CharacterStateMachine : ScriptableObject
     public int maxAirjumps = 1;
 
     RingMode ringMode = RingMode.FIRST;
+    public bool maxModeActive;
 
     //input variables
     public InputHandler inputHandler;
@@ -146,6 +147,28 @@ public class CharacterStateMachine : ScriptableObject
         this.UpdateStatePhysics();
 
         this.ApplyHitVelocities();
+
+        if (this.ringMode == RingMode.SECOND) {
+            if (this.GetEnergy() <= 0) {
+                this.maxModeActive = false;
+                this.currentState.EXFlash = false;
+            } else {
+                if (this.maxModeActive) {
+                    this.AddEnergy(-1f);
+                    this.currentState.EXFlash = true;
+                }
+                if (this.GetEnergy() == this.maxEnergy && this.currentState.stateType != StateType.HURT) {
+                    this.maxModeActive = true;
+                    GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(1011), true);
+                    EffectSpawner.PlayHitEffect(
+                        1011, new Vector2(this.PosX(),this.height/2f), this.spriteRenderer.sortingOrder + 1, true,
+                        GameController.Instance.GetRingColor(this.GetRingMode())
+                    );
+                    this.AddEnergy(-1f);
+                    this.currentState.EXFlash = true;
+                }
+            }
+        }
 
         this.contactSummary.SetData(bodyColData,hurtColData,guardColData,armorColData,grabColData,techColData);
         this.ClearContactData();
@@ -348,6 +371,9 @@ public class CharacterStateMachine : ScriptableObject
     }
 
     public virtual void AddEnergy(float energy) {
+        if (energy > 0 && this.maxModeActive) {
+            energy = Mathf.Ceil(energy/5);
+        }
         switch (this.ringMode) {
             case RingMode.THIRD:
                 energy = energy > 0 ? energy/1.5f : energy;
@@ -393,8 +419,11 @@ public class CharacterStateMachine : ScriptableObject
             this.spriteRenderer.color = Color.white;
         }
     }
-    public void EXEffectStart() {
-        this.AddEnergy(-500);
+    public virtual void EXEffectStart() {
+        if (!this.maxModeActive) {
+            this.AddEnergy(-500);
+        }
+        this.currentState.EXFlash = true;
         GameController.Instance.soundHandler.PlaySound(EffectSpawner.GetSoundEffect(100), true);
     }
     public void EXEffect() {

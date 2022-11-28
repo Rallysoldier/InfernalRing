@@ -18,7 +18,7 @@ public class XoninSpecial1Light : CharacterState {
 
     public override void EnterState() {
         base.EnterState();
-        this.character.SetVelocity(10,14);
+        this.character.SetVelocity(10,16);
     }
 
     public override void UpdateState() {

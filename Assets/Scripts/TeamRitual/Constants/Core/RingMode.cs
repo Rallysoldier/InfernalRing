@@ -2,7 +2,6 @@ public enum RingMode {
     //Default ring, no changes
     FIRST = 1,
 
-    //TODO: MAX Mode
     //MAX Mode, no supers
     SECOND = 2,
 

@@ -1,3 +1,4 @@
+using BlackGardenStudios.HitboxStudioPro;
 using TeamRitual.Core;
 using TeamRitual.Input;
 using UnityEngine;
@@ -39,7 +40,7 @@ public class XoninStateMachine : CharacterStateMachine
             //Air OK moves
             if (standingState || crouchingState || airborneState) {
                 if ((inputStr.EndsWith("D,F,D,F,L") || inputStr.EndsWith("D,F,D,F,M") || inputStr.EndsWith("D,F,D,F,H"))
-                    && this.GetRingMode() != RingMode.SECOND && this.GetRingMode() != RingMode.SIXTH) {
+                    && this.GetRingMode() != RingMode.SECOND && this.GetRingMode() != RingMode.SIXTH && !this.maxModeActive) {
                     this.currentState.SwitchState((states as XoninStateFactory).Ultimate1Start());
                     return;
                 }
@@ -53,7 +54,7 @@ public class XoninStateMachine : CharacterStateMachine
                     return;
                 }
                 if (inputStr.EndsWith("D,F,H")) {
-                    if (this.GetEnergy() >= 500f && this.GetRingMode() != RingMode.SIXTH) {
+                    if ((this.GetEnergy() >= 500f || this.maxModeActive) && this.GetRingMode() != RingMode.SIXTH) {
                         this.currentState.SwitchState((states as XoninStateFactory).Special1Heavy());
                     } else {
                         this.currentState.SwitchState((states as XoninStateFactory).Special1Medium());
@@ -70,7 +71,7 @@ public class XoninStateMachine : CharacterStateMachine
                     return;
                 }
                 if (inputStr.EndsWith("D,B,H")) {
-                    if (this.GetEnergy() >= 500f && this.GetRingMode() != RingMode.SIXTH) {
+                    if ((this.GetEnergy() >= 500f || this.maxModeActive) && this.GetRingMode() != RingMode.SIXTH) {
                         this.currentState.SwitchState((states as XoninStateFactory).Special2HeavyRise());
                     } else {
                         this.currentState.SwitchState((states as XoninStateFactory).Special2MediumRise());
@@ -86,8 +87,7 @@ public class XoninStateMachine : CharacterStateMachine
                 } else if (inputStr.EndsWith("F,S") || (inputHandler.held(inputHandler.ForwardInput(this)) && inputStr.EndsWith("S"))) {
                     this.currentState.SwitchState((states as XoninStateFactory).UniqueTiger());
                     return;
-                } else if (inputStr.EndsWith("S") && this.GetEnergy() >= 500f) {
-                    this.AddEnergy(-500f);
+                } else if (inputStr.EndsWith("S") && (this.GetEnergy() >= 500f || this.maxModeActive)) {
                     this.currentState.SwitchState((states as XoninStateFactory).UniqueDragon());
                     return;
                 }

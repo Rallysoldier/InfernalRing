@@ -13,6 +13,7 @@ public class Menu : MonoBehaviour
 {
     public GameObject mainMenu, settingsMenu;
     public AudioMixer audioMixer;
+    public AudioSource audioSource;
     public TMPro.TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
@@ -44,7 +45,6 @@ public class Menu : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        //SetFirstMainButton();
     }
 
     public void SetResolution(int resolutionIndex)
@@ -60,36 +60,14 @@ public class Menu : MonoBehaviour
     void Update()
     {
         
-        /*if (SceneManager.GetActiveScene().name == "MainMenu")
-        {
-            PauseUnpause();
-        }*/
     }
         
 
-    /*public void SetFirstMainButton()
-    {
-        if (mainMenu.activeInHierarchy)
-        {
-            //mainMenu.SetActive(true);
-
-            //clears selected object
-            EventSystem.current.SetSelectedGameObject(null);
-            //set new selected object
-            EventSystem.current.SetSelectedGameObject(mainFirstButton);
-        }
-        else
-        {
-            mainMenu.SetActive(false);
-            
-            settingsMenu.SetActive(true);
-        }
-    }*/
     
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("volume", volume);
-
+        audioMixer.SetFloat("volume", Mathf.Log10(volume) * 20);
+        Debug.Log(volume);
     }
     public void SingleplayerGame()
     {
